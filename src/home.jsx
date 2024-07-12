@@ -1,11 +1,8 @@
 import React from 'react'
 import {NavBar} from './components/navBar'
 import Tiempo_grafico from './Tiempo-grafico'
-import Tiempo from "./tiempo"
 import NewsWidget from "./components/NewsWidget"
 import WeatherForecast from "./components/WeatherForecast"
-import WeatherCard from './components/WeatherCard'
-import MiniMap from './components/MiniMap'
 import Tiempo_map from './tiempo_map'
 
 

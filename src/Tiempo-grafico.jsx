@@ -76,7 +76,7 @@ const WeatherForecast = () => {
             <div className="weather-container">
                 <div className="weather-header">
                     <Link to="/">Resumen</Link>
-                    <Link to="/">Por horas</Link>
+                    <Link to="/por_hora">Por horas</Link>
                     <Link to="/tiempo_detalles">Mas detalles</Link>
                 </div>
                 <div className="weather-content">
@@ -170,5 +170,7 @@ const WeatherForecast = () => {
         </div>
     );
 };
+
+
 
 export default WeatherForecast;

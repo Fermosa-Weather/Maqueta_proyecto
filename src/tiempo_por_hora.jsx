@@ -8,22 +8,6 @@ import mostlyClear from '../src/assets/estaciones_tiempo/rain.png';
 const Tiempo_por_hora = () => {
   const scrollRef = useRef(null);
 
-  const scrollLeft = () => {
-    scrollRef.current.scrollBy({
-      top: 0,
-      left: -200,
-      behavior: 'smooth'
-    });
-  };
-
-  const scrollRight = () => {
-    scrollRef.current.scrollBy({
-      top: 0,
-      left: 200,
-      behavior: 'smooth'
-    });
-  };
-
   const forecast = [
     { time: 'Ahora', temp: '10°C', condition: 'Muy nublado', precip: '2%', wind: '15 km/h', icon: cloudy },
     { time: '1 PM', temp: '11°C', condition: 'Muy nublado', precip: '2%', wind: '15 km/h', icon: cloudy },
@@ -41,15 +25,15 @@ const Tiempo_por_hora = () => {
   ];
 
   return (
-    <div className="general">
-    <div className="weather-container">
-      <div className="weather-header">
-        <Link to="/">Resumen</Link>
-        <Link to="/tiempo_hora">Por horas</Link>
-        <Link to="/tiempo_detalles">Más detalles</Link>
-      </div>
+    // <div className="general">
+    // <div className="weather-container">
+    //   <div className="weather-header">
+    //     <Link to="/">Resumen</Link>
+    //     <Link to="/por_hora">Por horas</Link>
+    //     <Link to="/tiempo_detalles">Más detalles</Link>
+    //   </div>
 
-      <div className="contenedor_tiempo_por_hora">
+      // <div className="contenedor_tiempo_por_hora">
         <div className="hourly-forecast" ref={scrollRef}>
           {forecast.map((hour, index) => (
             <div key={index} className="hour">
@@ -61,12 +45,12 @@ const Tiempo_por_hora = () => {
               <p>{hour.time}</p>
             </div>
           ))}
-        </div>
 
         
-      </div>
-      </div>
-    </div>
+        {/* </div>
+        </div>*/}
+    {/* </div>  */}
+        </div>
   );
 };
 
