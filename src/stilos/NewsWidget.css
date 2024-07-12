@@ -19,6 +19,7 @@
   color: #333;
   margin-bottom: 20px;
   text-align: center;
+  background-color: #f0f0f0;
 }
 
 /* Contenedor de las noticias */
@@ -31,7 +32,7 @@
 
 /* Estilos para cada noticia */
 .News-item {
-  width: calc(20% - 20px); /* Ajustar el ancho para que haya cinco elementos en una fila */
+  width: calc(50% - 20px); /* Ajustar el ancho para que haya cinco elementos en una fila */
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -84,7 +85,8 @@
 
 .action-icon {
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 2.0em;
+  margin-left: 20px;
 }
 
 .comentario-container {

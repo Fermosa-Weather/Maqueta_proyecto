@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Tiempo_por_hora from "./components/tiempo_por_hora";
 import WeatherForecast from "./components/Tiempo-grafico";
+import "./stilos/tiempo_general.css"
 
 const Tiempo = () => {
   const [selectedView, setSelectedView] = useState('resumen');

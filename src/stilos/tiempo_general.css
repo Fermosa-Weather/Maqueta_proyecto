@@ -1,0 +1,26 @@
+.general {
+    background-color: #34495e;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .weather-container {
+      font-family: Arial, sans-serif;
+      background-color: rgb(255,255,255, .1); /* Keep this line */
+      backdrop-filter: blur(30px);
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 1110px;
+      margin: 0 auto;
+    }
+    
+    .weather-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
