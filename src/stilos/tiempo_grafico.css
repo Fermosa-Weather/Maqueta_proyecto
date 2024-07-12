@@ -15,9 +15,7 @@
 
 .weather-forecast {
     display: flex;
-    /* padding-bottom: 10px; */
-    /* border-bottom: 1px solid white; */
-    /* margin-bottom: 10px; */
+    width: 100%;
 }
 
 .lluvia {
@@ -33,7 +31,7 @@
     flex-direction: column;
     align-items: center;
     margin-right: 10px;
-    min-width: 50px;
+    min-width: 80px;
 }
 
 .weather-hour img {

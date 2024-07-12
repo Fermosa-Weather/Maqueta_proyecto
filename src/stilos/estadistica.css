@@ -4,10 +4,6 @@
     /* background-color: black; */
 }
 
-.contenedor{
-    background-color: black;
-}
-
 .header_del_contenedor {
     display: flex;
     justify-content: space-around;

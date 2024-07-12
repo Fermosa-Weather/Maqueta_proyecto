@@ -80,14 +80,7 @@ function GeneracionEstadistica() {
   };
 
   return (
-    <div className="contenedor">
-      <div className='header_del_contenedor'>
-        <Link to="/estadistica_tiempo_real">Estadística en tiempo real</Link>
-        <Link to="/estadistica_corto_plazo">Estadística a corto plazo</Link>
-        <Link to="/estadistica_mediano_plazo">Estadística a mediano plazo</Link>
-        <Link to="/estadistica_largo_plazo">Estadística a largo plazo</Link>
-      </div>
-
+    <div style={{ backgroundColor: '#34495e' }} className="contenedor">
       <h1>Estadística en tiempo real</h1>
       <Helmet>
         <script src="https://www.gstatic.com/charts/loader.js"></script>

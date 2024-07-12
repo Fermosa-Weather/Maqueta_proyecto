@@ -1,10 +1,10 @@
 .general {
     background-color: #34495e;
-    margin: 0;
+    margin: 30px;
     padding: 0;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 65vh;
     font-family: Arial, sans-serif;
   }
   

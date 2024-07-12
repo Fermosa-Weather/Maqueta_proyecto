@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
 import {
   MapContainer,
   TileLayer,
@@ -12,17 +11,17 @@ import {
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./stilos/mapa.css";
-import {NavBar} from './components/navBar'
+import { NavBar } from "./components/navBar";
 import { FormosaCityGeoJSON } from "./data/Departamentos.js";
+import StationInfo from "./components/stationInfo.jsx";
+import { Stations } from "./data/estaciones.js";
 
 const { BaseLayer, Overlay } = LayersControl;
 
 function MapWithCircles() {
-
   const [circles, setCircles] = useState([]);
   const [selectedStation, setSelectedStation] = useState(null);
   const [averages, setAverages] = useState({
-
     temperature: 0,
     humidity: 0,
     pressure: 0,
@@ -30,66 +29,13 @@ function MapWithCircles() {
     precipitation: 0,
   });
 
-  const formosaCenter = [-24.786927, -60.182694]; // Coordenadas aproximadas del centro de la provincia de Formosa
+  const formosaCenter = [-24.786927, -60.182694];
   const zoomLevel = 7;
-
-
-
-  const stations = [
-    {
-      id: 1,
-      coords: [-26.080790166474483, -58.27517468094456],
-      name: "Estación del polo científico",
-      color: "blue",
-      info: "Información sobre la estación del polo científico.",
-      temperature: 25,
-      humidity: 60,
-      pressure: 1012,
-      windSpeed: 15,
-      precipitation: 2,
-    },
-    {
-      id: 2,
-      coords: [-24.256713301626576, -61.242720998079974],
-      name: "Estación de Laguna Yema",
-      color: "blue",
-      info: "Información sobre la estación de Laguna Yema.",
-      temperature: 27,
-      humidity: 55,
-      pressure: 1010,
-      windSpeed: 10,
-      precipitation: 0,
-    },
-    {
-      id: 3,
-      coords: [-26.30541190201433, -59.37291308497001],
-      name: "Estación El Colorado",
-      color: "blue",
-      info: "Información sobre la estación El Colorado.",
-      temperature: 30,
-      humidity: 50,
-      pressure: 1008,
-      windSpeed: 20,
-      precipitation: 5,
-    },
-    {
-      id: 4,
-      coords: [-24.978572655351993, -58.82116985064244],
-      name: "Estación de Misión Tacaaglé",
-      color: "blue",
-      info: "Información sobre la estación de Misión Tacaaglé.",
-      temperature: 28,
-      humidity: 65,
-      pressure: 1015,
-      windSpeed: 5,
-      precipitation: 1,
-    },
-  ];
 
   useEffect(() => {
     const calculateAverages = () => {
-      const totalStations = stations.length;
-      const totalValues = stations.reduce(
+      const totalStations = Stations.length;
+      const totalValues = Stations.reduce(
         (totals, station) => {
           totals.temperature += station.temperature;
           totals.humidity += station.humidity;
@@ -117,7 +63,7 @@ function MapWithCircles() {
     };
 
     calculateAverages();
-  }, [stations]);
+  }, []);
 
   const handleMarkerClick = (station) => {
     const circleExists = circles.find(
@@ -198,7 +144,7 @@ function MapWithCircles() {
               </Overlay>
             </LayersControl>
 
-            {stations.map((station) => (
+            {Stations.map((station) => (
               <Marker
                 key={station.id}
                 position={station.coords}
@@ -240,7 +186,7 @@ function MapWithCircles() {
                 weight: 2, // Grosor del borde del polígono
                 fillColor: "lightblue", // Color de relleno del polígono
                 fillOpacity: 0.2, // Opacidad del relleno del polígono
-                //Estilos para las etiquetas de texto
+                // Estilos para las etiquetas de texto
                 pane: "overlayPane",
                 renderer: L.canvas(),
                 interactive: false,
@@ -265,51 +211,7 @@ function MapWithCircles() {
             />
           </MapContainer>
         </div>
-        <div className="col-md-3">
-          <div className="p-3 bg-light rounded shadow">
-            <h2 className="mb-4">Información General de Formosa</h2>
-            <div className="mb-3">
-              <p>
-                <strong>Temperatura Promedio:</strong>{" "}
-                <span className="float-end">{averages.temperature} °C</span>
-              </p>
-            </div>
-            <div className="mb-3">
-              <p>
-                <strong>Humedad Promedio:</strong>{" "}
-                <span className="float-end">{averages.humidity} %</span>
-              </p>
-            </div>
-            <div className="mb-3">
-              <p>
-                <strong>Presión Promedio:</strong>{" "}
-                <span className="float-end">{averages.pressure} hPa</span>
-              </p>
-            </div>
-            <div className="mb-3">
-              <p>
-                <strong>Velocidad del Viento Promedio:</strong>{" "}
-                <span className="float-end">{averages.windSpeed} km/h</span>
-              </p>
-            </div>
-            <div className="mb-3">
-              <p>
-                <strong>Precipitación Promedio:</strong>{" "}
-                <span className="float-end">{averages.precipitation} mm</span>
-              </p>
-            </div>
-          </div>
-          <div className="p-3 bg-light rounded shadow mt-4 d-flex justify-content-center align-items-center flex-column ">
-           
-          
-            
-          <Link className="btn btn-primary m-2 w-75" to="/estadistica_tiempo_real
-          ">Generar estadistica</Link>
-            <button className="btn btn-success m-2 w-75" >
-              Ver todas las estaciones
-            </button>
-          </div>
-        </div>
+        <StationInfo className="estaciones_info" averages={averages} />
       </div>
     </div>
   );
@@ -317,8 +219,8 @@ function MapWithCircles() {
 
 function Mapa() {
   return (
-    <div>
-      <NavBar></NavBar>
+    <div style={{ backgroundColor: '#34495e' }} className="mapa_principal">
+      <NavBar />
       <MapWithCircles />
     </div>
   );

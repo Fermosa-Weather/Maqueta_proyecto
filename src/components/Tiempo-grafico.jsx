@@ -79,7 +79,10 @@ const WeatherForecast = () => {
                 </div>
 
                 <div className="weather-graph">
-                    <canvas ref={chartContainerRef}></canvas>
+                    <canvas
+                    ref={chartContainerRef}
+                    style={{ width: "1000px" }} // Establece el ancho del canvas
+                    ></canvas>
                 </div>
 
                     

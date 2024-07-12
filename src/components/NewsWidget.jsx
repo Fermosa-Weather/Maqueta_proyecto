@@ -44,11 +44,11 @@ const NewsWidget = () => {
       "description": "Los habitantes de Herradura se sorprendieron esta mañana con una fuerte granizada que cubrió las calles de blanco.",
       "imageUrl": herraduraImage
     },
-    {
-      "title": "Aumento significativo de temperatura en Ibarreta",
-      "description": "Ibarreta experimentará un aumento significativo de temperatura durante la próxima semana, alcanzando máximas históricas para esta época del año.",
-      "imageUrl": ibarretaImage
-    }
+    // {
+    //   "title": "Aumento significativo de temperatura en Ibarreta",
+    //   "description": "Ibarreta experimentará un aumento significativo de temperatura durante la próxima semana, alcanzando máximas históricas para esta época del año.",
+    //   "imageUrl": ibarretaImage
+    // }
   ];
 
   return (
