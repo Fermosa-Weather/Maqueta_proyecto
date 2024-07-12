@@ -15,7 +15,6 @@
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
-    margin: 0px;
   }
   
   .hour {
@@ -24,7 +23,7 @@
     backdrop-filter: blur(30px);
     padding: 15px;
     text-align: center;
-    min-width: 140px;
+    min-width: 200px;
     height: 100%;
     margin-right: 3px;
   }

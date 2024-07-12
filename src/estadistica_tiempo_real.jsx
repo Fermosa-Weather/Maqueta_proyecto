@@ -81,7 +81,7 @@ function GeneracionEstadistica() {
 
   return (
     <div style={{ backgroundColor: '#34495e' }} className="contenedor">
-      <h1>Estadística en tiempo real</h1>
+      <h1 className='Title_estadistica'>Estadística en tiempo real</h1>
       <Helmet>
         <script src="https://www.gstatic.com/charts/loader.js"></script>
       </Helmet>
