@@ -169,6 +169,7 @@ function GeneracionEstadistica() {
       <h1 className='subtitulo'>Específicas:</h1>
 
       {/* 1 */}
+        <h2 style={{ width: '100%', color: 'white' }}>Estación de Laguna Yema</h2>
       <div className="contenedor_estadistica">
         <div id="column_chart_1"></div>
         <div className="grafico_figura">
@@ -207,6 +208,7 @@ function GeneracionEstadistica() {
       </div>
 
       {/* 2 */}
+      <h2 style={{ width: '100%', color: 'white' }}>Estación de Misión Tacaaglé</h2>
       <div className="contenedor_estadistica">
         <div id="column_chart_2"></div>
         <div className="grafico_figura">
@@ -245,6 +247,7 @@ function GeneracionEstadistica() {
       </div>
 
       {/* 3 */}
+      <h2 style={{ width: '100%', color: 'white' }}>Estación del polo científico</h2>
       <div className="contenedor_estadistica">
         <div id="column_chart_3"></div>
         <div className="grafico_figura">
@@ -283,6 +286,7 @@ function GeneracionEstadistica() {
       </div>
 
       {/* 4 */}
+      <h2 style={{ width: '100%', color: 'white' }}>Estación El Colorado</h2>
       <div className="contenedor_estadistica">
         <div id="column_chart_4"></div>
         <div className="grafico_figura">
