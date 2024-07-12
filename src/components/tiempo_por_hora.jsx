@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import './stilos/tiempo_por_hora.css';
-import cloudy from '../src/assets/estaciones_tiempo/clear.png';
-import partlyCloudy from '../src/assets/estaciones_tiempo/mist.png';
-import mostlyClear from '../src/assets/estaciones_tiempo/rain.png';
+import '../stilos/tiempo_por_hora.css';
+import cloudy from '../assets/estaciones_tiempo/clear.png';
+import partlyCloudy from '../assets/estaciones_tiempo/mist.png';
+import mostlyClear from '../assets/estaciones_tiempo/rain.png';
 
 const Tiempo_por_hora = () => {
   const scrollRef = useRef(null);
@@ -25,15 +25,7 @@ const Tiempo_por_hora = () => {
   ];
 
   return (
-    // <div className="general">
-    // <div className="weather-container">
-    //   <div className="weather-header">
-    //     <Link to="/">Resumen</Link>
-    //     <Link to="/por_hora">Por horas</Link>
-    //     <Link to="/tiempo_detalles">Más detalles</Link>
-    //   </div>
 
-      // <div className="contenedor_tiempo_por_hora">
         <div className="hourly-forecast" ref={scrollRef}>
           {forecast.map((hour, index) => (
             <div key={index} className="hour">
@@ -45,11 +37,6 @@ const Tiempo_por_hora = () => {
               <p>{hour.time}</p>
             </div>
           ))}
-
-        
-        {/* </div>
-        </div>*/}
-    {/* </div>  */}
         </div>
   );
 };

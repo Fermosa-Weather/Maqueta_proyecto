@@ -1,46 +1,102 @@
-.News-widget {
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 0px;
-  }
-  
-  .News-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
+/* Importar la fuente Merriweather desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
-  .title_noticia{
-    background-color: aliceblue;
-    color: aliceblue;
-    /* justify-items: center; */
-    padding: 10px;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .News-item {
-    background-color: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: calc(33% - 40px); /* Ajusta el ancho de las tarjetas */
-    flex: 1 0 calc(33% - 40px); /* Permite 3 elementos por fila */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .News-image {
-    width: 100%; /* Ajusta el ancho al 100% del contenedor */
-    height: auto; /* Mantiene la proporción original */
-    max-width: 100%; /* Asegura que no exceda el ancho máximo del contenedor */
-    max-height: 100%; /* Asegura que no exceda la altura máxima del contenedor */
-    border-radius: 8px;
-  }
-  
-  .News-content {
-    text-align: center;
-    margin-top: 10px;
-  }
+//* Estilos para las noticias */
+.News-widget {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-family: 'Merriweather', serif;
+}
+
+/* Título de las noticias */
+.title_noticia {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Contenedor de las noticias */
+.News-container {
+  display: flex; /* Mostrar los elementos en línea */
+  flex-wrap: wrap; /* Permitir que se envuelvan si no caben todos en una línea */
+  gap: 20px; /* Espacio entre los elementos */
+  justify-content: space-around; /* Distribuir los elementos equitativamente con espacio alrededor */
+}
+
+/* Estilos para cada noticia */
+.News-item {
+  width: calc(20% - 20px); /* Ajustar el ancho para que haya cinco elementos en una fila */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Imagen de la noticia */
+.News-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Contenido de la noticia */
+.News-content {
+  padding: 20px;
+}
+
+/* Título de la noticia */
+.News-content h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Descripción de la noticia */
+.News-content p {
+  font-size: 16px;
+  color: #666;
+  text-align: justify;
+  line-height: 1.5;
+}
+
+/* Botón "Ver más" */
+.Ver-mas-button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Ver-mas-button:hover {
+  background-color: #0056b3;
+}
+
+.action-icon {
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.comentario-container {
+  margin-top: 10px;
+}
+
+.comentario-container .form-control {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.modal.show {
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+}

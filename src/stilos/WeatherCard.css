@@ -19,9 +19,11 @@
   }
   
   .weather-card-title {
-    font-size: 1.8em;
-    color: #f7f2f2b8;
+    font-size: 2.0em;
+    color: #ffffffff;
     margin-bottom: 10px;
+    align-items: center;
+    text-align: center;
   }
   
   .weather-card-content {
@@ -60,11 +62,30 @@
   .weather-info-label {
     margin-right: 10px;
     font-weight: bold;
-    color: #f7f2f2b8;
+    color: #ffffffff;
+  }
+
+  .weather-info-label-temperatura {
+    font-weight: bold;
+    color: #ffffffff;
+    font-size: 2.9em;
   }
   
+  .weather-info-value {
+    margin-right: 10px;
+    font-size: 1.0em;
+    font-weight: bold;
+    color: #ffffffff;
+  }
+
   .weather-icon {
-    font-size: 1.5em;
+    font-size: 1.9em;
+    margin-right: 10px;
+    color: #f7f2f2b8;
+  }
+
+ .weather-icon-temperatura {
+    font-size: 3.5em;
     margin-right: 10px;
     color: #f7f2f2b8;
   }

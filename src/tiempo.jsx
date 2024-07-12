@@ -1,48 +1,30 @@
-import React from 'react';
-import './App.css'; // Estilos CSS local
-import { useNavigate } from 'react-router-dom';
-import WeatherForecast from './components/WeatherForecast.jsx'; // Importa el componente WeatherForecast
-import NewsWidget from './components/NewsWidget.jsx'; // Importa el componente NewsWidget
-import PredictionForm from './components/PredictionForm.jsx'; // Importa el componente PredictionForm
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Tiempo_por_hora from "./components/tiempo_por_hora";
+import WeatherForecast from "./components/Tiempo-grafico";
 
 const Tiempo = () => {
-  const navigate = useNavigate();
+  const [selectedView, setSelectedView] = useState('resumen');
 
-  const goToMaps = () => {
-    navigate('/mapa');
+  const renderComponent = () => {
+    if (selectedView === 'resumen') {
+      return <WeatherForecast />;
+    } else if (selectedView === 'por_hora') {
+      return <Tiempo_por_hora />;
+    }
   };
-
-  const goToHome = () => {
-    navigate('/'); // Navega a la ruta raíz '/' al hacer clic en el botón
-  };
-
-  // Si deseas navegar a PredictionForm al iniciar la aplicación, puedes hacerlo aquí
-  React.useEffect(() => {
-    navigate('/prediction');
-  }, []);
 
   return (
-    <div className="background-container"> {/* Contenedor para el fondo degradado */}
-      <div className="App"> {/* Este div es el contenedor principal */}
-        <header className="App-header">
-          <h1>RAF (Red Agrometeorológicas de Formosa)</h1>
-          <p>
-            Bienvenidos a la aplicación de predicción meteorológica de la Red Agrometeorológicas de Formosa.
-            Aquí podrás obtener predicciones precisas del clima para fechas futuras, ayudándote a planificar y
-            tomar decisiones informadas.
-          </p>
-        </header>
-
-        <div className="App-buttons">
-          <button onClick={goToHome}>Inicio</button>
-          <button onClick={goToMaps}>Ver Mapas de Estaciones</button>
+    <div className="general">
+      <div className="weather-container">
+        <div className="weather-header">
+          <Link to="/" onClick={() => setSelectedView('resumen')}>Resumen</Link>
+          <Link to="/" onClick={() => setSelectedView('por_hora')}>Por horas</Link>
+          <Link to="/tiempo_detalles">Más detalles</Link>
         </div>
-
-        <WeatherForecast /> {/* Componente WeatherForecast debajo de los botones */}
-
-        <NewsWidget /> {/* Componente NewsWidget */}
-
-        <PredictionForm /> {/* Componente PredictionForm debajo de NewsWidget */}
+        <div className="contenedor_tiempo_por_hora">
+          {renderComponent()}
+        </div>
       </div>
     </div>
   );

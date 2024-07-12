@@ -15,7 +15,7 @@ const MiniMap = () => {
       <MapContainer
         center={[-26.1849, -58.1731]}
         zoom={10}
-        style={{ height: "200px", width: "100%", borderRadius: "16px" }}
+        style={{ height: "230px", width: "100%", borderRadius: "16px" }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       </MapContainer>

@@ -6,7 +6,7 @@ import {
   FaTachometerAlt,
 } from "react-icons/fa";
 import "../stilos/WeatherCard.css";
-import partlyCloudyBackground from "../assets/image4.avif"; // Importa la imagen de fondo
+import partlyCloudyBackground from "../assets/fondo.jpg"; // Importa la imagen de fondo
 
 const WeatherCard = ({ data }) => {
   return (
@@ -19,8 +19,8 @@ const WeatherCard = ({ data }) => {
         <div className="weather-card-content">
           <div className="temperature-column">
             <div className="temperature">
-              <FaTemperatureLow className="weather-icon" />
-              <h1 className="weather-info-label">{data.temperature}</h1>
+              
+              <h1 className="weather-info-label-temperatura"><FaTemperatureLow/>  {data.temperature}</h1>
             </div>
           </div>
           <div className="details-column">

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom'
-import './stilos/tiempo_grafico.css';
+import '../stilos/tiempo_grafico.css';
 import Chart from 'chart.js/auto';
 
 const WeatherForecast = () => {
@@ -72,13 +72,6 @@ const WeatherForecast = () => {
     }, []);
 
     return (
-        <div className="general">
-            <div className="weather-container">
-                <div className="weather-header">
-                    <Link to="/">Resumen</Link>
-                    <Link to="/por_hora">Por horas</Link>
-                    <Link to="/tiempo_detalles">Mas detalles</Link>
-                </div>
                 <div className="weather-content">
 
                 <div className="weather-now">
@@ -165,8 +158,6 @@ const WeatherForecast = () => {
                         </div>
                     </div>
                    
-                </div>
-            </div>
         </div>
     );
 };

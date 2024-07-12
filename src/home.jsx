@@ -1,6 +1,6 @@
 import React from 'react'
 import {NavBar} from './components/navBar'
-import Tiempo_grafico from './Tiempo-grafico'
+import Tiempo from './tiempo'
 import NewsWidget from "./components/NewsWidget"
 import WeatherForecast from "./components/WeatherForecast"
 import Tiempo_map from './tiempo_map'
@@ -13,7 +13,7 @@ export function Home() {
         <NavBar></NavBar>
         <Tiempo_map></Tiempo_map>
         <WeatherForecast /> {/* Componente WeatherForecast debajo de los botones */}
-        <Tiempo_grafico></Tiempo_grafico>
+        <Tiempo></Tiempo>
         <NewsWidget /> {/* Componente NewsWidget */}
     </div>
   )
