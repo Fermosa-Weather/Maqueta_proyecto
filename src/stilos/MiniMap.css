@@ -3,8 +3,9 @@
     border: 2px solid #3f51b5;
     border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 60%; /* Ancho fijo para el widget */
+    width: 100%; /* Ancho fijo para el widget */
     margin-bottom: 20px; /* Espaciado inferior */
+    margin-top: 20px;
   }
   
   .map-button {

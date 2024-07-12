@@ -72,7 +72,7 @@ const WeatherForecast = () => {
 
   return (
     <div className="weather-forecast-container">
-      <h2 className="forecast-title">Pronóstico del Tiempo</h2>
+      <h2 className="forecast-title">Pronóstico de 10 dias</h2>
       {error && <p className="error-message">{error}</p>}
       {predictions && predictions.length > 0 ? (
         <Slider {...settings}>

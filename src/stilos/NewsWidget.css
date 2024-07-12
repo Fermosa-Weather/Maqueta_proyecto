@@ -1,8 +1,7 @@
 .News-widget {
     padding: 20px;
-    background-color: #f9f9f9;
     border-radius: 8px;
-    margin-top: 20px;
+    margin-top: 0px;
   }
   
   .News-container {
@@ -10,6 +9,15 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+  }
+
+  .title_noticia{
+    background-color: aliceblue;
+    color: aliceblue;
+    /* justify-items: center; */
+    padding: 10px;
+    align-items: center;
+    text-align: center;
   }
   
   .News-item {

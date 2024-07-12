@@ -28,7 +28,7 @@ const NewsWidget = () => {
 
   return (
     <div className="News-widget">
-      <h2>Noticias sobre el Clima en Formosa</h2>
+      <h2 className='title_noticia'>Noticias sobre el Clima en Formosa</h2>
       <div className="News-container">
         {newsData.map((item, index) => (
           <div key={index} className="News-item">

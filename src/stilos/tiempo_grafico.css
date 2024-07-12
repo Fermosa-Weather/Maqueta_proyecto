@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 75vh;
     font-family: Arial, sans-serif;
 }
 
@@ -15,9 +15,8 @@
     padding: 20px;
     border-radius: 10px;
     font-family: Arial, sans-serif;
-    /* width: 100%; */
     width: 740px;
-    height: 335px;
+    max-height: 390px;
     margin: auto;
     position: relative;
     background-color: rgb(255,255,255, .1); /* Keep this line */

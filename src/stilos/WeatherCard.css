@@ -1,9 +1,10 @@
 /* src/styles/WeatherCard.css */
 .weather-card {
-    padding: 20px;
+    margin-top: 20px;
+    padding: 0px;
     border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 60%; /* Ancho fijo para el widget */
+    width: 100%; /* Ancho fijo para el widget */
     margin-bottom: 20px; /* Espaciado inferior */
   }
   

@@ -3,7 +3,7 @@
     border-radius: 5px;
     backdrop-filter: blur(1px); /* Efecto de desenfoque para un fondo translúcido */
     padding: 20px;
-    margin: 20px auto;
+    margin: 10px auto;
     max-width: 600px;
     text-align: center;
   }

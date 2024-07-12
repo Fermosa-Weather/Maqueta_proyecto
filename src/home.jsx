@@ -6,28 +6,18 @@ import NewsWidget from "./components/NewsWidget"
 import WeatherForecast from "./components/WeatherForecast"
 import WeatherCard from './components/WeatherCard'
 import MiniMap from './components/MiniMap'
+import Tiempo_map from './tiempo_map'
 
-const weatherInfo = {
-  location: "Formosa, Argentina",
-  temperature: "13°C",
-  feelsLike: "Sensación térmica: 11°C",
-  windSpeed: "Viento: 15 km/h",
-  humidity: "Humedad: 58%",
-  visibility: "Visibilidad: 20 km",
-  pressure: "Presión: 1024 mbar",
-  dewPoint: "Punto de rocío: 5°C",
-};
 
 export function Home() {
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#34495e', minHeight: '100vh' }} className='fondo'>
         <NavBar></NavBar>
-        <WeatherCard data={weatherInfo}></WeatherCard>
-        <MiniMap></MiniMap>
+        <Tiempo_map></Tiempo_map>
         <WeatherForecast /> {/* Componente WeatherForecast debajo de los botones */}
-        <NewsWidget /> {/* Componente NewsWidget */}
         <Tiempo_grafico></Tiempo_grafico>
+        <NewsWidget /> {/* Componente NewsWidget */}
     </div>
   )
 }

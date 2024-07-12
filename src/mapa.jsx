@@ -11994,18 +11994,8 @@ function MapWithCircles() {
             </div>
           </div>
           <div className="p-3 bg-light rounded shadow mt-4 d-flex justify-content-center align-items-center flex-column ">
-            <button className="btn btn-primary m-2 w-75">
-              <i className="fas fa-calendar-alt me-1"></i>
-              Ver pronóstico de 10 días
-            </button>
-            <button className="btn btn-primary m-2">
-              <i className="fas fa-cloud-sun me-1"></i>
-              Ver información meteorológica
-            </button>
-            <button className="btn btn-primary m-2 w-75">
-              <i className="fas fa-newspaper me-1"></i>
-              Noticias del tiempo
-            </button>
+           
+          
             
           <Link className="btn btn-primary m-2 w-75" to="/estadistica_tiempo_real
           ">Generar estadistica</Link>
