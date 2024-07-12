@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import "./stilos/estadistica.css";
+import { NavBar } from "./components/navBar";
 import { Link } from 'react-router-dom';
 import { loadGoogleCharts, 
   drawColumnChart_11, drawPieChart_11,  drawLineChart_11,
@@ -8,6 +9,7 @@ import { loadGoogleCharts,
   drawLineChart_2, drawColumnChart_2, drawPieChart_2, 
   drawPieChart_3, drawLineChart_3, drawColumnChart_3,
   drawColumnChart_4, drawPieChart_4, drawLineChart_4, } from './components/graficos';
+
 
 function GeneracionEstadistica() {
   const [imagenSeleccionada2, setImagenSeleccionada2] = useState('../src/assets/Estadistica/temperatura.jpg');
@@ -80,7 +82,9 @@ function GeneracionEstadistica() {
   };
 
   return (
+    
     <div style={{ backgroundColor: '#34495e' }} className="contenedor">
+      <NavBar></NavBar>
       <h1 className='Title_estadistica'>Estadística en tiempo real</h1>
       <Helmet>
         <script src="https://www.gstatic.com/charts/loader.js"></script>
