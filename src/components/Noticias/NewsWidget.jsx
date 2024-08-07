@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown, faComment } from '@fortawesome/free-solid-svg-icons';
-import '../stilos/NewsWidget.css'; 
-import lasLomitasImage from '../images2/laslomitas.jpg';
-import capitalImage from '../images2/ciudadformosa.jfif';
-import alertaRafagasImage from '../images2/clorinda.jpg';
-import herraduraImage from '../images2/herradura.jpg';
-import ibarretaImage from '../images2/ibarreta.jpg';
-import Comentario from './comentario';
+import '../../stilos/NewsWidget.css'; 
+import lasLomitasImage from '../../images2/laslomitas.jpg';
+import capitalImage from '../../images2/ciudadformosa.jfif';
+import alertaRafagasImage from '../../images2/clorinda.jpg';
+import herraduraImage from '../../images2/herradura.jpg';
+import ibarretaImage from '../../images2/ibarreta.jpg';
+import Comentario from '../comentarios/comentario';
 
 const NewsWidget = () => {
   const [showModal, setShowModal] = useState(false);
@@ -44,11 +44,6 @@ const NewsWidget = () => {
       "description": "Los habitantes de Herradura se sorprendieron esta mañana con una fuerte granizada que cubrió las calles de blanco.",
       "imageUrl": herraduraImage
     },
-    // {
-    //   "title": "Aumento significativo de temperatura en Ibarreta",
-    //   "description": "Ibarreta experimentará un aumento significativo de temperatura durante la próxima semana, alcanzando máximas históricas para esta época del año.",
-    //   "imageUrl": ibarretaImage
-    // }
   ];
 
   return (

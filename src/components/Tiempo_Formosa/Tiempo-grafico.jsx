@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom'
-import '../stilos/tiempo_grafico.css';
+import '../../stilos/tiempo_grafico.css';
 import Chart from 'chart.js/auto';
 
 const WeatherForecast = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer } from "react-leaflet";
-import "../stilos/MiniMap.css";
+import "../../stilos/MiniMap.css";
 
 const MiniMap = () => {
   const navigate = useNavigate();

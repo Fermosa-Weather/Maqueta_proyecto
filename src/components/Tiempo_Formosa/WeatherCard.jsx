@@ -5,8 +5,8 @@ import {
   FaWind,
   FaTachometerAlt,
 } from "react-icons/fa";
-import "../stilos/WeatherCard.css";
-import partlyCloudyBackground from "../assets/fondo.jpg"; // Importa la imagen de fondo
+import "../../stilos/WeatherCard.css";
+import partlyCloudyBackground from "../../assets/fondo.jpg"; // Importa la imagen de fondo
 
 const WeatherCard = ({ data }) => {
   return (

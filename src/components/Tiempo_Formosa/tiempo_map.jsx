@@ -1,6 +1,6 @@
 import React from 'react';
-import WeatherCard from './components/WeatherCard';
-import MiniMap from './components/MiniMap';
+import WeatherCard from './WeatherCard';
+import MiniMap from '../Mapa/MiniMap';
 
 const weatherInfo = {
     location: "Formosa, Argentina",

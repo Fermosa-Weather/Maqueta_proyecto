@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import '../stilos/tiempo_por_hora.css';
-import cloudy from '../assets/estaciones_tiempo/clear.png';
-import partlyCloudy from '../assets/estaciones_tiempo/mist.png';
-import mostlyClear from '../assets/estaciones_tiempo/rain.png';
+import '../../stilos/tiempo_por_hora.css';
+import cloudy from '../../assets/estaciones_tiempo/clear.png';
+import partlyCloudy from '../../assets/estaciones_tiempo/mist.png';
+import mostlyClear from '../../assets/estaciones_tiempo/rain.png';
 
 const Tiempo_por_hora = () => {
   const scrollRef = useRef(null);

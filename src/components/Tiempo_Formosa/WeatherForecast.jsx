@@ -3,11 +3,11 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import '../stilos/WeatherForecast.css';
+import '../../stilos/WeatherForecast.css';
 
 // Importar las imágenes de los íconos de clima
-import rainyIcon from '../images/rainy-day.png';
-import cloudyIcon from '../images/cloudy.png';
+import rainyIcon from '../../images/rainy-day.png';
+import cloudyIcon from '../../images/cloudy.png';
 
 const WeatherForecast = () => {
   const [predictions, setPredictions] = useState([]);

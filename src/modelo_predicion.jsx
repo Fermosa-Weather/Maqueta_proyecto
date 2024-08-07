@@ -1,6 +1,6 @@
 import React from 'react'
-import {NavBar} from './components/navBar'
-import PredictionForm from './components/PredictionForm'; // Importa sin llaves
+import {NavBar} from './components/Navbar/navBar'
+import PredictionForm from './components/Modelo_predicion/PredictionForm'; // Importa sin llaves
 
 export function Modelo_predicion() {
   

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import '../stilos/Coments.css';
+import '../../stilos/Coments.css';
 
-import likeIcon from '../images/like.svg';
-import dislikeIcon from '../images/dislike.svg';
-import profileIcon from '../images/profile.svg';
-import replyIcon from '../images/reply.svg';
-import shareIcon from '../images/share.svg';
+import likeIcon from '../../images/like.svg';
+import dislikeIcon from '../../images/dislike.svg';
+import profileIcon from '../../images/profile.svg';
+import replyIcon from '../../images/reply.svg';
+import shareIcon from '../../images/share.svg';
 
 const CommentList = () => {
   const [comments, setComments] = useState([

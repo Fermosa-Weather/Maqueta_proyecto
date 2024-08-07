@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import "./stilos/estadistica.css";
+import "../../stilos/estadistica.css";
 import { Link } from 'react-router-dom';
 import { loadGoogleCharts, 
   drawColumnChart_11, drawPieChart_11,  drawLineChart_11,
   drawColumnChart_1, drawPieChart_1,  drawLineChart_1,
   drawLineChart_2, drawColumnChart_2, drawPieChart_2, 
   drawPieChart_3, drawLineChart_3, drawColumnChart_3,
-  drawColumnChart_4, drawPieChart_4, drawLineChart_4, } from './components/graficos';
+  drawColumnChart_4, drawPieChart_4, drawLineChart_4, } from './graficos';
 
 function GeneracionEstadistica() {
   useEffect(() => {

@@ -5,10 +5,7 @@ import Mapa from './mapa';
 import {Modelo_predicion} from './modelo_predicion';
 import Tiempo from './tiempo';
 import {Home} from "./home"
-import Estadistica_tiempo_real from './estadistica_tiempo_real';
-import Estadistica_corto_plazo from './estadistica_Corto_plazo';
-import Estadistica_mediano_plazo from './estadistica_mediano_plazo';
-import Estadistica_largo_plazo from './estadistica_largo_plazo';
+import Estadistica_tiempo_real from './components/Estadistica/estadistica_tiempo_real';
 
 function Rutas() {
   return (
@@ -18,10 +15,6 @@ function Rutas() {
         <Route path="/mapa" element={<Mapa />} />
         <Route path="/modelo_prediccion" element={<Modelo_predicion />} />    
         <Route path="/estadistica_tiempo_real" element={<Estadistica_tiempo_real />} />        
-        <Route path="/estadistica_tiempo_real" element={<Estadistica_tiempo_real />} /> 
-        <Route path="/estadistica_corto_plazo" element={<Estadistica_corto_plazo />} />
-        <Route path="/estadistica_mediano_plazo" element={<Estadistica_mediano_plazo />} />
-        <Route path="/estadistica_largo_plazo" element={<Estadistica_largo_plazo />} /> 
       </Routes>
     </Router>
   );

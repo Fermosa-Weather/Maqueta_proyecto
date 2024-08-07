@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../stilos/Comentario.css'; // Asegúrate de importar tu archivo CSS
+import '../../stilos/Comentario.css'; // Asegúrate de importar tu archivo CSS
 import CommentList from './CommentList.jsx'; // Importa el componente CommentList
 
 function Comentario() {

@@ -1,60 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import "./stilos/estadistica.css";
-import { NavBar } from "./components/navBar";
+import "../../stilos/estadistica.css";
 import { Link } from 'react-router-dom';
 import { loadGoogleCharts, 
   drawColumnChart_11, drawPieChart_11,  drawLineChart_11,
   drawColumnChart_1, drawPieChart_1,  drawLineChart_1,
   drawLineChart_2, drawColumnChart_2, drawPieChart_2, 
   drawPieChart_3, drawLineChart_3, drawColumnChart_3,
-  drawColumnChart_4, drawPieChart_4, drawLineChart_4, } from './components/graficos';
-
+  drawColumnChart_4, drawPieChart_4, drawLineChart_4, } from './graficos';
 
 function GeneracionEstadistica() {
-  const [imagenSeleccionada2, setImagenSeleccionada2] = useState('../src/assets/Estadistica/temperatura.jpg');
-  const [imagenSeleccionada4, setImagenSeleccionada4] = useState('../src/assets/Estadistica/tiempo_real_arena.jpg');
-
-    const datos_analizar = (event) => {
-        const valor = event.target.value;
-        switch (valor) {
-            case '1':
-                setImagenSeleccionada2('../src/assets/Estadistica/temperatura.jpg');
-                break;
-            case '2':
-                setImagenSeleccionada2('../src/assets/Estadistica/humedad.jpg');
-                break;
-            case '3':
-                setImagenSeleccionada2('../src/assets/Estadistica/precipatacion.jpg');
-                break;
-            case '4':
-                setImagenSeleccionada2('../src/assets/Estadistica/viento.jpg');
-                break;
-            default:
-                break;
-        }
-    };
-
-    const tiempo_dato = (event) => {
-      const valor = event.target.value;
-      switch (valor) {
-          case '1':
-              setImagenSeleccionada4('../src/assets/Estadistica/tiempo_real_arena.jpg');
-              break;
-          case '2':
-              setImagenSeleccionada4('../src/assets/Estadistica/corto_plazo.jpg'); // Cambia por la ruta correcta de la imagen de humedad para el cuarto div
-              break;
-          case '3':
-              setImagenSeleccionada4('../src/assets/Estadistica/mediano_plazo.jpg'); // Cambia por la ruta correcta de la imagen de precipitación para el cuarto div
-              break;
-          case '4':
-              setImagenSeleccionada4('../src/assets/Estadistica/largo_plazo.jpg'); // Cambia por la ruta correcta de la imagen de viento para el cuarto div
-              break;
-          default:
-              break;
-      }
-  };
-
   useEffect(() => {
     loadGoogleCharts(drawCharts);
   }, []);
@@ -82,49 +37,18 @@ function GeneracionEstadistica() {
   };
 
   return (
-    
-    <div style={{ backgroundColor: '#34495e' }} className="contenedor">
-      <NavBar></NavBar>
-      <h1 className='Title_estadistica'>Estadística en tiempo real</h1>
+    <div className="contenedor">
+      <div className='header_del_contenedor'>
+        <Link to="/estadistica_tiempo_real">Estadística en tiempo real</Link>
+        <Link to="/estadistica_corto_plazo">Estadística a corto plazo</Link>
+        <Link to="/estadistica_mediano_plazo">Estadística a mediano plazo</Link>
+        <Link to="/estadistica_largo_plazo">Estadística a largo plazo</Link>
+      </div>
+
+      <h1>Estadística de datos futuros a corto plazo de (1 a 4 dias)</h1>
       <Helmet>
         <script src="https://www.gstatic.com/charts/loader.js"></script>
       </Helmet>
-
-      <div className="contenedor_select">
-                <div className="columna">
-                    <h2 className='subtitulo'>Datos a Analizar</h2>
-                    <select className="form-select" aria-label="Default select example" onChange={datos_analizar}>
-                        <option value="1">Temperatura</option>
-                        <option value="2">Humedad</option>
-                        <option value="3">Precipitación</option>
-                        <option value="4">Viento</option>
-                    </select>
-                </div>
-                <div className="columna">
-                    <h2 className='subtitulo'>Tiempo de los Datos</h2>
-                    <select className="form-select" aria-label="Default select example" onChange={tiempo_dato}>
-                        <option value="1">Tiempo real</option>
-                        <option value="2">Corto plazo</option>
-                        <option value="3">Mediano plazo</option>
-                        <option value="4">Largo plazo</option>
-                    </select>
-                </div>
-            </div>
-
-      <div className="contenedor_vista_estadistica">
-        <div className="estadistica_figura">
-          <img src="../src/assets/Estadistica/Estadistica.jpg" alt="estadistica" />
-        </div>
-        <div className="estadistica_figura">
-          <img src={imagenSeleccionada2} alt="estadistica" />
-        </div>
-        <div className="estadistica_figura">
-          <img src="../src/assets/Estadistica/estadistica_aumento.jpg" alt="estadistica" />
-        </div>
-        <div className="estadistica_figura">
-          <img src={imagenSeleccionada4} alt="estadistica" />
-        </div>
-      </div>
 
       <h1 className='subtitulo'>Generales:</h1>
 
@@ -169,7 +93,6 @@ function GeneracionEstadistica() {
       <h1 className='subtitulo'>Específicas:</h1>
 
       {/* 1 */}
-        <h2 style={{ width: '100%', color: 'white' }}>Estación de Laguna Yema</h2>
       <div className="contenedor_estadistica">
         <div id="column_chart_1"></div>
         <div className="grafico_figura">
@@ -208,7 +131,6 @@ function GeneracionEstadistica() {
       </div>
 
       {/* 2 */}
-      <h2 style={{ width: '100%', color: 'white' }}>Estación de Misión Tacaaglé</h2>
       <div className="contenedor_estadistica">
         <div id="column_chart_2"></div>
         <div className="grafico_figura">
@@ -247,7 +169,6 @@ function GeneracionEstadistica() {
       </div>
 
       {/* 3 */}
-      <h2 style={{ width: '100%', color: 'white' }}>Estación del polo científico</h2>
       <div className="contenedor_estadistica">
         <div id="column_chart_3"></div>
         <div className="grafico_figura">
@@ -286,7 +207,6 @@ function GeneracionEstadistica() {
       </div>
 
       {/* 4 */}
-      <h2 style={{ width: '100%', color: 'white' }}>Estación El Colorado</h2>
       <div className="contenedor_estadistica">
         <div id="column_chart_4"></div>
         <div className="grafico_figura">
