@@ -1,14 +1,13 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from 'react-router-dom';
+import "../../stilos/navBar.css"
 
 export const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark text-white p-3">
+    <nav className="navbar navbar-expand-lg" id="Nav">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          Logo
-        </a>
+        <img src="../../../src/images/logo.png" alt="logo" className="navbar-logo"/>
         <button
           className="navbar-toggler"
           type="button"
@@ -26,16 +25,19 @@ export const NavBar = () => {
               <Link className="nav-link" to="/home">Home</Link>
             </li>
             <li className="nav-item mx-2">
+              <Link className="nav-link" to="/Weather">Weather</Link>
+            </li>
+            <li className="nav-item mx-2">
               <Link className="nav-link" to="/mapa">Mapa</Link>
             </li>
             <li className="nav-item mx-2">
               <Link className="nav-link" to="/modelo_prediccion">Modelo de Predicción</Link>
             </li>
             <li className="nav-item mx-2">
-              <Link className="nav-link" to="/iniciar_sesion">Iniciar Sesión</Link>
+              <Link className="nav-link" id="form" to="/iniciar_sesion">Iniciar Sesión</Link>
             </li>
             <li className="nav-item mx-2">
-              <Link className="nav-link" to="/registrarse">Registrarse</Link>
+              <Link className="nav-link" id="form" to="/registrarse">Registrarse</Link>
             </li>
           </ul>
         </div>

@@ -1,0 +1,204 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(../../../src/images/fondo3.avif);
+  background-size: cover;
+  background-position: center;
+  min-height: 60vh;
+}
+
+.Características_principales {
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  min-height: 60vh;
+  background: url(../../../src/images/fondo3.avif);
+}
+
+.Características_principales h2{
+  font-size: 2.5rem;
+  color: rgb(1, 33, 33);
+  font-weight: 800;
+  text-align: center;
+  justify-content: center;
+}
+
+.imagen {
+  width: 40%;
+  margin: 18px;
+}
+
+.home .imagen img {
+  width: 40vw;
+}
+
+.somos {
+  width: 60%;
+  padding: 45px;
+}
+
+.somos h1 {
+  font-size: 2.5rem;
+  color: rgb(1, 33, 33);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.somos h3 {
+  font-size: 1.5rem;
+  color: rgb(2, 76, 76);
+  font-weight: 800;
+  margin-bottom: 22px;
+}
+
+.somos p {
+  font-size: 1.1rem;
+  color: rgb(0, 0, 0);
+}
+
+/* Ventana al clima */
+.ventana_clima {
+  width: 60%;
+  /* padding: 45px; */
+  margin: 0px;
+}
+
+.ventana_clima h1 {
+  font-size: 2.5rem;
+  color: rgb(1, 33, 33);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.ventana_clima h3 {
+  font-size: 1.5rem;
+  color: rgb(2, 76, 76);
+  font-weight: 800;
+  margin-bottom: 22px;
+}
+
+.ventana_clima p {
+  font-size: 1.1rem;
+  color: rgb(0, 0, 0);
+}
+
+.pensado_clima {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(../../../src/images/fondo3.avif);
+  background-size: cover;
+  background-position: center;
+  min-height: 60vh;
+}
+
+.persona_pensando {
+  width: 40%;
+  margin: 18px;
+}
+
+.pensado_clima .persona_pensando img {
+  width: 40vw;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 60%;
+  padding: 25px;
+}
+
+.feature {
+  flex: 1 1 45%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature h3 {
+  color: #007bff;
+  margin-top: 0;
+}
+
+.feature p {
+  margin: 10px 0 0;
+}
+
+.features_principal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+  padding: 25px;
+}
+
+.feature_principal {
+  flex: 1 1 45%;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgb(2, 2, 15);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature_principal img{
+  height: 70%;
+}
+
+.feature_principal:hover {
+  background-color: rgb(9, 9, 80);
+  cursor: pointer;
+}
+
+.feature_principal img {
+  width: 50%;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+.feature_principal h3 {
+  color: #007bff;
+  margin-top: 0;
+}
+
+.feature_principal p {
+  margin: 10px 0 0;
+  color: aliceblue;
+}
+
+.clima_en_tus_manos{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+  padding: 25px;
+}
+
+.clima_manos{
+  width: 60%;
+  /* padding: 45px; */
+}
+
+.manos img{
+  height: 300px;
+  width: 100%;
+  /* margin: 1px; */
+}
+
+.manos{
+  width: 30%;
+  border: #333;
+}

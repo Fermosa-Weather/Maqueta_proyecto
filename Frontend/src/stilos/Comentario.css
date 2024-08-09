@@ -11,6 +11,7 @@
     text-decoration: underline;
     padding: 0;
     font-size: 1rem;
+    background-color: rgb(88, 87, 87);
   }
   
   .btn-link.view-comments-button:hover {
