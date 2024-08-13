@@ -1,10 +1,4 @@
-@media (max-width: 1120px) {
-  .footer_bg {
-    margin-top: 0;
-  }
-}
-
-@media (max-width: 992px) {
+@media (max-width: 1100px) {
   .custom_nav-container .nav_search-btn {
     background-position: center;
   }
@@ -46,8 +40,12 @@
   }
 
 
-  .hero_area {
-    height: auto;
+  /* .hero_area {
+    min-height: 78vh;
+  } */
+
+  .min-height-78vh {
+    min-height: 78vh;
   }
 
   .slider_detail-box {
@@ -61,6 +59,12 @@
 
   .slider_section .carousel_btn-container {
     display: none;
+  }
+}
+
+@media (max-width: 1120px) {
+  .footer_bg {
+    margin-top: 0;
   }
 }
 

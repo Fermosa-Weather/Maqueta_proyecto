@@ -4,7 +4,7 @@ import '../../stilos/pagina_bienvenida.css';
 
 const Bienvenida = () => {
   return (
-    <section className="inicio" id="inicio">
+    <section className="inicio" >
       <div className="content">
         <h3>Raf</h3>
         <span>Estaciones</span>
@@ -15,7 +15,7 @@ const Bienvenida = () => {
       </div>
 
       <div className="imagen">
-        <img src="../../../src/images/panel.jpg" alt="Estación meteorológica" />
+        <img src="../../../src/images/panel.jpg"  alt="Estación meteorológica" />
       </div>
     </section>
   );

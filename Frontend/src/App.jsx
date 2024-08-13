@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Mapa from './mapa';
 import {Modelo_predicion} from './modelo_predicion';
-import Tiempo from './tiempo';
 import {Home} from "./home"
 import Bienvenida from './components/Bienvenida_page/pag_welcome';
 import Estadistica_tiempo_real from './components/Estadistica/estadistica_tiempo_real';

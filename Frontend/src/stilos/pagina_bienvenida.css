@@ -46,6 +46,7 @@
   
   .inicio .imagen img {
     width: 40vw;
+    min-width: 100px; 
     animation: float 3s linear infinite;
   }
   
@@ -79,19 +80,56 @@
   
   @media (max-width: 768px) {
     .inicio {
-      flex-flow: column-reverse;
+      flex-flow: column;
     }
-  
-    .inicio .imagen img {
+
+    .inicio .content{
       width: 100%;
     }
   
+    .inicio .imagen{
+      width: 100%;
+      margin-top: 80px;
+    }
+
+    .inicio .imagen img {
+      width: 300px
+    }
+  
     .inicio .content h3 {
-      font-size: 3.6rem;
+      font-size: 2.8rem;
+    }
+
+    .inicio .content span {
+      font-size: 2.8rem;
     }
   
     .inicio .content p {
-      font-size: 1.5rem;
+      font-size: 0.9rem;
     }
   }
   
+
+  @media (max-width: 368px) {
+  .inicio .content h3 {
+    font-size: 1.9rem;
+    color: black;
+    text-transform: uppercase;
+  }
+  
+  .inicio .content h3 {
+    font-size: 1.5rem;
+  }
+
+  .inicio .content span {
+    font-size: 1.5rem;
+  }
+
+  .inicio .content p {
+    font-size: 0.7rem;
+  }
+
+  .inicio .imagen img {
+    width: 100%
+  }
+}

@@ -1,21 +1,12 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "../../stilos/inicio.css"; // Asegúrate de que el archivo de estilo esté en la ruta correcta
+import "../../stilos/Plantilla_slider/css/bootstrap.css"
+import "../../stilos/Plantilla_slider/css/style.css"
+import "../../stilos/Plantilla_slider/css/responsive.css"
 
 const Landing_page = () => {
   return (
     <div>
-      <div className="home">
-        <div className="somos">
-          <h1>RAF(Red Agrometeorologicas de Formosa)</h1>
-          <h3>Descubre el Clima de Formosa como Nunca Antes</h3>
-          <p>
-            Un sistema que proporciona información sobre el tiempo y el clima en la provincia de Formosa. Se recopilan datos de 10 estaciones meteorológicas ubicadas a lo largo de la provincia. La aplicación cuenta con dashboards, mapas de las estaciones, un modelo de predicción con inteligencia artificial, y noticias sobre el clima en diferentes localidades. La aplicación mostrará datos como humedad, precipitaciones, calidad del aire, entre otros.
-          </p>
-        </div>
-        <div className="imagen">
-        <img src="../../../src/images//fondoClima.avif" alt="Estación meteorológica" />
-        </div>
-      </div>
 
       <div className="ventana_clima">
         <h2>Tu Ventana al Clima Provincial</h2>
