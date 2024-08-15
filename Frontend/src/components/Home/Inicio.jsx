@@ -1,14 +1,20 @@
-import React from 'react'
-import Landing_page from './Langin_page'
-import Nav from '../Navbar/Nav'
+import React, { useState } from 'react';
+import Nav from '../Navbar/Nav';
+import Landing_page from './Landin_page';
 
 function Inicio() {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
   return (
     <div>
-        <Nav></Nav>
-        <Landing_page></Landing_page>
+      <Nav onSearch={handleSearch} />
+      <Landing_page searchTerm={searchTerm} />
     </div>
-  )
+  );
 }
 
-export default Inicio
+export default Inicio;

@@ -1,37 +1,20 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import WeatherForecast from "./components/Tiempo_Formosa/Tiempo-grafico";
-import Tiempo_por_hora from "./components/Tiempo_Formosa/tiempo_por_hora";
-import Weather_details from "./components/Tiempo_Formosa/Tiempo_detalles";
-import "./stilos/tiempo_general.css"
+import React from 'react'
+import WeatherForecast from "./components/Tiempo_Formosa/WeatherForecast"
+import Tiempo_map from './components/Tiempo_Formosa/tiempo_map'
+import Nav from './components/Navbar/Nav'
+import Tiempo_contenedor from './components/Tiempo_Formosa/tiempo_contenedor'
+import Noticias from './noticias'
 
-const Tiempo = () => {
-  const [selectedView, setSelectedView] = useState('resumen');
 
-  const renderComponent = () => {
-    if (selectedView === 'resumen') {
-      return <WeatherForecast />;
-    } else if (selectedView === 'por_hora') {
-      return <Tiempo_por_hora />;
-    } else if (selectedView === 'detalles') {
-      return <Weather_details />;
-    }
-  };
+export function Tiempo() {
 
   return (
-    <div className="general">
-      <div className="weather-container">
-        <div className="weather-header">
-          <Link to="/" onClick={() => setSelectedView('resumen')}>Resumen</Link>
-          <Link to="/" onClick={() => setSelectedView('por_hora')}>Por horas</Link>
-          <Link to="/" onClick={() => setSelectedView('detalles')}>Más detalles</Link>
-        </div>
-        <div className="contenedor_tiempo_por_hora">
-          {renderComponent()}
-        </div>
+      <div style={{ backgroundColor: '#34495e'}} className='fondo'>
+        <Nav></Nav>
+        <Tiempo_map></Tiempo_map>
+        <WeatherForecast /> 
+        <Tiempo_contenedor></Tiempo_contenedor>
+        <Noticias></Noticias>
       </div>
-    </div>
-  );
-};
-
-export default Tiempo;
+  )
+}

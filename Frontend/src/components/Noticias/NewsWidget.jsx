@@ -6,10 +6,9 @@ import lasLomitasImage from '../../images2/laslomitas.jpg';
 import capitalImage from '../../images2/ciudadformosa.jfif';
 import alertaRafagasImage from '../../images2/clorinda.jpg';
 import herraduraImage from '../../images2/herradura.jpg';
-import ibarretaImage from '../../images2/ibarreta.jpg';
 import Comentario from '../comentarios/comentario';
 
-const NewsWidget = () => {
+const NewsWidget = ({ searchTerm }) => {
   const [showModal, setShowModal] = useState(false);
   const [currentNewsIndex, setCurrentNewsIndex] = useState(null);
 
@@ -46,12 +45,17 @@ const NewsWidget = () => {
     },
   ];
 
+  const filteredNews = newsData.filter(news => 
+    news.title.toLowerCase().includes(searchTerm) ||
+    news.description.toLowerCase().includes(searchTerm)
+  );
+
   return (
     <div className="News-widget">
       <h2 className='title_noticia'>Noticias sobre el Clima en Formosa</h2>
       <div className="News-container">
-        {newsData.map((item, index) => (
-          <div key={index} className="News-item">
+        {filteredNews.map((item, index) => (
+          <div key={index} className="News-item articulo">
             {item.imageUrl && (
               <img src={item.imageUrl} alt={item.title} className="News-image" />
             )}

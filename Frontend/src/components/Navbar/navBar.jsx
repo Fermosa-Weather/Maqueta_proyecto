@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { Visibilidad_nav } from './visibilidad_nav';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/bootstrap.css";
 import "../../stilos/Plantilla_slider/css/style.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
+import { Search } from "../Serch/Search";
 
-export const NavBar = () => {
+export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (e) => {
+    const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
+    onSearch(term);
+  };
 
   return (
     <div id="heroArea" className="hero_area">
@@ -60,10 +68,8 @@ export const NavBar = () => {
                         <li className="nav-item">
                           <Link className="nav-link" to="/cuenta">Cuenta</Link>
                         </li>
+                        <Search onSearch={handleSearch}  />
                       </ul>
-                      <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                        <button className="btn my-2 my-sm-0 nav_search-btn" type="submit"></button>
-                      </form>
                     </div>
                   </div>
                 )}

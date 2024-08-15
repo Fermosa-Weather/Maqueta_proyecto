@@ -1,14 +1,14 @@
-import React from 'react'
-import Cargar_nav from './Cargar_nav'
-import { NavBar } from './navBar'
+import React from 'react';
+import Cargar_nav from './Cargar_nav';
+import { NavBar } from './navBar';
 
-function Nav() {
+function Nav({ onSearch }) {
   return (
     <div>
-        <Cargar_nav></Cargar_nav>
-        <NavBar></NavBar>
+      <Cargar_nav />
+      <NavBar onSearch={onSearch} />
     </div>
-  )
+  );
 }
 
-export default Nav
+export default Nav;
