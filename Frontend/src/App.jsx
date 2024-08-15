@@ -1,7 +1,7 @@
 // App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Home/home';
+import Home from './home';
 import Mapa from './mapa';
 import Modelo_predicion from './modelo_predicion';
 import {Tiempo} from "./tiempo"

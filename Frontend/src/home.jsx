@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Nav from '../Navbar/Nav';
-import Landing_page from './Landin_page';
+import Nav from './components/Navbar/Nav';
+import Landing_page from './components/Home/Landin_page';
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');

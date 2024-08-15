@@ -1,27 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link
 import "../../stilos/inicio.css"; 
 
 const Landing_page = ({ searchTerm }) => {
   const features = [
     {
-      title: "📊 Dashboards Intuitivos y faciles de usar",
-      image: "../../../src/images/Grafico_estadistico_animado.jpg",
-      description: "Visualiza los datos meteorológicos de forma clara y sencilla. Nuestros dashboards te permiten entender el clima de un vistazo."
-    },
-    {
       title: "🗺️ Mapa Interactivo de Estaciones",
       image: "../../../src/images/Mapa_formosa.jpg",
-      description: "Explora la ubicación de nuestras 10 estaciones meteorológicas. Haz clic en cada una para obtener información detallada sobre su ubicación y los datos que recopila."
+      description: "Explora la ubicación de nuestras 10 estaciones meteorológicas. Haz clic en cada una para obtener información detallada sobre su ubicación y los datos que recopila.",
+      link: "/mapa"  
     },
     {
       title: "🤖 Predicción con Inteligencia Artificial",
       image: "../../../src/images/IA.avif",
-      description: "Nuestro modelo de IA analiza patrones climáticos históricos para ofrecerte predicciones precisas. ¡Planifica tus actividades con confianza!"
+      description: "Nuestro modelo de IA analiza patrones climáticos históricos para ofrecerte predicciones precisas. ¡Planifica tus actividades con confianza!",
+      link: "/modelo_prediccion"  // Internal link
     },
     {
       title: "📰 Noticias Climáticas Locales",
       image: "../../../src/images/Noticas_animado.jpg",
-      description: "Mantente informado sobre eventos climáticos importantes en tu localidad. Desde alertas por tormentas hasta consejos para días calurosos, te mantenemos al día con información relevante."
+      description: "Mantente informado sobre eventos climáticos importantes en tu localidad. Desde alertas por tormentas hasta consejos para días calurosos, te mantenemos al día con información relevante.",
+      link: "/noticias"  // Internal link
+    },
+    {
+      title: "📊 Dashboards Intuitivos y faciles de usar",
+      image: "../../../src/images/Grafico_estadistico_animado.jpg",
+      description: "Visualiza los datos meteorológicos de forma clara y sencilla. Nuestros dashboards te permiten entender el clima de un vistazo.",
+      link: "/dashboards" 
+    },
+    {
+      title: "📡 Información Detallada de las Estaciones",
+      image: "../../../src/images/panel.jpg",
+      description: "Accede a datos meteorológicos precisos obtenidos de nuestras 10 estaciones. Mantente informado con la información más actualizada y relevante.",
+      link: "/estaciones" 
     }
   ];
 
@@ -93,8 +104,10 @@ const Landing_page = ({ searchTerm }) => {
           {filteredFeatures.length > 0 ? (
             filteredFeatures.map((feature, index) => (
               <div key={index} className="feature_principal">
-                <h3>{feature.title}</h3>
-                <img src={feature.image} alt={feature.title} />
+                <Link to={feature.link}>
+                  <h3>{feature.title}</h3>
+                  <img src={feature.image} alt={feature.title} />
+                </Link>
                 <p>{feature.description}</p>
               </div>
             ))
