@@ -1,12 +1,14 @@
 import React from 'react'
-import Cargar_scripts from '../Home/Cargar_scripts'
+import Cargar_nav from './Cargar_nav'
 import { NavBar } from './navBar'
 
-export function Nav() {
+function Nav() {
   return (
     <div>
-        <Cargar_scripts></Cargar_scripts>
+        <Cargar_nav></Cargar_nav>
         <NavBar></NavBar>
     </div>
   )
 }
+
+export default Nav

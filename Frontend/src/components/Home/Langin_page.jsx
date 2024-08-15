@@ -1,8 +1,5 @@
 import React,{useEffect} from "react";
-import "../../stilos/inicio.css"; // Asegúrate de que el archivo de estilo esté en la ruta correcta
-import "../../stilos/Plantilla_slider/css/bootstrap.css"
-import "../../stilos/Plantilla_slider/css/style.css"
-import "../../stilos/Plantilla_slider/css/responsive.css"
+import "../../stilos/inicio.css"; 
 
 const Landing_page = () => {
   return (

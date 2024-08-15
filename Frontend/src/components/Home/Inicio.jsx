@@ -1,6 +1,6 @@
 import React from 'react'
 import Landing_page from './Langin_page'
-import { Nav } from '../Navbar/Nav'
+import Nav from '../Navbar/Nav'
 
 function Inicio() {
   return (

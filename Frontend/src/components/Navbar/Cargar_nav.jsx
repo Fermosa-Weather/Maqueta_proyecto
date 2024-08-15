@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 
-function Cargar_scripts() {
+function Cargar_nav() {
 
     useEffect(() => {
         const loadScripts = async () => {
@@ -39,4 +39,4 @@ function Cargar_scripts() {
   )
 }
 
-export default Cargar_scripts
+export default Cargar_nav

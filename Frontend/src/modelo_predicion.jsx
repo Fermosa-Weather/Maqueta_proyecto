@@ -1,13 +1,15 @@
 import React from 'react'
-import {NavBar} from './components/Navbar/navBar'
 import PredictionForm from './components/Modelo_predicion/PredictionForm'; // Importa sin llaves
+import Nav from './components/Navbar/Nav';
 
-export function Modelo_predicion() {
+function Modelo_predicion() {
   
   return (
     <div>
-        <NavBar></NavBar>
+        <Nav></Nav>
         <PredictionForm />
     </div>
   )
 }
+
+export default Modelo_predicion

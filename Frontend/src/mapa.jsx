@@ -11,11 +11,11 @@ import {
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./stilos/mapa.css";
-import { NavBar } from "./components/Navbar/navBar.jsx";
 import MapWithCircles from "./components/Mapa/MapCircle.jsx"
-import { Nav } from "./components/Navbar/Nav.jsx";
+import Nav from "./components/Navbar/Nav.jsx";
 
 function Mapa() {
+
   return (
     <div style={{ backgroundColor: '#34495e' }} className="mapa_principal">
       <Nav></Nav>
