@@ -27,12 +27,12 @@ const WeatherForecast = () => {
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     fill: true,
                     tension: 0.4,
-                    pointRadius: 4, // Tamaño de los puntos
-                    pointBackgroundColor: 'rgba(255, 255, 255, 0.8)', // Color de fondo de los puntos
-                    pointBorderColor: 'rgba(255, 255, 255, 0.8)', // Color del borde de los puntos
-                    pointHoverRadius: 1, // Tamaño de los puntos al pasar el mouse
-                    pointHoverBackgroundColor: 'rgba(255, 255, 255, 1)', // Color de fondo de los puntos al pasar el mouse
-                    pointHoverBorderColor: 'rgba(255, 255, 255, 1)', // Color del borde de los puntos al pasar el mouse
+                    pointRadius: 4,
+                    pointBackgroundColor: 'rgba(255, 255, 255, 0.8)',
+                    pointBorderColor: 'rgba(255, 255, 255, 0.8)',
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: 'rgba(255, 255, 255, 1)',
+                    pointHoverBorderColor: 'rgba(255, 255, 255, 1)',
                 }]
             },
             options: {
@@ -40,20 +40,43 @@ const WeatherForecast = () => {
                 maintainAspectRatio: false,
                 scales: {
                     x: {
-                        display: false
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Tiempo',
+                            color: 'rgba(255, 255, 255, 0.8)',
+                            font: {
+                                size: 18
+                            }
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.8)',
+                        },
+                        grid: {
+                            display: true,
+                        },
                     },
                     y: {
-                        display: false
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Grados (°C)',
+                            color: 'rgba(255, 255, 255, 0.8)',
+                            font: {
+                                size: 18
+                            }
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.8)',
+                        },
+                        grid: {
+                            display: true,
+                        },
                     }
                 },
                 plugins: {
                     legend: {
                         display: false
-                    }
-                },
-                elements: {
-                    point: {
-                        radius: 0
                     }
                 }
             }
@@ -72,18 +95,17 @@ const WeatherForecast = () => {
     }, []);
 
     return (
-                <div className="weather-content">
+        <div className="weather-content">
+            <div className="weather-now">
+                <span>Ahora</span>
+            </div>
 
-                <div className="weather-now">
-                        <span>Ahora</span>
-                </div>
-
-                <div className="weather-graph">
-                    <canvas
+            <div className="weather-graph">
+                <canvas
                     ref={chartContainerRef}
-                    style={{ width: "1000px" }} // Establece el ancho del canvas
-                    ></canvas>
-                </div>
+                    id="weatherChart"
+                ></canvas>
+            </div>
 
                     
                     <div className="weather-forecast">

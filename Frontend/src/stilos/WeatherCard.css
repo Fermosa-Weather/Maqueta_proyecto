@@ -6,8 +6,9 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     width: 100%; /* Ancho fijo para el widget */
     margin-bottom: 20px; /* Espaciado inferior */
+    /* margin: 15px; */
   }
-  
+
   .weather-background {
     background-size: cover;
     background-repeat: no-repeat;
@@ -84,8 +85,5 @@
     color: #f7f2f2b8;
   }
 
- .weather-icon-temperatura {
-    font-size: 3.5em;
-    margin-right: 10px;
-    color: #f7f2f2b8;
-  }
+    
+  

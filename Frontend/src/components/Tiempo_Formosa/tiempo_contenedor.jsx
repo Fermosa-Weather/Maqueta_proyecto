@@ -22,9 +22,9 @@ const Tiempo_contenedor = () => {
     <div className="general">
       <div className="weather-container">
         <div className="weather-header">
-          <Link to="/" onClick={() => setSelectedView('resumen')}>Resumen</Link>
-          <Link to="/" onClick={() => setSelectedView('por_hora')}>Por horas</Link>
-          <Link to="/" onClick={() => setSelectedView('detalles')}>Más detalles</Link>
+          <Link to="/Weather" onClick={() => setSelectedView('resumen')}>Resumen</Link>
+          <Link to="/Weather" onClick={() => setSelectedView('por_hora')}>Por horas</Link>
+          <Link to="/Weather" onClick={() => setSelectedView('detalles')}>Más detalles</Link>
         </div>
         <div className="contenedor_tiempo_por_hora">
           {renderComponent()}

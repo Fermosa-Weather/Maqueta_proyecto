@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Nav from '../Navbar/Nav';
 import Landing_page from './Landin_page';
 
-function Inicio() {
+function Home() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = (term) => {
@@ -17,4 +17,4 @@ function Inicio() {
   );
 }
 
-export default Inicio;
+export default Home;

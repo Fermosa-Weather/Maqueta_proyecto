@@ -1,7 +1,7 @@
 /* Estilos generales del contenedor de pronóstico */
 .weather-forecast-container {
     max-width: 1110px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 20px;
     background-color: #f0f8ff; /* Celeste claro */
     border-radius: 10px;
@@ -93,6 +93,13 @@
     margin-top: 10px; /* Ajusta el margen superior según sea necesario */
   }
   
+  @media (max-width: 1110px) {
+    .weather-forecast-container {
+      margin: 10px 20px;
+    }
+  
+  }
+
   /* Media queries para ajustar el diseño en pantallas más pequeñas */
   @media screen and (max-width: 768px) {
     .weather-forecast-container {

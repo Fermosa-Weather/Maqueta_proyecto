@@ -4,10 +4,16 @@
     padding: 0;
     justify-content: center;
     align-items: center;
-    height: 65vh;
+    height: 75vh;
     font-family: Arial, sans-serif;
   }
-  
+
+  @media (max-width: 415px){
+    .general{
+      margin: 8px;
+    }
+  }
+
   .weather-container {
       font-family: Arial, sans-serif;
       background-color: rgb(255,255,255, .1); /* Keep this line */
@@ -22,5 +28,6 @@
     .weather-header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 20px;
+      /* margin-bottom: 20px; */
+      margin-left: 2px;
     }

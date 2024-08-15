@@ -1,6 +1,7 @@
 import React from 'react';
 import WeatherCard from './WeatherCard';
 import MiniMap from '../Mapa/MiniMap';
+import "../../../src/stilos/tiempo_map.css"
 
 const weatherInfo = {
     location: "Formosa, Argentina",
@@ -15,12 +16,12 @@ const weatherInfo = {
 
 function Tiempo_map() {
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-8">
+        <div className="tiempo-map__container">
+            <div className="tiempo-map__row">
+                <div className="tiempo-card__col">
                     <WeatherCard data={weatherInfo} />
                 </div>
-                <div className="col-md-4">
+                <div className="tiempo-map__col">
                     <MiniMap />
                 </div>
             </div>

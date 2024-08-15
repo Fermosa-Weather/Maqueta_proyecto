@@ -6,6 +6,7 @@
     width: 100%; /* Ancho fijo para el widget */
     margin-bottom: 20px; /* Espaciado inferior */
     margin-top: 20px;
+    /* margin: 15px; */
   }
   
   .map-button {

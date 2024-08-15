@@ -32,7 +32,7 @@ const WeatherForecast = () => {
     dots: true,
     infinite: false, // Desactivar el desplazamiento infinito
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: false, // Desactivar autoplay
     responsive: [
