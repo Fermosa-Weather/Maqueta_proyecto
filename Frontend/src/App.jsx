@@ -8,6 +8,7 @@ import {Tiempo} from "./tiempo"
 import Bienvenida from './components/Bienvenida_page/pag_welcome';
 import Noticias from "./noticias"
 import Pag_404 from './404';
+import About from './components/about/about';
 
 function Rutas() {
   return (
@@ -15,6 +16,7 @@ function Rutas() {
       <Routes>
       <Route path="/" element={<Bienvenida />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/about" element={<About />} />
       <Route path="/Weather" element={<Tiempo />} />
       <Route path="/mapa" element={<Mapa />} />
       <Route path="/modelo_prediccion" element={<Modelo_predicion />} />    

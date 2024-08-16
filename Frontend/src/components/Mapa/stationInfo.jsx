@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import "../../../src/stilos/stacion_info.css";
 
 const StationInfo = ({ averages }) => {
   return (
-    <div className="col-md-3">
+    <div className="col-md-3 station-info">
       <div className="p-3 bg-light rounded shadow">
         <h2 className="mb-4">Información General de Formosa</h2>
         <div className="mb-3">
@@ -36,14 +37,6 @@ const StationInfo = ({ averages }) => {
             <span className="float-end">{averages.precipitation} mm</span>
           </p>
         </div>
-      </div>
-      <div className="p-3 bg-light rounded shadow mt-4 d-flex justify-content-center align-items-center flex-column">
-        <Link className="btn btn-primary m-2 w-75" to="/estadistica_tiempo_real">
-          Generar estadística
-        </Link>
-        <button className="btn btn-success m-2 w-75">
-          Ver todas las estaciones
-        </button>
       </div>
     </div>
   );
