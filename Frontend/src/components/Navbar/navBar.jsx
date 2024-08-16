@@ -45,30 +45,46 @@ export const NavBar = ({ onSearch }) => {
                     <div className="d-flex flex-column flex-lg-row align-items-center">
                       <ul className="navbar-nav">
                         <li className="nav-item active">
-                          <Link className="nav-link" to="/home">Home</Link>
+                          <Link className="nav-link" to="/home">
+                            <i className="bi bi-house"></i> Home
+                          </Link>
                         </li>
                         <li className="nav-item">
-                          <Link className="nav-link" to="/about">About</Link>
+                          <Link className="nav-link" to="/about">
+                            <i className="bi bi-person"></i> About
+                          </Link>
                         </li>
                         <li className="nav-item">
-                          <Link className="nav-link" to="/contacto">Contacto</Link>
+                          <Link className="nav-link" to="/contacto">
+                            <i className="bi bi-envelope"></i> Contacto
+                          </Link>
                         </li>
                         <li className="nav-item">
-                          <Link className="nav-link" to="/Weather">Weather</Link>
+                          <Link className="nav-link" to="/Weather">
+                            <i className="bi bi-cloud-sun"></i> Weather
+                          </Link>
                         </li>
                         <li className="nav-item">
-                          <Link className="nav-link" to="/mapa">Mapa</Link>
+                          <Link className="nav-link" to="/mapa">
+                            <i className="bi bi-geo-alt"></i> Mapa
+                          </Link>
                         </li>
                         <li className="nav-item">
-                          <Link className="nav-link" to="/modelo_prediccion">Modelo</Link>
+                          <Link className="nav-link" to="/modelo_prediccion">
+                            <i i className="bi bi-cpu "></i> Modelo
+                          </Link>
                         </li>
                         <li className="nav-item">
-                          <Link className="nav-link" to="/noticias">Noticias</Link>
+                          <Link className="nav-link" to="/noticias">
+                            <i className="bi bi-newspaper"></i> Noticias
+                          </Link>
                         </li>
                         <li className="nav-item">
-                          <Link className="nav-link" to="/cuenta">Cuenta</Link>
+                          <Link className="nav-link" to="/cuenta">
+                            <i className="bi bi-person"></i> Cuenta
+                          </Link>
                         </li>
-                        <Search onSearch={handleSearch}  />
+                        <Search onSearch={handleSearch} />
                       </ul>
                     </div>
                   </div>
