@@ -209,7 +209,9 @@ function MapWithCircles() {
             />
           </MapContainer>
         </div>
+        <div className="col-md-3 mt-3">
         <StationInfo className="estaciones_info" averages={averages} />
+        </div>
       </div>
     </div>
   );

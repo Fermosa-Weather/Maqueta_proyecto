@@ -2,7 +2,6 @@ import React,{useEffect} from "react";
 import "../../stilos/Plantilla_slider/css/bootstrap.css"
 import "../../stilos/Plantilla_slider/css/style.css"
 import "../../stilos/Plantilla_slider/css/responsive.css"
-// import Cargar_scripts from "./Cargar_scripts";
 
 export const Slider = () => {
 

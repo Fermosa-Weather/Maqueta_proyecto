@@ -1,7 +1,9 @@
 import React from 'react';
 import '../../../src/stilos/about.css'; // Asegúrate de crear e incluir estilos CSS adecuados
+import { NavBar } from '../Navbar/navBar';
 
-const About = () => {
+const Acerca_nosotros = () => {
+
   return (
     <div className="about-container">
       <h1>Sobre RAF Estaciones</h1>
@@ -37,4 +39,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Acerca_nosotros;

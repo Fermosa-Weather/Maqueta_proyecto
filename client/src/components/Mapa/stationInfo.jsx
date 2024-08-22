@@ -5,7 +5,7 @@ import "../../../src/stilos/stacion_info.css";
 const StationInfo = ({ averages }) => {
   return (
     <div className="col-md-3 station-info">
-      <div className="p-3 bg-light rounded shadow">
+      <div className="p-3 bg-light rounded shadow informacion_formosa">
         <h2 className="mb-4">Información General de Formosa</h2>
         <div className="mb-3">
           <p>

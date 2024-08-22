@@ -1,13 +1,15 @@
 /* stacion_info.css */
 .station-info {
-    padding: 10px; 
-    margin-bottom: 1rem; /* Espacio externo en la parte inferior */
-    display: flex; /* Hacer que el contenedor sea flexible */
-    flex-direction: column; /* Alinear los elementos en una columna */
-    justify-content: space-between; /* Espacio entre los elementos internos */
-    height: 1000vh;
-  }
+    flex-direction: column;
+    height: calc(87vh); /* Ajusta la altura al mismo nivel que el mapa */
+    width: 100%;
+}
   
+.informacion_formosa{
+    width: 35vh;
+    height: 100%;
+}
+
   .station-info h2 {
     font-size: 1.5rem; /* Tamaño de la fuente del encabezado */
     margin-bottom: 1.5rem; /* Espacio debajo del encabezado */
@@ -19,7 +21,7 @@
   
   .station-info .bg-light {
     background-color: #f8f9fa; /* Color de fondo claro */
-    padding: 1.5rem; /* Espacio interno */
+    /* padding: 1.5rem;  */
     border-radius: 0.5rem; /* Bordes redondeados */
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Sombra */
   }

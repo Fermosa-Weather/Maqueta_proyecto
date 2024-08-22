@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { Visibilidad_nav } from './visibilidad_nav';
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../stilos/Plantilla_slider/css/bootstrap.css";
-import "../../stilos/Plantilla_slider/css/style.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
+import "../../stilos/Plantilla_slider/css/style.css";
+import "../../stilos/Plantilla_slider/css/bootstrap.css";
 import { Search } from "../Serch/Search";
 
 export const NavBar = ({ onSearch }) => {

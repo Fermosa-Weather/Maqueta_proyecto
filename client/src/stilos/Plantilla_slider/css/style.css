@@ -1,9 +1,19 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
 body {
   font-family: "Poppins", sans-serif;
   color: #0c0c0c;
-  background-color: #ffffff;
+  margin: 0px;
+  padding: 0px;
 }
 
+body, html {
+  margin: 0px;
+  padding: 0px;
+}
 
 .logo {
   height: 100%;
@@ -11,63 +21,34 @@ body {
   object-fit: contain;
 }
 
-.layout_padding {
-  padding: 75px 0;
-}
-
-.layout_padding2 {
-  padding: 45px 0;
-}
-
-.layout_padding2-top {
-  padding-top: 45px;
-}
-
-.layout_padding2-bottom {
-  padding-bottom: 45px;
-}
-
-.layout_padding-top {
-  padding-top: 75px;
-}
-
-.layout_padding-bottom {
-  padding-bottom: 75px;
-}
-
-.custom_heading-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.custom_heading-container h2 {
-  font-weight: bold;
-  border-bottom: 1px solid #feb543;
-  padding-bottom: 5px;
-}
-
 /*header section*/
+.header_section {
+  position: relative;
+  margin-top: -20px;
+}
+
+.header_section, .hero_area {
+  margin: 0px;
+  padding: 0px;
+}
+
 .hero_area {
   height: 10vh;
   background: -webkit-gradient(linear, left top, right top, from(#864ddf), to(#203376));
   background: linear-gradient(to right, #864ddf, #203376);
+  padding: 1px;
 }
+
 
 .hero_area::before {
   content: "";
   position: absolute;
   width: 65%;
-  height: 95%;
+  height: 100%;
   /* background-image: url(../images/hero-bg.png); */
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  top: 75px;
-  right: 0px;
-  /* border: #0c0c0c solid 5px; */
+  background-size: cover;
 }
 
 .sub_page .hero_area {
@@ -157,8 +138,10 @@ a:focus {
 }
 
 .custom_nav-container {
-  z-index: 99999;
-  padding: 5px 0;
+  position: relative; /* o absolute si es necesario */
+  z-index: 9999;
+  top: 0;
+  left: 0;
 }
 
 .custom_nav-container .navbar-toggler {
@@ -169,6 +152,7 @@ a:focus {
   background-image: url(../images/menu.png);
   background-size: 40px;
 }
+
 
 /*end header section*/
 /* slider section */
@@ -294,22 +278,13 @@ a:focus {
 .slider_img-box {
   position: relative;
   width: 100%;
-  height: 80%; /* Asegura que el contenedor ocupe el espacio completo */
-  /* border: #5a07f5 solid 5px; */
-  /* transform: translate(-50%, -50%); */
-  /* left: 50%; 
-  top: 50%; */
+  height: 80%; 
 }
 
 .slider_img-box img {
   position: relative;
-  /* top: 50%;
-  left: 50%;  */
-  /* transform: translate(-50%, -50%); */
   max-width: 100%;
-  max-height: 80%;
-  /* border: #e1ff00 solid 5px; */
-  
+  max-height: 80%;  
 }
 
 img{

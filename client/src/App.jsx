@@ -8,7 +8,7 @@ import {Tiempo} from "./tiempo"
 import Bienvenida from './components/Bienvenida_page/pag_welcome';
 import Noticias from "./noticias"
 import Pag_404 from './404';
-import About from './components/about/about';
+import About from './about';
 
 function Rutas() {
   return (

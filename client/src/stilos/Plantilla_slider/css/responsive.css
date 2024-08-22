@@ -1,4 +1,4 @@
-@media (max-width: 1100px) {
+@media (max-width: 1000px) {
   .custom_nav-container .nav_search-btn {
     background-position: center;
   }
@@ -39,11 +39,6 @@
     transform: scale(1.7);
   }
 
-
-  /* .hero_area {
-    min-height: 78vh;
-  } */
-
   .min-height-78vh {
     min-height: 78vh;
   }
@@ -69,15 +64,9 @@
 }
 
 @media (max-width: 768px) {
-
-
-
-
   .slider_section .carousel_btn-container {
     display: none;
   }
-
-
 
   .slider_section ol.carousel-indicators {
     margin: 0;
