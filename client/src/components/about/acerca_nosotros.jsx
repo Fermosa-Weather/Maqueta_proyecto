@@ -1,6 +1,5 @@
 import React from 'react';
 import '../../../src/stilos/about.css'; // Asegúrate de crear e incluir estilos CSS adecuados
-import { NavBar } from '../Navbar/navBar';
 
 const Acerca_nosotros = () => {
 

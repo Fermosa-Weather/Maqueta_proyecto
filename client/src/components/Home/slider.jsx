@@ -1,55 +1,71 @@
-import React,{useEffect} from "react";
-import "../../stilos/Plantilla_slider/css/bootstrap.css"
-import "../../stilos/Plantilla_slider/css/style.css"
-import "../../stilos/Plantilla_slider/css/responsive.css"
+import { useState, useEffect } from 'react';
+import "../../../src/stilos/Plantilla_slider2/css/style2.css";
+import "../../stilos/Plantilla_slider2/css/bootstrap2.css";
+import "../../stilos/Plantilla_slider2/css/responsive2.css";
 
-export const Slider = () => {
+export function Slider() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
+    '../../../src/stilos/Plantilla_slider2/images/clima.jpg',
+    '../../../src/stilos/Plantilla_slider2/images/robot.avif',
+    '../../../src/stilos/Plantilla_slider2/images/estadistica.jpg',
+    '../../../src/stilos/Plantilla_slider2/images/estacion.jpg',
+    '../../../src/stilos/Plantilla_slider2/images/Noticias.jpg',
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) =>
+        prevSlide === slides.length - 1 ? 0 : prevSlide + 1
+      );
+    }, 3000); // Cambiar de imagen cada 3 segundos
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  const prevSlide = () => {
+    setCurrentSlide((prevSlide) =>
+      prevSlide === 0 ? slides.length - 1 : prevSlide - 1
+    );
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prevSlide) =>
+      prevSlide === slides.length - 1 ? 0 : prevSlide + 1
+    );
+  };
 
   return (
-    <div className="hero_area">
-    <header className="header_section">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-8">
-            <nav className="navbar navbar-expand-lg custom_nav-container ">
-              <a className="navbar-brand" href="index.html">
-                <span>BigWing</span>
-              </a>
-              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
+    <div className="contenedor_slider">
+      <section className="slider_section position-relative">
+        <div className="slider_bg-container"></div>
+        <div className="slider-container">
+          <div className="detail-box">
+          <a className="carousel-control-prev" onClick={prevSlide} role="button">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="sr-only">Previous</span>
+</a>
+<a className="carousel-control-next" onClick={nextSlide} role="button">
+  <span className="carousel-control-next-icon" aria-hidden="true"></span>
+  <span className="sr-only">Next</span>
+</a>
 
-              <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <div className="d-flex flex-column flex-lg-row align-items-center">
-                  <ul className="navbar-nav">
-                    <li className="nav-item active">
-                      <a className="nav-link" href="home.html">Home <span className="sr-only">(current)</span></a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="home.html">About</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="home.html">Services</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="home.html">Contact</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">Login</a>
-                    </li>
-                  </ul>
-                  <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                    <button className="btn my-2 my-sm-0 nav_search-btn" type="submit"></button>
-                  </form>
-                </div>
-              </div>
-            </nav>
+            <h1>Descubre Nuestra Plataforma Meteorológica Avanzada  </h1>
+            <p>
+            Nuestro sistema proporciona información sobre el tiempo y el clima en la provincia de Formosa. Se recopilan datos de 10 estaciones meteorológicas ubicadas a lo largo de la provincia. La aplicación cuenta con dashboards, mapas de las estaciones, un modelo de predicción con inteligencia artificial, y noticias sobre el clima en diferentes localidades. La aplicación mostrará datos como humedad, precipitaciones, calidad del aire, entre otros.
+            </p>
+            <div>
+              <a href="" className="slider-link">
+                CONTACT US
+              </a>
+            </div>
+          </div>
+          <div className="img-box">
+            <img src={slides[currentSlide]} alt="Slider" className="img-fluid" />
           </div>
         </div>
-      </div>
-    </header>
-
-  </div>
+      </section>
+    </div>
   );
-};
+}
 

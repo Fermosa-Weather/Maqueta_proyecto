@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link
 import "../../stilos/inicio.css"; 
+import {Slider} from './slider';
 
 const Landing_page = ({ searchTerm }) => {
   const features = [
@@ -42,7 +43,7 @@ const Landing_page = ({ searchTerm }) => {
 
   return (
     <div>
-
+      <Slider></Slider>
       <div className="ventana_clima">
         <h2>Tu Ventana al Clima Provincial</h2>
         <p>
