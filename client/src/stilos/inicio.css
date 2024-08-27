@@ -11,12 +11,13 @@ body {
 }
 
 #caracteristica{
-  background: linear-gradient(to right, #864ddf, #203376)
+  background: linear-gradient(to right, #864ddf, #203376);
+  transition: transform 0.3s ease-in-out; /* Transición suave */
 }
 
-/* #caracteristica:hover{
-
-} */
+#caracteristica:hover {
+  transform: scale(1.05); /* Agrandar el contenedor un 5% al hacer hover */
+}
 
 /* .home {
   display: flex;
