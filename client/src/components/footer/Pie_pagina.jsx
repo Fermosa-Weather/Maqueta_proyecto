@@ -1,125 +1,44 @@
-import React from 'react'
-import "../../stilos/footer.css"
+import { Link } from "react-router-dom"
 
-
-function Pie_pagina() {
+export default function Pie_pagina() {
   return (
-    <div className='footer_bg'>
-  {/* info section */}
-  <section className="info_section layout_padding2-bottom">
-    <div className="container">
-      <h3>BigWing</h3>
-    </div>
-    <div className="container info_content">
-      <div>
-        <div className="row">
-          <div className="col-md-6 col-lg-4">
-            <div className="d-flex">
-              <h5>Useful Link</h5>
-            </div>
-            <div className="d-flex">
-              <ul>
-                <li>
-                  <a href="">About Us</a>
-                </li>
-                <li>
-                  <a href="">About services</a>
-                </li>
-                <li>
-                  <a href="">About Departments</a>
-                </li>
-                <li>
-                  <a href="">Services</a>
-                </li>
-                <li>
-                  <a href="">Contact Us</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4">
-            <div className="d-flex">
-              <h5>The Services</h5>
-            </div>
-            <div className="d-flex">
-              <ul>
-                <li>
-                  <a href="">About Us</a>
-                </li>
-                <li>
-                  <a href="">About services</a>
-                </li>
-                <li>
-                  <a href="">About Departments</a>
-                </li>
-                <li>
-                  <a href="">Services</a>
-                </li>
-                <li>
-                  <a href="">Contact Us</a>
-                </li>
-              </ul>
-
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4">
-            <div className="d-flex">
-              <h5>Contact Us</h5>
-            </div>
-            <div className="d-flex">
-              <ul>
-                <li>
-                  <a href="">About Us</a>
-                </li>
-                <li>
-                  <a href="">About services</a>
-                </li>
-                <li>
-                  <a href="">About Departments</a>
-                </li>
-                <li>
-                  <a href="">Services</a>
-                </li>
-                <li>
-                  <a href="">Contact Us</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+    <footer className="bg-black text-white py-12 md:py-16">
+      <div className="container max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold">Weather App</h3>
+          <p className="text-base text-gray-400">
+            Get accurate and up-to-date weather information for your location.
+          </p>
+        </div>
+        <nav className="grid gap-4">
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
+            Home
+          </Link>
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
+            Weather
+          </Link>
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
+            About Us
+          </Link>
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
+            Contact
+          </Link>
+        </nav>
+        <nav className="grid gap-4">
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
+            Privacy Policy
+          </Link>
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
+            Terms of Service
+          </Link>
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
+            Support
+          </Link>
+        </nav>
+        <div className="flex items-center justify-start sm:justify-end">
+          <p className="text-base text-gray-400">&copy; 2024 Weather App. All rights reserved.</p>
         </div>
       </div>
-      {/* <div className="d-flex flex-column flex-lg-row justify-content-between align-items-center align-items-lg-baseline">
-        <div className="social-box">
-          <a href="">
-            <img src="../../../src/stilos/Plantilla_slider/images/fb.png" alt="Facebook" />
-          </a>
-          <a href="">
-            <img src="../../../src/stilos/Plantilla_slider/images/twitter.png" alt="Twitter" />
-          </a>
-          <a href="">
-            <img src="../../../src/stilos/Plantilla_slider/images/linkedin1.png" alt="LinkedIn" />
-          </a>
-          <a href="">
-            <img src="../../../src/stilos/Plantilla_slider/images/instagram1.png" alt="Instagram" />
-          </a>
-        </div>
-      </div> */}
-    </div>
-  </section>
-
-  {/* end info_section */}
-
-  {/* footer section */}
-  {/* <section className="container-fluid footer_section">
-    <p>
-      © 2024 todos los derechos reservados por
-      <a href="https://html.design/">Free Html Templates</a>
-    </p>
-  </section> */}
-  {/* footer section */}
-</div>
-
+    </footer>
   )
 }
-
-export default Pie_pagina

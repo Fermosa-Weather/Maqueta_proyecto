@@ -2,8 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link
 import "../../stilos/inicio.css"; 
 import {Slider} from './slider';
+import Ventana_clima from '../Info_estaciones/venta_clima';
+import Clima_manos from '../Info_estaciones/clima_manos';
+import Características_principales from '../Info_estaciones/caracteristica_principales';
 
 const Landing_page = ({ searchTerm }) => {
+  
   const features = [
     {
       title: "🗺️ Mapa Interactivo de Estaciones",
@@ -44,7 +48,10 @@ const Landing_page = ({ searchTerm }) => {
   return (
     <div>
       <Slider></Slider>
-      <div className="ventana_clima">
+      <Ventana_clima></Ventana_clima>
+      <Clima_manos></Clima_manos>
+      <Características_principales></Características_principales>
+      {/* <div className="ventana_clima">
         <h2>Tu Ventana al Clima Provincial</h2>
         <p>
           ¿Alguna vez te has preguntado cómo será el tiempo mañana en tu localidad? ¿O si deberías llevar paraguas al trabajo? La Red de Estaciones Meteorológicas de Formosa tiene la respuesta a todas tus preguntas sobre el clima.
@@ -77,9 +84,9 @@ const Landing_page = ({ searchTerm }) => {
             <p>Mantente informado sobre la calidad del aire en tu zona.</p>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="clima_en_tus_manos">
+      {/* <div className="clima_en_tus_manos">
         <div className="clima_manos">
           <h2>El Clima en Tus Manos</h2>
           <p>Con la aplicación de la Red Agrometeorologicas de Formosa, tendrás acceso a:</p>
@@ -97,9 +104,9 @@ const Landing_page = ({ searchTerm }) => {
         <div className="manos">
           <img src="../../../src/images/manos.jpg" alt="" />
         </div>
-      </div>
+      </div> */}
 
-      <div className="Características_principales">
+      {/* <div className="Características_principales">
         <h2>Características Principales</h2>
 
         <div className="features_principal">
@@ -117,7 +124,7 @@ const Landing_page = ({ searchTerm }) => {
             <p>No se encontraron características.</p>
           )}
         </div>
-      </div>
+      </div> */}
 
     </div>
   );

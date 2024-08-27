@@ -10,6 +10,14 @@ body {
   background-size: cover;
 }
 
+#caracteristica{
+  background: linear-gradient(to right, #864ddf, #203376)
+}
+
+/* #caracteristica:hover{
+
+} */
+
 /* .home {
   display: flex;
   align-items: center;
@@ -142,7 +150,8 @@ body {
   background-size: cover;
   min-height: 60vh;
   background-position: center;
-  background: url(../../../src/images/fondo3.avif);
+  /* background: url(../../../src/images/); */
+  background-color: mediumorchid;
 }
 
 .Características_principales h2{

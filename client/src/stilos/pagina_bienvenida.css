@@ -44,7 +44,13 @@
     background-position: center;
   }
   
-  .inicio .imagen img {
+  /* .inicio .imagen img {
+    width: 40vw;
+    min-width: 100px; 
+    animation: float 3s linear infinite;
+  } */
+
+  .inicio img {
     width: 40vw;
     min-width: 100px; 
     animation: float 3s linear infinite;
