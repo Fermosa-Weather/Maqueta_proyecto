@@ -106,7 +106,7 @@ export const NavBar = ({ onSearch }) => {
 
                         <li className="nav-item">
                           <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
-                          <img src="../../../src/images2/yuichi.jpg" alt="logo" className="foto_perfil" />
+                          <img src="../../../src/images2/fabi.jpg" alt="logo" className="foto_perfil" />
                           </a>
                         </li>
 

@@ -11,7 +11,7 @@ import About from './about';
 import Welcome from './components/Info_estaciones/bienvenida';
 import Perfil from './components/Info_estaciones/perfil_visibilidad';
 import Cambiar_cuenta from './components/Info_estaciones/Cambiar_cuenta';
-import Usuario from './components/Info_estaciones/usuario';
+import Editar_perfi from './components/Info_estaciones/Editar-perfil';
 import Soporte from './components/Info_estaciones/soporte';
 
 function Rutas() {
@@ -22,7 +22,7 @@ function Rutas() {
       <Route path="/home" element={<Home />} />
       <Route path="/configuracion_cuenta" element={<Perfil />} />
       <Route path="/cambiar_cuenta" element={<Cambiar_cuenta />} />
-      <Route path="/editar-perfil" element={<Usuario />} />
+      <Route path="/editar-perfil" element={<Editar_perfi />} />
       <Route path="/contacto" element={<Soporte />} />
       <Route path="/about" element={<About />} />
       <Route path="/Weather" element={<Tiempo />} />
