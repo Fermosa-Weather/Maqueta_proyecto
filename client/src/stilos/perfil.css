@@ -42,38 +42,36 @@
   cursor: pointer;
 }
 
-.label-class {
+
+.contenedor-form-editar-botones {
   display: flex;
-  align-items: center;
-  font-size: 14px; /* Tamaño del texto, ajústalo según sea necesario */
-  color: #4a5568; /* color: text-gray-700 */
-}
-
-.icon-class {
-  margin-right: 8px; /* Ajusta el espacio entre el ícono y el texto */
-  color: #6b7280; /* color: text-gray-500 */
-}
-
-.contenedor-form-editar-botones{
-  /* padding: 1px; */
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 1rem; /* Opcional: Espacio entre los botones */
+  margin: 0px auto;
 }
 
 .boton-form-editar-perfil {
-  background-color: #4e2071; /* Fondo morado */
+  background-color: #202c71; /* Fondo morado */
   color: #ffffff; /* Texto blanco */
   border: 2px solid #ffffff; /* Borde blanco */
-  padding: 0.5rem 1rem; /* Padding */
-  border-radius: 0.375rem; /* Border radius */
+  padding: 0.7rem 1rem; /* Padding */
+  border-radius: 150px; /* Bordes redondeados */
   cursor: pointer; /* Cursor pointer */
-  transition: background-color 0.3s, color 0.3s; /* Transición suave */
-  border-radius: 150px;
   transition: background-color 0.3s, color 0.3s, transform 0.3s; 
 }
 
 .boton-form-editar-perfil:hover {
-  color: #000000; /* Texto negro en hover */
-  /* border: 2px solid #000000; */
-  background-color: #ffffff;
+  color: #ffffff; /* Texto blanco en hover */
+  background-color: #0fae4e; /* Fondo verde en hover */
   font-size: medium;
   transform: scale(1.1); /* Agranda el botón */
+}
+
+.input-editar{
+  border-radius: 50px;
+}
+
+.input-editar:hover{
+  background-color: #c5c5c5;
+  color: #000000; /* Texto blanco en hover */
 }
