@@ -8,42 +8,42 @@ import Características_principales from '../Info_estaciones/caracteristica_prin
 
 const Landing_page = ({ searchTerm }) => {
   
-  const features = [
-    {
-      title: "🗺️ Mapa Interactivo de Estaciones",
-      image: "../../../src/images/Mapa_formosa.jpg",
-      description: "Explora la ubicación de nuestras 10 estaciones meteorológicas. Haz clic en cada una para obtener información detallada sobre su ubicación y los datos que recopila.",
-      link: "/mapa"  
-    },
-    {
-      title: "🤖 Predicción con Inteligencia Artificial",
-      image: "../../../src/images/IA.avif",
-      description: "Nuestro modelo de IA analiza patrones climáticos históricos para ofrecerte predicciones precisas. ¡Planifica tus actividades con confianza!",
-      link: "/modelo_prediccion"  // Internal link
-    },
-    {
-      title: "📰 Noticias Climáticas Locales",
-      image: "../../../src/images/Noticas_animado.jpg",
-      description: "Mantente informado sobre eventos climáticos importantes en tu localidad. Desde alertas por tormentas hasta consejos para días calurosos, te mantenemos al día con información relevante.",
-      link: "/noticias"  // Internal link
-    },
-    {
-      title: "📊 Dashboards Intuitivos y faciles de usar",
-      image: "../../../src/images/Grafico_estadistico_animado.jpg",
-      description: "Visualiza los datos meteorológicos de forma clara y sencilla. Nuestros dashboards te permiten entender el clima de un vistazo.",
-      link: "/dashboards" 
-    },
-    {
-      title: "📡 Información Detallada de las Estaciones",
-      image: "../../../src/images/panel.jpg",
-      description: "Accede a datos meteorológicos precisos obtenidos de nuestras 10 estaciones. Mantente informado con la información más actualizada y relevante.",
-      link: "/estaciones" 
-    }
-  ];
+  // const features = [
+  //   {
+  //     title: "🗺️ Mapa Interactivo de Estaciones",
+  //     image: "../../../src/images/Mapa_formosa.jpg",
+  //     description: "Explora la ubicación de nuestras 10 estaciones meteorológicas. Haz clic en cada una para obtener información detallada sobre su ubicación y los datos que recopila.",
+  //     link: "/mapa"  
+  //   },
+  //   {
+  //     title: "🤖 Predicción con Inteligencia Artificial",
+  //     image: "../../../src/images/IA.avif",
+  //     description: "Nuestro modelo de IA analiza patrones climáticos históricos para ofrecerte predicciones precisas. ¡Planifica tus actividades con confianza!",
+  //     link: "/modelo_prediccion"  // Internal link
+  //   },
+  //   {
+  //     title: "📰 Noticias Climáticas Locales",
+  //     image: "../../../src/images/Noticas_animado.jpg",
+  //     description: "Mantente informado sobre eventos climáticos importantes en tu localidad. Desde alertas por tormentas hasta consejos para días calurosos, te mantenemos al día con información relevante.",
+  //     link: "/noticias"  // Internal link
+  //   },
+  //   {
+  //     title: "📊 Dashboards Intuitivos y faciles de usar",
+  //     image: "../../../src/images/Grafico_estadistico_animado.jpg",
+  //     description: "Visualiza los datos meteorológicos de forma clara y sencilla. Nuestros dashboards te permiten entender el clima de un vistazo.",
+  //     link: "/dashboards" 
+  //   },
+  //   {
+  //     title: "📡 Información Detallada de las Estaciones",
+  //     image: "../../../src/images/panel.jpg",
+  //     description: "Accede a datos meteorológicos precisos obtenidos de nuestras 10 estaciones. Mantente informado con la información más actualizada y relevante.",
+  //     link: "/estaciones" 
+  //   }
+  // ];
 
-  const filteredFeatures = features.filter(feature =>
-    feature.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredFeatures = features.filter(feature =>
+  //   feature.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <div>

@@ -21,6 +21,21 @@ body, html {
   object-fit: contain;
 }
 
+/* .foto_perfil {
+  max-width: 65px; 
+  height: 100%;
+  object-fit: contain;
+} */
+
+.foto_perfil {
+  max-width: 55px; 
+  object-fit: cover; /* Esto asegura que la imagen cubra todo el contenedor */
+  border-radius: 50%; /* Hace que los bordes sean circulares */
+  overflow: hidden; /* Esconde cualquier parte de la imagen que se salga del contenedor */
+  width: 50px; /* Define un ancho fijo */
+  height: 50px; 
+}
+
 /*header section*/
 .header_section {
   position: relative;

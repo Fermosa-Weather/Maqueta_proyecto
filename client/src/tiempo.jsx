@@ -12,10 +12,10 @@ export function Tiempo() {
   return (
       <div style={{ backgroundColor: '#34495e'}} className='fondo'>
         <Nav></Nav>
-        <Layout>
+        {/* <Layout>
           <Estaciones>
           </Estaciones>
-        </Layout>
+        </Layout> */}
         <Tiempo_map></Tiempo_map>
         <WeatherForecast /> 
         <Tiempo_contenedor></Tiempo_contenedor>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
+import Perfil_modal from "../Info_estaciones/modal_perfil";
 import { Visibilidad_nav } from './visibilidad_nav';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
@@ -11,10 +12,23 @@ export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
   const [searchTerm, setSearchTerm] = useState('');
 
+//buscador
+
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
     onSearch(term);
+  };
+
+  //modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -27,9 +41,8 @@ export const NavBar = ({ onSearch }) => {
 
               <a className="navbar-brand" href="index.html">
                   <img src="../../../src/images/logo.png" alt="logo" className="logo"/>
-                   
-                </a>
-                
+              </a>
+
                 <button
                   className="navbar-toggler"
                   type="button"
@@ -90,8 +103,16 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-person"></i> Cuenta
                           </Link>
                         </li>
+
+                        <li className="nav-item">
+                          <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
+                          <img src="../../../src/images2/yuichi.jpg" alt="logo" className="foto_perfil" />
+                          </a>
+                        </li>
+
+                        {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
-                       
+                  
                       </ul>
                     </div>
                   </div>

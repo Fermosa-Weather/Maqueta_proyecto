@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Caracteristicas_principales() {
     return (
       <div className="bg-white dark:bg-[#1a1a1a] text-black dark:text-white">
@@ -11,6 +13,7 @@ export default function Caracteristicas_principales() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Link to="/estaciones">              
             <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
               <h3 className="text-2xl font-bold p-6 text-white">📡 Información Detallada de las Estaciones</h3>
               <img
@@ -27,7 +30,9 @@ export default function Caracteristicas_principales() {
                 </p>
               </div>
             </div>
-  
+            </Link>
+
+            <Link to="/noticias">              
             <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
               <h3 className="text-2xl font-bold p-6 text-white">📰 Noticias Climáticas Locales</h3>
               <img
@@ -37,14 +42,16 @@ export default function Caracteristicas_principales() {
                 height="240"
                 className="w-full h-60 object-cover"
                 style={{ aspectRatio: "400/240", objectFit: "cover" }}
-              />
+                />
               <div className="p-6 space-y-4">
                 <p className="text-white">
                 Mantente informado sobre eventos climáticos importantes en tu localidad. Desde alertas por tormentas hasta consejos para días calurosos, te mantenemos al día con información relevante.
                 </p>
               </div>
             </div>
+            </Link>
   
+            <Link to="/mapa">              
             <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
               <h3 className="text-2xl font-bold p-6 text-white">🗺️ Mapa Interactivo de Estaciones</h3>
               <img
@@ -61,7 +68,9 @@ export default function Caracteristicas_principales() {
                 </p>
               </div>
             </div>
+            </Link>
   
+            <Link to="/modelo_prediccion">              
             <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
               <h3 className="text-2xl font-bold p-6 text-white">🤖 Predicción con Inteligencia Artificial</h3>
               <img
@@ -71,14 +80,16 @@ export default function Caracteristicas_principales() {
                 height="240"
                 className="w-full h-60 object-cover"
                 style={{ aspectRatio: "400/240", objectFit: "cover" }}
-              />
+                />
               <div className="p-6 space-y-4">
                 <p className="text-white">
                 Nuestro modelo de IA analiza patrones climáticos históricos para ofrecerte predicciones precisas.
                 </p>
               </div>
             </div>
+            </Link>
   
+            <Link to="/estadistica">              
             <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
               <h3 className="text-2xl font-bold p-6 text-white">📊 Dashboards Intuitivos y faciles de usar</h3>
               <img
@@ -88,13 +99,34 @@ export default function Caracteristicas_principales() {
                 height="240"
                 className="w-full h-60 object-cover"
                 style={{ aspectRatio: "400/240", objectFit: "cover" }}
-              />
+                />
               <div className="p-6 space-y-4">
                 <p className="text-white">
                 Visualiza los datos meteorológicos de forma clara y sencilla. Nuestros dashboards te permiten entender el clima de un vistazo.
                 </p>
               </div>
             </div>
+            </Link>
+
+            <Link to="/Weather">            
+            <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
+              <h3 className="text-2xl font-bold p-6 text-white"> ☀️Mostrar los datos del clima generales y especificos</h3>
+              <img
+                src="../../../src/images/wheter_animado.avif"
+                alt="Característica 6"
+                width="400"
+                height="240"
+                className="w-full h-60 object-cover"
+                style={{ aspectRatio: "400/240", objectFit: "cover" }}
+                />
+              <div className="p-6 space-y-4">
+                <p className="text-white">
+                Visualiza los datos meteorológicos de forma clara y sencilla. Nuestros dashboards te permiten entender el clima de un vistazo.
+                </p>
+              </div>
+            </div>
+            </Link>
+
           </div>
         </main>
       </div>
