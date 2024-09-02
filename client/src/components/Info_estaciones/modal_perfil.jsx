@@ -48,7 +48,7 @@ export default function Perfil_modal({ onClose }) {
               <span>Configuración de la cuenta</span>
             </li>
             </Link>
-            <li className="flex items-center space-x-3 hover:bg-[#4a00a6] p-2 rounded-md cursor-pointer">
+            <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
               <FaMoon className="w-5 h-5" /> {/* Tema */}
               <span  className="no-underline">Cambiar Tema</span>
             </li>
