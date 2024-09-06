@@ -1,10 +1,5 @@
 import "../../stilos/main.css";
 
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/N9LGh6IgXL8
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 export default function Ventana_clima() {
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">

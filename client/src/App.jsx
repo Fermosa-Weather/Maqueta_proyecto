@@ -8,11 +8,12 @@ import {Tiempo} from "./tiempo"
 import Noticias from "./noticias"
 import Pag_404 from './404';
 import About from './about';
-import Welcome from './components/Info_estaciones/bienvenida';
-import Perfil from './components/Info_estaciones/perfil_visibilidad';
-import Cambiar_cuenta from './components/Info_estaciones/Cambiar_cuenta';
-import Editar_perfi from './components/Info_estaciones/Editar-perfil';
-import Soporte from './components/Info_estaciones/soporte';
+import Welcome from './components/Bienvenida_page/bienvenida';
+import Perfil from './components/perfil/perfil_visibilidad';
+import Cambiar_cuenta from './components/cuenta/Cambiar_cuenta';
+import Editar_perfi from './components/perfil/Editar-perfil';
+import Soporte from './components/soporte/soporte';
+import Estaciones from './components/Info_estaciones/info_estaciones';
 
 function Rutas() {
   return (
@@ -29,6 +30,7 @@ function Rutas() {
       <Route path="/mapa" element={<Mapa />} />
       <Route path="/modelo_prediccion" element={<Modelo_predicion />} />   
       <Route path="/noticias" element={<Noticias />} /> 
+      <Route path="/estaciones" element={<Estaciones />} />
       <Route path="*" element={<Pag_404/ >} />   
       </Routes>
     </Router>

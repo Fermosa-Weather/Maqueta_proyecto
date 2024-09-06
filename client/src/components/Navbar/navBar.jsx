@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import Perfil_modal from "../Info_estaciones/modal_perfil";
+import Perfil_modal from "../perfil/modal_perfil";
 import { Visibilidad_nav } from './visibilidad_nav';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
@@ -106,7 +106,7 @@ export const NavBar = ({ onSearch }) => {
 
                         <li className="nav-item">
                           <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
-                          <img src="../../../src/images2/fabi.jpg" alt="logo" className="foto_perfil" />
+                          <img src="../../../src/images2/yuichi.jpg" alt="logo" className="foto_perfil" />
                           </a>
                         </li>
 
