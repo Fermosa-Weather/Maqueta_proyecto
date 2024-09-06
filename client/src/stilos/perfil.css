@@ -110,8 +110,8 @@
 .contedor-añadir-img img {
   width: 100%; /* Ajusta el tamaño de la imagen para que ocupe todo el contenedor */
   height: 100%; /* Ajusta el tamaño de la imagen para que ocupe todo el contenedor */
-  object-fit: cover; /* Asegura que la imagen cubra todo el contenedor sin distorsión */
-  border-radius: 50%; /* Redondea la imagen si es necesario */
+  object-fit: cover; 
+  border-radius: 50%; 
 }
 
 .contenedor-form-añadir-foto-botones {
@@ -122,13 +122,14 @@
 
 .boton-form-añadir-foto {
   margin: 50px 0px 0px 0px;
-  background-color: #b6bcdf; /* Fondo morado */
+  background-color: #ffffff; /* Fondo morado */
   color: #000000; /* Texto blanco */
   border: 2px solid #ffffff; /* Borde blanco */
   padding: 0.7rem 0.5rem; /* Padding */
   border-radius: 150px; /* Bordes redondeados */
   cursor: pointer; /* Cursor pointer */
   transition: background-color 0.3s, color 0.3s, transform 0.3s; 
+  border: 1px solid #000000;
 }
 
 .boton-form-añadir-foto:hover {
