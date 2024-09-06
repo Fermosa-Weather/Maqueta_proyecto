@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --verde: #0c443a;
+  --limon: #25d1b2;
+  --degradado: linear-gradient(90deg, var(--limon), var(--verde));
+}
+
+section {
+  min-height: 100vh;
+  padding: 0 8%;
+  padding-top: 7.5rem;
+  padding-bottom: 2rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--degradado);
+  font-size: 1rem;
+  color: aliceblue;
+  cursor: pointer;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transition: all 0.3s linear;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  text-decoration: none;
+}
+
+.inicio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(../images/fondo2.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.inicio img {
+  width: 30vw; /* Ajusta el ancho al 40% del contenedor padre */
+  min-width: 100px; /* Ancho mínimo de la imagen */
+  max-width: 100%; /* Asegura que la imagen no se expanda más allá del contenedor */
+  height: auto; /* Mantiene la proporción de aspecto de la imagen */
+  margin-left: 300px; /* Empuja la imagen hacia la derecha si hay espacio disponible */
+  margin-right: 0; /* Elimina el margen derecho */
+}
+
+
+.inicio .content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea el contenido a la izquierda */
+}
+
+.inicio .content h3 {
+  font-size: 3.5rem;
+  color: black;
+  text-transform: uppercase;
+}
+
+.inicio .content span {
+  font-size: 3.5rem;
+  color: darkcyan;
+  text-transform: uppercase;
+}
+
+.inicio .content p {
+  margin-top: 5px;
+  color: #060606;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .inicio {
+    flex-flow: column;
+  }
+
+  .inicio .content {
+    width: 100%;
+  }
+
+  .inicio .imagen {
+    width: 100%;
+    margin-top: 80px;
+  }
+
+  .inicio .imagen img {
+    width: 300px;
+  }
+
+  .inicio .content h3 {
+    font-size: 2.8rem;
+  }
+
+  .inicio .content span {
+    font-size: 2.8rem;
+  }
+
+  .inicio .content p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 368px) {
+  .inicio .content h3 {
+    font-size: 1.9rem;
+    color: black;
+    text-transform: uppercase;
+  }
+
+  .inicio .content h3 {
+    font-size: 1.5rem;
+  }
+
+  .inicio .content span {
+    font-size: 1.5rem;
+  }
+
+  .inicio .content p {
+    font-size: 0.7rem;
+  }
+
+  .inicio .imagen img {
+    width: 100%;
+  }
+}
+
+.container-text {
+  width: 70%;           /* Ajusta el ancho al 70% del contenedor padre */
+  max-width: 800px;     /* Ancho máximo de 800px */
+  min-width: 300px;     /* Ancho mínimo de 300px */
+  height: auto;         /* Altura automática ajustada al contenido */
+  max-height: 600px;    /* Altura máxima de 600px */
+  min-height: 200px;    /* Altura mínima de 200px */
+  margin: 0 auto;       /* Centra el contenedor horizontalmente */
+  padding: 20px;        /* Espacio interior del contenedor */
+  text-align: justify;  /* Justifica el texto dentro del contenedor */
+  box-sizing: border-box; /* Incluye padding y border en el tamaño total del contenedor */
+}
+
+.container-text h1 {
+  font-size: 4rem;          /* Tamaño de fuente */
+  font-weight: bold;        /* Peso de la fuente */
+  text-align: center;       /* Centra el texto */
+  line-height: 1.2;         /* Ajusta el espacio entre líneas */
+  letter-spacing: normal;   /* Espaciado normal entre letras */
+  margin-bottom: 1rem;      /* Espacio inferior */
+}
