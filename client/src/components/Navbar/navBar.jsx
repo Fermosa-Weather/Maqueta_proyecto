@@ -73,11 +73,11 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-person"></i> About
                           </Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                           <Link className="nav-link" to="/contacto">
                             <i className="bi bi-envelope"></i> Contacto
                           </Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                           <Link className="nav-link" to="/Weather">
                             <i className="bi bi-cloud-sun"></i> Weather

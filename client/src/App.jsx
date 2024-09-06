@@ -24,8 +24,8 @@ function Rutas() {
       <Route path="/configuracion_cuenta" element={<Perfil />} />
       <Route path="/cambiar_cuenta" element={<Cambiar_cuenta />} />
       <Route path="/editar-perfil" element={<Editar_perfi />} />
-      <Route path="/contacto" element={<Soporte />} />
       <Route path="/about" element={<About />} />
+      <Route path="/contacto" element={<Soporte />} />
       <Route path="/Weather" element={<Tiempo />} />
       <Route path="/mapa" element={<Mapa />} />
       <Route path="/modelo_prediccion" element={<Modelo_predicion />} />   
