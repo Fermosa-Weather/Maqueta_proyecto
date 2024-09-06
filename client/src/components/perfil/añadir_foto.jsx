@@ -24,6 +24,26 @@ export default function Añadir_foto_modal({ onClose }) {
     fileInputRef.current.click(); // Simula un clic en el input de archivo
   };
 
+  //subir imagen arrastrando
+
+  const handleDragOver = (e) => {
+    e.preventDefault(); // Necesario para permitir el drop
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
@@ -35,7 +55,9 @@ export default function Añadir_foto_modal({ onClose }) {
       >
         <div className="flex flex-col items-center">
           <h2 className="text-xl text-dark font-semibold">Añade tu foto de perfil</h2>
-          <div className="contedor-añadir-img">
+          <div className="contedor-añadir-img" 
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}>
             <img
               src={selectedImage || "../../../src/images2/arrastra.jpg"}
               alt="Profile"
@@ -52,7 +74,7 @@ export default function Añadir_foto_modal({ onClose }) {
           <button className="boton-form-añadir-foto" onClick={onClose}>
             Cancelar
           </button>
-          <button className="boton-form-añadir-foto" onClick={handleButtonClick}>
+          <button className="boton-form-añadir-foto" >
             Cargar
           </button>
           <input
