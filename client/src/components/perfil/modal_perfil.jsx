@@ -16,6 +16,8 @@ export default function Perfil_modal({ onClose }) {
 >
       <div
         className="max-w-xs mx-auto bg-[#6a0dad] text-white p-6 rounded-lg relative"
+        // #6a0dad
+        // #0224e6
         onClick={handleContentClick} // Detiene la propagación del evento de clic
       >
         <button className="absolute top-4 right-4 text-white" onClick={onClose}>

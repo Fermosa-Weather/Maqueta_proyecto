@@ -1,5 +1,13 @@
 /* Perfil.css */
 
+/* añadir cuenta */
+.contenedor-añadir-cuenta{
+  margin: 130px 0px ;
+  width: 350px;
+  border: 2px solid black;
+  background-color: #0224e6;
+}
+
 /* visibilidad perfil */
 .boton-editar-perfil {
     background-color: #4e2071; /* Fondo morado */
