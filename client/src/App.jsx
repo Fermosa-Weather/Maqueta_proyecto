@@ -14,6 +14,8 @@ import Cambiar_cuenta from './components/cuenta/Cambiar_cuenta';
 import Editar_perfi from './components/perfil/Editar-perfil';
 import Soporte from './components/soporte/soporte';
 import Estaciones from './components/Info_estaciones/info_estaciones';
+import Login from './components/cuenta/Login';
+import Register from './components/cuenta/Register';
 
 function Rutas() {
   return (
@@ -21,6 +23,8 @@ function Rutas() {
       <Routes>
       <Route path="/" element={<Welcome />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/cuenta" element={<Login />} />
+      <Route path="/registro" element={<Register />} /> 
       <Route path="/configuracion_cuenta" element={<Perfil />} />
       <Route path="/cambiar_cuenta" element={<Cambiar_cuenta />} />
       <Route path="/editar-perfil" element={<Editar_perfi />} />
