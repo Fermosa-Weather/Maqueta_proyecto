@@ -2,7 +2,8 @@
 export default {
   content: [ 
     // "./src/**/*.{js,jsx,ts,tsx}",  
-    "./src/components/Info_estaciones/**/*.{js,jsx,ts,tsx}"
+    "./src/components/Info_estaciones/**/*.{js,jsx,ts,tsx}",
+    "./src/components/perfil/**/*.{js,jsx,ts,tsx}"
   ],
   
   theme: {

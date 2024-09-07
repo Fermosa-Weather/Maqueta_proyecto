@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import Nav from './components/Navbar/Nav'
 import Noticia from "./components/Noticias/NewsWidget"
-import { NavBar } from './components/Navbar/navBar';
 
 
 function Noticias() {

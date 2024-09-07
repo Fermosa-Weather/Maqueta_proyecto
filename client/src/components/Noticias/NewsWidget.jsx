@@ -52,7 +52,11 @@ const NewsWidget = ({ searchTerm = '' }) => {
       <h2 className="news-title">Noticias sobre el Clima en Formosa</h2>
       <div className="news-grid">
         {filteredNews.map((item, index) => (
-          <div key={index} className="news-card">
+          <div
+            key={index}
+            className="news-card " // Agregando la clase cursor-pointer
+            onClick={() => handleShowModal(index)} // Permite abrir el modal al hacer clic
+          >
             {item.imageUrl && (
               <img src={item.imageUrl} alt={item.title} className="news-image" />
             )}
