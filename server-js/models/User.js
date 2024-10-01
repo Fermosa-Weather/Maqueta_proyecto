@@ -7,14 +7,14 @@ const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    trim: true, // Elimina espacios en blanco alrededor del nombre
+    trim: true, 
   },
   email: {
     type: String,
     required: true,
-    unique: true, // Asegura que el correo electrónico sea único
+    unique: true, 
     trim: true,
-    lowercase: true, // Convierte el correo electrónico a minúsculas
+    lowercase: true, 
   },
   password: {
     type: String,
@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now, // Fecha de creación por defecto
+    default: Date.now, 
   },
 });
 

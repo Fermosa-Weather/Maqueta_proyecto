@@ -51,7 +51,7 @@ def predict():
         return jsonify({'error': 'La fecha futura es requerida'}), 400
 
     try:
-        pd.to_datetime(future_date, format='%d-%m-%Y')  # Validar formato de fecha
+        pd.to_datetime(future_date, format='%d-%m-%Y')  
     except ValueError:
         return jsonify({'error': 'Formato de fecha incorrecto. Use DD-MM-YYYY'}), 400
 

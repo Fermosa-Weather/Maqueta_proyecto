@@ -24,12 +24,10 @@ export const NavBar = ({ onSearch }) => {
           <div className="row">
             <div className="col-lg-8">
               <nav className="navbar navbar-expand-lg custom_nav-container">
-
-              <a className="navbar-brand" href="index.html">
-                  <img src="../../../src/images/logo.png" alt="logo" className="logo"/>
-                   
+                <a className="navbar-brand" href="index.html">
+                  <img src="../../../src/images/logo.png" alt="logo" className="logo" />
                 </a>
-                
+
                 <button
                   className="navbar-toggler"
                   type="button"
@@ -46,12 +44,9 @@ export const NavBar = ({ onSearch }) => {
                 {isVisible && (
                   <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <div className="d-flex flex-column flex-lg-row align-items-center">
-
-                    <ul className="navbar-nav">
-
+                      <ul className="navbar-nav">
                         <li className="nav-item active">
                           <Link className="nav-link" to="/home">
-            
                             <i className="bi bi-house"></i> Home
                           </Link>
                         </li>
@@ -77,7 +72,7 @@ export const NavBar = ({ onSearch }) => {
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/modelo_prediccion">
-                            <i i className="bi bi-cpu "></i> Modelo
+                            <i className="bi bi-cpu"></i> Modelo
                           </Link>
                         </li>
                         <li className="nav-item">
@@ -90,8 +85,12 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-person"></i> Cuenta
                           </Link>
                         </li>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/info_estacion">
+                            <i className="bi bi-thermometer"></i> Info Estación {/* Ícono de termómetro */}
+                          </Link>
+                        </li>
                         <Search onSearch={handleSearch} />
-                       
                       </ul>
                     </div>
                   </div>

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import axios from '../../api/axiosInstance'; // Ajusta la ruta según la ubicación de tu archivo
+import axios from '../../api/axiosInstance'; // Asegúrate que axiosInstance esté bien configurado
 import { LockIcon, MailIcon, UserIcon } from 'lucide-react';
-import '../../stilos/register.css'; // Ajusta la ruta según la ubicación de tu archivo CSS
-import { toast } from 'react-toastify'; // Importa toast desde react-toastify
-import 'react-toastify/dist/ReactToastify.css'; // Importa el CSS para las notificaciones
+import '../../stilos/register.css'; 
+import { toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate para redirigir después del registro
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function RegisterPage() {
   });
 
   const { name, email, password, confirmPassword } = formData;
+  const navigate = useNavigate(); // Hook para redirigir
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -25,14 +27,15 @@ export default function RegisterPage() {
 
     // Validar si las contraseñas coinciden
     if (password !== confirmPassword) {
-      toast.error('Las contraseñas no coinciden'); // Mostrar error
+      toast.error('Las contraseñas no coinciden');
       return;
     }
 
     try {
       // Enviar los datos del formulario al backend
       const response = await axios.post('/auth/register', formData);
-      toast.success('Usuario registrado con éxito'); // Mostrar éxito
+      toast.success('Usuario registrado con éxito');
+      
       // Limpiar el formulario
       setFormData({
         name: '',
@@ -40,8 +43,11 @@ export default function RegisterPage() {
         password: '',
         confirmPassword: '',
       });
+
+      // Redirigir al login después del registro exitoso
+      navigate('/cuenta'); // Ruta para el componente LoginPage
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Error al registrar'); // Mostrar error
+      toast.error(err.response?.data?.message || 'Error al registrar');
     }
   };
 
@@ -131,7 +137,7 @@ export default function RegisterPage() {
         <footer className="px-6 py-3 bg-gray-50 border-t border-gray-100 rounded-b-lg">
           <p className="text-center text-sm text-gray-600">
             ¿Ya tienes una cuenta?{' '}
-            <a href="/cuenta" className="font-medium text-purple-600 hover:text-purple-500">
+            <a href="/login" className="font-medium text-purple-600 hover:text-purple-500">
               Iniciar Sesión
             </a>
           </p>

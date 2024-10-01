@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { LockIcon, MailIcon } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom'; // Importar Link y useNavigate para navegación
-import axios from '../../api/axiosInstance'; // Ajusta la ruta según la ubicación de tu archivo
-import '../../../src/stilos/login.css'; // Ajusta la ruta según la ubicación de tu archivo CSS
+import { Link, useNavigate } from 'react-router-dom'; 
+import axios from '../../api/axiosInstance'; 
+import '../../../src/stilos/login.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // Hook para redirección
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,7 +17,7 @@ export default function LoginPage() {
 
     try {
       // Enviar una solicitud POST al backend con las credenciales del usuario
-      const response = await axios.post('/api/auth/login', {
+      const response = await axios.post('/auth/login', {
         email,
         password,
       });
@@ -26,8 +26,9 @@ export default function LoginPage() {
       localStorage.setItem('token', response.data.token);
 
       // Redirige o realiza otras acciones después de un inicio de sesión exitoso
-      navigate('/'); // Redirige a la página principal usando useNavigate
+      navigate('/info_estacion'); 
     } catch (error) {
+      console.error('Error en el inicio de sesión:', error);
       setMessage(error.response?.data.error || 'Error en el inicio de sesión');
     } finally {
       setLoading(false);

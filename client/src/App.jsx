@@ -11,6 +11,7 @@ import About from './about';
 import Welcome from './components/Info_estaciones/bienvenida';
 import Login from './components/Login/login.jsx';
 import RegisterPage from './components/Register/register.jsx'; // Importa el componente de registro
+import Estaciones from './components/Info_estaciones/estaciones.jsx'; // Importa el componente Estaciones
 
 function Rutas() {
   return (
@@ -25,6 +26,7 @@ function Rutas() {
         <Route path="/noticias" element={<Noticias />} />
         <Route path="/cuenta" element={<Login />} /> {/* Ruta para Login */}
         <Route path="/registro" element={<RegisterPage />} /> {/* Ruta para Registro */}
+        <Route path="/info_estacion" element={<Estaciones />} /> {/* Ruta para Info Estaciones */}
         <Route path="*" element={<Pag_404 />} />
       </Routes>
     </Router>

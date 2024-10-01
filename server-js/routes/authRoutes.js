@@ -1,6 +1,6 @@
 import express from 'express';
 import { register, login } from '../controllers/authcontroller.js';
-import { check } from 'express-validator'; // Importa para la validación
+import { check } from 'express-validator'; 
 
 const router = express.Router();
 
@@ -14,7 +14,6 @@ router.post(
   ],
   register
 );
-
 // Ruta para el inicio de sesión de usuarios
 router.post(
   '/login',
