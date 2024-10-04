@@ -16,6 +16,7 @@ import Soporte from './components/soporte/soporte';
 import Estaciones from './components/Info_estaciones/info_estaciones';
 import Login from './components/cuenta/Login';
 import Register from './components/cuenta/Register';
+import { News } from './components/Noticias/Noticias';
 
 function Rutas() {
   return (
@@ -33,7 +34,8 @@ function Rutas() {
       <Route path="/Weather" element={<Tiempo />} />
       <Route path="/mapa" element={<Mapa />} />
       <Route path="/modelo_prediccion" element={<Modelo_predicion />} />   
-      <Route path="/noticias" element={<Noticias />} /> 
+      <Route path="/n" element={<Noticias />} /> 
+      <Route path="/noticias" element={<News />} /> 
       <Route path="/estaciones" element={<Estaciones />} />
       <Route path="*" element={<Pag_404/ >} />   
       </Routes>
