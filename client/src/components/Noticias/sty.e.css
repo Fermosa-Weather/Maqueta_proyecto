@@ -1,0 +1,12 @@
+.news-card {
+    width: 100%; /* Ajusta según tu diseño */
+    max-width: 400px; /* O el tamaño que prefieras */
+    overflow: hidden; /* Para evitar que las imágenes se salgan del contenedor */
+    margin: 1rem; /* Espaciado entre las tarjetas */
+  }
+  
+  .news-image {
+    width: 100%; /* La imagen tomará el ancho completo del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+  }
+  
