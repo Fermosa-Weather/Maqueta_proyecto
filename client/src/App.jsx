@@ -34,8 +34,8 @@ function Rutas() {
       <Route path="/Weather" element={<Tiempo />} />
       <Route path="/mapa" element={<Mapa />} />
       <Route path="/modelo_prediccion" element={<Modelo_predicion />} />   
-      <Route path="/n" element={<Noticias />} /> 
-      <Route path="/noticias" element={<News />} /> 
+      <Route path="/noticias" element={<Noticias />} /> 
+      <Route path="/n" element={<News />} /> 
       <Route path="/estaciones" element={<Estaciones />} />
       <Route path="*" element={<Pag_404/ >} />   
       </Routes>

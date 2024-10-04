@@ -1,51 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Comentario from '../comentarios/comentario';
-import lasLomitasImage from '../../images2/laslomitas.jpg';
-import capitalImage from '../../images2/ciudadformosa.jfif';
-import alertaRafagasImage from '../../images2/clorinda.jpg';
-import herraduraImage from '../../images2/herradura.jpg';
 import '../../../src/stilos/NewsWidget.css';
 
-const newsData = [
-  {
-    title: "Se esperan lluvias intensas en Las Lomitas",
-    description: "Para este fin de semana se pronostican lluvias fuertes en Las Lomitas.",
-    imageUrl: lasLomitasImage,
-    category: "Lluvia"
-  },
-  {
-    title: "En la capital formoseña el clima seguirá frío para los próximos días",
-    description: "Se prevén bajas temperaturas durante los próximos días en la ciudad.",
-    imageUrl: capitalImage,
-    category: "Frío"
-  },
-  {
-    title: "Alerta por ráfagas de viento en Clorinda",
-    description: "Se emite alerta por ráfagas de viento en Clorinda y sus alrededores.",
-    imageUrl: alertaRafagasImage,
-    category: "Viento"
-  },
-  {
-    title: "Fuerte granizada sorprende a Herradura",
-    description: "Los habitantes de Herradura se sorprendieron esta mañana con una fuerte granizada que cubrió las calles de blanco.",
-    imageUrl: herraduraImage,
-    category: "Granizo"
-  },
-];
-
 const NewsWidget = ({ searchTerm = '' }) => {
+  const [articles, setArticles] = useState([]); // Noticias de la API
   const [showModal, setShowModal] = useState(false);
   const [currentNewsIndex, setCurrentNewsIndex] = useState(null);
+
+  useEffect(() => {
+    // Obtener noticias desde la API
+    fetch('http://127.0.0.1:5000/api/news')
+      .then(response => response.json())
+      .then(data => {
+        setArticles(data);
+      })
+      .catch(error => {
+        console.error('Error al obtener los artículos:', error);
+      });
+  }, []);
+
+  // Filtrar las noticias obtenidas de la API
+  const filteredNews = articles.filter(news =>
+    news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    news.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleShowModal = (index) => {
     setCurrentNewsIndex(index);
     setShowModal(true);
   };
-
-  const filteredNews = newsData.filter(news =>
-    news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    news.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <div className="news-widget">
@@ -54,14 +37,25 @@ const NewsWidget = ({ searchTerm = '' }) => {
         {filteredNews.map((item, index) => (
           <div
             key={index}
-            className="news-card " // Agregando la clase cursor-pointer
-            onClick={() => handleShowModal(index)} // Permite abrir el modal al hacer clic
+            className="news-card"
+            onClick={() => window.open(item.url, '_blank')} // Abrir la URL en una nueva pestaña
           >
-            {item.imageUrl && (
-              <img src={item.imageUrl} alt={item.title} className="news-image" />
+            {/* Mostrar la imagen si está disponible */}
+            {item.image ? (
+              <img
+                src={item.image}
+                alt={item.title}
+                className="news-image"
+                onError={(e) => e.target.src = 'https://via.placeholder.com/150'} // Imagen de respaldo
+              />
+            ) : (
+              <img
+                src="https://via.placeholder.com/150" // Imagen predeterminada
+                alt="Imagen no disponible"
+                className="news-image"
+              />
             )}
             <div className="news-content">
-              <span className="news-badge">{item.category}</span>
               <h3 className="news-card-title">{item.title}</h3>
               <p className="news-description">{item.description}</p>
             </div>
@@ -73,7 +67,7 @@ const NewsWidget = ({ searchTerm = '' }) => {
         <div className="modal-overlay">
           <div className="modal-content">
             <h3 className="modal-title">
-              {currentNewsIndex !== null && newsData[currentNewsIndex].title}
+              {currentNewsIndex !== null && filteredNews[currentNewsIndex].title}
             </h3>
             <div className="modal-body">
               <Comentario />
