@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 /* General styles for the registration page */
+
+.contenedor-backgraound-register{
+  background-color: #0b3252;
+}
+
+#contenedor-registro{
+  border-radius: 20px;
+}
+
 .bg-gradient-to-br {
     background: linear-gradient(to bottom right, #6d28d9, #3b82f6);
   }
