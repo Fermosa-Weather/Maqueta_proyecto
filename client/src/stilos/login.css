@@ -5,13 +5,21 @@
 
 /* login.css */
 
-.login-background {
+/* .login-background {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(to bottom right, #6d28d9, #3b82f6);
   padding: 1rem;
+} */
+
+.login-background {
+background-color: #3a127a;
+}
+
+#contenedor-login{
+  border-radius: 20px;
 }
 
 .login-card {
@@ -30,7 +38,7 @@
 .login-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #4a5568;
+  color: #246eee;
 }
 
 .login-subtitle {

@@ -104,7 +104,7 @@ export const NavBar = ({ onSearch }) => {
                           </Link>
                         </li>
                         <li className="nav-item">
-                          <Link className="nav-link" to="/info_estacion">
+                          <Link className="nav-link" to="/estaciones">
                             <i className="bi bi-thermometer"></i> Info Estación {/* Ícono de termómetro */}
                           </Link>
                         </li>
