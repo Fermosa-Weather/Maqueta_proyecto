@@ -7,6 +7,7 @@ import json
 app = Flask(__name__)
 CORS(app)
 
+# Ruta al archivo donde se guardarán los artículos
 FILE_PATH = './noticia.json'
 
 # Función para obtener el contenido HTML de la página
@@ -20,82 +21,95 @@ def parse_articles(page_number):
     htmldata = get_html(BASE_URL)
     soup = BeautifulSoup(htmldata, 'html.parser')
     
-    # Encontrar el contenedor principal
     container = soup.find('div', class_='jeg_block_container')
-
     if not container:
         print(f"No se encontró el contenedor en la página {page_number}.")
         return []
 
-    # Encontrar todos los artículos con la clase "jeg_post_excerpt" dentro del contenedor
     articles_html = container.find_all('div', class_='jeg_post_excerpt')
-
     if not articles_html:
         print(f"No se encontraron artículos en la página {page_number}.")
         return []
 
     articles = []
-
-    # Recorrer cada artículo encontrado
     for article_html in articles_html:
         article = {
             'title': '',
             'description': '',
             'image': '',
-            'url': ''  # Agregar un campo para la URL
+            'url': ''
         }
         
-        # Extraer el título y la URL
         title_tag = article_html.find_previous('h3', class_='jeg_post_title')
         if title_tag:
             article['title'] = title_tag.get_text(strip=True)
-            link_tag = title_tag.find('a')  # Encontrar la etiqueta <a> para obtener el href
+            link_tag = title_tag.find('a')
             if link_tag:
-                article['url'] = link_tag['href']  # Guardar el href como URL
+                article['url'] = link_tag['href']
 
-        # Extraer la descripción
         article['description'] = article_html.get_text(strip=True)
 
-        # Extraer la imagen
         thumbnail_container = article_html.find_previous('div', class_='jeg_thumb')
         if thumbnail_container:
             img_tag = thumbnail_container.find('img')
             if img_tag:
-                # Cambia el enfoque a data-src y src
                 src = img_tag.get('data-src') or img_tag.get('src')
-                if src and "jeg-empty" not in src:  # Ignora las imágenes vacías
+                if src and "jeg-empty" not in src:
                     article['image'] = src
 
-        # Agregar el artículo al array de artículos
         articles.append(article)
-    
+
     return articles
 
 # Función para iterar sobre varias páginas y obtener los artículos
 def scrape_all_articles():
     page_number = 1
     all_articles = []
-
-    while page_number < 2:  # Extraer artículos de las dos primeras páginas
+    while page_number < 2:  # Cambia este número según cuántas páginas desees raspar
         articles_data = parse_articles(page_number)
-        if not articles_data:  # Si no se encontraron artículos, salir del bucle
+        if not articles_data:
             break
-        all_articles.extend(articles_data)  # Agregar artículos encontrados a la lista total
-        page_number += 1  # Incrementar el número de página
-
+        all_articles.extend(articles_data)
+        page_number += 1
     return all_articles
 
-# Función para enviar los artículos a la API de Express
-def send_articles_to_express(articles):
-    # Guardar los artículos en el archivo JSON
+# Función para guardar los artículos en el archivo JSON
+# def addJson(new_articles):
+#     if not new_articles:  # Verifica si hay artículos para guardar
+#         print("No hay artículos para guardar.")
+#         return
+
+#     # Leer artículos existentes
+#     try:
+#         with open(FILE_PATH, 'r') as f:
+#             existing_articles = json.load(f)
+#     except FileNotFoundError:
+#         # Si el archivo no existe, comenzamos con una lista vacía
+#         existing_articles = []
+
+#     # Combinar artículos existentes con los nuevos
+#     existing_articles.extend(new_articles)
+
+#     # Guardar la lista combinada de artículos
+#     with open(FILE_PATH, 'w') as f:
+#         json.dump(existing_articles, f, indent=2)
+
+#     print(f"{len(new_articles)} artículos agregados en {FILE_PATH}. Total ahora: {len(existing_articles)} artículos.")
+
+# Función para guardar los artículos en el archivo JSON
+def addJson(articles):
+    if not articles:  # Verifica si hay artículos para guardar
+        print("No hay artículos para guardar.")
+        return
     with open(FILE_PATH, 'w') as f:
-        json.dump(articles, f, indent=2)  # Guardar directamente los artículos en el JSON
+        json.dump(articles, f, indent=2)
+    print(f"{len(articles)} artículos guardados en {FILE_PATH}.")
 
 # Ruta de la API para obtener las noticias
 @app.route('/api/news', methods=['GET'])
 def get_news():
     articles = scrape_all_articles()  # Llamar a la función que obtiene los artículos
-    send_articles_to_express(articles)  # Enviar los artículos a la API de Express
+    addJson(articles)  # Guardar los artículos en el archivo JSON
     return jsonify(articles)  # Devolver los artículos en formato JSON
 
 # Iniciar el servidor

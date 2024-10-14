@@ -1,19 +1,19 @@
 import fs from 'fs';
-const filePath = './articles.json'; // Ruta al archivo donde se guardarán los artículos
+const filePath = '../noticia.json'; // Ruta al archivo donde se guardarán los artículos
 
 // POST - Guardar los artículos en un archivo
-export const addNew = async (req, res) => {
-    const articles = req.body; // Obtener el array de artículos del cuerpo de la solicitud
+// export const addNew = async (req, res) => {
+//     const articles = req.body; // Obtener el array de artículos del cuerpo de la solicitud
 
-    // Guardar el array en el archivo JSON, reemplazando el contenido anterior
-    fs.writeFile(filePath, JSON.stringify(articles, null, 2), (err) => {
-        if (err) {
-            console.error('Error al guardar los artículos:', err);
-            return res.status(500).json({ message: 'Error al guardar los artículos.' });
-        }
-        res.status(200).json({ message: 'Artículos guardados exitosamente.' });
-    });
-};
+//     // Guardar el array en el archivo JSON, reemplazando el contenido anterior
+//     fs.writeFile(filePath, JSON.stringify(articles, null, 2), (err) => {
+//         if (err) {
+//             console.error('Error al guardar los artículos:', err);
+//             return res.status(500).json({ message: 'Error al guardar los artículos.' });
+//         }
+//         res.status(200).json({ message: 'Artículos guardados exitosamente.' });
+//     });
+// };
 
 // GET - Obtener los artículos del archivo
 export const getNew = async (req, res) => {

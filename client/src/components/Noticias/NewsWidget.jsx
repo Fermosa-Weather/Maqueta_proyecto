@@ -8,8 +8,12 @@ const NewsWidget = ({ searchTerm = '' }) => {
   const [currentNewsIndex, setCurrentNewsIndex] = useState(null);
 
   useEffect(() => {
+
     // Obtener noticias desde la API
-    fetch('http://127.0.0.1:5000/api/news')
+    // noticia del json:http://localhost:4000/api/noticia/all
+    // noticia del scraping: http://127.0.0.1:5000/api/news
+
+    fetch('http://localhost:4000/api/noticia/all')
       .then(response => response.json())
       .then(data => {
         setArticles(data);
