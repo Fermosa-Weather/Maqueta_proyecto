@@ -1,11 +1,11 @@
 import fs from 'fs';
-const filePath = './articles.json'; // Ruta del archivo JSON
+const filePath = './articles.json'; // Ruta al archivo donde se guardarán los artículos
 
 // POST - Guardar los artículos en un archivo
 export const addNew = async (req, res) => {
     const articles = req.body; // Obtener el array de artículos del cuerpo de la solicitud
 
-    // Guardar el array en un archivo JSON
+    // Guardar el array en el archivo JSON, reemplazando el contenido anterior
     fs.writeFile(filePath, JSON.stringify(articles, null, 2), (err) => {
         if (err) {
             console.error('Error al guardar los artículos:', err);

@@ -2,9 +2,12 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
+import json
 
 app = Flask(__name__)
 CORS(app)
+
+FILE_PATH = './noticia.json'
 
 # Función para obtener el contenido HTML de la página
 def get_html(url):
@@ -82,10 +85,17 @@ def scrape_all_articles():
 
     return all_articles
 
+# Función para enviar los artículos a la API de Express
+def send_articles_to_express(articles):
+    # Guardar los artículos en el archivo JSON
+    with open(FILE_PATH, 'w') as f:
+        json.dump(articles, f, indent=2)  # Guardar directamente los artículos en el JSON
+
 # Ruta de la API para obtener las noticias
 @app.route('/api/news', methods=['GET'])
 def get_news():
     articles = scrape_all_articles()  # Llamar a la función que obtiene los artículos
+    send_articles_to_express(articles)  # Enviar los artículos a la API de Express
     return jsonify(articles)  # Devolver los artículos en formato JSON
 
 # Iniciar el servidor
