@@ -27,6 +27,12 @@ export function Search({ onSearch }) {
     onSearch(e);
   };
 
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion);
+    setFilteredSuggestions([]); // Oculta las sugerencias después de seleccionar una
+    onSearch({ target: { value: suggestion } }); // Dispara el evento onSearch con la sugerencia seleccionada
+  };
+
   return (
     <div className="search-form">
       <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
@@ -50,7 +56,11 @@ export function Search({ onSearch }) {
             {filteredSuggestions.length > 0 && (
               <ul className="suggestions-list">
                 {filteredSuggestions.map((suggestion, index) => (
-                  <li key={index} className="suggestion-item">
+                  <li 
+                    key={index} 
+                    className="suggestion-item" 
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
                     {suggestion}
                   </li>
                 ))}
