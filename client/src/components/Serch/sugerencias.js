@@ -1,0 +1,27 @@
+export const sugerencias = [
+    "Acciones",
+    "Alerta",
+    "Bajas",
+    "Colapsos",
+    "Consejos",
+    "Cultivos",
+    "Dengue",
+    "Disminución",
+    "Formosa",
+    "Golpes",
+    "Heladas",
+    "Impacto",
+    "Ministerio",
+    "Mosquitos",
+    "Ola",
+    "Oscilaciones",
+    "Personas",
+    "Recomendaciones",
+    "Refugio",
+    "Temperaturas",
+    "llvuia",
+    "soleado",
+    "inundaciones",
+    "Vulnerabilidad"
+  ];
+  
