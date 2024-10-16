@@ -21,11 +21,6 @@ body, html {
   object-fit: contain;
 }
 
-/* .foto_perfil {
-  max-width: 65px; 
-  height: 100%;
-  object-fit: contain;
-} */
 
 .foto_perfil {
   max-width: 55px; 
@@ -56,18 +51,11 @@ body, html {
 
 .hero_area::before {
   content: "";
-  /* position: absolute; */
   width: 65%;
   height: 10%;
-  /* background-image: url(../images/hero-bg.png); */
-  /* background-size: 100% 100%; */
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-/* .sub_page .hero_area {
-  height: auto;
-} */
 
 .sub_page .hero_area::before {
   display: none;
@@ -81,16 +69,12 @@ body, html {
   margin: 0px;
 }
 
-/* .header_section .container-fluid {
-  padding-right: 0px;
-  padding-left: 0px;
-} */
 
 .header_section .nav_container {
   margin: 0 auto;
 }
 
-.custom_nav-container.navbar-expand-lg .navbar-nav .nav-link {
+.custom_nav-container.navbar-expand-xl .navbar-nav .nav-link {
   padding: 10px 16px;
   color: #f9fcfb;
   text-align: center;
