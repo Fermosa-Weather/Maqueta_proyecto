@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import '../../stilos/pagina_bienvenida.css';
-import "../../stilos/main.css"
 
 export default function Welcome() {
   return (

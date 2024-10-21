@@ -8,11 +8,14 @@ import {Tiempo} from "./tiempo"
 import Noticias from "./noticias"
 import Pag_404 from './404';
 import About from './about';
-import Welcome from './components/Info_estaciones/bienvenida';
-import Perfil from './components/Info_estaciones/perfil_visibilidad';
-import Cambiar_cuenta from './components/Info_estaciones/Cambiar_cuenta';
-import Usuario from './components/Info_estaciones/usuario';
-import Soporte from './components/Info_estaciones/soporte';
+import Welcome from './components/Bienvenida_page/bienvenida';
+import Perfil from './components/perfil/perfil_visibilidad';
+import Cambiar_cuenta from './components/cuenta/Cambiar_cuenta';
+import Editar_perfi from './components/perfil/Editar-perfil';
+import Soporte from './components/soporte/soporte';
+import Estaciones from './components/Info_estaciones/info_estaciones';
+import Login from './components/cuenta/Login';
+import Register from './components/cuenta/Register';
 
 function Rutas() {
   return (
@@ -20,15 +23,18 @@ function Rutas() {
       <Routes>
       <Route path="/" element={<Welcome />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/cuenta" element={<Login />} />
+      <Route path="/registro" element={<Register />} /> 
       <Route path="/configuracion_cuenta" element={<Perfil />} />
       <Route path="/cambiar_cuenta" element={<Cambiar_cuenta />} />
-      <Route path="/editar-perfil" element={<Usuario />} />
-      <Route path="/contacto" element={<Soporte />} />
+      <Route path="/editar-perfil" element={<Editar_perfi />} />
       <Route path="/about" element={<About />} />
+      <Route path="/contacto" element={<Soporte />} />
       <Route path="/Weather" element={<Tiempo />} />
       <Route path="/mapa" element={<Mapa />} />
       <Route path="/modelo_prediccion" element={<Modelo_predicion />} />   
       <Route path="/noticias" element={<Noticias />} /> 
+      <Route path="/estaciones" element={<Estaciones />} />
       <Route path="*" element={<Pag_404/ >} />   
       </Routes>
     </Router>

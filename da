@@ -1,0 +1,37 @@
+[33m7ebf40e[m[33m ([m[1;36mHEAD -> [m[1;32mAxel[m[33m, [m[1;31morigin/Axel[m[33m)[m se agrego las noticas con sus estilos
+[33m4fd3fc7[m Se elimino archivos innecesarios
+[33mdfbccef[m Se agrego la funcionalidad de que puedan arrastran noma la imagen para subir una foto
+[33mb7c9024[m Se mejoro el diseño de añadir foto
+[33mf7a52e8[m Se modularizo, se separo en carpetas correspondiente y se agrego añadir foto
+[33mb277bee[m Diseño de contacto terminado
+[33m019cc02[m Se completo el diseño de editar usuario
+[33m315f274[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m Se agrego los componentes soporte, perfil de usuario, editar usuario y cambiar cuenta
+[33m2c32777[m Se le agrego la imagen en el navbar
+[33m72f7c5e[m Se agrego un hover a los contenedores de caracteristica
+[33m14277d4[m Se configuro tailwind y se mejoro la bienvenida y el home
+[33mca04aa2[m Se agrego el nav en about
+[33mc1810ea[m Se corregio el error de la imagen que se achicaba y los mensajes de  errores en los css
+[33m872b8eb[m Se agrego un slider al home
+[33mf19854f[m Se arreglo el espaciado del navbar entre el contenido y se agrego el footer
+[33mb591175[m Se subio el about
+[33mc14192c[m Se le agrego iconos al navBar
+[33md122a57[m Se agrego una nueva caracteristica
+[33m0740ab3[m Se hiso responsive la pagina de wheater
+[33m379fce0[m Se agrego la pagina 404
+[33m5c12e98[m Se agrego el buscador funcional
+[33m4c9b1c4[m Se separo en componentes y se corrigio el error de no mostrarse los nav-linkk
+[33mcdc69c0[m Pagina totalmente responsiva
+[33ma714d84[m Se agrego el logo, plantillas, mejora de navBar  y una landing page con su respectivo estilo
+[33meb3593a[m Eliminacion de archivos innecesarios
+[33mf6cee9d[m Se agrego la pagina de bienvenida para el usuario
+[33m51a345a[m Se separo en dos carpetes front y backend
+[33mbc0aaed[m Se modularizo los componentes
+[33m95a7aeb[m Se agrego los titulos de cada estacion de la estadistica
+[33mb9ca873[m Se agrego el navBar
+[33mdc3d1da[m Se arreglo un pequeño error de fondo
+[33m925ab4a[m Se agrego ver comentarios
+[33mfdebb5d[m Se agrego comentarios
+[33m5941ed9[m se acomodo los componentes y se agrego comentarios
+[33m1e6e04c[m Se agrego select en los graficos
+[33m7b7fd3d[m Se arreglo el home
+[33mccbc512[m Se subio la maqueta del proyecto

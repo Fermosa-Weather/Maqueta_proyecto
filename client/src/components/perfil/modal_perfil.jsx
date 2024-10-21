@@ -16,6 +16,8 @@ export default function Perfil_modal({ onClose }) {
 >
       <div
         className="max-w-xs mx-auto bg-[#6a0dad] text-white p-6 rounded-lg relative"
+        // #6a0dad
+        // #0224e6
         onClick={handleContentClick} // Detiene la propagación del evento de clic
       >
         <button className="absolute top-4 right-4 text-white" onClick={onClose}>
@@ -48,7 +50,7 @@ export default function Perfil_modal({ onClose }) {
               <span>Configuración de la cuenta</span>
             </li>
             </Link>
-            <li className="flex items-center space-x-3 hover:bg-[#4a00a6] p-2 rounded-md cursor-pointer">
+            <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
               <FaMoon className="w-5 h-5" /> {/* Tema */}
               <span  className="no-underline">Cambiar Tema</span>
             </li>

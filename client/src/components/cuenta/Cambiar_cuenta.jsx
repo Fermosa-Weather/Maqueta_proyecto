@@ -4,7 +4,7 @@ import "../../stilos/perfil.css"
 
 export default function Cambiar_cuenta() {
   return (
-    <div className="max-w-xs mx-auto bg-[#6a0dad] text-white p-6 rounded-lg relative mt-32"> {/* Añadido mt-12 */}
+    <div className="mx-auto text-white p-6 rounded-lg contenedor-añadir-cuenta"> {/* Aumentado mt-64 para más espacio arriba */}
       <div className="flex flex-col items-center">
         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4">
           <img
@@ -30,7 +30,7 @@ export default function Cambiar_cuenta() {
 
       <div className="mt-2 border-t border-gray-200 pt-2">
         <ul className="space-y-2">
-          <Link to="/register" className='no-underline'>
+          <Link to="/registro" className='no-underline'>
             <li className="flex items-center justify-center space-x-0 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
               <FaUserFriends className="w-5 h-5" /> {/* Icono de usuario */}
               <span>Añadir otra cuenta</span>
