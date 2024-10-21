@@ -1,45 +1,72 @@
-.widget-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f7f9fc; /* Color de fondo del widget */
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
-  padding: 20px; /* Espaciado interior */
-  max-width: 300px; /* Ancho máximo del widget */
-  margin: 20px auto; /* Centrar en la página */
-  font-family: Arial, sans-serif; /* Tipo de fuente */
+.weather-widget {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  width: 550px;
+  height: 275px;
+  text-align: center;
+  font-family: "Arial", sans-serif;
 }
 
-.weather-widget {
-  text-align: center; /* Centrar el texto */
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Coloca el video detrás del contenido */
 }
 
 .weather-location {
-  font-size: 24px; /* Tamaño de fuente para la ubicación */
-  font-weight: bold; /* Negrita */
-  color: #333; /* Color del texto */
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
 }
 
 .weather-status {
-  font-size: 18px; /* Tamaño de fuente para el estado */
-  color: #666; /* Color más claro para el estado */
+  font-size: 18px;
+  margin: 8px 0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .weather-info {
-  margin-top: 10px; /* Espacio encima de la info del clima */
-}
-
-.weather-info-item {
   display: flex;
-  justify-content: space-between; /* Espacio entre label y value */
-  padding: 5px 0; /* Espacio vertical entre items */
+  justify-content: space-around;
+  margin-top: 30px;
 }
 
-.weather-label {
-  font-weight: bold; /* Negrita para las etiquetas */
+.weather-box {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  width: 120px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }
 
-.weather-value {
-  color: #007bff; /* Color para los valores */
+.loading-spinner {
+  font-size: 18px;
+  color: white;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }

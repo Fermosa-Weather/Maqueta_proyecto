@@ -1,48 +1,88 @@
 import React, { useEffect, useState } from "react";
+import {
+  WiDaySunny,
+  WiCloud,
+  WiRain,
+  WiThunderstorm,
+  WiShowers,
+} from "react-icons/wi"; // Importar íconos
+import "../../stilos/WeatherCard.css"; // Asegúrate de tener este archivo CSS
+import soleado from "../../assets/widgett/soleado.mp4";
+import nublado from "../../assets/widgett/noche_nublado.mp4";
+import lluvia from "../../assets/widgett/lluvia.mp4";
+import chubascos from "../../assets/widgett/noche_lluvia.mp4";
+import tormenta from "../../assets/widgett/atardecer.mp4";
+import noche from "../../assets/widgett/noche.mp4";
 
 const WeatherWidget = () => {
   const [weather, setWeather] = useState(null);
-
-  // Cambia 'YOUR_ENDPOINT_URL' por tu URL del endpoint
-  const endpointUrl = "YOUR_ENDPOINT_URL";
+  const [loading, setLoading] = useState(true); // Estado de carga
 
   useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const response = await fetch(endpointUrl);
-        const data = await response.json();
-        setWeather(data);
-      } catch (error) {
-        console.error("Error fetching weather data:", error);
-      }
-    };
-
-    fetchWeather();
+    // Simular datos de clima
+    setTimeout(() => {
+      const simulatedWeatherData = {
+        location: "Buenos Aires",
+        temperature: 22,
+        humidity: 60,
+        windSpeed: 5,
+        condition: "soleado", // Estado del clima
+      };
+      setWeather(simulatedWeatherData);
+      setLoading(false); // Desactivar carga
+    }, 1500); // Retraso de 1.5 segundos
   }, []);
 
+  // Función para obtener el ícono según la condición del clima
+  const getBackgroundVideo = (condition) => {
+    switch (condition.toLowerCase()) {
+      case "soleado":
+        return soleado;
+      case "nublado":
+        return nublado;
+      case "lluvia":
+        return lluvia;
+      case "chubascos":
+        return chubascos;
+      case "tormenta":
+        return tormenta;
+      default:
+        return noche;
+    }
+  };
+
   return (
-    <div className="bg-blue-500 text-white p-5 rounded-lg shadow-lg max-w-sm mx-auto">
-      {weather ? (
-        <div>
-          <h2 className="text-2xl font-bold">{weather.location}</h2>
-          <h3 className="text-xl mt-2">Weather</h3>
-          <div className="mt-4">
-            <div className="flex justify-between items-center">
-              <span className="text-lg">Temperature:</span>
-              <span className="text-lg">{weather.temperature}°C</span>
+    <div className="weather-widget">
+      <video
+        className="background-video"
+        autoPlay
+        loop
+        muted
+        src={getBackgroundVideo(weather?.condition)}
+      />
+      {loading ? (
+        <div className="loading-spinner">Cargando...</div>
+      ) : (
+        <>
+          <div className="weather-location">{weather.location}</div>
+          <div className="weather-status">
+            Clima Actual {getWeatherIcon(weather.condition)}
+          </div>
+          <div className="weather-info">
+            <div className="weather-box">
+              <span className="weather-label">Temperatura</span>
+              <span className="weather-value">{weather.temperature}°C</span>
             </div>
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-lg">Humidity:</span>
-              <span className="text-lg">{weather.humidity}%</span>
+            <div className="weather-box">
+              <span className="weather-label">Humedad</span>
+              <span className="weather-value">{weather.humidity}%</span>
             </div>
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-lg">Wind Speed:</span>
-              <span className="text-lg">{weather.windSpeed} m/s</span>
+            <div className="weather-box">
+              <span className="weather-label">Viento</span>
+              <span className="weather-value">{weather.windSpeed} m/s</span>
             </div>
           </div>
-        </div>
-      ) : (
-        <p className="text-lg">Loading...</p>
+        </>
       )}
     </div>
   );
