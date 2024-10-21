@@ -10,32 +10,7 @@ export default function Estaciones() {
 
 <section className="mt-7">
 <section>
-        <h2 className={styles.title}>Ideal Weather</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
-          <div className={`${styles.card} ${styles.cardTemperature}`}>
-            <h3 className="text-xl font-bold mb-2">Temperature</h3>
-            <p className="text-4xl font-bold">25°C</p>
-          </div>
-          <div className={`${styles.card} ${styles.cardWind}`}>
-            <h3 className="text-xl font-bold mb-2">Wind</h3>
-            <p className="text-4xl font-bold">10 km/h</p>
-          </div>
-          <div className={`${styles.card} ${styles.cardPrecipitation}`}>
-            <h3 className="text-xl font-bold mb-2">Precipitation</h3>
-            <p className="text-4xl font-bold">20 mm</p>
-          </div>
-          <div className={`${styles.card} ${styles.cardHumidity}`}>
-            <h3 className="text-xl font-bold mb-2">Humidity</h3>
-            <p className="text-4xl font-bold">60%</p>
-          </div>
-          <div className={`${styles.card} ${styles.cardAirQuality}`}>
-            <h3 className="text-xl font-bold mb-2">Air Quality</h3>
-            <p className="text-4xl font-bold">Good</p>
-          </div>
-        </div>
-      </section>
-
-          <h2 className="text-2xl font-bold mb-4">Weather Stations</h2>
+<h2 className="text-2xl font-bold mb-4">Weather Stations</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
@@ -121,6 +96,32 @@ export default function Estaciones() {
               </div>
             ))}
           </div>
+
+        <h2 className={styles.title}>Ideal Weather</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
+          <div className={`${styles.card} ${styles.cardTemperature}`}>
+            <h3 className="text-xl font-bold mb-2">Temperature</h3>
+            <p className="text-4xl font-bold">25°C</p>
+          </div>
+          <div className={`${styles.card} ${styles.cardWind}`}>
+            <h3 className="text-xl font-bold mb-2">Wind</h3>
+            <p className="text-4xl font-bold">10 km/h</p>
+          </div>
+          <div className={`${styles.card} ${styles.cardPrecipitation}`}>
+            <h3 className="text-xl font-bold mb-2">Precipitation</h3>
+            <p className="text-4xl font-bold">20 mm</p>
+          </div>
+          <div className={`${styles.card} ${styles.cardHumidity}`}>
+            <h3 className="text-xl font-bold mb-2">Humidity</h3>
+            <p className="text-4xl font-bold">60%</p>
+          </div>
+          <div className={`${styles.card} ${styles.cardAirQuality}`}>
+            <h3 className="text-xl font-bold mb-2">Air Quality</h3>
+            <p className="text-4xl font-bold">Good</p>
+          </div>
+        </div>
+      </section>
+
         </section>
    
     </div>

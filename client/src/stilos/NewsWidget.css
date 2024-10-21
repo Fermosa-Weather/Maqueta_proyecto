@@ -3,6 +3,15 @@
   padding: 0;
 }
 
+.news-link {
+  text-decoration: none; /* Elimina el subrayado */
+  color: inherit; /* Hereda el color del texto del contenedor */
+}
+
+.news-link:hover {
+  text-decoration: none; /* Asegúrate de que no haya subrayado en hover */
+}
+
 .news-widget {
   background: linear-gradient(to bottom right, #6a1b9a, #1976d2, #6a1b9a);
   padding: 2rem;

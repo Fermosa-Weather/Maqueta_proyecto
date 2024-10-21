@@ -36,8 +36,8 @@ export const NavBar = ({ onSearch }) => {
       <header className="header_section">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-8">
-              <nav className="navbar navbar-expand-lg custom_nav-container">
+            <div className="col-xl-8">
+              <nav className="navbar navbar-expand-xl custom_nav-container">
 
               <a className="navbar-brand" href="index.html">
                   <img src="../../../src/images/logo.png" alt="logo" className="logo"/>
@@ -58,7 +58,7 @@ export const NavBar = ({ onSearch }) => {
 
                 {isVisible && (
                   <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div className="d-flex flex-column flex-lg-row align-items-center">
+                    <div className="d-flex flex-column flex-xl-row align-items-center">
 
                     <ul className="navbar-nav">
 
@@ -73,11 +73,6 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-person"></i> About
                           </Link>
                         </li>
-                        {/* <li className="nav-item">
-                          <Link className="nav-link" to="/contacto">
-                            <i className="bi bi-envelope"></i> Contacto
-                          </Link>
-                        </li> */}
                         <li className="nav-item">
                           <Link className="nav-link" to="/Weather">
                             <i className="bi bi-cloud-sun"></i> Weather
@@ -103,7 +98,12 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-person"></i> Cuenta
                           </Link>
                         </li>
-
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/estaciones">
+                            <i className="bi bi-thermometer"></i> Info Estación {/* Ícono de termómetro */}
+                          </Link>
+                        </li>
+                        
                         <li className="nav-item">
                           <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
                           <img src="../../../src/images2/yuichi.jpg" alt="logo" className="foto_perfil" />
@@ -113,6 +113,7 @@ export const NavBar = ({ onSearch }) => {
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
                   
+
                       </ul>
                     </div>
                   </div>

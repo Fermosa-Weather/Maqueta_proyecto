@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import "../../../src/stilos/Plantilla_slider2/css/style2.css";
 import "../../stilos/Plantilla_slider2/css/bootstrap2.css";
 import "../../stilos/Plantilla_slider2/css/responsive2.css";
+import { Link } from 'react-router-dom';
 
 export function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -56,7 +57,9 @@ export function Slider() {
             </p>
             <div>
               <a href="" className="slider-link">
+                <Link to="/contacto">
                 CONTACT US
+                </Link>
               </a>
             </div>
           </div>

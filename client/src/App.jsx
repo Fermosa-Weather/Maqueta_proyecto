@@ -13,9 +13,10 @@ import Perfil from './components/perfil/perfil_visibilidad';
 import Cambiar_cuenta from './components/cuenta/Cambiar_cuenta';
 import Editar_perfi from './components/perfil/Editar-perfil';
 import Soporte from './components/soporte/soporte';
-import Estaciones from './components/Info_estaciones/info_estaciones';
-import Login from './components/cuenta/Login';
-import Register from './components/cuenta/Register';
+import Estaciones from './estaciones';
+import { News } from './components/Noticias/Noticias';
+import { Login } from './components/Login/login';
+import { Register } from './components/Register/register';
 
 function Rutas() {
   return (
@@ -23,8 +24,8 @@ function Rutas() {
       <Routes>
       <Route path="/" element={<Welcome />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/cuenta" element={<Login />} />
-      <Route path="/registro" element={<Register />} /> 
+      <Route path="/cuenta" element={<Login />} /> 
+      <Route path="/registro" element={<Register />} /> {/* Ruta para Registro */}
       <Route path="/configuracion_cuenta" element={<Perfil />} />
       <Route path="/cambiar_cuenta" element={<Cambiar_cuenta />} />
       <Route path="/editar-perfil" element={<Editar_perfi />} />
@@ -34,6 +35,7 @@ function Rutas() {
       <Route path="/mapa" element={<Mapa />} />
       <Route path="/modelo_prediccion" element={<Modelo_predicion />} />   
       <Route path="/noticias" element={<Noticias />} /> 
+      <Route path="/n" element={<News />} /> 
       <Route path="/estaciones" element={<Estaciones />} />
       <Route path="*" element={<Pag_404/ >} />   
       </Routes>
