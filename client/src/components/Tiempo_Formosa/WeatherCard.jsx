@@ -1,51 +1,51 @@
-import React from "react";
-import {
-  FaTemperatureLow,
-  FaTint,
-  FaWind,
-  FaTachometerAlt,
-} from "react-icons/fa";
-import "../../stilos/WeatherCard.css";
-import partlyCloudyBackground from "../../assets/fondo.jpg"; // Importa la imagen de fondo
+import React, { useEffect, useState } from "react";
 
-const WeatherCard = ({ data }) => {
+const WeatherWidget = () => {
+  const [weather, setWeather] = useState(null);
+
+  // Cambia 'YOUR_ENDPOINT_URL' por tu URL del endpoint
+  const endpointUrl = "YOUR_ENDPOINT_URL";
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const response = await fetch(endpointUrl);
+        const data = await response.json();
+        setWeather(data);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
   return (
-    <div className="weather-card">
-      <div
-        className="weather-background"
-        style={{ backgroundImage: `url(${partlyCloudyBackground})` }}
-      >
-        <h2 className="weather-card-title"> &#128205;{data.location}</h2>
-        <div className="weather-card-content">
-          <div className="temperature-column">
-            <div className="temperature">
-              
-              <h1 className="weather-info-label-temperatura"><FaTemperatureLow/>  {data.temperature}</h1>
+    <div className="bg-blue-500 text-white p-5 rounded-lg shadow-lg max-w-sm mx-auto">
+      {weather ? (
+        <div>
+          <h2 className="text-2xl font-bold">{weather.location}</h2>
+          <h3 className="text-xl mt-2">Weather</h3>
+          <div className="mt-4">
+            <div className="flex justify-between items-center">
+              <span className="text-lg">Temperature:</span>
+              <span className="text-lg">{weather.temperature}°C</span>
             </div>
-          </div>
-          <div className="details-column">
-            <div className="weather-info">
-              <div className="weather-info-item">
-                <FaTint className="weather-icon" />
-
-                <span className="weather-info-value">{data.humidity}</span>
-              </div>
-              <div className="weather-info-item">
-                <FaTachometerAlt className="weather-icon" />
-
-                <span className="weather-info-value">{data.pressure} </span>
-              </div>
-              <div className="weather-info-item">
-                <FaWind className="weather-icon" />
-
-                <span className="weather-info-value">{data.windSpeed}</span>
-              </div>
+            <div className="flex justify-between items-center mt-2">
+              <span className="text-lg">Humidity:</span>
+              <span className="text-lg">{weather.humidity}%</span>
+            </div>
+            <div className="flex justify-between items-center mt-2">
+              <span className="text-lg">Wind Speed:</span>
+              <span className="text-lg">{weather.windSpeed} m/s</span>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <p className="text-lg">Loading...</p>
+      )}
     </div>
   );
 };
 
-export default WeatherCard;
+export default WeatherWidget;
