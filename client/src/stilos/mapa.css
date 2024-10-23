@@ -1,8 +1,4 @@
 /* Default styles for single-column layout */
-.container-fluid {
-  height: 100vh;
-  margin: 10px;
-}
 
 .map-labels {
   font-size: 12px;
@@ -13,6 +9,10 @@
   padding: 3px 2px;
   border-radius: 3px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
+
+.contenedor-panel {
+  width: 100%;
 }
 
 /* Media query for two-column layout */

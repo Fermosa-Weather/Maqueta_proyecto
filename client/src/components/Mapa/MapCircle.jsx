@@ -90,7 +90,7 @@ function MapWithCircles() {
 
   return (
     <div className="container-fluid">
-      <div className="row flex-column mapa d-flex justify-content-center align-items-center">
+      <div className="row flex-column mapa  ">
         <div className="col-md-12 mb-3 pl-4">
           <MapContainer
             center={formosaCenter}
@@ -102,17 +102,48 @@ function MapWithCircles() {
             <LayersControl position="topright">
               <BaseLayer checked name="Mapa de Calle">
                 <TileLayer
+                  zIndex={1}
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
               </BaseLayer>
               <Overlay name="Mapa de Temperatura" checked>
-                <TileLayer url="https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69" />
+                <TileLayer
+                  zIndex={2}
+                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
+                  url="https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
+                />
               </Overlay>
-              {/* Más capas... */}
+              <Overlay name="Precipitación Global" checked>
+                <TileLayer
+                  zIndex={2}
+                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
+                  url="https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
+                />
+              </Overlay>
+              <Overlay name="Presión">
+                <TileLayer
+                  zIndex={2}
+                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
+                  url="https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
+                />
+              </Overlay>
+              <Overlay name="Velocidad del Viento">
+                <TileLayer
+                  zIndex={2}
+                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
+                  url="https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
+                />
+              </Overlay>
+              <Overlay name="Nubes">
+                <TileLayer
+                  zIndex={2}
+                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
+                  url="https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
+                />
+              </Overlay>
             </LayersControl>
-
-            {/* Marcadores de estaciones */}
+            2{/* Marcadores de estaciones */}
             {Stations.map((station) => (
               <Marker
                 key={station.id}
@@ -130,7 +161,6 @@ function MapWithCircles() {
                 </Popup>
               </Marker>
             ))}
-
             {/* Círculos */}
             {circles.map((circle, index) => (
               <Circle
@@ -140,14 +170,42 @@ function MapWithCircles() {
                 radius={150000}
               />
             ))}
-
             {/* GeoJSON */}
-            <GeoJSON data={FormosaCityGeoJSON} />
+            <GeoJSON
+              data={FormosaCityGeoJSON}
+              style={(feature) => ({
+                color: "green", // Color del borde del polígono
+                weight: 2, // Grosor del borde del polígono
+                fillColor: "lightblue", // Color de relleno del polígono
+                fillOpacity: 0.2, // Opacidad del relleno del polígono
+                // Estilos para las etiquetas de texto
+                pane: "overlayPane",
+                renderer: L.canvas(),
+                interactive: false,
+                style: {
+                  color: "white",
+                  fillColor: "lightblue",
+                  weight: 2,
+                  opacity: 1,
+                  fillOpacity: 0.5,
+                  className: "map-labels",
+                },
+                onEachFeature: function (feature, layer) {
+                  if (feature.properties && feature.properties.label) {
+                    layer.bindTooltip(feature.properties.label, {
+                      permanent: true,
+                      direction: "center",
+                      className: "map-labels",
+                    });
+                  }
+                },
+              })}
+            />
           </MapContainer>
         </div>
 
         {/* Panel de información */}
-        <div className="col-md-12 panel">
+        <div className="col-md-12 contenedor-panel">
           <StationInfo averages={averages} stations={Stations} />
         </div>
       </div>

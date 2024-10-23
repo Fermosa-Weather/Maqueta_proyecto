@@ -1,114 +1,120 @@
-import React from "react";
+import React, { useState } from "react";
+import { Line } from "react-chartjs-2";
+import { Stations } from "./data/estaciones.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../../src/stilos/stacion_info.css";
 
-const iconMapper = {
-  temperature: "fas fa-thermometer-half",
-  humidity: "fas fa-tint",
-  pressure: "fas fa-tachometer-alt",
-  windSpeed: "fas fa-wind",
-  precipitation: "fas fa-cloud-rain",
+// Datos generales de Formosa
+const defaultStation = {
+  id: 0,
+  coords: [-25.2637, -58.5973],
+  name: "Información General de Formosa",
+  color: "blue",
+  info: "Esta vista muestra información climática general de la provincia de Formosa.",
+  temperature: 29,
+  humidity: 70,
+  pressure: 1010,
+  windSpeed: 12,
+  precipitation: 1,
 };
 
-const otroIcon = {
-  temperature: "wi wi-thermometer",
-  humidity: "wi wi-humidity", // Alternativa al ícono de humedad
-  pressure: "wi wi-barometer",
-  windSpeed: "wi wi-strong-wind",
-  precipitation: "wi wi-rain",
-};
+const StationInfo = () => {
+  const [selectedStation, setSelectedStation] = useState(defaultStation);
 
-const StationInfo = ({ averages, stations }) => {
-  const getIcon = (key) => (
-    <i
-      className={`${iconMapper[key] || "fas fa-question-circle"} widget-icon`}
-    ></i>
-  );
+  const handleSelectChange = (event) => {
+    const station = Stations.find(
+      (station) => station.id === parseInt(event.target.value)
+    );
+    setSelectedStation(station || defaultStation); // Mostrar general si no hay selección válida
+  };
+
+  const renderChart = (station) => ({
+    labels: [
+      "Temperature",
+      "Humidity",
+      "Pressure",
+      "Wind Speed",
+      "Precipitation",
+    ],
+    datasets: [
+      {
+        label: station.name,
+        data: [
+          station.temperature,
+          station.humidity,
+          station.pressure,
+          station.windSpeed,
+          station.precipitation,
+        ],
+        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        tension: 0.4,
+      },
+    ],
+  });
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        {/* Card general con promedios */}
-        <div className="col-md-12 mb-4">
+    <div className="panel">
+      {/* Dropdown para seleccionar estación */}
+      <div className="dropdown-container">
+        <select onChange={handleSelectChange} defaultValue="0">
+          <option value="0">Información General de Formosa</option>
+          {Stations.map((station) => (
+            <option key={station.id} value={station.id}>
+              {station.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Contenedor de la tarjeta y el gráfico */}
+      <div className="content-container">
+        {/* Tarjeta */}
+        <div className="card-container">
           <div className="card shadow-sm">
+            <div
+              className="card-header"
+              style={{ backgroundColor: selectedStation.color }}
+            >
+              <h5 className="card-title text-white">{selectedStation.name}</h5>
+            </div>
             <div className="card-body">
-              <h5 className="card-title text-center">
-                Información General de Formosa
-              </h5>
-              <div className="d-flex justify-content-around">
-                {Object.entries(averages).map(([key, value]) => (
-                  <div key={key} className="widget">
-                    {getIcon(key)}
-                    <p className="widget-text">
-                      <strong>{traducirClave(key)}:</strong> {value}{" "}
-                      {getUnidad(key)}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <p className="card-text">{selectedStation.info}</p>
             </div>
           </div>
         </div>
 
-        {/* Tarjetas para cada estación */}
-        {stations.map((station) => (
-          <div className="col-md-4 mb-3" key={station.id}>
-            <div className="card h-100 shadow-sm">
-              <div
-                className="card-header"
-                style={{ backgroundColor: station.color }}
-              >
-                <h5 className="card-title text-white">{station.name}</h5>
-              </div>
-              <div className="card-body">
-                <p className="card-text">{station.info}</p>
-                <ul className="list-group list-group-flush">
-                  {Object.entries(station).map(([key, value]) =>
-                    iconMapper[key] ? (
-                      <li className="list-group-item" key={key}>
-                        {getIcon(key)} <strong>{traducirClave(key)}:</strong>{" "}
-                        {value} {getUnidad(key)}
-                      </li>
-                    ) : null
-                  )}
-                </ul>
-              </div>
-            </div>
-          </div>
-        ))}
+        {/* Gráfico */}
+        <div className="chart-container">
+          <Line data={renderChart(selectedStation)} />
+        </div>
+      </div>
+
+      {/* Tabla de datos */}
+      <div className="table-container">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Temperatura (°C)</th>
+              <th>Humedad (%)</th>
+              <th>Presión (hPa)</th>
+              <th>Vel. Viento (m/s)</th>
+              <th>Precipitación (mm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{selectedStation.temperature}</td>
+              <td>{selectedStation.humidity}</td>
+              <td>{selectedStation.pressure}</td>
+              <td>{selectedStation.windSpeed}</td>
+              <td>{selectedStation.precipitation}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );
-};
-
-// Función para traducir las claves
-const traducirClave = (key) => {
-  const traducciones = {
-    temperature: "Temperatura",
-    humidity: "Humedad",
-    pressure: "Presión",
-    windSpeed: "Velocidad del Viento",
-    precipitation: "Precipitación",
-  };
-  return traducciones[key] || key;
-};
-
-// Función para obtener la unidad correcta
-const getUnidad = (key) => {
-  switch (key) {
-    case "temperature":
-      return "°C";
-    case "humidity":
-      return "%";
-    case "pressure":
-      return "hPa";
-    case "windSpeed":
-      return "m/s";
-    case "precipitation":
-      return "mm";
-    default:
-      return "";
-  }
 };
 
 export default StationInfo;
