@@ -1,6 +1,8 @@
+// StationInfo.jsx
 import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import { Stations } from "./data/estaciones.js";
+import { Widget } from "./Widget.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../../src/stilos/stacion_info.css";
 
@@ -25,7 +27,7 @@ const StationInfo = () => {
     const station = Stations.find(
       (station) => station.id === parseInt(event.target.value)
     );
-    setSelectedStation(station || defaultStation); // Mostrar general si no hay selección válida
+    setSelectedStation(station || defaultStation);
   };
 
   const renderChart = (station) => ({
@@ -55,7 +57,6 @@ const StationInfo = () => {
 
   return (
     <div className="panel">
-      {/* Dropdown para seleccionar estación */}
       <div className="dropdown-container">
         <select onChange={handleSelectChange} defaultValue="0">
           <option value="0">Información General de Formosa</option>
@@ -67,30 +68,13 @@ const StationInfo = () => {
         </select>
       </div>
 
-      {/* Contenedor de la tarjeta y el gráfico */}
       <div className="content-container">
-        {/* Tarjeta */}
-        <div className="card-container">
-          <div className="card shadow-sm">
-            <div
-              className="card-header"
-              style={{ backgroundColor: selectedStation.color }}
-            >
-              <h5 className="card-title text-white">{selectedStation.name}</h5>
-            </div>
-            <div className="card-body">
-              <p className="card-text">{selectedStation.info}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Gráfico */}
+        <Widget selectedStation={selectedStation} />
         <div className="chart-container">
           <Line data={renderChart(selectedStation)} />
         </div>
       </div>
 
-      {/* Tabla de datos */}
       <div className="table-container">
         <table className="table table-striped">
           <thead>
