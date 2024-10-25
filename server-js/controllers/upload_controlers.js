@@ -6,7 +6,8 @@ export const uploadUserImage = async (req, res) => {
     const {id}=req.params 
     const { fotoUser} = req.body;
 
-    console.log(req.files)
+    console.log("id del usuario: ", id)
+    console.log("archivo de imagen: ", req.files)
 
     if (!req.files || !req.files.fotoUser) {
       return res.status(400).json({
@@ -20,12 +21,12 @@ export const uploadUserImage = async (req, res) => {
 
   console.log("filename", fileName);
 
-    const usuarioPerfil = await User.update(
-      { fotoUser: fileName },
-      { where: { id} }      
+    const usuarioPerfil = await User.updateOne(
+    {id},
+    { fotoUser: fileName },
     );
 
-      file.mv(`../../client/public/${fileName}`, (err) => {
+      file.mv(`../../../proyecto/Proyecto_finish_clima/client/public/foto_users/${fileName}`, (err) => {
           if (err) {
               console.log(err);
               return res.status(500).json({ message: 'Error save archive' });

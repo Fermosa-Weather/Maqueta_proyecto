@@ -11,5 +11,4 @@ router.post('/verificar_codigo', verificarCodigoController);
 
 router.post('/', enviarCorreoSoporte);
 
-
 export default router;

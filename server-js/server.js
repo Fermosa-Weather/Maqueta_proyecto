@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
-import path, { dirname } from 'path';
+import path from 'path';
+import {__dirname} from "./helpers/ruta.js"
 import { fileURLToPath } from 'url';
 
 // Importar rutas
@@ -21,11 +22,12 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(fileUpload()); // Habilitar el middleware de subida de archivos
+app.use(fileUpload({
+    useTempFiles:true,
+    tempFileDir:"./tmp"
+})); // Habilitar el middleware de subida de archivos
 
 // Rutas estáticas para servir imágenes
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 app.use('/public', express.static(path.join(__dirname, 'public'))); // Sirve archivos estáticos desde la carpeta public
 
 // Rutas de la API
