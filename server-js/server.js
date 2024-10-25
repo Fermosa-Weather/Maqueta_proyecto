@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './routes/authRoutes.js'; // Asegúrate de que esta ruta es correcta
+// import correoRoutes from './routes/correoRoutes.js'; 
 import noticiasRoutes from './routes/noticiasRoutes.js'; 
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -14,9 +15,9 @@ const PORT = process.env.PORT || 4000;
 app.use(cors()); // Permite solicitudes de otros orígenes
 app.use(express.json()); // Parsear JSON en el cuerpo de las solicitudes
 
-// Configura las rutas de autenticación
 app.use('/api/auth', authRoutes);
 app.use('/api/noticia', noticiasRoutes);
+// app.use('/api/correo', correoRoutes);
 
 // Conectar a MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -25,5 +26,5 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Iniciar el servidor
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`http://localhost:${PORT}/`);
 });

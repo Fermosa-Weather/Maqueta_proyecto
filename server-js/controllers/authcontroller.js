@@ -1,13 +1,13 @@
-import User from '../models/User.js';
+import User from '../models/UserModel.js'
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 // Controlador para el registro de usuarios
-const register = async (req, res) => {
-  const { name, email, password, confirmPassword } = req.body;
+export const register = async (req, res) => {
+  const { nombre_completo, username, email, password, confirmPassword } = req.body;
 
   // Validar que todos los campos estén presentes
-  if (!name || !email || !password || !confirmPassword) {
+  if (!nombre_completo || !username || !email || !password || !confirmPassword) {
     return res.status(400).json({ error: 'Por favor, complete todos los campos' });
   }
 
@@ -17,16 +17,14 @@ const register = async (req, res) => {
   }
 
   try {
-    
     // Verificar si el usuario ya existe
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'El usuario ya existe' });
     }
 
-    // Crear un nuevo usuario con la contraseña encriptada
-    // const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, email, password });
+    // Crear un nuevo usuario
+    const newUser = new User({ nombre_completo, username, email, password });
 
     // Guardar el nuevo usuario en la base de datos
     await newUser.save();
@@ -47,7 +45,7 @@ const register = async (req, res) => {
 };
 
 // Controlador para el inicio de sesión de usuarios
-const login = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
 
   // Validar que todos los campos estén presentes
@@ -57,20 +55,13 @@ const login = async (req, res) => {
 
   try {
     // Verificar si el usuario existe
-    console.log(email)
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ error: 'Correo electrónico no encontrado' });
     }
 
-    // Registrar la contraseña almacenada y la contraseña proporcionada para depuración
-    console.log('Contraseña almacenada (encriptada):', user.password);
-    console.log('Contraseña proporcionada:', password);
-
     // Comparar la contraseña proporcionada con la almacenada
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log('Coincidencia de contraseñas:', isMatch); 
-
     if (!isMatch) {
       return res.status(400).json({ error: 'Contraseña incorrecta' });
     }
@@ -90,4 +81,56 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login };
+
+// Obtener un usuario por su ID
+export const getUserById = async (req, res) => {
+  const { id } = req.params; // Obtener el ID de los parámetros de la solicitud
+  try {
+    const user = await User.findById(id); // Buscar el usuario por ID
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+    res.status(200).json(user); // Enviar los datos del usuario encontrado
+  } catch (err) {
+    console.error('Error al obtener el usuario:', err);
+    res.status(500).json({ error: 'Error del servidor' });
+  }
+};
+
+// Obtener todos los usuarios
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find(); // Obtener todos los usuarios
+    res.status(200).json(users); // Enviar los datos de todos los usuarios
+  } catch (err) {
+    console.error('Error al obtener los usuarios:', err);
+    res.status(500).json({ error: 'Error del servidor' });
+  }
+};
+
+// Actualizar un usuario
+export const updateUser = async (req, res) => {
+  const { id } = req.params; // Obtener el ID de los parámetros de la solicitud
+  const { nombre_completo, username, email, password } = req.body; // Obtener los nuevos datos del usuario
+
+  try {
+    const user = await User.findById(id); // Buscar el usuario por ID
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    // Actualizar los campos del usuario si se proporcionan nuevos datos
+    if (nombre_completo) user.nombre_completo = nombre_Completo;
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (password) user.password = await bcrypt.hash(password, 10); // Encriptar nueva contraseña si es proporcionada
+
+    await user.save(); // Guardar los cambios en la base de datos
+    res.status(200).json({ message: 'Usuario actualizado correctamente', user });
+  } catch (err) {
+    console.error('Error al actualizar el usuario:', err);
+    res.status(500).json({ error: 'Error del servidor' });
+  }
+};
+
+

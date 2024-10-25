@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-import axios from '../../api/axiosInstance'; 
+import axios from '../../api/axiosInstance';
 import { FaEnvelope, FaTag, FaUser, FaLock } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'; // Importar SweetAlert
-import '../../stilos/register.css'; 
+import Swal from 'sweetalert2';
+import '../../stilos/register.css';
 import contactoImage from '../../../src/images2/register_2.jpg';
 
 export function Register() {
     const [formData, setFormData] = useState({
-        name: '',
+        nombre_completo: '',
+        username: '',
         email: '',
         password: '',
         confirmPassword: '',
     });
-    
-    const { name, email, password, confirmPassword } = formData;
-    const navigate = useNavigate(); // Hook para redirigir
+
+    const { nombre_completo, username, email, password, confirmPassword } = formData;
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const { id, value } = event.target;
@@ -46,7 +47,8 @@ export function Register() {
             
             // Limpiar el formulario
             setFormData({
-                name: '',
+                nombre_completo: '',
+                username: '',
                 email: '',
                 password: '',
                 confirmPassword: '',
@@ -86,15 +88,28 @@ export function Register() {
                                 <div className="space-y-4">
                                     <div className="relative">
                                         <FaUser className="absolute top-1 left-2 text-gray-500" />
-                                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 ml-7">Nombre completo</label>
+                                        <label htmlFor="nombre_completo" className="block text-sm font-medium text-gray-700 ml-7">Nombre completo</label>
                                         <input
-                                            id="name"
-                                            name="name"
+                                            id="nombre_completo"
+                                            name="nombre_completo"
                                             placeholder="Ingrese su nombre completo"
-                                            value={formData.name}
+                                            value={formData.nombre_completo}
                                             onChange={handleChange}
                                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
-                                            required // Asegúrate de que este campo sea obligatorio
+                                            required
+                                        />
+                                    </div>
+                                    <div className="relative">
+                                        <FaTag className="absolute top-1 left-2 text-gray-500" />
+                                        <label htmlFor="username" className="block text-sm font-medium text-gray-700 ml-7">Username</label>
+                                        <input
+                                            id="username"
+                                            name="username"
+                                            placeholder="Ingrese su nombre de usuario"
+                                            value={formData.username}
+                                            onChange={handleChange}
+                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
+                                            required
                                         />
                                     </div>
                                     <div className="relative">
@@ -107,7 +122,7 @@ export function Register() {
                                             value={formData.email}
                                             onChange={handleChange}
                                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
-                                            required // Asegúrate de que este campo sea obligatorio
+                                            required
                                         />
                                     </div>
                                     <div className="relative">
@@ -121,7 +136,7 @@ export function Register() {
                                             value={formData.password}
                                             onChange={handleChange}
                                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
-                                            required // Asegúrate de que este campo sea obligatorio
+                                            required
                                         />
                                     </div>
 
@@ -136,7 +151,7 @@ export function Register() {
                                             value={formData.confirmPassword}
                                             onChange={handleChange}
                                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
-                                            required // Asegúrate de que este campo sea obligatorio
+                                            required
                                         />
                                     </div>
 
