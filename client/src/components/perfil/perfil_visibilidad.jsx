@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import '../../stilos/perfil.css'; // Importa el archivo CSS
 
 export default function Perfil() {
+
   return (
     <div className="flex flex-col items-center p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold text-blue-700 mb-4">

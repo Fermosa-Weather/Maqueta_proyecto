@@ -2,6 +2,56 @@ import User from '../models/UserModel.js'
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+export const ctrlGetUserInfoByToken = async (req, res) => {
+  const tokenHeader = req.headers["authorization"];
+  console.log("tokenHeader: ", tokenHeader);
+
+  try {
+    if (!tokenHeader) {
+      return res.status(401).json({ message: "No existe un token" });
+    }
+
+    // Extraer el token sin el prefijo "Bearer"
+    const token = tokenHeader.replace("Bearer ", "");
+    console.log("token recibido: ", token);
+
+    try {
+      // Decodificar el token
+      const decodedToken = verifyToken(token);
+      console.log("token decodificado: ", decodedToken);
+
+      // Verifica que el token decodificado tiene un `id`
+      if (!decodedToken || !decodedToken.id) {
+        return res.status(401).json({ message: "Token inválido: no se encontró el id de usuario" });
+      }
+
+      // Convertir el id a número
+      const userId = parseInt(decodedToken.id, 10);
+      if (isNaN(userId)) {
+        return res.status(400).json({ message: "ID de usuario inválido en el token" });
+      }
+
+      console.log("userId decodificado: ", userId);
+
+      // Buscar al usuario en la base de datos usando el userId decodificado
+      const user = await UserService.findById(userId);
+
+      if (!user) {
+        return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      // Retornar la información del usuario
+      res.status(200).json(user);
+    } catch (error) {
+      console.error("Error al verificar el token:", error.message);
+      return res.status(401).json({ message: "Token inválido" });
+    }
+  } catch (outerError) {
+    console.error("Error general:", outerError);
+    res.status(500).json({ message: "Error interno del servidor", error: outerError.message });
+  }
+};
+
 // Controlador para el registro de usuarios
 export const register = async (req, res) => {
   const { nombre_completo, username, email, password, confirmPassword } = req.body;

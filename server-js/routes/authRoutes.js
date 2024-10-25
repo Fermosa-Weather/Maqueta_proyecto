@@ -1,8 +1,10 @@
 import express from 'express';
-import { register, login, getAllUsers, getUserById, updateUser} from '../controllers/authcontroller.js';
+import { register, login, ctrlGetUserInfoByToken, getAllUsers, getUserById, updateUser} from '../controllers/authcontroller.js';
 import { check } from 'express-validator'; 
 
 const router = express.Router();
+
+router.get('/info', ctrlGetUserInfoByToken)
 
 router.get("/:id", getUserById)
 
