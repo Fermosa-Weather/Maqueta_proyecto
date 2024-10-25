@@ -4,6 +4,14 @@ import { check } from 'express-validator';
 
 const router = express.Router();
 
+router.get("/:id", getUserById)
+
+router.get("/", getAllUsers)
+
+router.put("/", updateUser)
+
+// router.put('/upload/:id', uploadUserImage)
+
 // Ruta para el registro de usuarios
 router.post(
   '/register',
@@ -23,13 +31,5 @@ router.post(
   ],
   login
 );
-
-router.get("/:id", getUserById)
-
-router.get("/", getAllUsers)
-
-router.put("/", updateUser)
-
-// router.update("/", )
 
 export default router;
