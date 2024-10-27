@@ -13,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FormosaCityGeoJSON } from "./data/Departamentos.js";
 import StationInfo from "./stationInfo.jsx";
 import { Stations } from "./data/estaciones.js";
+import "../../stilos/wheater.css";
 
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -89,14 +90,15 @@ function MapWithCircles() {
 
   return (
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-9 mt-3">
+      <div className="row flex-column mapa  ">
+        <div className="col-md-12 mb-3 pl-4">
           <MapContainer
             center={formosaCenter}
             zoom={zoomLevel}
             style={{ height: "calc(87vh)", width: "100%" }}
             zoomControl={true}
           >
+            {/* Controles de capas */}
             <LayersControl position="topright">
               <BaseLayer checked name="Mapa de Calle">
                 <TileLayer
@@ -141,7 +143,7 @@ function MapWithCircles() {
                 />
               </Overlay>
             </LayersControl>
-
+            2{/* Marcadores de estaciones */}
             {Stations.map((station) => (
               <Marker
                 key={station.id}
@@ -154,29 +156,21 @@ function MapWithCircles() {
                   <div>
                     <h3>{station.name}</h3>
                     <p>Temperatura: {station.temperature}°C</p>
-                    <p>Humedad: {station.humidity}%</p>
-                    <p>Presión: {station.pressure} hPa</p>
-                    <p>Velocidad del Viento: {station.windSpeed} m/s</p>
-                    <p>Precipitación: {station.precipitation} mm</p>
+                    <button className="btn btn-success">Ver más</button>
                   </div>
-                  <button className="btn btn-success">Ver más</button>
                 </Popup>
               </Marker>
             ))}
-
+            {/* Círculos */}
             {circles.map((circle, index) => (
               <Circle
                 key={index}
                 center={circle.coords}
-                pathOptions={{
-                  color: circle.color,
-                  fillColor: circle.color,
-                  fillOpacity: 0.2,
-                }}
-                radius={150000} // Radio en metros (150 km)
+                pathOptions={{ color: circle.color, fillOpacity: 0.2 }}
+                radius={150000}
               />
             ))}
-
+            {/* GeoJSON */}
             <GeoJSON
               data={FormosaCityGeoJSON}
               style={(feature) => ({
@@ -209,12 +203,14 @@ function MapWithCircles() {
             />
           </MapContainer>
         </div>
-        <div className="col-md-3 mt-3">
-        <StationInfo className="estaciones_info" averages={averages} />
+
+        {/* Panel de información */}
+        <div className="col-md-12 contenedor-panel">
+          <StationInfo averages={averages} stations={Stations} />
         </div>
       </div>
     </div>
   );
 }
 
-export default MapWithCircles
+export default MapWithCircles;
