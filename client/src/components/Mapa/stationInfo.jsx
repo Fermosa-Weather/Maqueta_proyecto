@@ -32,11 +32,11 @@ const StationInfo = () => {
 
   const renderChart = (station) => ({
     labels: [
-      "Temperature",
-      "Humidity",
-      "Pressure",
-      "Wind Speed",
-      "Precipitation",
+      "Temperatura",
+      "Humedad",
+      "Presión",
+      "Vel. Viento",
+      "Precipitación",
     ],
     datasets: [
       {
@@ -69,7 +69,10 @@ const StationInfo = () => {
       </div>
 
       <div className="content-container">
+        {/* Widget profesional con gráficos y degradados */}
         <Widget selectedStation={selectedStation} />
+
+        {/* Gráfico de datos climatológicos */}
         <div className="chart-container">
           <Line data={renderChart(selectedStation)} />
         </div>

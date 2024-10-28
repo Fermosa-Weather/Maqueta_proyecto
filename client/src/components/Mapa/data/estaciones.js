@@ -10,6 +10,7 @@ export const Stations = [
     pressure: 1012,
     windSpeed: 15,
     precipitation: 2,
+    weather: "lluvioso", // Nuevo atributo
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const Stations = [
     pressure: 1010,
     windSpeed: 10,
     precipitation: 0,
+    weather: "soleado",
   },
   {
     id: 3,
@@ -34,6 +36,7 @@ export const Stations = [
     pressure: 1008,
     windSpeed: 20,
     precipitation: 5,
+    weather: "nublado",
   },
   {
     id: 4,
@@ -46,5 +49,6 @@ export const Stations = [
     pressure: 1015,
     windSpeed: 5,
     precipitation: 1,
+    weather: "soleado",
   },
 ];

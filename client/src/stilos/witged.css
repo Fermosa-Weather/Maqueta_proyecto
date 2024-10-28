@@ -1,31 +1,114 @@
-.widget-container {
-  width: 695px;
-  height: 142px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.widget-container.pro {
+  width: 670px;
+  height: 240px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   padding: 20px;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: background 0.5s ease-in-out;
+  overflow: hidden;
 }
 
-.widget-data {
+.widget-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.widget-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 10px;
 }
 
-.widget-temp,
-.widget-humidity {
-  font-size: 1.2rem;
-  color: #333;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.progress-wrapper {
+  width: 100px;
+  height: 100px;
 }
 
-.widget-temp i,
-.widget-humidity i {
-  color: #007bff;
+.weather-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+.detail i {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Fondos según el clima y la hora del día */
+
+/* dia soleado */
+.sunny-day-bg {
+  background: url("/client/src/components/Mapa/images/soleado-dia.gif")
+    no-repeat center center;
+  background-size: cover;
+}
+/* noche soleado */
+.sunny-night-bg {
+  background: url("/client/src/components/Mapa/images/soleado-noche.gif")
+    no-repeat center center;
+  background-size: cover;
+}
+
+/* dia lluvioso */
+.rainy-day-bg {
+  background: url("/client/src/components/Mapa/images/lluvia-dia.gif") no-repeat
+    center center;
+  background-size: cover;
+}
+
+/* noche lluvioso */
+.rainy-night-bg {
+  background: url("/client/src/components/Mapa/images/lluvia-noche.gif")
+    no-repeat center center;
+  background-size: cover;
+}
+
+/* dia nublado */
+.cloudy-day-bg {
+  background: url("/client/src/components/Mapa/images/nublado-dia.gif")
+    no-repeat center center;
+  background-size: cover;
+}
+
+/* noche nublado */
+.cloudy-night-bg {
+  background: url("/client/src/components/Mapa/images/nublado-noche.gif")
+    no-repeat center center;
+  background-size: cover;
+}
+
+/* dia tormenta */
+.stormy-day-bg {
+  background: url("/client/src/components/Mapa/images/tormenta-dia.gif")
+    no-repeat center center;
+  background-size: cover;
+}
+
+/* noche tormenta */
+.stormy-night-bg {
+  background: url("/client/src/components/Mapa/images/tormenta-noche.gif")
+    no-repeat center center;
+  background-size: cover;
+}
+
+/* fondo por defecto */
+.default-bg {
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
 }

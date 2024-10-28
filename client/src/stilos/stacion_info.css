@@ -12,13 +12,16 @@
 
 .content-container {
   display: flex;
-  gap: 20px;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
 }
 
 .chart-container {
   flex: 1;
-  min-width: 300px;
+  min-width: 400px;
+  max-width: 600px;
 }
 
 .table-container {
@@ -30,4 +33,5 @@
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  font-size: 1rem;
 }
