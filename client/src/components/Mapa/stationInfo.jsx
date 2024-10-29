@@ -1,4 +1,4 @@
-// StationInfo.jsx
+// client/src/components/Mapa/StationInfo.jsx
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Widget } from "./Widget.jsx";
