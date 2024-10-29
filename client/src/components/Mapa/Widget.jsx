@@ -22,24 +22,34 @@ const getBackgroundClass = (temperature, precipitation) => {
 };
 
 export const Widget = ({ selectedStation }) => {
-  const { temperature, humidity, windSpeed, precipitation, name } =
-    selectedStation;
+  const {
+    airTemp: temperature,
+    rh: humidity,
+    pressure,
+    windSpeed,
+    rain_last: precipitation,
+  } = selectedStation.meta || {};
 
-  const backgroundClass = getBackgroundClass(temperature, precipitation);
+  const { custom } = selectedStation.name || {};
+
+  const backgroundClass = getBackgroundClass(
+    temperature || 0,
+    precipitation || 0
+  );
 
   return (
-    <div className={`widget-container pro ${backgroundClass}`}>
+    <div className={`widget-container pro bg-black `}>
       <div className="widget-header">
-        <h3>{name}</h3>
+        <h3>{custom || "Estación No Seleccionada"}</h3>
         <span>{new Date().toLocaleDateString()}</span>
       </div>
 
       <div className="widget-content">
         <div className="progress-wrapper">
           <CircularProgressbar
-            value={temperature}
+            value={temperature || 0}
             maxValue={50}
-            text={`${temperature}°C`}
+            text={`${temperature || 0}°C`}
             styles={buildStyles({
               textColor: "#fff",
               pathColor: "#ffffff",
@@ -51,16 +61,16 @@ export const Widget = ({ selectedStation }) => {
         <div className="weather-details">
           <div className="detail">
             <i className="fas fa-tint"></i>
-            <span>Humedad: {humidity}%</span>
+            <span>Humedad: {humidity || 0}%</span>
           </div>
           <div className="detail">
             <i className="fas fa-wind"></i>
-            <span>Viento: {windSpeed} m/s</span>
+            <span>Viento: {windSpeed || 0} m/s</span>
           </div>
 
           <div className="detail">
             <i className="fas fa-cloud-sun"></i>
-            <span>Precipitación: {precipitation} mm</span>
+            <span>Precipitación: {precipitation || 0} mm</span>
           </div>
         </div>
       </div>

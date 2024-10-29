@@ -1,7 +1,6 @@
 // StationInfo.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import { Stations } from "./data/estaciones.js";
 import { Widget } from "./Widget.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../../src/stilos/stacion_info.css";
@@ -20,21 +19,29 @@ const defaultStation = {
   precipitation: 1,
 };
 
-const StationInfo = () => {
-  const [selectedStation, setSelectedStation] = useState(defaultStation);
+const StationInfo = ({ stations = [], station, averages }) => {
+  const [selectedStation, setSelectedStation] = useState(
+    station || defaultStation
+  );
+
+  // Verificar si se reciben las estaciones
+  useEffect(() => {
+    console.log("Estaciones recibidas:", stations);
+    setSelectedStation(station || defaultStation);
+  }, [station, stations]);
 
   const handleSelectChange = (event) => {
-    const station = Stations.find(
-      (station) => station.id === parseInt(event.target.value)
-    );
-    setSelectedStation(station || defaultStation);
+    const selectedId = event.target.value; // Usamos cadena para el ID
+    const newStation =
+      stations.find((st) => st._id === selectedId) || defaultStation;
+    setSelectedStation(newStation);
   };
 
   const renderChart = (station) => ({
     labels: [
       "Temperatura",
       "Humedad",
-      "Presión",
+      "Radio Solar",
       "Vel. Viento",
       "Precipitación",
     ],
@@ -42,11 +49,11 @@ const StationInfo = () => {
       {
         label: station.name,
         data: [
-          station.temperature,
-          station.humidity,
-          station.pressure,
-          station.windSpeed,
-          station.precipitation,
+          station.meta?.airTemp,
+          station.meta?.rh,
+          station.meta?.solarRadiation,
+          station.meta?.windSpeed,
+          station.meta?.rain_last,
         ],
         borderColor: "rgba(75, 192, 192, 1)",
         backgroundColor: "rgba(75, 192, 192, 0.2)",
@@ -57,45 +64,54 @@ const StationInfo = () => {
 
   return (
     <div className="panel">
+      {/* Menú desplegable de selección de estación */}
       <div className="dropdown-container">
-        <select onChange={handleSelectChange} defaultValue="0">
-          <option value="0">Información General de Formosa</option>
-          {Stations.map((station) => (
-            <option key={station.id} value={station.id}>
-              {station.name}
+        <select
+          className="dropdown"
+          value={selectedStation._id || ""}
+          onChange={handleSelectChange}
+        >
+          <option value="">{defaultStation.name}</option>
+          {stations.map((st) => (
+            <option key={st._id} value={st._id}>
+              {st.name?.custom || st.name || "Estación sin nombre"}
             </option>
           ))}
         </select>
       </div>
-
+      {/* Contenido principal */}
       <div className="content-container">
-        {/* Widget profesional con gráficos y degradados */}
-        <Widget selectedStation={selectedStation} />
+        <Widget selectedStation={selectedStation} averages={averages} />
 
-        {/* Gráfico de datos climatológicos */}
         <div className="chart-container">
           <Line data={renderChart(selectedStation)} />
         </div>
       </div>
 
+      {/* Tabla de datos */}
       <div className="table-container">
         <table className="table table-striped">
           <thead>
             <tr>
               <th>Temperatura (°C)</th>
               <th>Humedad (%)</th>
-              <th>Presión (hPa)</th>
+              <th>Radiación solar (W/m²)</th>
               <th>Vel. Viento (m/s)</th>
               <th>Precipitación (mm)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>{selectedStation.temperature}</td>
-              <td>{selectedStation.humidity}</td>
-              <td>{selectedStation.pressure}</td>
-              <td>{selectedStation.windSpeed}</td>
-              <td>{selectedStation.precipitation}</td>
+              <td>{selectedStation.meta?.airTemp || averages.temperature}</td>
+              <td>{selectedStation.meta?.rh || averages.humidity}</td>
+              <td>
+                {selectedStation.meta?.solarRadiation ||
+                  averages.solarRadiation}
+              </td>
+              <td>{selectedStation.meta?.windSpeed || averages.windSpeed}</td>
+              <td>
+                {selectedStation.meta?.rain_last || averages.precipitation}
+              </td>
             </tr>
           </tbody>
         </table>
