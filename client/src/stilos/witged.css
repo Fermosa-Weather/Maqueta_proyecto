@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: background 0.5s ease-in-out;
+  transition: background 1s ease-in-out; /* Transición suave al cambiar el fondo */
   overflow: hidden;
 }
 
@@ -53,58 +53,51 @@
 
 /* Fondos según el clima y la hora del día */
 
-/* dia soleado */
+/* día soleado */
 .sunny-day-bg {
-  background: url("/client/src/components/Mapa/images/soleado-dia.gif")
-    no-repeat center center;
+  background: url(${soleadoDia}) no-repeat center center;
   background-size: cover;
 }
-/* noche soleado */
+
+/* noche soleada */
 .sunny-night-bg {
-  background: url("/client/src/components/Mapa/images/soleado-noche.gif")
-    no-repeat center center;
+  background: url(${soleadoNoche}) no-repeat center center;
   background-size: cover;
 }
 
-/* dia lluvioso */
+/* día lluvioso */
 .rainy-day-bg {
-  background: url("/client/src/components/Mapa/images/lluvia-dia.gif") no-repeat
-    center center;
+  background: url(${lluviaDia}) no-repeat center center;
   background-size: cover;
 }
 
-/* noche lluvioso */
+/* noche lluviosa */
 .rainy-night-bg {
-  background: url("/client/src/components/Mapa/images/lluvia-noche.gif")
-    no-repeat center center;
+  background: url(${lluviaNoche}) no-repeat center center;
   background-size: cover;
 }
 
-/* dia nublado */
+/* día nublado */
 .cloudy-day-bg {
-  background: url("/client/src/components/Mapa/images/nublado-dia.gif")
-    no-repeat center center;
+  background: url(${nubladoDia}) no-repeat center center;
   background-size: cover;
 }
 
-/* noche nublado */
+/* noche nublada */
 .cloudy-night-bg {
-  background: url("/client/src/components/Mapa/images/nublado-noche.gif")
-    no-repeat center center;
+  background: url(${nubladoNoche}) no-repeat center center;
   background-size: cover;
 }
 
-/* dia tormenta */
+/* día tormentoso */
 .stormy-day-bg {
-  background: url("/client/src/components/Mapa/images/tormenta-dia.gif")
-    no-repeat center center;
+  background: url(${tormentaDia}) no-repeat center center;
   background-size: cover;
 }
 
-/* noche tormenta */
+/* noche tormentosa */
 .stormy-night-bg {
-  background: url("/client/src/components/Mapa/images/tormenta-noche.gif")
-    no-repeat center center;
+  background: url(${tormentaNoche}) no-repeat center center;
   background-size: cover;
 }
 
