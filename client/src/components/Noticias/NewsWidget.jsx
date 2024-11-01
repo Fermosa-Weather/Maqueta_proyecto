@@ -1,32 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import Comentario from '../comentarios/comentario';
-import '../../../src/stilos/NewsWidget.css';
+// client/src/components/Noticias/NewsWidget.jsx
+import React, { useState, useEffect } from "react";
+import Comentario from "../comentarios/comentario";
+import "../../../src/stilos/NewsWidget.css";
 
-const NewsWidget = ({ searchTerm = '' }) => {
+const NewsWidget = ({ searchTerm = "" }) => {
   const [articles, setArticles] = useState([]); // Noticias de la API
   const [showModal, setShowModal] = useState(false);
   const [currentNewsIndex, setCurrentNewsIndex] = useState(null);
 
   useEffect(() => {
-
     // Obtener noticias desde la API
     // noticia del json:http://localhost:4000/api/noticia/all
     // noticia del scraping: http://127.0.0.1:5000/api/news
 
-    fetch('http://localhost:4000/api/noticia/all')
-      .then(response => response.json())
-      .then(data => {
+    fetch("http://localhost:4000/api/noticia/all")
+      .then((response) => response.json())
+      .then((data) => {
         setArticles(data);
       })
-      .catch(error => {
-        console.error('Error al obtener los artículos:', error);
+      .catch((error) => {
+        console.error("Error al obtener los artículos:", error);
       });
   }, []);
 
   // Filtrar las noticias obtenidas de la API
-  const filteredNews = articles.filter(news =>
-    news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    news.description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredNews = articles.filter(
+    (news) =>
+      news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      news.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleShowModal = (index) => {
@@ -42,7 +43,7 @@ const NewsWidget = ({ searchTerm = '' }) => {
           <div
             key={index}
             className="news-card"
-            onClick={() => window.open(item.url, '_blank')} // Abrir la URL en una nueva pestaña
+            onClick={() => window.open(item.url, "_blank")} // Abrir la URL en una nueva pestaña
           >
             {/* Mostrar la imagen si está disponible */}
             {item.image ? (
@@ -50,7 +51,9 @@ const NewsWidget = ({ searchTerm = '' }) => {
                 src={item.image}
                 alt={item.title}
                 className="news-image"
-                onError={(e) => e.target.src = 'https://via.placeholder.com/150'} // Imagen de respaldo
+                onError={(e) =>
+                  (e.target.src = "https://via.placeholder.com/150")
+                } // Imagen de respaldo
               />
             ) : (
               <img
@@ -71,7 +74,8 @@ const NewsWidget = ({ searchTerm = '' }) => {
         <div className="modal-overlay">
           <div className="modal-content">
             <h3 className="modal-title">
-              {currentNewsIndex !== null && filteredNews[currentNewsIndex].title}
+              {currentNewsIndex !== null &&
+                filteredNews[currentNewsIndex].title}
             </h3>
             <div className="modal-body">
               <Comentario />

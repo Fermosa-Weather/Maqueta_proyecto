@@ -5,7 +5,6 @@ import { Widget } from "./Widget.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../../src/stilos/stacion_info.css";
 
-// Datos generales de Formosa
 const defaultStation = {
   id: 0,
   coords: [-25.2637, -58.5973],
@@ -24,14 +23,14 @@ const StationInfo = ({ stations = [], station, averages }) => {
     station || defaultStation
   );
 
-  // Verificar si se reciben las estaciones
   useEffect(() => {
     console.log("Estaciones recibidas:", stations);
+    console.log("Datos de estación seleccionada:", selectedStation);
     setSelectedStation(station || defaultStation);
   }, [station, stations]);
 
   const handleSelectChange = (event) => {
-    const selectedId = event.target.value; // Usamos cadena para el ID
+    const selectedId = event.target.value;
     const newStation =
       stations.find((st) => st._id === selectedId) || defaultStation;
     setSelectedStation(newStation);
@@ -64,7 +63,6 @@ const StationInfo = ({ stations = [], station, averages }) => {
 
   return (
     <div className="panel">
-      {/* Menú desplegable de selección de estación */}
       <div className="dropdown-container">
         <select
           className="dropdown"
@@ -79,16 +77,12 @@ const StationInfo = ({ stations = [], station, averages }) => {
           ))}
         </select>
       </div>
-      {/* Contenido principal */}
       <div className="content-container">
         <Widget selectedStation={selectedStation} averages={averages} />
-
         <div className="chart-container">
           <Line data={renderChart(selectedStation)} />
         </div>
       </div>
-
-      {/* Tabla de datos */}
       <div className="table-container">
         <table className="table table-striped">
           <thead>

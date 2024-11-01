@@ -16,7 +16,7 @@ import Nav from "./components/Navbar/Nav.jsx";
 
 function Mapa() {
   return (
-    <div style={{ backgroundColor: "#34495e", height: "500vh" }}>
+    <div style={{ backgroundColor: "#34495e", height: "210vh" }}>
       <Nav></Nav>
       <MapWithCircles />
     </div>

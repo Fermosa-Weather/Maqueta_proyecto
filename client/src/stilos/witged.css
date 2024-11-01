@@ -1,3 +1,4 @@
+/* witged.css */
 .widget-container.pro {
   width: 670px;
   height: 240px;
@@ -8,8 +9,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: background 1s ease-in-out; /* Transición suave al cambiar el fondo */
+  transition: background 1s ease-in-out;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
 }
 
 .widget-header {
@@ -49,59 +52,4 @@
 .detail i {
   font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.8);
-}
-
-/* Fondos según el clima y la hora del día */
-
-/* día soleado */
-.sunny-day-bg {
-  background: url(${soleadoDia}) no-repeat center center;
-  background-size: cover;
-}
-
-/* noche soleada */
-.sunny-night-bg {
-  background: url(${soleadoNoche}) no-repeat center center;
-  background-size: cover;
-}
-
-/* día lluvioso */
-.rainy-day-bg {
-  background: url(${lluviaDia}) no-repeat center center;
-  background-size: cover;
-}
-
-/* noche lluviosa */
-.rainy-night-bg {
-  background: url(${lluviaNoche}) no-repeat center center;
-  background-size: cover;
-}
-
-/* día nublado */
-.cloudy-day-bg {
-  background: url(${nubladoDia}) no-repeat center center;
-  background-size: cover;
-}
-
-/* noche nublada */
-.cloudy-night-bg {
-  background: url(${nubladoNoche}) no-repeat center center;
-  background-size: cover;
-}
-
-/* día tormentoso */
-.stormy-day-bg {
-  background: url(${tormentaDia}) no-repeat center center;
-  background-size: cover;
-}
-
-/* noche tormentosa */
-.stormy-night-bg {
-  background: url(${tormentaNoche}) no-repeat center center;
-  background-size: cover;
-}
-
-/* fondo por defecto */
-.default-bg {
-  background: linear-gradient(135deg, #43e97b, #38f9d7);
 }

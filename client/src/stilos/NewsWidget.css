@@ -1,33 +1,22 @@
+/* client/src/stilos/NewsWidget.css */
+
 * {
   margin: 0;
   padding: 0;
-}
-
-.news-link {
-  text-decoration: none; /* Elimina el subrayado */
-  color: inherit; /* Hereda el color del texto del contenedor */
-}
-
-.news-link:hover {
-  text-decoration: none; /* Asegúrate de que no haya subrayado en hover */
+  box-sizing: border-box;
 }
 
 .news-widget {
-  background: linear-gradient(to bottom right, #6a1b9a, #1976d2, #6a1b9a);
+  font-family: "Arial", sans-serif;
+  background-color: #eef2f3;
+  color: #333;
   padding: 2rem;
-  border-radius: 0rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  min-height: 600px;
-  position: relative;
-  z-index: 1;
 }
 
 .news-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 2rem;
   text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 .news-grid {
@@ -36,147 +25,45 @@
   gap: 1.5rem;
 }
 
-
 .news-card {
-  background-color: rgb(255, 255, 255);
-  border-radius: 0.75rem;
+  background-color: white;
+  border-radius: 0.5rem;
   overflow: hidden;
   border: 1px solid #d1c4e9;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Cuando se pasa el cursor sobre la tarjeta */
 .news-card:hover {
-  cursor: pointer;
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+.main-news-card {
+  grid-column: span 2; /* Hace que la tarjeta principal ocupe dos columnas */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada para la tarjeta principal */
+}
 
 .news-image {
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
 }
 
 .news-content {
   padding: 1rem;
-  background-color: #f3e5f5;
-}
-
-.news-badge {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 1rem;
-  background-color: #bbdefb;
-  color: #0d47a1;
-  font-size: 0.75rem;
-  margin-bottom: 0.5rem;
+  background-color: #fafafa;
 }
 
 .news-card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: bold;
   color: #4a148c;
   margin-bottom: 0.5rem;
 }
 
 .news-description {
-  color: #424242;
-  font-size: 0.875rem;
-}
-
-.news-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.news-actions button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #333;
-  transition: color 0.3s;
-}
-
-.news-actions button:hover {
-  color: #007bff;
-}
-
-.news-actions .fa-thumbs-up,
-.news-actions .fa-thumbs-down,
-.news-actions .fa-comment {
-  margin-right: 15px;
-}
-
-.news-footer {
-  background-color: #bbdefb;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-}
-
-.news-button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.25rem;
-  background-color: #1e88e5;
-  color: white;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.news-button:hover {
-  background-color: #1565c0;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: #f3e5f5;
-  padding: 2rem;
-  border-radius: 0.75rem;
-  max-width: 600px;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.modal-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #4a148c;
-}
-
-.modal-body {
-  padding: 1rem 0;
-}
-
-.modal-close {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.25rem;
-  background-color: #1e88e5;
-  color: white;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.modal-close:hover {
-  background-color: #1565c0;
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }

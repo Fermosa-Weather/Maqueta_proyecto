@@ -18,17 +18,37 @@ const isDaytime = () => {
   return hours >= 6 && hours < 18; // De 6 AM a 6 PM se considera de día
 };
 
+// Asignación de fondos de acuerdo al clima y momento del día
+const backgroundImages = {
+  "sunny-day-bg": soleadoDia,
+  "sunny-night-bg": soleadoNoche,
+  "rainy-day-bg": lluviaDia,
+  "rainy-night-bg": lluviaNoche,
+  "cloudy-day-bg": nubladoDia,
+  "cloudy-night-bg": nubladoNoche,
+  "stormy-day-bg": tormentaDia,
+  "stormy-night-bg": tormentaNoche,
+};
+
 // Selección dinámica del fondo según el clima
-const getBackgroundClass = (temperature, precipitation, windSpeed) => {
+const getBackgroundClass = (
+  temperature,
+  precipitation,
+  windSpeed,
+  solarRadiation
+) => {
   const dayTime = isDaytime();
 
-  if (windSpeed > 15) return dayTime ? "stormy-day-bg" : "stormy-night-bg";
-  if (precipitation > 5) return dayTime ? "rainy-day-bg" : "rainy-night-bg";
-  if (precipitation > 0) return dayTime ? "cloudy-day-bg" : "cloudy-night-bg";
-  if (temperature >= 30) return dayTime ? "sunny-day-bg" : "sunny-night-bg";
-  if (temperature <= 10) return dayTime ? "stormy-day-bg" : "stormy-night-bg";
+  // Usar la radiación solar como indicador de nubosidad si es de día
+  if (dayTime) {
+    if (solarRadiation < 200) return "cloudy-day-bg"; // Baja radiación => nublado
+    if (temperature >= 30) return "sunny-day-bg"; // Alta temperatura => soleado
+  } else {
+    if (precipitation > 5) return "rainy-night-bg"; // Precipitación alta en la noche => lluvioso
+  }
 
-  return "default-bg";
+  if (windSpeed > 15) return dayTime ? "stormy-day-bg" : "stormy-night-bg"; // Viento fuerte => tormenta
+  return dayTime ? "sunny-day-bg" : "sunny-night-bg"; // Predeterminado
 };
 
 export const Widget = ({ selectedStation }) => {
@@ -38,6 +58,7 @@ export const Widget = ({ selectedStation }) => {
     pressure,
     windSpeed,
     rain_last: precipitation,
+    solarRadiation = 0, // Radiación solar
   } = selectedStation.meta || {};
 
   const { custom } = selectedStation.name || {};
@@ -45,11 +66,17 @@ export const Widget = ({ selectedStation }) => {
   const backgroundClass = getBackgroundClass(
     temperature || 0,
     precipitation || 0,
-    windSpeed || 0
+    windSpeed || 0,
+    solarRadiation
   );
 
   return (
-    <div className={`widget-container pro ${backgroundClass}`}>
+    <div
+      className="widget-container pro"
+      style={{
+        backgroundImage: `url(${backgroundImages[backgroundClass] || ""})`,
+      }}
+    >
       <div className="widget-header">
         <h3>{custom || "Estación No Seleccionada"}</h3>
         <span>{new Date().toLocaleDateString()}</span>
