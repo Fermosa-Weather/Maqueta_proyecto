@@ -1,0 +1,76 @@
+/* src/components/WeatherQuery.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centrar verticalmente */
+  height: 100vh; /* Hacer que el contenedor ocupe toda la altura de la ventana */
+  width: 100vw; /* Hacer que el contenedor ocupe todo el ancho de la ventana */
+  background: linear-gradient(135deg, #4f6dff, #70a1ff, #9b59b6);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px; /* Ajustar el padding según sea necesario */
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #d0d8ff;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #5a67d8;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  outline: none;
+  color: #333;
+  background-color: #f5f7ff;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #4c51bf;
+  box-shadow: 0 0 5px rgba(76, 81, 191, 0.5);
+}
+
+input[type="text"]::placeholder {
+  color: #a0a8ff;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #5a67d8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #4c51bf;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(1);
+}
+
+pre {
+  background-color: #5a67d8;
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 1rem;
+  padding: 20px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

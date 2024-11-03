@@ -1,3 +1,4 @@
+/* Reseteo de estilos */
 * {
   margin: 0;
   padding: 0;
@@ -9,13 +10,15 @@
   --degradado: linear-gradient(90deg, var(--limon), var(--verde));
 }
 
+/* Sección principal */
 section {
   min-height: 100vh;
-  padding: 0 8%;
-  padding-top: 7.5rem;
-  padding-bottom: 2rem;
+  padding: 0; /* Eliminado el padding lateral */
+  padding-top: 7.5rem; /* Espacio superior */
+  padding-bottom: 2rem; /* Espacio inferior */
 }
 
+/* Estilo del botón */
 .btn {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -31,125 +34,101 @@ section {
 
 .btn:hover {
   transform: scale(1.1);
-  text-decoration: none;
 }
 
+/* Estilo de la sección de inicio */
 .inicio {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Alinea el contenido a la izquierda */
   background: url(../images/fondo2.jpg);
   background-size: cover;
   background-position: center;
 }
 
+/* Ajustes para la imagen en la sección de inicio */
 .inicio img {
-  width: 30vw; /* Ajusta el ancho al 40% del contenedor padre */
-  min-width: 100px; /* Ancho mínimo de la imagen */
-  max-width: 100%; /* Asegura que la imagen no se expanda más allá del contenedor */
-  height: auto; /* Mantiene la proporción de aspecto de la imagen */
-  margin-left: 300px; /* Empuja la imagen hacia la derecha si hay espacio disponible */
-  margin-right: 0; /* Elimina el margen derecho */
+  width: 40vw; /* Tamaño responsivo */
+  min-width: 100px;
+  margin-top: -100px; /* Ajusta según sea necesario */
 }
 
-
-.inicio .content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Alinea el contenido a la izquierda */
+/* Estilo de textos a la izquierda */
+.text-left {
+  margin-left: -30px; /* Ajusta este valor según sea necesario */
 }
 
-.inicio .content h3 {
-  font-size: 3.5rem;
-  color: black;
-  text-transform: uppercase;
-}
-
+/* Estilos de texto en la sección de inicio */
+.inicio .content h3,
 .inicio .content span {
-  font-size: 3.5rem;
-  color: darkcyan;
-  text-transform: uppercase;
+  font-size: 3.5rem; /* Tamaño de fuente grande */
+  color: black; /* Color del texto */
+  text-transform: uppercase; /* Mayúsculas */
 }
 
 .inicio .content p {
   margin-top: 5px;
   color: #060606;
-  font-size: 0.9rem;
+  font-size: 1rem; /* Ajuste del tamaño de texto */
+  text-align: justify; /* Justificación del texto */
+  line-height: 1.5; /* Espaciado de línea */
 }
 
+/* Clase de texto justificado */
+.text-justificado {
+  text-align: justify;
+  font-size: 0.75rem; /* Tamaño de texto */
+  margin-left: -100px; /* Ajusta según sea necesario */
+}
+
+/* Clase para títulos alineados a la izquierda */
+.titulo-izquierda {
+  margin-left: -100px; /* Ajusta según sea necesario */
+}
+
+/* Media Queries para pantallas más pequeñas */
 @media (max-width: 768px) {
   .inicio {
-    flex-flow: column;
+    flex-flow: column; /* Coloca los elementos en columna */
   }
 
   .inicio .content {
-    width: 100%;
+    width: 100%; /* Ancho completo en pantallas pequeñas */
   }
 
   .inicio .imagen {
     width: 100%;
-    margin-top: 80px;
+    margin-top: 80px; /* Espaciado superior */
   }
 
   .inicio .imagen img {
-    width: 300px;
+    width: 300px; /* Tamaño fijo en pantallas pequeñas */
   }
 
-  .inicio .content h3 {
-    font-size: 2.8rem;
-  }
-
+  .inicio .content h3,
   .inicio .content span {
-    font-size: 2.8rem;
+    font-size: 2.8rem; /* Tamaño de fuente reducido */
   }
 
   .inicio .content p {
-    font-size: 0.9rem;
+    font-size: 0.75rem; /* Texto más pequeño en pantallas pequeñas */
   }
 }
 
 @media (max-width: 368px) {
   .inicio .content h3 {
-    font-size: 1.9rem;
-    color: black;
-    text-transform: uppercase;
-  }
-
-  .inicio .content h3 {
-    font-size: 1.5rem;
+    font-size: 1.9rem; /* Tamaño más pequeño para encabezado */
   }
 
   .inicio .content span {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Tamaño más pequeño para span */
   }
 
   .inicio .content p {
-    font-size: 0.7rem;
+    font-size: 0.7rem; /* Texto aún más pequeño */
   }
 
   .inicio .imagen img {
-    width: 100%;
+    width: 100%; /* Asegura que la imagen ocupe el 100% del ancho */
   }
-}
-
-.container-text {
-  width: 70%;           /* Ajusta el ancho al 70% del contenedor padre */
-  max-width: 800px;     /* Ancho máximo de 800px */
-  min-width: 300px;     /* Ancho mínimo de 300px */
-  height: auto;         /* Altura automática ajustada al contenido */
-  max-height: 600px;    /* Altura máxima de 600px */
-  min-height: 200px;    /* Altura mínima de 200px */
-  margin: 0 auto;       /* Centra el contenedor horizontalmente */
-  padding: 20px;        /* Espacio interior del contenedor */
-  text-align: justify;  /* Justifica el texto dentro del contenedor */
-  box-sizing: border-box; /* Incluye padding y border en el tamaño total del contenedor */
-}
-
-.container-text h1 {
-  font-size: 4rem;          /* Tamaño de fuente */
-  font-weight: bold;        /* Peso de la fuente */
-  text-align: center;       /* Centra el texto */
-  line-height: 1.2;         /* Ajusta el espacio entre líneas */
-  letter-spacing: normal;   /* Espaciado normal entre letras */
-  margin-bottom: 1rem;      /* Espacio inferior */
 }

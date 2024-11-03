@@ -120,3 +120,11 @@ html, body {
   top: calc(50% - 30px);
   transform: translate(0, -50%);
 }
+
+.slider_section .carousel-control-prev:hover{
+  background-color: #160532;
+}
+
+.slider_section .carousel-control-next:hover{
+  background-color: #160532;
+}

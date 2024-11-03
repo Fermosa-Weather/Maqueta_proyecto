@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 export default function Pie_pagina() {
   return (
@@ -11,27 +11,27 @@ export default function Pie_pagina() {
           </p>
         </div>
         <nav className="grid gap-4">
-          <Link to="/" className="text-base hover:underline">
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
             Home
           </Link>
-          <Link to="/weather" className="text-base hover:underline">
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
             Weather
           </Link>
-          <Link to="/about" className="text-base hover:underline">
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
             About Us
           </Link>
-          <Link to="/contact" className="text-base hover:underline">
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
             Contact
           </Link>
         </nav>
         <nav className="grid gap-4">
-          <Link to="/privacy-policy" className="text-base hover:underline">
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
             Privacy Policy
           </Link>
-          <Link to="/terms-of-service" className="text-base hover:underline">
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
             Terms of Service
           </Link>
-          <Link to="/support" className="text-base hover:underline">
+          <Link href="#" className="text-base hover:underline" prefetch={false}>
             Support
           </Link>
         </nav>
@@ -40,5 +40,5 @@ export default function Pie_pagina() {
         </div>
       </div>
     </footer>
-  );
+  )
 }

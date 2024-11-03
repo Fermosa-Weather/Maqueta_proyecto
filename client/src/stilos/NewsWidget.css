@@ -1,17 +1,6 @@
-/* Estilos para el widget de noticias */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* src/stilos/NewsWidget.css */
-/* Estilos para el widget de noticias */
-/* Estilos para el widget de noticias */
-.news-widget {
-  background: linear-gradient(to bottom right, #6a1b9a, #1976d2, #6a1b9a);
-  padding: 2rem;
-  border-radius: 0rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  
+* {
+  margin: 0;
+  padding: 0;
 }
 
 .news-link {
@@ -21,6 +10,16 @@
 
 .news-link:hover {
   text-decoration: none; /* Asegúrate de que no haya subrayado en hover */
+}
+
+.news-widget {
+  background: linear-gradient(to bottom right, #6a1b9a, #1976d2, #6a1b9a);
+  padding: 2rem;
+  border-radius: 0rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-height: 600px;
+  position: relative;
+  z-index: 1;
 }
 
 .news-title {
@@ -37,21 +36,23 @@
   gap: 1.5rem;
 }
 
+
 .news-card {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 0.75rem;
   overflow: hidden;
   border: 1px solid #d1c4e9;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease; /* Transición suave para el efecto de transformación */
-  /* Otras propiedades del contenedor */
 }
 
-.news-card:hover{
-  transition: transform 0.3s ease; /* Transición suave para el efecto de transformación */
-/* Otras propiedades del contenedor */
+/* Cuando se pasa el cursor sobre la tarjeta */
+.news-card:hover {
+  cursor: pointer;
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
 }
+
 
 .news-image {
   width: 100%;

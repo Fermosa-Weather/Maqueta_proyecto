@@ -1,139 +1,83 @@
-/* Estilos generales para la aplicación */
-* {
-  margin: 0px;
-  padding: 0px;
+/* WeatherForecast.css */
+
+/* Estilos del contenedor principal */
+.weather-forecast-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f0f0f0; /* Fondo gris claro */
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+.forecast-title {
+  font-size: 1.8em;
+  color: #2a3d54; /* Azul grisáceo oscuro para el título */
+  margin-bottom: 20px;
+}
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f0f0;
-    margin: 0px;
-    padding: 0px;
-  }
-  
-  .background-container {
-    background: linear-gradient(to bottom, #aed6f1, #4a90e2); /* Gradiente azul celeste */
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .App {
-    text-align: center;
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 900px; /* Limitar el ancho para mejor legibilidad */
-    background-color: rgba(240, 247, 255, 0.9); /* Fondo celeste semi-transparente */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  }
-  
-  @media (prefers-reduced-transparency: reduce) {
-    .App {
-      background-color: #f0f7ff; /* Fallback color for reduced transparency */
-    }
-  }
-  
-  .App-header {
-    background-color: #3498db;
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .App-header h1 {
-    margin-bottom: 10px;
-    font-size: 32px;
-  }
-  
-  .App-header p {
-    font-size: 18px;
-    line-height: 1.5;
-  }
-  
-  .App-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .App-buttons button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #2980b9;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .App-buttons button:hover {
-    background-color: #1a5276;
-  }
-  
-  .News-widget {
-    margin-top: 40px;
-  }
-  
-  .News-widget h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #34495e;
-  }
-  
-  .News-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .News-item {
-    background-color: #ecf0f1;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    transition: transform 0.3s ease;
-  }
-  
-  .News-item:hover {
-    transform: translateY(-5px);
-  }
-  
-  .News-image {
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid #bdc3c7;
-  }
-  
-  .News-content {
-    padding: 10px;
-  }
-  
-  .News-content h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-    color: #2c3e50;
-  }
-  
-  .News-content p {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #34495e;
-  }
-  
-  @media (max-width: 600px) {
-    .App-buttons {
-      flex-direction: column;
-    }
-  
-    .News-item {
-      width: 100%;
-    }
-  }
+/* Estilos de los puntos del slider */
+.slick-dots li button:before {
+  color: #6c8ca1; /* Azul grisáceo medio para los puntos */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #1e6091; /* Azul oscuro para el punto activo */
+}
+
+/* Contenedor de cada predicción */
+.forecast-item {
+  padding: 10px;
+}
+
+/* Estilos de la tarjeta */
+.card {
+  background: #f0f0f0; /* Fondo gris claro */
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Sombra mejorada al pasar el ratón */
+}
+
+.card-title {
+  font-size: 1.3em;
+  color: #274060; /* Azul grisáceo */
+  margin-bottom: 10px;
+}
+
+.temperature {
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 1.1em;
+  color: #4a6378; /* Azul grisáceo medio para el texto de la temperatura */
+  margin: 5px 0;
+}
+
+/* Estilos del icono de clima */
+.weather-icon {
+  width: 60px;
+  height: 60px;
+  margin-top: 10px;
+}
+
+/* Mensaje de "No hay datos" */
+.no-data {
+  font-size: 1.2em;
+  color: #8a9ca9; /* Azul claro grisáceo para el mensaje de sin datos */
+}
+
+/* Mensaje de error */
+.error-message {
+  color: #d9534f;
+  font-size: 1.1em;
+  margin-top: 10px;
+}

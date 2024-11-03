@@ -1,5 +1,5 @@
 import React from 'react'
-import PredictionForm from './components/Modelo_predicion/PredictionForm'; // Importa sin llaves
+import PredictionForm from './components/Modelo_predicion/WeatherQuery'; // Importa sin llaves
 import Nav from './components/Navbar/Nav';
 
 function Modelo_predicion() {

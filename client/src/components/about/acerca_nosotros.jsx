@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../../../src/stilos/about.css'; // Asegúrate de que esta ruta sea correcta
 import misionImage from '../../images2/laslomitas.jpg'; // Asegúrate de que la ruta a la imagen sea correcta
 import visionImage from '../../images2/laslomitas.jpg'; // Asegúrate de que la ruta a la imagen sea correcta
 
-const AcercaNosotros = () => {
+const Acerca_Nosotros = () => {
   return (
     <div className="acerca-nosotros-container">
       <div className="acerca-nosotros-content">
@@ -43,9 +44,10 @@ const AcercaNosotros = () => {
             Nuestro equipo de soporte está aquí para ayudarte. Revisaremos tu consulta con la mayor prontitud posible y nos pondremos en contacto contigo a la brevedad.
           </p>
           <div className="button-container">
-            <a href="mailto:info@rafestaciones.com">
-              <button className="acerca-nosotros-contact-button">Ir a Contacto</button>
-            </a>
+            <Link to="/contacto">
+              {/* <i className="bi bi-envelope"></i> Contacto */}
+              <button className="acerca-nosotros-contact-button bi bi-envelope"> Ir a Contacto</button>
+            </Link>
           </div>
         </section>
       </div>
@@ -53,4 +55,4 @@ const AcercaNosotros = () => {
   );
 };
 
-export default AcercaNosotros;
+export default Acerca_Nosotros;
