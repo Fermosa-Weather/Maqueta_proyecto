@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { key } from '../config/conf';
+
+const key = process.env.JWT_SECRET || "tu_clave_secreta_para_jwt";
 
 export const generateToken = (payload) => {
   return jwt.sign(payload, key, {

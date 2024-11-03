@@ -74,29 +74,6 @@ def scrape_all_articles():
     return all_articles
 
 # Función para guardar los artículos en el archivo JSON
-# def addJson(new_articles):
-#     if not new_articles:  # Verifica si hay artículos para guardar
-#         print("No hay artículos para guardar.")
-#         return
-
-#     # Leer artículos existentes
-#     try:
-#         with open(FILE_PATH, 'r') as f:
-#             existing_articles = json.load(f)
-#     except FileNotFoundError:
-#         # Si el archivo no existe, comenzamos con una lista vacía
-#         existing_articles = []
-
-#     # Combinar artículos existentes con los nuevos
-#     existing_articles.extend(new_articles)
-
-#     # Guardar la lista combinada de artículos
-#     with open(FILE_PATH, 'w') as f:
-#         json.dump(existing_articles, f, indent=2)
-
-#     print(f"{len(new_articles)} artículos agregados en {FILE_PATH}. Total ahora: {len(existing_articles)} artículos.")
-
-# Función para guardar los artículos en el archivo JSON
 def addJson(articles):
     if not articles:  # Verifica si hay artículos para guardar
         print("No hay artículos para guardar.")
