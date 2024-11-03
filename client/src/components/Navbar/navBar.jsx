@@ -85,7 +85,7 @@ export const NavBar = ({ onSearch }) => {
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/modelo_prediccion">
-                            <i i className="bi bi-cpu "></i> Modelo
+                            <i i className="bi bi-cpu "></i> IA
                           </Link>
                         </li>
                         <li className="nav-item">
