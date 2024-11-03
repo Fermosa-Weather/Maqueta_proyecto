@@ -1,17 +1,15 @@
-// src/components/WeatherQuery.jsx
-
 import React, { useState } from 'react';
-//import '../../stilos/WeatherQuery.css';
+import '../../stilos/WeatherQuery.css';
 
 const WeatherQuery = () => {
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState('');
 
   const loadResponse = async (query) => {
-    setResponse(''); // Clear previous response
+    setResponse(''); // Limpiar la respuesta anterior
 
     try {
-      console.log('Sending request to the server');
+      console.log('Enviando solicitud al servidor');
       const res = await fetch('http://localhost:4000/api/model/consulta-data', {
         method: 'POST',
         headers: {
@@ -21,7 +19,7 @@ const WeatherQuery = () => {
       });
 
       if (!res.body) {
-        throw new Error('Could not read response from server');
+        throw new Error('No se pudo leer la respuesta del servidor');
       }
 
       const reader = res.body.getReader();
@@ -35,8 +33,8 @@ const WeatherQuery = () => {
         chunk = await reader.read();
       }
     } catch (error) {
-      console.error('Error loading response:', error);
-      setResponse('Error retrieving response from server.');
+      console.error('Error al cargar la respuesta:', error);
+      setResponse('Error al recuperar la respuesta del servidor.');
     }
   };
 
@@ -44,21 +42,21 @@ const WeatherQuery = () => {
     if (query) {
       loadResponse(query);
     } else {
-      alert('Please enter a query.');
+      alert('Por favor, introduce una consulta.');
     }
   };
 
   return (
-    <div className="container">
+    <div className="weather-query-container">
       <h1>Consulta el Tiempo en Formosa</h1>
       <input
         type="text"
         id="query"
-        placeholder="Type your query here..."
+        placeholder="Escribe tu consulta aquí..."
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
-          console.log('Input value:', e.target.value); // Log to check input
+          console.log('Valor del input:', e.target.value); // Registrar para verificar la entrada
         }}
       />
       <button onClick={handleSend}>Consultar</button>
