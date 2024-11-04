@@ -3,32 +3,27 @@ import User from '../models/UserModel.js'
 export const updateUserProfile = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre_completo, username } = req.body; // Get the updated name and username from the request body
-    const file = req.files?.fotoUser; // Get the uploaded image file if provided
+    const { nombre_completo, username, profileImage } = req.body; // Acepta el profileImage del frontend
+    const file = req.files?.fotoUser; // Obtén el archivo si se sube uno nuevo
 
-    console.log("ID del usuario:", id);
-    console.log("Nombre completo:", nombre_completo);
-    console.log("Nombre de usuario:", username);
-    console.log("Archivo de imagen:", file);
-
-    // Create an object to hold the update data
+    // Objeto para almacenar los datos que se van a actualizar
     const updateData = {};
-    if (nombre_completo) {
-      updateData.nombre_completo = nombre_completo;
-    }
-    if (username) {
-      updateData.username = username;
+    if (nombre_completo) updateData.nombre_completo = nombre_completo;
+    if (username) updateData.username = username;
+
+    // Si no hay archivo nuevo, usa el nombre de la imagen actual (profileImage)
+    if (!file && profileImage) {
+      updateData.fotoUser = profileImage;
     }
 
-    // Check if the file exists
+    // Si se sube un nuevo archivo, actualiza la imagen
     if (file) {
       const fileName = file.name; 
       const filePath = `../../../proyecto/Proyecto_finish_clima/client/public/foto_users/${fileName}`;
 
-      // Add the fotoUser field to the update data
       updateData.fotoUser = fileName;
 
-      // Move the file to the specified directory
+      // Mueve el archivo a la carpeta correspondiente
       await new Promise((resolve, reject) => {
         file.mv(filePath, (err) => {
           if (err) {
@@ -40,13 +35,13 @@ export const updateUserProfile = async (req, res) => {
       });
     }
 
-    // Update the user record with the new data
+    // Actualiza el registro del usuario en la base de datos
     const result = await User.updateOne(
-      { _id: id }, // Ensure you're matching the _id field
+      { _id: id }, // Asegúrate de que coincida con el campo _id
       { $set: updateData }
     );
 
-    // Check if the update was successful
+    // Verifica si la actualización fue exitosa
     if (result.nModified === 0) {
       return res.status(400).json({ message: 'No se pudo actualizar el perfil, el usuario puede no existir o no se realizaron cambios' });
     }
@@ -57,7 +52,6 @@ export const updateUserProfile = async (req, res) => {
     res.status(500).json({ message: 'Error al actualizar el perfil' });
   }
 };
-
 
 export const uploadUserImage = async (req, res) => {
     try {

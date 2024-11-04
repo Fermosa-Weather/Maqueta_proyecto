@@ -45,7 +45,7 @@ export default function Perfil() {
               <p className="text-lg font-medium mb-2">Muestra tu foto de perfil</p>
               <div className="flex justify-center mb-4">
                 <img
-                  src="../../../src/images2/yuichi.jpg"
+                  src={userInfo.fotoUser}
                   alt="Foto de perfil"
                   className="w-24 h-24 rounded-full border-2 border-blue-700"
                 />
