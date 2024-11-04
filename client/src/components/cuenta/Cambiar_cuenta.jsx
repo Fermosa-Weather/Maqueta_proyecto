@@ -1,10 +1,24 @@
-import { FaUserFriends, FaCog, FaSignOutAlt } from 'react-icons/fa'; // Importa los íconos que necesitas
+import React, { useEffect, useState } from 'react';
+import { FaUserFriends, FaSignOutAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import "../../stilos/perfil.css"
+import { fetchUserInfo } from "../Function/infoToken";
+import "../../stilos/perfil.css";
 
 export default function Cambiar_cuenta() {
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Obtén el token desde localStorage
+
+    if (token) {
+      fetchUserInfo(token)
+        .then(data => setUserInfo(data))
+        .catch(error => console.error("Error al obtener la información del usuario:", error));
+    }
+  }, []);
+
   return (
-    <div className="mx-auto text-white p-6 rounded-lg contenedor-añadir-cuenta"> {/* Aumentado mt-64 para más espacio arriba */}
+    <div style={{ width: "400px" }} className="mx-auto text-white p-6 rounded-lg contenedor-añadir-cuenta">
       <div className="flex flex-col items-center">
         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4">
           <img
@@ -18,13 +32,15 @@ export default function Cambiar_cuenta() {
 
       <div className="mt-6 border-t border-gray-200 pt-2">
         <ul className="space-y-1">
-          <li className="flex items-center space-x-0 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
-            <img src="../../../src/images2/yuichi.jpg" alt="" className='w-16 h-16 rounded-full object-cover foto_perfil'/>
-            <div className="grid gap-0 pl-3"> 
-              <div className="text-lg font-semibold">John Doe</div>
-              <div className="text-sm text-muted-foreground">john@example.com</div>
-            </div>
-          </li>
+          {userInfo && (
+            <li className="flex items-center space-x-0 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+              <img src={userInfo.fotoUser || "../../images/usuario.jpg"} alt="" className='w-16 h-16 rounded-full object-cover foto_perfil'/>
+              <div className="grid gap-0 pl-3"> 
+                <div className="text-lg font-semibold">{userInfo.username}</div>
+                <div className="text-sm text-muted-foreground">{userInfo.email}</div>
+              </div>
+            </li>
+          )}
         </ul>
       </div>
 
@@ -32,24 +48,23 @@ export default function Cambiar_cuenta() {
         <ul className="space-y-2">
           <Link to="/registro" className='no-underline'>
             <li className="flex items-center justify-center space-x-0 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
-              <FaUserFriends className="w-5 h-5" /> {/* Icono de usuario */}
+              <FaUserFriends className="w-5 h-5" />
               <span>Añadir otra cuenta</span>
             </li>
           </Link>
         </ul>
       </div>
 
-      <div className="mt-2 border-t border-gray-200 pt-2"> 
-        <ul className="space-y-2"> 
+      <div className="mt-2 border-t border-gray-200 pt-2">
+        <ul className="space-y-2">
           <Link to="/cerrar_sesion" className='no-underline'>
             <li className="flex items-center justify-center mb-0 space-x-1 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
-              <FaSignOutAlt className="w-5 h-5" /> {/* Cerrar sesión */}
+              <FaSignOutAlt className="w-5 h-5" />
               <span>Cerrar sesión</span>
             </li>
           </Link>
         </ul>
       </div>
-      
     </div>
   );
 }
