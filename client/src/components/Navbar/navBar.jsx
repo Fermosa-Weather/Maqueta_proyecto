@@ -65,17 +65,17 @@ export const NavBar = ({ onSearch }) => {
                         <li className="nav-item active">
                           <Link className="nav-link" to="/home">
             
-                            <i className="bi bi-house"></i> Home
+                            <i className="bi bi-house"></i> Hogar
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/about">
-                            <i className="bi bi-person"></i> About
+                            <i className="bi bi-person"></i> Acerca de 
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/Weather">
-                            <i className="bi bi-cloud-sun"></i> Weather
+                            <i className="bi bi-cloud-sun"></i> El tiempo
                           </Link>
                         </li>
                         <li className="nav-item">

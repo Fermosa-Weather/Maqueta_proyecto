@@ -1,3 +1,4 @@
+// client/src/components/Mapa/MapCircle.jsx
 import React, { useState, useEffect } from "react";
 import {
   MapContainer,
@@ -10,14 +11,16 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios"; // Importamos Axios
 import { FormosaCityGeoJSON } from "./data/Departamentos.js";
-import StationInfo from "./stationInfo.jsx";
-import { Stations } from "./data/estaciones.js";
+import StationInfo from "./StationInfo.jsx";
+import "../../stilos/wheater.css";
 
 const { BaseLayer, Overlay } = LayersControl;
 
 function MapWithCircles() {
   const [circles, setCircles] = useState([]);
+  const [stations, setStations] = useState([]);
   const [selectedStation, setSelectedStation] = useState(null);
   const [averages, setAverages] = useState({
     temperature: 0,
@@ -30,58 +33,71 @@ function MapWithCircles() {
   const formosaCenter = [-24.786927, -60.182694];
   const zoomLevel = 7;
 
+  // Obtener datos de las estaciones desde la API
   useEffect(() => {
-    const calculateAverages = () => {
-      const totalStations = Stations.length;
-      const totalValues = Stations.reduce(
+    const fetchStations = async () => {
+      try {
+        const response = await axios.get(
+          "https://ramf.formosa.gob.ar/api/station"
+        );
+        setStations(response.data); // Guardamos las estaciones en el estado
+      } catch (error) {
+        console.error("Error al obtener las estaciones:", error);
+      }
+    };
+    fetchStations();
+  }, []);
+
+  // Calcular promedios
+  useEffect(() => {
+    if (stations.length > 0) {
+      const totalStations = stations.length;
+      const totalValues = stations.reduce(
         (totals, station) => {
-          totals.temperature += station.temperature;
-          totals.humidity += station.humidity;
-          totals.pressure += station.pressure;
-          totals.windSpeed += station.windSpeed;
-          totals.precipitation += station.precipitation;
+          const { airTemp, rh, windSpeed, rain_last } = station.meta;
+          totals.temperature += airTemp || 0;
+          totals.humidity += rh || 0;
+          totals.windSpeed += windSpeed || 0;
+          totals.precipitation += rain_last || 0;
           return totals;
         },
-        {
-          temperature: 0,
-          humidity: 0,
-          pressure: 0,
-          windSpeed: 0,
-          precipitation: 0,
-        }
+        { temperature: 0, humidity: 0, windSpeed: 0, precipitation: 0 }
       );
 
       setAverages({
         temperature: (totalValues.temperature / totalStations).toFixed(2),
         humidity: (totalValues.humidity / totalStations).toFixed(2),
-        pressure: (totalValues.pressure / totalStations).toFixed(2),
         windSpeed: (totalValues.windSpeed / totalStations).toFixed(2),
         precipitation: (totalValues.precipitation / totalStations).toFixed(2),
       });
-    };
-
-    calculateAverages();
-  }, []);
+    }
+  }, [stations]);
 
   const handleMarkerClick = (station) => {
-    const circleExists = circles.find(
+    const circleExists = circles.some(
       (circle) =>
-        circle.coords[0] === station.coords[0] &&
-        circle.coords[1] === station.coords[1]
+        circle.coords[0] === station.position.geo.coordinates[1] &&
+        circle.coords[1] === station.position.geo.coordinates[0]
     );
     if (circleExists) {
       setCircles((prevCircles) =>
         prevCircles.filter(
           (circle) =>
-            circle.coords[0] !== station.coords[0] ||
-            circle.coords[1] !== station.coords[1]
+            circle.coords[0] !== station.position.geo.coordinates[1] ||
+            circle.coords[1] !== station.position.geo.coordinates[0]
         )
       );
       setSelectedStation(null);
     } else {
       setCircles((prevCircles) => [
         ...prevCircles,
-        { coords: station.coords, color: station.color },
+        {
+          coords: [
+            station.position.geo.coordinates[1],
+            station.position.geo.coordinates[0],
+          ],
+          color: "blue",
+        },
       ]);
       setSelectedStation(station);
     }
@@ -89,14 +105,15 @@ function MapWithCircles() {
 
   return (
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-9 mt-3">
+      <div className="row flex-column mapa">
+        <div className="col-md-12 mb-3 pl-4">
           <MapContainer
             center={formosaCenter}
             zoom={zoomLevel}
             style={{ height: "calc(87vh)", width: "100%" }}
             zoomControl={true}
           >
+            {/* Controles de capas */}
             <LayersControl position="topright">
               <BaseLayer checked name="Mapa de Calle">
                 <TileLayer
@@ -142,79 +159,52 @@ function MapWithCircles() {
               </Overlay>
             </LayersControl>
 
-            {Stations.map((station) => (
+            {stations.map((station) => (
               <Marker
-                key={station.id}
-                position={station.coords}
+                key={station._id}
+                position={[
+                  station.position.geo.coordinates[1],
+                  station.position.geo.coordinates[0],
+                ]}
                 eventHandlers={{
                   click: () => handleMarkerClick(station),
                 }}
               >
                 <Popup>
                   <div>
-                    <h3>{station.name}</h3>
-                    <p>Temperatura: {station.temperature}°C</p>
-                    <p>Humedad: {station.humidity}%</p>
-                    <p>Presión: {station.pressure} hPa</p>
-                    <p>Velocidad del Viento: {station.windSpeed} m/s</p>
-                    <p>Precipitación: {station.precipitation} mm</p>
+                    <h3>{station.name.custom}</h3>
+                    <p>Temperatura: {station.meta.airTemp}°C</p>
                   </div>
-                  <button className="btn btn-success">Ver más</button>
                 </Popup>
               </Marker>
             ))}
 
-            {circles.map((circle, index) => (
+            {/* {circles.map((circle, index) => (
               <Circle
                 key={index}
                 center={circle.coords}
-                pathOptions={{
-                  color: circle.color,
-                  fillColor: circle.color,
-                  fillOpacity: 0.2,
-                }}
-                radius={150000} // Radio en metros (150 km)
+                pathOptions={{ color: circle.color, fillOpacity: 0.2 }}
+                radius={150000}
               />
-            ))}
+            ))} */}
 
             <GeoJSON
               data={FormosaCityGeoJSON}
-              style={(feature) => ({
-                color: "green", // Color del borde del polígono
-                weight: 2, // Grosor del borde del polígono
-                fillColor: "lightblue", // Color de relleno del polígono
-                fillOpacity: 0.2, // Opacidad del relleno del polígono
-                // Estilos para las etiquetas de texto
-                pane: "overlayPane",
-                renderer: L.canvas(),
-                interactive: false,
-                style: {
-                  color: "white",
-                  fillColor: "lightblue",
-                  weight: 2,
-                  opacity: 1,
-                  fillOpacity: 0.5,
-                  className: "map-labels",
-                },
-                onEachFeature: function (feature, layer) {
-                  if (feature.properties && feature.properties.label) {
-                    layer.bindTooltip(feature.properties.label, {
-                      permanent: true,
-                      direction: "center",
-                      className: "map-labels",
-                    });
-                  }
-                },
-              })}
+              style={{ color: "green", weight: 2 }}
             />
           </MapContainer>
         </div>
-        <div className="col-md-3 mt-3">
-        <StationInfo className="estaciones_info" averages={averages} />
-        </div>
+      </div>
+
+      <div className="col-md-12 contenedor-panel">
+        <StationInfo
+          stations={stations} // Pasar la lista de estaciones correctamente
+          station={selectedStation}
+          averages={averages}
+        />
       </div>
     </div>
   );
 }
 
-export default MapWithCircles
+export default MapWithCircles;
