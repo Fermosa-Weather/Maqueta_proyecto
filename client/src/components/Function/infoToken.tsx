@@ -7,6 +7,7 @@ export async function fetchUserInfo(token) {
         Authorization: `Bearer ${token}`, // Send the token in the Authorization header
       },
     });
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error("Error fetching user info:", error);

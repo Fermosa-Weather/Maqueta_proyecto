@@ -1,23 +1,9 @@
 import { useEffect, useState } from 'react';
 import { FaUser, FaUserAlt, FaMapMarkerAlt, FaCamera } from 'react-icons/fa';
+import {fetchUserInfo} from "../Function/infoToken"
 import axios from "axios";
 import "../../stilos/perfil.css";
 import Añadir_foto_modal from './añadir_foto';
-
-// Function to fetch user information
-export async function fetchUserInfo(token) {
-  try {
-    const response = await axios.get("http://localhost:4000/api/auth/info", {
-      headers: {
-        Authorization: `Bearer ${token}`, // Send the token in the authorization header
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching user info:", error);
-    throw new Error("No se pudo obtener la información del usuario");
-  }
-}
 
 // Function to update user information
 async function updateUser(token, userId, updatedData) {
@@ -114,7 +100,7 @@ export default function Editar_perfi() {
               >
                 <img
                  src={userInfo.profileImage || userInfo.fotoUser}
-                  alt="Profile"
+                  // alt="Profile"
                   className="h-24 w-24 rounded-full border-4 border-primary group-hover:opacity-40 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 flex items-center justify-center icono-camara">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Perfil_modal from "../perfil/modal_perfil";
 import { Visibilidad_nav } from './visibilidad_nav';
@@ -7,21 +7,29 @@ import "../../stilos/Plantilla_slider/css/responsive.css";
 import "../../stilos/Plantilla_slider/css/style.css";
 import "../../stilos/Plantilla_slider/css/bootstrap.css";
 import { Search } from "../Serch/Search";
+import { fetchUserInfo } from "../Function/infoToken.tsx";
 
 export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
   const [searchTerm, setSearchTerm] = useState('');
+  const [userData, setUserData] = useState(null); // Estado para almacenar los datos de usuario
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-//buscador
+  // Al cargar el componente, obtén el token y llama a fetchUserInfo
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchUserInfo(token)
+        .then(data => setUserData(data))
+        .catch(error => console.error(error.message));
+    }
+  }, []);
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
     onSearch(term);
   };
-
-  //modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -38,10 +46,9 @@ export const NavBar = ({ onSearch }) => {
           <div className="row">
             <div className="col-xl-8">
               <nav className="navbar navbar-expand-xl custom_nav-container">
-
-              <a className="navbar-brand" href="index.html">
+                <a className="navbar-brand" href="index.html">
                   <img src="../../../src/images/logo.png" alt="logo" className="logo"/>
-              </a>
+                </a>
 
                 <button
                   className="navbar-toggler"
@@ -59,10 +66,8 @@ export const NavBar = ({ onSearch }) => {
                 {isVisible && (
                   <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <div className="d-flex flex-column flex-xl-row align-items-center">
-
-                    <ul className="navbar-nav">
-
-                        <li className="nav-item active">
+                      <ul className="navbar-nav">
+                      <li className="nav-item active">
                           <Link className="nav-link" to="/home">
             
                             <i className="bi bi-house"></i> Home
@@ -100,20 +105,20 @@ export const NavBar = ({ onSearch }) => {
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/estaciones">
-                            <i className="bi bi-thermometer"></i> Info Estación {/* Ícono de termómetro */}
+                            <i className="bi bi-thermometer"></i> Info Estación 
                           </Link>
                         </li>
-                        
                         <li className="nav-item">
                           <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
-                          <img src="../../../src/images2/yuichi.jpg" alt="logo" className="foto_perfil" />
+                            <img
+                              src={userData?.fotoUser || "../../../src/images/default-profile.png"}
+                              alt="logo"
+                              className="foto_perfil"
+                            />
                           </a>
                         </li>
-
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
-                  
-
                       </ul>
                     </div>
                   </div>
