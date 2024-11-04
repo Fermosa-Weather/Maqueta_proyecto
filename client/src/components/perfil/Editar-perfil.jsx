@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { FaUser, FaUserAlt, FaMapMarkerAlt, FaCamera } from 'react-icons/fa';
-import {fetchUserInfo} from "../Function/infoToken"
+import { fetchUserInfo } from "../Function/infoToken";
 import axios from "axios";
 import "../../stilos/perfil.css";
 import Añadir_foto_modal from './añadir_foto';
 
-// Function to update user information
 async function updateUser(token, userId, updatedData) {
   try {
     const response = await axios.put(`http://localhost:4000/api/upload/editar/${userId}`, updatedData, {
@@ -20,7 +19,7 @@ async function updateUser(token, userId, updatedData) {
   }
 }
 
-export default function Editar_perfi() {
+export default function Editar_perfil() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userInfo, setUserInfo] = useState({
     id: '',
@@ -28,8 +27,17 @@ export default function Editar_perfi() {
     username: '',
     location: '',
     email: '',
-    profileImage: ''
+    profileImage: '',
+    fotoUser: null
   });
+
+  // Función para establecer la imagen predeterminada si `fotoUser` es `null`
+  const foto = () => {
+    setUserInfo(prevState => ({
+      ...prevState,
+      fotoUser: prevState.fotoUser || "../../../src/images/usuario.jpg"
+    }));
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -54,6 +62,7 @@ export default function Editar_perfi() {
             profileImage: data.profileImage,
             fotoUser: data.fotoUser,
           });
+          foto(); // Llamar a `foto` después de cargar la información
         })
         .catch(error => {
           console.error(error.message);
@@ -64,20 +73,21 @@ export default function Editar_perfi() {
   const handleImageUpload = (imageUrl) => {
     setUserInfo(prevState => ({
       ...prevState,
-      profileImage: imageUrl, // Actualiza profileImage con la URL de la nueva imagen
-      fotoUser: '' // Borra fotoUser para asegurar que solo se muestre profileImage
+      profileImage: imageUrl,
+      fotoUser: null // Borra `fotoUser` para asegurar que solo se muestre `profileImage`
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-  
+
     const updatedData = {
       nombre_completo: userInfo.name,
       username: userInfo.username,
-      profileImage: userInfo.profileImage // Envía el nombre de la imagen actual
+      profileImage: userInfo.profileImage
     };
-  
+
     try {
       await updateUser(token, userInfo.id, updatedData);
       alert("Perfil actualizado exitosamente");
@@ -86,7 +96,6 @@ export default function Editar_perfi() {
       alert("Error al actualizar el perfil");
     }
   };
-  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -94,13 +103,10 @@ export default function Editar_perfi() {
         <div className="space-y-6">
           <form onSubmit={handleSubmit}>
             <div className="flex items-center gap-4">
-              <div
-                className="relative group cursor-pointer"
-                onClick={openModal}
-              >
+              <div className="relative group cursor-pointer" onClick={openModal}>
                 <img
-                 src={userInfo.profileImage || userInfo.fotoUser }
-                  // alt="Profile"
+                  src={userInfo.fotoUser || userInfo.profileImage}
+                  alt="Profile"
                   className="h-24 w-24 rounded-full border-4 border-primary group-hover:opacity-40 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 flex items-center justify-center icono-camara">
