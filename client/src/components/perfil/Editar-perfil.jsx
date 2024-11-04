@@ -114,19 +114,6 @@ export default function Editar_perfi() {
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
               />
             </div>
-            <div className="relative">
-              <FaMapMarkerAlt className="absolute top-1 left-2 text-gray-500" />
-              <label htmlFor="location" className="block text-sm font-medium text-gray-700 ml-7">
-                Location
-              </label>
-              <input
-                id="location"
-                value={userInfo.location}
-                onChange={(e) => setUserInfo({ ...userInfo, location: e.target.value })}
-                placeholder="Ingrese su localidad"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
-              />
-            </div>
             <div className='contenedor-form-editar-botones'>
               <button className="boton-form-editar-perfil">
                 cancelar

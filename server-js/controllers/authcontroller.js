@@ -83,7 +83,7 @@ export const register = async (req, res) => {
     const token = jwt.sign(
       { userId: newUser._id },
       process.env.JWT_SECRET,
-      { expiresIn: '24h' }
+      { expiresIn: '100h' }
     );
 
     // Enviar el token y el ID del usuario en la respuesta

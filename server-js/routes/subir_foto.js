@@ -1,9 +1,10 @@
 import express from 'express';
-import {uploadUserImage} from '../controllers/upload_controlers.js';
+import {uploadUserImage, updateUserProfile} from '../controllers/upload_controlers.js';
 
 const router = express.Router();
 
-// router.put('/:id', uploadUserImage)
+
+router.put('/editar/:id', updateUserProfile)
 
 router.put('/:id', uploadUserImage)
 
