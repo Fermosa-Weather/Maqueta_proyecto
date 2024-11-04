@@ -8,7 +8,7 @@ export default function Cambiar_cuenta() {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Obtén el token desde localStorage
+    const token = localStorage.getItem("token");
 
     if (token) {
       fetchUserInfo(token)
@@ -18,26 +18,37 @@ export default function Cambiar_cuenta() {
   }, []);
 
   return (
-    <div style={{ width: "400px" }} className="mx-auto text-white p-6 rounded-lg contenedor-añadir-cuenta">
+    <div className="max-w-sm mx-auto bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-6 rounded-lg shadow-lg">
       <div className="flex flex-col items-center">
-        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4">
+        <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-4 shadow-md">
           <img
             src="../../../src/images/logo.png"
             alt="Profile"
-            className="w-16 h-16 rounded-full object-cover"
+            className="w-24 h-24 rounded-full object-cover"
           />
         </div>
-        <h2 className="text-xl font-semibold">Elegir o añadir una cuenta</h2>
+        <h2 className="text-2xl font-bold text-center">Elegir o añadir una cuenta</h2>
       </div>
 
-      <div className="mt-6 border-t border-gray-200 pt-2">
-        <ul className="space-y-1">
+      <div className="mt-4 border-t border-gray-200 pt-2">
+        <ul className="space-y-2">
           {userInfo && (
-            <li className="flex items-center space-x-0 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
-              <img src={userInfo.fotoUser || "../../images/usuario.jpg"} alt="" className='w-16 h-16 rounded-full object-cover foto_perfil'/>
-              <div className="grid gap-0 pl-3"> 
+            <li className="flex items-center space-x-3 hover:bg-purple-500 hover:text-black p-2 rounded-md transition-all duration-200">
+              <img src={userInfo.fotoUser || "../../images/usuario.jpg"} alt="" className='w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm' />
+              <div className="flex flex-col">
                 <div className="text-lg font-semibold">{userInfo.username}</div>
-                <div className="text-sm text-muted-foreground">{userInfo.email}</div>
+                <div className="text-sm text-gray-300">{userInfo.email}</div>
+              </div>
+            </li>
+          )}
+        </ul>
+        <ul className="space-y-2">
+          {userInfo && (
+            <li className="flex items-center space-x-3 hover:bg-purple-500 hover:text-black p-2 rounded-md transition-all duration-200">
+              <img src={userInfo.fotoUser || "../../images/usuario.jpg"} alt="" className='w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm' />
+              <div className="flex flex-col">
+                <div className="text-lg font-semibold">{userInfo.username}</div>
+                <div className="text-sm text-gray-300">{userInfo.email}</div>
               </div>
             </li>
           )}
@@ -47,9 +58,9 @@ export default function Cambiar_cuenta() {
       <div className="mt-2 border-t border-gray-200 pt-2">
         <ul className="space-y-2">
           <Link to="/registro" className='no-underline'>
-            <li className="flex items-center justify-center space-x-0 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+            <li className="flex items-center justify-center space-x-2 hover:bg-purple-500 hover:text-black p-2 rounded-md transition-all duration-200">
               <FaUserFriends className="w-5 h-5" />
-              <span>Añadir otra cuenta</span>
+              <span className="font-medium">Añadir otra cuenta</span>
             </li>
           </Link>
         </ul>
@@ -58,9 +69,9 @@ export default function Cambiar_cuenta() {
       <div className="mt-2 border-t border-gray-200 pt-2">
         <ul className="space-y-2">
           <Link to="/cerrar_sesion" className='no-underline'>
-            <li className="flex items-center justify-center mb-0 space-x-1 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+            <li className="flex items-center justify-center space-x-2 hover:bg-purple-500 hover:text-black p-2 rounded-md transition-all duration-200">
               <FaSignOutAlt className="w-5 h-5" />
-              <span>Cerrar sesión</span>
+              <span className="font-medium">Cerrar sesión</span>
             </li>
           </Link>
         </ul>
