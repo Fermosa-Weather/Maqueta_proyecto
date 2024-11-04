@@ -26,6 +26,11 @@ export default function Perfil() {
     }
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove token
+    setUserData(null); // Clear user data
+  };
+
   return (
     <div className="flex flex-col items-center p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold text-blue-700 mb-4">

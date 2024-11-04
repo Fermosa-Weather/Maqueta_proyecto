@@ -8,12 +8,17 @@ import { FaUserFriends, FaCog, FaSignOutAlt, FaMoon } from 'react-icons/fa';
 export default function Perfil_modal({ onClose }) {
   const [userData, setUserData] = useState({
     email: '',
-    photoUrl: '',
+    photoUrl: '../../../src/images/usuario.jpg', // Default image for logged out state
     name: ''
   });
 
   const handleContentClick = (e) => {
     e.stopPropagation(); // Prevent clicking inside the modal from closing it
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove token
+    setUserData(null); // Clear user data
   };
 
   // Fetch user info when the component mounts
@@ -22,11 +27,9 @@ export default function Perfil_modal({ onClose }) {
     if (token) {
       fetchUserInfo(token) // Use your fetchUserInfo function with the token
         .then(data => {
-          console.log(data)
-          // Assuming 'data' contains the fields 'email', 'photoUrl', and 'name'
           setUserData({
             email: data.email || 'email@example.com', // Default email if not provided
-            photoUrl: data.fotoUser || '../../../src/images2/yuichi.jpg', // Default image
+            photoUrl: data.fotoUser || '../../../src/images/usuario.jpg', // Default image
             name: data.username || 'Nombre de Usuario' // Default name if not provided
           });
         })
@@ -34,13 +37,16 @@ export default function Perfil_modal({ onClose }) {
     }
   }, []);
 
+  const token = localStorage.getItem('token');
+
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
       onClick={onClose} // Close the modal if clicked outside
     >
       <div
-        className="max-w-xs mx-auto bg-[#6a0dad] text-white p-6 rounded-lg relative"
+        style={{ width: '350px' }}
+        className=" max-w-lg mx-auto bg-[#6a0dad] text-white p-6 rounded-lg relative"
         onClick={handleContentClick} // Stop propagation of click event
       >
         <button className="absolute top-4 right-4 text-white" onClick={onClose}>
@@ -57,38 +63,55 @@ export default function Perfil_modal({ onClose }) {
         <div className="flex flex-col items-center">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4">
             <img
-              src={userData.photoUrl || "../../../src/images/usuario.jpg"} // Use fetched photoUrl
+              src={userData.photoUrl} // Display user photo or default image
               alt="Profile"
               className="w-16 h-16 rounded-full object-cover"
             />
           </div>
-          <h2 className="text-xl font-semibold">{userData.name}</h2>
-          <p className="text-sm text-gray-300">{userData.email}</p>
+          <h2 className="text-xl font-semibold">{token ? userData.name : 'Iniciar sesión'}</h2>
+          <p className="text-sm text-gray-300">{token ? userData.email : ''}</p>
         </div>
         <div className="mt-6 border-t border-gray-200 pt-4">
           <ul className="space-y-1">
-            <Link to="/configuracion_cuenta" className='no-underline'>
-              <li className="flex items-center space-x-3 p-2 rounded-md hover:bg-[#4a00a6]">
-                <FaCog className="w-5 h-5" /> {/* Configuración */}
-                <span>Configuración de la cuenta</span>
-              </li>
-            </Link>
-            <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
-              <FaMoon className="w-5 h-5" /> {/* Tema */}
-              <span className="no-underline">Cambiar Tema</span>
-            </li>
-            <Link to="/cambiar_cuenta" className='no-underline'>
-              <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
-                <FaUserFriends className="w-5 h-5" /> {/* Cambiar de cuenta */}
-                <span className="no-underline">Cambiar de cuenta</span>
-              </li>
-            </Link>
-            <Link to="/cerrar_sesion" className='no-underline'>
-              <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
-                <FaSignOutAlt className="w-5 h-5" /> {/* Cerrar sesión */}
-                <span className="no-underline">Cerrar sesión</span>
-              </li>
-            </Link>
+            {token ? (
+              <>
+                <Link to="/configuracion_cuenta" className='no-underline'>
+                  <li className="flex items-center space-x-3 p-2 rounded-md hover:bg-[#4a00a6]">
+                    <FaCog className="w-5 h-5" /> {/* Configuración */}
+                    <span>Configuración de la cuenta</span>
+                  </li>
+                </Link>
+                <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+                  <FaMoon className="w-5 h-5" /> {/* Tema */}
+                  <span className="no-underline">Cambiar Tema</span>
+                </li>
+                <Link to="/cambiar_cuenta" className='no-underline'>
+                  <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+                    <FaUserFriends className="w-5 h-5" /> {/* Cambiar de cuenta */}
+                    <span className="no-underline">Cambiar de cuenta</span>
+                  </li>
+                </Link>
+                <Link to="/home" onClick={handleLogout} className='no-underline'>
+                  <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+                    <FaSignOutAlt className="w-5 h-5" /> {/* Cerrar sesión */}
+                    <span className="no-underline">Cerrar sesión</span>
+                  </li>
+                </Link>
+              </>
+            ) : (
+              <>
+                <li className="flex items-center space-x-3 p-2 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+                  <FaMoon className="w-5 h-5" /> {/* Tema */}
+                  <span className="no-underline">Cambiar Tema</span>
+                </li>
+                <Link to="/cuenta" className='no-underline'>
+                  <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+                    <FaSignOutAlt className="w-5 h-5" /> {/* Iniciar sesión */}
+                    <span className="no-underline">Iniciar sesión</span>
+                  </li>
+                </Link>
+              </>
+            )}
           </ul>
         </div>
       </div>
