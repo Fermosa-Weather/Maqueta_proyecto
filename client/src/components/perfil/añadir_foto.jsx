@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
+import { useParams } from 'react-router-dom'; // Import useParams
 import "../../stilos/perfil.css";
 
-export default function Añadir_foto_modal({ onClose, userId }) {
+export default function Añadir_foto_modal({ onClose, onImageUpload }) {
+  const { userId } = useParams(); // Obtain userId from the URL parameters
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const fileInputRef = useRef(null);
@@ -51,23 +53,26 @@ export default function Añadir_foto_modal({ onClose, userId }) {
     formData.append('fotoUser', imageFile);
 
     try {
-      const response = await fetch(`/api/upload/${userId}`, {
+      const response = await fetch(`http://localhost:4000/api/upload/${userId}`, { // Asegúrate de que la URL sea correcta
         method: 'PUT',
         body: formData,
       });
 
-      const data = await response.json();
       if (response.ok) {
+        const data = await response.json();
         alert(data.message);
+        onImageUpload(selectedImage); // Llamar a la función pasada para actualizar la imagen en el perfil
         onClose();
       } else {
-        alert('Error al subir la imagen: ' + data.message);
+        const errorData = await response.text();
+        alert('Error al subir la imagen: ' + errorData);
       }
     } catch (error) {
       console.error('Error:', error);
       alert('Error al subir la imagen.');
     }
   };
+
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50" onClick={onClose}>
@@ -78,7 +83,7 @@ export default function Añadir_foto_modal({ onClose, userId }) {
             <img
               src={selectedImage || "../../../src/images2/arrastra.jpg"}
               alt="Profile"
-              className="object-cover"
+              className="object-cover h-32 w-32 rounded-full" // Adjust the image size
             />
           </div>
           <p className='text-dark'>o</p>

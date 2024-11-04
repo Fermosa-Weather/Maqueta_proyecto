@@ -5,7 +5,7 @@ const router = express.Router();
 
 // router.put('/:id', uploadUserImage)
 
-router.put('/', uploadUserImage)
+router.put('/:id', uploadUserImage)
 
 
 export default router;

@@ -1,11 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaUser, FaUserAlt, FaMapMarkerAlt, FaCamera } from 'react-icons/fa';
+import axios from "axios";
 import "../../stilos/perfil.css";
 import Añadir_foto_modal from './añadir_foto';
 
+// Función para obtener la información del usuario
+export async function fetchUserInfo(token) {
+  try {
+    const response = await axios.get("http://localhost:4000/api/auth/info", {
+      headers: {
+        Authorization: `Bearer ${token}`, // Enviar el token en el encabezado de autorización
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    throw new Error("No se pudo obtener la información del usuario");
+  }
+}
+
 export default function Editar_perfi() {
-  // Estado del modal
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    id: '',
+    name: '',
+    username: '',
+    location: '',
+    email: '',
+    profileImage: '' // Agregar un estado para la imagen de perfil
+  });
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -13,6 +36,31 @@ export default function Editar_perfi() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Suponiendo que el token está en localStorage
+
+    if (token) {
+      fetchUserInfo(token)
+        .then(data => {
+          setUserInfo({
+            id: data._id,
+            name: data.nombre_completo,
+            username: data.username,
+            location: data.location,
+            email: data.email,
+            profileImage: data.profileImage // Asumir que el servidor devuelve la URL de la imagen
+          });
+        })
+        .catch(error => {
+          console.error(error.message);
+        });
+    }
+  }, []);
+
+  const handleImageUpload = (imageUrl) => {
+    setUserInfo(prevState => ({ ...prevState, profileImage: imageUrl })); // Actualizar la imagen de perfil
   };
 
   return (
@@ -25,7 +73,7 @@ export default function Editar_perfi() {
               onClick={openModal} // Manejador de click en el contenedor
             >
               <img
-                src="../../../src/images2/yuichi.jpg"
+                src={userInfo.profileImage || "../../../src/images2/yuichi.jpg"} // Usar la imagen del usuario
                 alt="Profile"
                 className="h-24 w-24 rounded-full border-4 border-primary group-hover:opacity-40 transition-opacity duration-300"
               />
@@ -34,8 +82,8 @@ export default function Editar_perfi() {
               </div>
             </div>
             <div className="space-y-1">
-              <div className="text-xl font-semibold">John Doe</div>
-              <div className="text-sm text-gray-500">jonh13@gmail.com</div>
+              <div className="text-xl font-semibold">{userInfo.name || 'Nombre no disponible'}</div>
+              <div className="text-sm text-gray-500">{userInfo.email || 'Email no disponible'}</div>
             </div>
           </div>
 
@@ -47,6 +95,8 @@ export default function Editar_perfi() {
               </label>
               <input
                 id="name"
+                value={userInfo.name}
+                onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
                 placeholder="Ingrese su nombre completo"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
               />
@@ -58,6 +108,8 @@ export default function Editar_perfi() {
               </label>
               <input
                 id="username"
+                value={userInfo.username}
+                onChange={(e) => setUserInfo({ ...userInfo, username: e.target.value })}
                 placeholder="Ingrese su username"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
               />
@@ -69,6 +121,8 @@ export default function Editar_perfi() {
               </label>
               <input
                 id="location"
+                value={userInfo.location}
+                onChange={(e) => setUserInfo({ ...userInfo, location: e.target.value })}
                 placeholder="Ingrese su localidad"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
               />
@@ -81,7 +135,6 @@ export default function Editar_perfi() {
                 Save Changes
               </button>
             </div>
-          
           </div>
         </div>
         <div className="flex items-center justify-center">
@@ -94,8 +147,7 @@ export default function Editar_perfi() {
         </div>
       </div>
 
-      {/* Agregar el modal aquí */}
-      {isModalOpen && <Añadir_foto_modal onClose={closeModal} />}
+      {isModalOpen && <Añadir_foto_modal onClose={closeModal} onImageUpload={handleImageUpload} />} {/* Pasar función para manejar la subida */}
     </div>
   );
 }

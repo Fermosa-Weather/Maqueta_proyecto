@@ -28,14 +28,13 @@ function Rutas() {
       <Route path="/registro" element={<Register />} /> {/* Ruta para Registro */}
       <Route path="/configuracion_cuenta" element={<Perfil />} />
       <Route path="/cambiar_cuenta" element={<Cambiar_cuenta />} />
-      <Route path="/editar-perfil" element={<Editar_perfi />} />
+      <Route path="/editar-perfil/:userId" element={<Editar_perfi />} />
       <Route path="/about" element={<About />} />
       <Route path="/contacto" element={<Soporte />} />
       <Route path="/Weather" element={<Tiempo />} />
       <Route path="/mapa" element={<Mapa />} />
       <Route path="/modelo_prediccion" element={<Modelo_predicion />} />   
       <Route path="/noticias" element={<Noticias />} /> 
-      <Route path="/n" element={<News />} /> 
       <Route path="/estaciones" element={<Estaciones />} />
       <Route path="*" element={<Pag_404/ >} />   
       </Routes>
