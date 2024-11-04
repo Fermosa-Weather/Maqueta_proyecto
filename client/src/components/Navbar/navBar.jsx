@@ -98,11 +98,6 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-person"></i> Cuenta
                           </Link>
                         </li>
-                        <li className="nav-item">
-                          <Link className="nav-link" to="/estaciones">
-                            <i className="bi bi-thermometer"></i> Info Estación {/* Ícono de termómetro */}
-                          </Link>
-                        </li>
                         
                         <li className="nav-item">
                           <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>

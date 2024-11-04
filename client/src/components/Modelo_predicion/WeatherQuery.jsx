@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../stilos/WeatherQuery.css';
+import '../../stilos/WeatherQuery.css'; // Asegúrate de que la ruta sea correcta
 
 const WeatherQuery = () => {
   const [query, setQuery] = useState('');
@@ -46,6 +46,12 @@ const WeatherQuery = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSend(); // Llama a handleSend si se presiona Enter
+    }
+  };
+
   return (
     <div className="weather-query-container">
       <h1>Consulta el Tiempo en Formosa</h1>
@@ -56,8 +62,9 @@ const WeatherQuery = () => {
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
-          console.log('Valor del input:', e.target.value); // Registrar para verificar la entrada
+          console.log('Valor del input:', e.target.value);
         }}
+        onKeyDown={handleKeyDown} // Agregar el manejador de eventos para la tecla
       />
       <button onClick={handleSend}>Consultar</button>
       <pre id="response">{response}</pre>
