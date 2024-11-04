@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import Perfil_modal from "../perfil/modal_perfil";
 import { Visibilidad_nav } from './visibilidad_nav';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,14 +15,15 @@ export const NavBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [userData, setUserData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  // Al cargar el componente, obtén el token y llama a fetchUserInfo
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       fetchUserInfo(token)
         .then(data => setUserData(data))
         .catch(error => console.error(error.message));
+    } else {
+      setUserData(null); // Set default state if no token
     }
   }, []);
 
@@ -40,8 +42,25 @@ export const NavBar = ({ onSearch }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Remove token
-    setUserData(null); // Clear user data
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Quieres cerrar sesión?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Elimina el token, cierra sesión y recarga la página
+        localStorage.removeItem('token');
+        setUserData(null);
+        Swal.fire('Se ha cerrado sesión correctamente', '', 'success').then(() => {
+          window.location.reload(); // Recarga la página después de cerrar sesión
+        });
+      }
+    });
   };
 
   return (
@@ -111,7 +130,7 @@ export const NavBar = ({ onSearch }) => {
                           <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
                             <img
                               src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
-                              alt="logo"
+                              alt="perfil"
                               className="foto_perfil"
                             />
                           </a>
@@ -119,17 +138,16 @@ export const NavBar = ({ onSearch }) => {
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
 
-                        {/* Conditionally render Logout or Account link based on token presence */}
-                        {localStorage.getItem('token') ? (
-                        <li className="nav-item">
-                        <button className="nav-link logout-button" onClick={handleLogout}>
-                          <i className="bi bi-box-arrow-right"></i>
-                          <div className="logout-text">
-                            <span>Cerrar</span>
-                            <span>Sesión</span>
-                          </div>
-                        </button>
-                      </li>
+                        {userData ? (
+                          <li className="nav-item">
+                            <button className="nav-link logout-button" onClick={handleLogout}>
+                              <i className="bi bi-box-arrow-right"></i>
+                              <div className="logout-text">
+                                <span>Cerrar</span>
+                                <span>Sesión</span>
+                              </div>
+                            </button>
+                          </li>
                         ) : (
                           <li className="nav-item">
                             <Link className="nav-link" to="/cuenta">
