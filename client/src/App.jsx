@@ -14,9 +14,8 @@ import Cambiar_cuenta from './components/cuenta/Cambiar_cuenta';
 import Editar_perfi from './components/perfil/Editar-perfil';
 import Soporte from './components/soporte/soporte';
 import Estaciones from './estaciones';
-import { News } from './components/Noticias/Noticias';
-import { Login } from './components/Login/login';
-import { Register } from './components/Register/register';
+import { Login } from './components/cuenta/login';
+import { Register } from './components/cuenta/register';
 
 function Rutas() {
   return (
