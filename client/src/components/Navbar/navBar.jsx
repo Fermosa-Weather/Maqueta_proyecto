@@ -12,9 +12,9 @@ import { fetchUserInfo } from "../Function/infoToken.tsx";
 export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
   const [searchTerm, setSearchTerm] = useState('');
-  const [userData, setUserData] = useState(null); // Estado para almacenar los datos de usuario
+  const [userData, setUserData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  
   // Al cargar el componente, obtén el token y llama a fetchUserInfo
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -37,6 +37,11 @@ export const NavBar = ({ onSearch }) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove token
+    setUserData(null); // Clear user data
   };
 
   return (
@@ -67,9 +72,8 @@ export const NavBar = ({ onSearch }) => {
                   <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <div className="d-flex flex-column flex-xl-row align-items-center">
                       <ul className="navbar-nav">
-                      <li className="nav-item active">
+                        <li className="nav-item active">
                           <Link className="nav-link" to="/home">
-            
                             <i className="bi bi-house"></i> Home
                           </Link>
                         </li>
@@ -90,17 +94,12 @@ export const NavBar = ({ onSearch }) => {
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/modelo_prediccion">
-                            <i i className="bi bi-cpu "></i> Modelo
+                            <i className="bi bi-cpu"></i> Modelo
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/noticias">
                             <i className="bi bi-newspaper"></i> Noticias
-                          </Link>
-                        </li>
-                        <li className="nav-item">
-                          <Link className="nav-link" to="/cuenta">
-                            <i className="bi bi-person"></i> Cuenta
                           </Link>
                         </li>
                         <li className="nav-item">
@@ -119,6 +118,25 @@ export const NavBar = ({ onSearch }) => {
                         </li>
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
+
+                        {/* Conditionally render Logout or Account link based on token presence */}
+                        {localStorage.getItem('token') ? (
+                        <li className="nav-item">
+                        <button className="nav-link logout-button" onClick={handleLogout}>
+                          <i className="bi bi-box-arrow-right"></i>
+                          <div className="logout-text">
+                            <span>Cerrar</span>
+                            <span>Sesión</span>
+                          </div>
+                        </button>
+                      </li>
+                        ) : (
+                          <li className="nav-item">
+                            <Link className="nav-link" to="/cuenta">
+                              <i className="bi bi-person"></i> Cuenta
+                            </Link>
+                          </li>
+                        )}
                       </ul>
                     </div>
                   </div>
