@@ -57,7 +57,7 @@ export default function Perfil_modal({ onClose }) {
         <div className="flex flex-col items-center">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4">
             <img
-              src={userData.photoUrl} // Use fetched photoUrl
+              src={userData.photoUrl || "../../../src/images/usuario.jpg"} // Use fetched photoUrl
               alt="Profile"
               className="w-16 h-16 rounded-full object-cover"
             />

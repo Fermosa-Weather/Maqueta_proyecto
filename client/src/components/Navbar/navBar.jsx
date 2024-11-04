@@ -110,7 +110,7 @@ export const NavBar = ({ onSearch }) => {
                         <li className="nav-item">
                           <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
                             <img
-                              src={userData?.fotoUser || "../../../src/images/default-profile.png"}
+                              src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
                               alt="logo"
                               className="foto_perfil"
                             />

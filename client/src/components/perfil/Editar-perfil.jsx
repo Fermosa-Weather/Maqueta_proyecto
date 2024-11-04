@@ -99,7 +99,7 @@ export default function Editar_perfi() {
                 onClick={openModal}
               >
                 <img
-                 src={userInfo.profileImage || userInfo.fotoUser}
+                 src={userInfo.profileImage || userInfo.fotoUser }
                   // alt="Profile"
                   className="h-24 w-24 rounded-full border-4 border-primary group-hover:opacity-40 transition-opacity duration-300"
                 />
