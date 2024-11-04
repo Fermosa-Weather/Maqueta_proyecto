@@ -3,7 +3,8 @@ export default {
   content: [ 
     // "./src/**/*.{js,jsx,ts,tsx}",  
     "./src/components/Info_estaciones/**/*.{js,jsx,ts,tsx}",
-    "./src/components/perfil/**/*.{js,jsx,ts,tsx}"
+    "./src/components/perfil/**/*.{js,jsx,ts,tsx}",
+    "./src/components/Tiempo_Formosa/**/*.{js,jsx,ts,tsx}"  // Asegúrate de que esta línea es correcta
   ],
   
   theme: {
@@ -67,5 +68,3 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 };
-
-
