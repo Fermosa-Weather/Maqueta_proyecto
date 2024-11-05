@@ -13,7 +13,7 @@ import Perfil from './components/perfil/perfil_visibilidad';
 import Cambiar_cuenta from './components/cuenta/Cambiar_cuenta';
 import Editar_perfi from './components/perfil/Editar-perfil';
 import Soporte from './components/soporte/soporte';
-import Estaciones from './estaciones';
+//import Estaciones from './estaciones';
 import { News } from './components/Noticias/Noticias';
 import { Login } from './components/Login/login';
 import { Register } from './components/Register/register';
@@ -38,7 +38,6 @@ function Rutas() {
         <Route path="/modelo_prediccion" element={<Modelo_predicion />} />   
         <Route path="/noticias" element={<Noticias />} /> 
         <Route path="/n" element={<News />} /> 
-        <Route path="/estaciones" element={<Estaciones />} />
         <Route path="/weatherreport" element={<WeatherReport />} /> {/* Nueva ruta para WeatherReport */}
         <Route path="*" element={<Pag_404 />} />   
       </Routes>

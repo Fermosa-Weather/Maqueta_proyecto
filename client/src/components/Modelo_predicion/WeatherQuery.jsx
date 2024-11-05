@@ -64,7 +64,7 @@ const WeatherQuery = () => {
           setQuery(e.target.value);
           console.log('Valor del input:', e.target.value);
         }}
-        onKeyDown={handleKeyDown} // Agregar el manejador de eventos para la tecla
+        onKeyDown={handleKeyDown} 
       />
       <button onClick={handleSend}>Consultar</button>
       <pre id="response">{response}</pre>

@@ -9,7 +9,7 @@ export default function WeatherPage() {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      const response = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/formosa%20argentina?unitGroup=metric&key=UMQ9KWF37S9T6WLN5Q23&contentType=json')
+      const response = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/formosa%20argentina?unitGroup=metric&key=UMQ9KWF37S9T6WL8J4WLN5Q23&contentType=json')
       const data = await response.json()
       setWeatherData(data)
     }
@@ -93,7 +93,7 @@ export default function WeatherPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-white">
             <CardHeader>
               <CardTitle className="text-xl font-semibold">Detalles</CardTitle>
             </CardHeader>
@@ -103,6 +103,7 @@ export default function WeatherPage() {
                   <span className="flex items-center"><Sunrise className="mr-2" /> Amanecer</span>
                   <span>{current.sunrise}</span>
                 </div>
+                
                 <div className="flex items-center justify-between">
                   <span className="flex items-center"><Sunset className="mr-2" /> Atardecer</span>
                   <span>{current.sunset}</span>
@@ -127,7 +128,7 @@ export default function WeatherPage() {
           <CardContent>
             <div className="flex overflow-x-auto space-x-4 pb-4 bg-white rounded-lg p-4 shadow-md">
               {weatherData.days[0].hours.map((hour, index) => (
-                <div key={index} className="flex flex-col items-center min-w-[80px]">
+                <div key={index} className="flex flex-col items-center min-w-[100px]">
                   <p className="font-semibold text-gray-800">{hour.datetime.slice(0, 5)}</p>
                   {weatherIcons[hour.conditions] || <Droplet className="w-8 h-8 text-blue-500" />}
                   <p className="text-lg font-bold text-gray-800">{hour.temp}°C</p>
@@ -138,7 +139,7 @@ export default function WeatherPage() {
           </CardContent>
         </Card>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {weatherData.days.slice(1, 8).map((day, index) => {
             const dailyCondition = {
               'Clear': 'Despejado',
@@ -156,23 +157,25 @@ export default function WeatherPage() {
               'Sleet': 'Aguacero de Hielo',
             }[day.conditions] || day.conditions
 
-            const dailyIcon = weatherIcons[day.conditions] || <Droplet className="w-10 h-10 text-blue-500" />
+            const dailyIcon = weatherIcons[day.conditions] || <Droplet className="w-12 h-12 text-blue-500" />
 
             return (
-              <Card key={day.datetime} className="bg-white p-2 text-center shadow-md rounded-lg">
+              <Card key={day.datetime} className="bg-white transition-all duration-300 hover:shadow-xl">
                 <CardHeader>
-                  <CardTitle className="text-lg font-medium text-blue-800">{new Date(day.datetime).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}</CardTitle>
+                  <CardTitle className="text-xl font-semibold">{new Date(day.datetime).toLocaleDateString('es-AR', { weekday: 'long', month: 'long', day: 'numeric' })}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center justify-center mb-2">
-                    {dailyIcon}
-                    <div className="ml-2">
-                      <p className="text-xl font-semibold">{day.tempmax}°C / {day.tempmin}°C</p>
-                      <p className="text-sm text-gray-600">{dailyCondition}</p>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center">
+                      {dailyIcon}
+                      <div className="ml-4">
+                        <p className="text-3xl font-bold">{day.tempmax}°C / {day.tempmin}°C</p>
+                        <p className="text-gray-600">{dailyCondition}</p>
+                      </div>
                     </div>
                   </div>
-                  <Progress value={day.precipprob} className="h-2 rounded-full" />
-                  <p className="text-xs text-gray-600 mt-1">Probabilidad de precipitación: {day.precipprob}%</p>
+                  <Progress value={day.precipprob} />
+                  <p className="text-sm text-gray-600 mt-2">Probabilidad de precipitación: {day.precipprob}%</p>
                 </CardContent>
               </Card>
             )
