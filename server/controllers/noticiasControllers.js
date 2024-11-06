@@ -1,5 +1,5 @@
 import fs from 'fs';
-const filePath = '../noticia.json'; // Ruta al archivo donde se guardarán los artículos
+const filePath = './noticia.json'; // Ruta al archivo donde se guardarán los artículos
 
 // POST - Guardar los artículos en un archivo
 // export const addNew = async (req, res) => {

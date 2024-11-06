@@ -1,33 +1,134 @@
 import { Link } from "react-router-dom";
-import '../../stilos/pagina_bienvenida.css';
 
-export default function Welcome() {
-  return (
-    <div className="w-full min-h-screen bg-background text-foreground inicio">
-      <main className="container mx-auto py-12 md:py-24 lg:py-32">
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-          <div className="flex flex-col justify-start space-y-4"> {/* Cambiado a justify-start */}
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-              Bienvenido a CIFOR
-            </h1>
-            <p className="max-w-[700px] text-muted-foreground text-base md:text-sm lg:text-xs xl:text-sm text-justify">
-              Aquí encontrarás toda la información meteorológica que necesitas para mantenerte actualizado sobre el
-              clima en tu región. Desde pronósticos detallados hasta mapas interactivos, nuestro sitio web te brinda las
-              herramientas y datos precisos que necesitas para planificar tus actividades con confianza.
+export default function Caracteristicas_principales() {
+    return (
+      <div className="bg-white dark:bg-[#1a1a1a] text-black dark:text-white">
+        <main className="container mx-auto py-12 md:py-20 px-4 md:px-6">
+          
+          <div className="text-center space-y-4 mb-12 md:mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-dark">Descubre nuestro producto revolucionario</h1>
+            <p className="text-lg md:text-xl max-w-[700px] mx-auto text-dark">
+              Nuestra solución innovadora te ayudará a conocer el clima de manera eficiente y efectiva.
             </p>
-            <div className="flex justify-center">
-              <Link to="/home" className="btn">Ver más</Link>
-            </div>
           </div>
-          <img
-            src="../../../src/images/logo-cifor.png"
-            width="650"
-            height="105"
-            alt="Imagen del clima"
-            className="aspect-video w-full overflow-hidden rounded-xl object-cover"
-          />
-        </div>
-      </main>
-    </div>
-  );
-}
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Link to="/estaciones">              
+            <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
+              <h3 className="text-2xl font-bold p-6 text-white">📡 Información Detallada de las Estaciones</h3>
+              <img
+                src="../../../src/images/panel.jpg"
+                alt="Característica 1"
+                width="400"
+                height="240"
+                className="w-full h-60 object-cover"
+                style={{ aspectRatio: "400/240", objectFit: "cover" }}
+              />
+              <div className="p-6 space-y-4">
+                <p className="text-white">
+                Accede a datos meteorológicos precisos obtenidos de nuestras 10 estaciones. Mantente informado con la información más actualizada y relevante.
+                </p>
+              </div>
+            </div>
+            </Link>
+
+            <Link to="/noticias">              
+            <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
+              <h3 className="text-2xl font-bold p-6 text-white">📰 Noticias Climáticas Locales</h3>
+              <img
+                src="../../../src/images/Noticas_animado.jpg"
+                alt="Característica 2"
+                width="400"
+                height="240"
+                className="w-full h-60 object-cover"
+                style={{ aspectRatio: "400/240", objectFit: "cover" }}
+                />
+              <div className="p-6 space-y-4">
+                <p className="text-white">
+                Mantente informado sobre eventos climáticos importantes en tu localidad. Desde alertas por tormentas hasta consejos para días calurosos, te mantenemos al día con información relevante.
+                </p>
+              </div>
+            </div>
+            </Link>
+  
+            <Link to="/mapa">              
+            <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
+              <h3 className="text-2xl font-bold p-6 text-white">🗺️ Mapa Interactivo de Estaciones</h3>
+              <img
+                src="../../../src/images/Mapa_formosa.jpg"
+                alt="Característica 3"
+                width="400"
+                height="240"
+                className="w-full h-60 object-cover"
+                style={{ aspectRatio: "400/240", objectFit: "cover" }}
+              />
+              <div className="p-6 space-y-4">
+                <p className="text-white">
+                Explora la ubicación de nuestras 10 estaciones meteorológicas. Haz clic en cada una para obtener información detallada sobre su ubicación y los datos que recopila.
+                </p>
+              </div>
+            </div>
+            </Link>
+  
+            <Link to="/modelo_prediccion">              
+            <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
+              <h3 className="text-2xl font-bold p-6 text-white">🤖 Predicción con Inteligencia Artificial</h3>
+              <img
+                src="../../../src/images/IA.avif"
+                alt="Característica 4"
+                width="400"
+                height="240"
+                className="w-full h-60 object-cover"
+                style={{ aspectRatio: "400/240", objectFit: "cover" }}
+                />
+              <div className="p-6 space-y-4">
+                <p className="text-white">
+                Nuestro modelo de IA analiza patrones climáticos históricos para ofrecerte predicciones precisas.
+                </p>
+              </div>
+            </div>
+            </Link>
+  
+            <Link to="/estadistica">              
+            <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
+              <h3 className="text-2xl font-bold p-6 text-white">📊 Dashboards Intuitivos y faciles de usar</h3>
+              <img
+                src="../../../src/images/animado_estadistica.jpg"
+                alt="Característica 5"
+                width="400"
+                height="240"
+                className="w-full h-60 object-cover"
+                style={{ aspectRatio: "400/240", objectFit: "cover" }}
+                />
+              <div className="p-6 space-y-4">
+                <p className="text-white">
+                Visualiza los datos meteorológicos de forma clara y sencilla. Nuestros dashboards te permiten entender el clima de un vistazo.
+                </p>
+              </div>
+            </div>
+            </Link>
+
+            <Link to="/Weather">            
+            <div className="bg-[#f5f5f5] dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden" id="caracteristica">
+              <h3 className="text-2xl font-bold p-6 text-white"> ☀️Mostrar los datos del clima generales y especificos</h3>
+              <img
+                src="../../../src/images/wheter_animado.avif"
+                alt="Característica 6"
+                width="400"
+                height="240"
+                className="w-full h-60 object-cover"
+                style={{ aspectRatio: "400/240", objectFit: "cover" }}
+                />
+              <div className="p-6 space-y-4">
+                <p className="text-white">
+                Visualiza los datos meteorológicos de forma clara y sencilla. Nuestros dashboards te permiten entender el clima de un vistazo.
+                </p>
+              </div>
+            </div>
+            </Link>
+
+          </div>
+        </main>
+      </div>
+    );
+  }
