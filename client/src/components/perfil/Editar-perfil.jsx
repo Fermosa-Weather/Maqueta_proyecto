@@ -1,11 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaUser, FaUserAlt, FaMapMarkerAlt, FaCamera } from 'react-icons/fa';
+import { fetchUserInfo } from "../Function/infoToken";
+import axios from "axios";
 import "../../stilos/perfil.css";
 import Añadir_foto_modal from './añadir_foto';
 
-export default function Editar_perfi() {
-  // Estado del modal
+async function updateUser(token, userId, updatedData) {
+  try {
+    const response = await axios.put(`http://localhost:4000/api/upload/editar/${userId}`, updatedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user info:", error);
+    throw new Error("No se pudo actualizar la información del usuario");
+  }
+}
+
+export default function Editar_perfil() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    id: '',
+    name: '',
+    username: '',
+    location: '',
+    email: '',
+    profileImage: '',
+    fotoUser: null
+  });
+
+  // Función para establecer la imagen predeterminada si `fotoUser` es `null`
+  const foto = () => {
+    setUserInfo(prevState => ({
+      ...prevState,
+      fotoUser: prevState.fotoUser || "../../../src/images/usuario.jpg"
+    }));
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -15,74 +47,115 @@ export default function Editar_perfi() {
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      fetchUserInfo(token)
+        .then(data => {
+          setUserInfo({
+            id: data._id,
+            name: data.nombre_completo,
+            username: data.username,
+            location: data.location,
+            email: data.email,
+            profileImage: data.profileImage,
+            fotoUser: data.fotoUser,
+          });
+          foto(); // Llamar a `foto` después de cargar la información
+        })
+        .catch(error => {
+          console.error(error.message);
+        });
+    }
+  }, []);
+
+  const handleImageUpload = (imageUrl) => {
+    setUserInfo(prevState => ({
+      ...prevState,
+      profileImage: imageUrl,
+      fotoUser: null // Borra `fotoUser` para asegurar que solo se muestre `profileImage`
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+
+    const updatedData = {
+      nombre_completo: userInfo.name,
+      username: userInfo.username,
+      profileImage: userInfo.profileImage
+    };
+
+    try {
+      await updateUser(token, userInfo.id, updatedData);
+      alert("Perfil actualizado exitosamente");
+    } catch (error) {
+      console.error(error.message);
+      alert("Error al actualizar el perfil");
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <div
-              className="relative group cursor-pointer"
-              onClick={openModal} // Manejador de click en el contenedor
-            >
-              <img
-                src="../../../src/images2/yuichi.jpg"
-                alt="Profile"
-                className="h-24 w-24 rounded-full border-4 border-primary group-hover:opacity-40 transition-opacity duration-300"
-              />
-              <div className="absolute inset-0 flex items-center justify-center icono-camara">
-                <FaCamera className="text-black text-3xl" />
+          <form onSubmit={handleSubmit}>
+            <div className="flex items-center gap-4">
+              <div className="relative group cursor-pointer" onClick={openModal}>
+                <img
+                  src={userInfo.fotoUser || userInfo.profileImage}
+                  alt="Profile"
+                  className="h-24 w-24 rounded-full border-4 border-primary group-hover:opacity-40 transition-opacity duration-300"
+                />
+                <div className="absolute inset-0 flex items-center justify-center icono-camara">
+                  <FaCamera className="text-black text-3xl" />
+                </div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-xl font-semibold">{userInfo.name || 'Nombre no disponible'}</div>
+                <div className="text-sm text-gray-500">{userInfo.email || 'Email no disponible'}</div>
               </div>
             </div>
-            <div className="space-y-1">
-              <div className="text-xl font-semibold">John Doe</div>
-              <div className="text-sm text-gray-500">jonh13@gmail.com</div>
-            </div>
-          </div>
 
-          <div className="space-y-4">
-            <div className="relative">
-              <FaUser className="absolute top-1 left-2 text-gray-500" />
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 ml-7">
-                Nombre completo
-              </label>
-              <input
-                id="name"
-                placeholder="Ingrese su nombre completo"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
-              />
+            <div className="space-y-4">
+              <div className="relative">
+                <FaUser className="absolute top-1 left-2 text-gray-500" />
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 ml-7">
+                  Nombre completo
+                </label>
+                <input
+                  id="name"
+                  value={userInfo.name}
+                  onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
+                  placeholder="Ingrese su nombre completo"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
+                />
+              </div>
+              <div className="relative">
+                <FaUserAlt className="absolute top-1 left-2 text-gray-500" />
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 ml-7">
+                  Username
+                </label>
+                <input
+                  id="username"
+                  value={userInfo.username}
+                  onChange={(e) => setUserInfo({ ...userInfo, username: e.target.value })}
+                  placeholder="Ingrese su username"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
+                />
+              </div>
+              <div className='contenedor-form-editar-botones'>
+                <button type="button" className="boton-form-editar-perfil" onClick={closeModal}>
+                  Cancelar
+                </button>
+                <button type="submit" className="boton-form-editar-perfil">
+                  Guardar Cambios
+                </button>
+              </div>
             </div>
-            <div className="relative">
-              <FaUserAlt className="absolute top-1 left-2 text-gray-500" />
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 ml-7">
-                Username
-              </label>
-              <input
-                id="username"
-                placeholder="Ingrese su username"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
-              />
-            </div>
-            <div className="relative">
-              <FaMapMarkerAlt className="absolute top-1 left-2 text-gray-500" />
-              <label htmlFor="location" className="block text-sm font-medium text-gray-700 ml-7">
-                Location
-              </label>
-              <input
-                id="location"
-                placeholder="Ingrese su localidad"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar"
-              />
-            </div>
-            <div className='contenedor-form-editar-botones'>
-              <button className="boton-form-editar-perfil">
-                cancelar
-              </button>
-              <button className="boton-form-editar-perfil">
-                Save Changes
-              </button>
-            </div>
-          
-          </div>
+          </form>
         </div>
         <div className="flex items-center justify-center">
           <img
@@ -94,8 +167,7 @@ export default function Editar_perfi() {
         </div>
       </div>
 
-      {/* Agregar el modal aquí */}
-      {isModalOpen && <Añadir_foto_modal onClose={closeModal} />}
+      {isModalOpen && <Añadir_foto_modal onClose={closeModal} onImageUpload={handleImageUpload} />}
     </div>
   );
 }

@@ -1,17 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { Sun, Cloud, CloudRain, CloudLightning, Snowflake, Wind, CloudFog, Droplet, CloudDrizzle, Thermometer, Umbrella, Sunrise, Sunset } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
+import { Line } from 'react-chartjs-2'
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Title } from 'chart.js'
+
+// Registrar los componentes de Chart.js
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Title)
 
 export default function WeatherPage() {
   const [weatherData, setWeatherData] = useState(null)
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      const response = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/formosa%20argentina?unitGroup=metric&key=UMQ9KWF37S9T6WL8J4WLN5Q23&contentType=json')
-      const data = await response.json()
-      setWeatherData(data)
+      try {
+        const response = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/formosa%20argentina?unitGroup=metric&key=UMQ9KWF37S9T6WL8J4WLN5Q23&contentType=json')
+        
+        // Verificar si la respuesta fue exitosa
+        if (!response.ok) {
+          throw new Error('Error al obtener los datos meteorológicos')
+        }
+        
+        const data = await response.json()
+        setWeatherData(data)
+      } catch (error) {
+        console.error('Error fetching weather data:', error)
+      }
     }
 
     fetchWeatherData()
@@ -65,6 +78,48 @@ export default function WeatherPage() {
     'Sleet': <CloudRain className="w-16 h-16 text-blue-800" />,
   }
 
+  // Datos para el gráfico (hasta 15 días)
+  const labels = weatherData.days.slice(1, 16).map(day => new Date(day.datetime).toLocaleDateString('es-AR', { weekday: 'short' }));
+  const maxTemps = weatherData.days.slice(1, 16).map(day => day.tempmax);
+  const minTemps = weatherData.days.slice(1, 16).map(day => day.tempmin);
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Temperatura Máxima (°C)',
+        data: maxTemps,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        fill: true,
+      },
+      {
+        label: 'Temperatura Mínima (°C)',
+        data: minTemps,
+        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        fill: true,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Perspectivas de Temperatura a Largo Plazo (15 Días)',
+      },
+    },
+  };
+
+  // Pronóstico por horas: Verificar que weatherData.hours existe
+  const hourlyLabels = weatherData.hours ? weatherData.hours.map(hour => new Date(hour.datetime).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })) : [];
+  const hourlyTemps = weatherData.hours ? weatherData.hours.map(hour => hour.temp) : [];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
@@ -85,7 +140,7 @@ export default function WeatherPage() {
                   </div>
                 </div>
                 <div>
-                  <p className="text-xl">Sensación térmica: {current.feelslike}°C</p>
+                  <p className="text-xl">Sensación térmica: {current.feelslike}°C</p>3   
                   <p className="text-xl">Humedad: {current.humidity}%</p>
                   <p className="text-xl">Viento: {current.windspeed} km/h</p>
                 </div>
@@ -93,7 +148,7 @@ export default function WeatherPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white">
+          <Card>
             <CardHeader>
               <CardTitle className="text-xl font-semibold">Detalles</CardTitle>
             </CardHeader>
@@ -103,7 +158,6 @@ export default function WeatherPage() {
                   <span className="flex items-center"><Sunrise className="mr-2" /> Amanecer</span>
                   <span>{current.sunrise}</span>
                 </div>
-                
                 <div className="flex items-center justify-between">
                   <span className="flex items-center"><Sunset className="mr-2" /> Atardecer</span>
                   <span>{current.sunset}</span>
@@ -112,75 +166,54 @@ export default function WeatherPage() {
                   <span className="flex items-center"><Umbrella className="mr-2" /> Precipitación</span>
                   <span>{current.precip} mm</span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center"><Thermometer className="mr-2" /> Presión</span>
-                  <span>{current.pressure} hPa</span>
-                </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        <Card className="mb-8">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-2xl font-semibold">Pronóstico por horas</CardTitle>
+            <CardTitle className="text-2xl font-semibold">Pronóstico por Hora</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex overflow-x-auto space-x-4 pb-4 bg-white rounded-lg p-4 shadow-md">
-              {weatherData.days[0].hours.map((hour, index) => (
-                <div key={index} className="flex flex-col items-center min-w-[100px]">
-                  <p className="font-semibold text-gray-800">{hour.datetime.slice(0, 5)}</p>
-                  {weatherIcons[hour.conditions] || <Droplet className="w-8 h-8 text-blue-500" />}
-                  <p className="text-lg font-bold text-gray-800">{hour.temp}°C</p>
-                  <p className="text-sm text-gray-600">{hour.conditions}</p>
-                </div>
-              ))}
-            </div>
+            {hourlyTemps.length > 0 ? (
+              <Line data={{
+                labels: hourlyLabels,
+                datasets: [{
+                  label: 'Temperatura (°C)',
+                  data: hourlyTemps,
+                  borderColor: 'rgba(255, 99, 132, 1)',
+                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                  fill: true,
+                }],
+              }} options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Pronóstico por Hora',
+                  },
+                },
+              }} />
+            ) : (
+              <div className="h-64 flex items-center justify-center">
+                <p>No hay datos de pronóstico por hora disponibles.</p>
+              </div>
+            )}
           </CardContent>
         </Card>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {weatherData.days.slice(1, 8).map((day, index) => {
-            const dailyCondition = {
-              'Clear': 'Despejado',
-              'Partly Cloudy': 'Parcialmente Nublado',
-              'Cloudy': 'Nublado',
-              'Rain': 'Lluvia',
-              'Thunderstorms': 'Tormentas',
-              'Snow': 'Nieve',
-              'Fog': 'Niebla',
-              'Windy': 'Ventoso',
-              'Overcast': 'Cubierto',
-              'Drizzle': 'Llovizna',
-              'Showers': 'Aguaceros',
-              'Freezing Rain': 'Lluvia Helada',
-              'Sleet': 'Aguacero de Hielo',
-            }[day.conditions] || day.conditions
-
-            const dailyIcon = weatherIcons[day.conditions] || <Droplet className="w-12 h-12 text-blue-500" />
-
-            return (
-              <Card key={day.datetime} className="bg-white transition-all duration-300 hover:shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl font-semibold">{new Date(day.datetime).toLocaleDateString('es-AR', { weekday: 'long', month: 'long', day: 'numeric' })}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center">
-                      {dailyIcon}
-                      <div className="ml-4">
-                        <p className="text-3xl font-bold">{day.tempmax}°C / {day.tempmin}°C</p>
-                        <p className="text-gray-600">{dailyCondition}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <Progress value={day.precipprob} />
-                  <p className="text-sm text-gray-600 mt-2">Probabilidad de precipitación: {day.precipprob}%</p>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl font-semibold">Temperaturas a Largo Plazo</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Line data={data} options={options} />
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

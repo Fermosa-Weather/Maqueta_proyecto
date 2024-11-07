@@ -15,8 +15,8 @@ import Editar_perfi from './components/perfil/Editar-perfil';
 import Soporte from './components/soporte/soporte';
 //import Estaciones from './estaciones';
 import { News } from './components/Noticias/Noticias';
-import { Login } from './components/Login/login';
-import { Register } from './components/Register/register';
+import { Login } from './components/cuenta/Login';
+import { Register } from './components/cuenta/Register';
 // Asegúrate de que la ruta sea correcta según tu estructura de carpetas
 import WeatherReport from './components/Tiempo_Formosa/WeatherReport';
 
