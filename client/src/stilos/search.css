@@ -25,7 +25,7 @@
 }
 
 .buscador::placeholder {
-  color: aliceblue;
+  color: rgb(11, 11, 11);
 }
 
 /* Lista de sugerencias */

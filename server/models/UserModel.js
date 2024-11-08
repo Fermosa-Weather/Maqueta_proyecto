@@ -1,39 +1,43 @@
-// models/User.js
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-// Define el esquema del modelo de usuario
 const UserSchema = new mongoose.Schema({
   nombre_completo: {
     type: String,
     required: true,
-    trim: true, 
+    trim: true,
   },
   username: {
     type: String,
     required: true,
-    trim: true, 
+    trim: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true, 
+    unique: true,
     trim: true,
-    lowercase: true, 
+    lowercase: true,
   },
   password: {
     type: String,
     required: true,
   },
   fotoUser: {
-    type: String, 
+    type: String,
     default: null,
   },
   createdAt: {
     type: Date,
-    default: Date.now, 
+    default: Date.now,
   },
+  // Asociación no requerida con cuentas
+  cuentas: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Cuenta',
+  }],
 });
+
 
 // Middleware para encriptar la contraseña antes de guardar
 UserSchema.pre('save', async function(next) {

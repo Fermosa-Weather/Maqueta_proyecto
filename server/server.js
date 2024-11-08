@@ -13,6 +13,7 @@ import uploadRoutes from './routes/subir_foto.js';
 import authRoutes from './routes/authRoutes.js';
 import noticiasRoutes from './routes/noticiasRoutes.js';
 import modelRoutes from './routes/model_router.js';
+import cuentaRoutes from './routes/cuentaRoutes.js';
 
 dotenv.config();
 
@@ -36,8 +37,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/noticia', noticiasRoutes);
 app.use('/api/model', modelRoutes); 
 app.use('/api/upload', uploadRoutes);
-
-
+app.use('/api', cuentaRoutes);
 
 // Conectar a MongoDB
 mongoose.connect(process.env.MONGO_URI)

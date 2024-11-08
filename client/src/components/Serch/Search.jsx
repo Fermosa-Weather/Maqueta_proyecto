@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import "../../stilos/search.css";
 import { sugerencias } from "./sugerencias"; 
+import "../../stilos/search.css";
 
 export function Search({ onSearch }) {
   const [showInput, setShowInput] = useState(false);
@@ -41,7 +41,7 @@ export function Search({ onSearch }) {
           className="btn my-2 my-sm-0 nav_search-btn" 
           onClick={toggleInput}
         >
-          <i className="fas fa-search"></i>
+          {/* <i className="fas fa-search"></i> */}
         </button>
         {showInput && (
           <div>

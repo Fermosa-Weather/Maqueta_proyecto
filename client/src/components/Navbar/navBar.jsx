@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
 import "../../stilos/Plantilla_slider/css/style.css";
 import "../../stilos/Plantilla_slider/css/bootstrap.css";
+import "../../stilos/search.css";
 import { Search } from "../Serch/Search";
 import { fetchUserInfo } from "../Function/infoToken.tsx";
 
