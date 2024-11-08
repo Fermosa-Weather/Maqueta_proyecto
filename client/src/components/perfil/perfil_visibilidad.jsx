@@ -50,7 +50,7 @@ export default function Perfil() {
               <p className="text-lg font-medium mb-2">Muestra tu foto de perfil</p>
               <div className="flex justify-center mb-4">
                 <img
-                  src={userInfo.fotoUser || "../../../src/images/usuario.jpg"}
+                  src={`http://localhost:4000/${userInfo.fotoUser}` || "../../../src/images/usuario.jpg"}
                   alt="Foto de perfil"
                   className="w-24 h-24 rounded-full border-2 border-blue-700"
                 />

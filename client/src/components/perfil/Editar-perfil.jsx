@@ -105,7 +105,7 @@ export default function Editar_perfil() {
             <div className="flex items-center gap-4">
               <div className="relative group cursor-pointer" onClick={openModal}>
                 <img
-                  src={userInfo.fotoUser || userInfo.profileImage}
+                  src={`http://localhost:4000/${userInfo.fotoUser}` || userInfo.profileImage}
                   alt="Profile"
                   className="h-24 w-24 rounded-full border-4 border-primary group-hover:opacity-40 transition-opacity duration-300"
                 />

@@ -1,7 +1,6 @@
 let cache = null;
 let lastFetchTime = 0;
-const CACHE_DURATION = 300000; // 5 minutos en milisegundos
-
+const CACHE_DURATION = 300000; 
 async function fetchWeatherData() {
     const now = Date.now();
     if (cache && now - lastFetchTime < CACHE_DURATION) {
@@ -110,7 +109,7 @@ async function generarActividad(req, res) {
             status: 500,
             message: "Error interno del servidor!"
         });
-    }
+    }  
 }
 
 // Exportar la función por defecto
