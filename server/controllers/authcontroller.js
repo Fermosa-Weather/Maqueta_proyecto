@@ -1,8 +1,18 @@
 import User from '../models/UserModel.js'
+import Cuenta from '../models/cuentaModel.js'
 import {verifyToken} from "../helpers/jsonWebToken.js"
 // import {comparePassword, hashPassword} from "../helpers/bycript.js"
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
+// Función para asociar un usuario con una cuenta
+async function asociarUsuarioConCuenta(userId, cuentaId) {
+  // Añade la cuenta al usuario
+  await User.findByIdAndUpdate(userId, { $addToSet: { cuentas: cuentaId } });
+
+  // Añade el usuario a la cuenta
+  await Cuenta.findByIdAndUpdate(cuentaId, { $addToSet: { usuarios: userId } });
+}
 
 // Controlador para obtener información del usuario por token
 export const ctrlGetUserInfoByToken = async (req, res) => {
@@ -79,6 +89,14 @@ export const register = async (req, res) => {
     // Guardar el nuevo usuario en la base de datos
     await newUser.save();
 
+    // Crear una cuenta asociada al usuario
+    const nuevaCuenta = new Cuenta({ usuarios: [newUser._id] });
+    await nuevaCuenta.save();
+
+    // Asociar la cuenta al usuario
+    newUser.cuentas.push(nuevaCuenta._id);
+    await newUser.save();
+
     // Generar un token de autenticación
     const token = jwt.sign(
       { userId: newUser._id },
@@ -105,7 +123,7 @@ export const login = async (req, res) => {
 
   try {
     // Verificar si el usuario existe
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate('cuentas');
     if (!user) {
       return res.status(400).json({ error: 'Correo electrónico no encontrado' });
     }
@@ -116,6 +134,17 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: 'Contraseña incorrecta' });
     }
 
+    // Verificar si el usuario tiene al menos una cuenta asociada
+    if (user.cuentas.length === 0) {
+      // Si no tiene cuentas, crea una nueva cuenta y asóciala
+      const nuevaCuenta = new Cuenta({ usuarios: [user._id] });
+      await nuevaCuenta.save();
+
+      // Agregar la cuenta al array de cuentas del usuario
+      user.cuentas.push(nuevaCuenta._id);
+      await user.save();
+    }
+
     // Generar un token de autenticación
     const token = jwt.sign(
       { userId: user._id },
@@ -123,8 +152,8 @@ export const login = async (req, res) => {
       { expiresIn: '200h' }
     );
 
-    // Enviar el token y el ID del usuario en la respuesta
-    res.status(200).json({ token, userId: user._id });
+    // Enviar el token, el ID del usuario, y las cuentas asociadas en la respuesta
+    res.status(200).json({ token, userId: user._id, cuentas: user.cuentas });
   } catch (err) {
     console.error('Error en el inicio de sesión:', err);
     res.status(500).json({ error: 'Error del servidor' });
@@ -182,5 +211,4 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ error: 'Error del servidor' });
   }
 };
-
 

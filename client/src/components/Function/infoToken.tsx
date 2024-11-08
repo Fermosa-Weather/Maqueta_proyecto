@@ -2,7 +2,7 @@ import axios from "axios";
 
 export async function fetchUserInfo(token) {
   try {
-    const response = await axios.get("http://localhost:5000/api/auth/info", {
+    const response = await axios.get("http://localhost:4000/api/auth/info", {
       headers: {
         Authorization: `Bearer ${token}`, // Send the token in the Authorization header
       },

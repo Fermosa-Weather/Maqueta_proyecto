@@ -8,11 +8,11 @@ const Acerca_Nosotros = () => {
   return (
     <div className="acerca-nosotros-container">
       <div className="acerca-nosotros-content">
-        <h1 className="acerca-nosotros-header">Sobre RAF Estaciones</h1>
+        <h1 className="acerca-nosotros-header">Sobre CIFOR</h1>
         
         <div className="acerca-nosotros-block">
           <p className="acerca-nosotros-paragraph">
-            En <strong>RAF</strong> nos dedicamos a proporcionar datos climáticos precisos y en tiempo real de toda la provincia de Formosa, 
+            En <strong>CIFOR</strong> nos dedicamos a proporcionar datos climáticos precisos y en tiempo real de toda la provincia de Formosa, 
             recopilados de nuestras 10 estaciones meteorológicas. Nuestro objetivo es mejorar los pronósticos del tiempo, desarrollar modelos 
             agrícolas y generar estadísticas climáticas confiables, contribuyendo así al conocimiento y la gestión del cambio climático.
           </p>

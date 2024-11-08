@@ -8,7 +8,6 @@ const NewsWidget = ({ searchTerm = '' }) => {
   const [currentNewsIndex, setCurrentNewsIndex] = useState(null);
 
   useEffect(() => {
-
     // Obtener noticias desde la API
     // noticia del json:http://localhost:4000/api/noticia/all
     // noticia del scraping: http://127.0.0.1:5000/api/news
@@ -36,7 +35,7 @@ const NewsWidget = ({ searchTerm = '' }) => {
 
   return (
     <div className="news-widget">
-      <h2 className="news-title">Noticias sobre el Clima en Formosa</h2>
+      <h2 className="news-title">Noticias sobre el Tiempo en Formosa</h2>
       <div className="news-grid">
         {filteredNews.map((item, index) => (
           <div

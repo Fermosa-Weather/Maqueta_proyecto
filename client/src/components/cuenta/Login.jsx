@@ -36,7 +36,7 @@ export function Login() {
 
       // Redirect to estaciones page
       setTimeout(() => {
-        navigate('/modelo_prediccion');
+        navigate('/mapa');
       }, 2000);
       
     } catch (error) {

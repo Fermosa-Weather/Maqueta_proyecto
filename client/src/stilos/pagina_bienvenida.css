@@ -36,12 +36,30 @@ section {
   transform: scale(1.1);
 }
 
+/* Estilo del botón "Explora CIFOR" */
+.btn-explora {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-explora:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
 /* Estilo de la sección de inicio */
 .inicio {
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Alinea el contenido a la izquierda */
-  background: url(../images/fondo2.jpg);
+  background: url(../images/fondo-cifor.avif);
   background-size: cover;
   background-position: center;
 }
@@ -59,11 +77,12 @@ section {
 }
 
 /* Estilos de texto en la sección de inicio */
-.inicio .content h3,
-.inicio .content span {
-  font-size: 3.5rem; /* Tamaño de fuente grande */
-  color: black; /* Color del texto */
+.inicio .content h1,
+.inicio .content h2 {
+  font-size: 3.5rem; /* Tamaño de fuente grande para el título */
+  color: black; /* Asegura que el color sea negro */
   text-transform: uppercase; /* Mayúsculas */
+  line-height: 1.2;
 }
 
 .inicio .content p {
@@ -86,6 +105,11 @@ section {
   margin-left: -100px; /* Ajusta según sea necesario */
 }
 
+/* Asegura que los títulos h1 dentro de la clase inicio tengan color negro */
+.inicio h1 {
+  color: black; /* Color negro */
+}
+
 /* Media Queries para pantallas más pequeñas */
 @media (max-width: 768px) {
   .inicio {
@@ -105,8 +129,8 @@ section {
     width: 300px; /* Tamaño fijo en pantallas pequeñas */
   }
 
-  .inicio .content h3,
-  .inicio .content span {
+  .inicio .content h1,
+  .inicio .content h2 {
     font-size: 2.8rem; /* Tamaño de fuente reducido */
   }
 
@@ -116,12 +140,12 @@ section {
 }
 
 @media (max-width: 368px) {
-  .inicio .content h3 {
-    font-size: 1.9rem; /* Tamaño más pequeño para encabezado */
+  .inicio .content h1 {
+    font-size: 1.9rem; /* Tamaño más pequeño para encabezado h1 */
   }
 
-  .inicio .content span {
-    font-size: 1.5rem; /* Tamaño más pequeño para span */
+  .inicio .content h2 {
+    font-size: 1.5rem; /* Tamaño más pequeño para encabezado h2 */
   }
 
   .inicio .content p {
@@ -131,4 +155,13 @@ section {
   .inicio .imagen img {
     width: 100%; /* Asegura que la imagen ocupe el 100% del ancho */
   }
+}
+
+/* Estilos para la imagen del logo en la esquina inferior derecha */
+.logo-cifor {
+  position: absolute;
+  bottom: 10px; /* Ajusta la distancia desde el borde inferior */
+  right: 10px;  /* Ajusta la distancia desde el borde derecho */
+  width: 150px; /* Tamaño ajustado para la imagen */
+  height: auto; /* Mantiene la proporción de la imagen */
 }

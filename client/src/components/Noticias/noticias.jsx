@@ -20,7 +20,7 @@ export const News = () => {
 
   return (
     <div className="news-widget">
-        <h2 className="news-title">Noticias sobre el Clima en Formosa</h2>
+        <h2 className="news-title">Noticias sobre el Tiempo en Formosa</h2>
       <div className="news-grid">
         {articles.map((article, index) => (
           <div key={index} className="news-card">

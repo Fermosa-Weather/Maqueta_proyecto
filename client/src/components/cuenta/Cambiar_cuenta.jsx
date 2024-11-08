@@ -34,7 +34,7 @@ export default function Cambiar_cuenta() {
         <ul className="space-y-2">
           {userInfo && (
             <li className="flex items-center space-x-3 p-2 rounded-md transition-all duration-200 cuenta">
-              <img src={userInfo.fotoUser || "../../images/usuario.jpg"} alt="" className='w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm' />
+              <img src={userInfo.fotoUser || "../../src/images/usuario.jpg"} alt="" className='w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm' />
               <div className="flex flex-col">
                 <div className="text-lg font-semibold">{userInfo.username}</div>
                 <div className="text-sm text-gray-300">{userInfo.email}</div>
@@ -45,7 +45,7 @@ export default function Cambiar_cuenta() {
         <ul className="space-y-2 ">
           {userInfo && (
             <li className="flex items-center space-x-3  p-2 rounded-md transition-all duration-200 cuenta">
-              <img src={userInfo.fotoUser || "../../images/usuario.jpg"} alt="" className='w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm' />
+              <img src={userInfo.fotoUser || "../../src/images/usuario.jpg"} alt="" className='w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm' />
               <div className="flex flex-col">
                 <div className="text-lg font-semibold">{userInfo.username}</div>
                 <div className="text-sm text-gray-300">{userInfo.email}</div>
