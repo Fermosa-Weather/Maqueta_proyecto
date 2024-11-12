@@ -7,6 +7,7 @@ import fileUpload from 'express-fileupload';
 import path from 'path';
 import {__dirname} from "./helpers/ruta.js"
 import { fileURLToPath } from 'url';
+import {clearDatabase} from "./config/db.js"
 
 
 import uploadRoutes from './routes/subir_foto.js';
@@ -30,7 +31,9 @@ app.use(fileUpload({
   tempFileDir:"./tmp"
 })); 
 
-app.use('/public', express.static(path.join(__dirname, 'public'))); // Sirve archivos estáticos desde la carpeta public
+// Acceso a archivos estáticos
+app.use('/public', express.static(path.join(__dirname, 'public'))); // Archivos estáticos de la carpeta 'public'
+app.use('/foto_users', express.static(path.resolve('./uploads/foto_users'))); // Imágenes de perfil
 
 // Configura las rutas de autenticación
 app.use('/api/auth', authRoutes);
@@ -39,10 +42,16 @@ app.use('/api/model', modelRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api', cuentaRoutes);
 
-// Conectar a MongoDB
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .then(() => {
+    console.log('MongoDB connected');
+    // clearDatabase();  // Llamar a la función para borrar los datos después de la conexión
+  })
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);  // Salir en caso de error
+  });
+
 
 // Iniciar el servidor
 app.listen(PORT, () => {

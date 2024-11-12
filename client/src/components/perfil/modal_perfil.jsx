@@ -9,7 +9,8 @@ export default function Perfil_modal({ onClose }) {
   const [userData, setUserData] = useState({
     email: '',
     photoUrl: '../../../src/images/usuario.jpg',
-    name: ''
+    name: '',
+    id: ''
   });
 
   const handleContentClick = (e) => {
@@ -21,7 +22,9 @@ export default function Perfil_modal({ onClose }) {
     setUserData({
       email: '',
       photoUrl: '../../../src/images/usuario.jpg',
-      name: ''
+      name: '',
+      _id: ''
+
     });
   
     // Pregunta al usuario si quiere confirmar el cierre de sesión
@@ -47,7 +50,8 @@ export default function Perfil_modal({ onClose }) {
           setUserData({
             email: data.email || 'email@example.com',
             photoUrl: data.fotoUser || '../../../src/images/usuario.jpg',
-            name: data.username || 'Nombre de Usuario'
+            name: data.username || 'Nombre de Usuario',
+            _id: data._id || 'id del usuario'
           });
         }).catch(error => console.error("Error fetching user info:", error.message));
       }
@@ -62,14 +66,17 @@ export default function Perfil_modal({ onClose }) {
           setUserData({
             email: data.email || 'email@example.com',
             photoUrl: data.fotoUser || '../../../src/images/usuario.jpg',
-            name: data.username || 'Nombre de Usuario'
+            name: data.username || 'Nombre de Usuario',
+            id: data._id || 'id del usuario'  // Asegúrate de que data._id esté aquí
           });
         })
         .catch(error => console.error("Error fetching user info:", error.message));
     }
   }, []);
+  
 
   const token = localStorage.getItem('token');
+// console.log("user data", userData)
 
   return (
     <div
@@ -117,7 +124,7 @@ export default function Perfil_modal({ onClose }) {
                   <FaMoon className="w-5 h-5" />
                   <span className="no-underline">Cambiar Tema</span>
                 </li>
-                <Link to="/cambiar_cuenta" className='no-underline'>
+                <Link to={`/cambiar_cuenta/${userData.id}`} className='no-underline'>
                   <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
                     <FaUserFriends className="w-5 h-5" />
                     <span className="no-underline">Cambiar de cuenta</span>
