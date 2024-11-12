@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import fileUpload from 'express-fileupload';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { __dirname } from './helpers/ruta.js';
+
 
 import uploadRoutes from './routes/subir_foto.js';
 import authRoutes from './routes/authRoutes.js';
@@ -40,10 +40,9 @@ app.use('/api/model', modelRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api', cuentaRoutes);
 
-// Conectar a MongoDB
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB conectado'))
-  .catch(err => console.error('Error de conexión a MongoDB:', err));
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 // Iniciar el servidor
 app.listen(PORT, () => {

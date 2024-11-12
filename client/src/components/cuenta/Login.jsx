@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from '../../api/axiosInstance'; // Reutiliza axiosInstance de tu configuración
+import axios from '../../api/axiosInstance'; // Reusing axiosInstance from your setup
 import Swal from 'sweetalert2';
 import contactoImage from '../../../src/images2/login_img3.jpg';
 import '../../../src/stilos/login.css';
@@ -10,22 +10,23 @@ export function Login() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ correo: '', password: '' });
   const navigate = useNavigate();
+  const { id } = useParams(); // Obtener el id desde la URL
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
-      // Lógica de inicio de sesión
+      // Login logic
       const response = await axios.post('/auth/login', {
-        email: formData.correo,
+        email: formData.correo, // Match fields with backend
         password: formData.password,
       });
       
-      // Guardar token en localStorage
+      // Save token to localStorage
       localStorage.setItem('token', response.data.token);
 
-      // SweetAlert para inicio de sesión exitoso
+      // SweetAlert for successful login
       Swal.fire({
         icon: 'success',
         title: 'Inicio de sesión exitoso',
@@ -34,7 +35,7 @@ export function Login() {
         showConfirmButton: false,
       });
 
-      // Redirigir a la página de estaciones
+      // Redirect to estaciones page
       setTimeout(() => {
         navigate('/mapa');
       }, 2000);
@@ -42,7 +43,7 @@ export function Login() {
     } catch (error) {
       console.error('Error en el inicio de sesión:', error);
 
-      // SweetAlert para errores en el inicio de sesión
+      // SweetAlert for login error
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -62,12 +63,12 @@ export function Login() {
 
   return (
     <div className="login-background">
-      <div className="flex items-center justify-center min-h-screen bg-gray-1000 p-4">
-        <div className="bg-white shadow-lg p-6 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8" id="contenedor-login">
+      <div className="flex items-center justify-center min-h-screen bg-gray-1000 p-4" >
+        <div className="bg-white shadow-lg  p-6 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 " id="contenedor-login">
           <div className="flex items-center justify-center border-2 border-gray-300 rounded-lg">
             <img
               src={contactoImage}
-              alt="Imagen de perfil"
+              alt="Edit Profile"
               className="w-full h-full object-cover rounded-lg"
             />
           </div>

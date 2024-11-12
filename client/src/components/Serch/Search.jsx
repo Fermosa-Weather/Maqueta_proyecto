@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import "../../stilos/search.css";
 import { sugerencias } from "./sugerencias"; 
+import "../../stilos/search.css";
 
 export function Search({ onSearch }) {
   const [showInput, setShowInput] = useState(false);

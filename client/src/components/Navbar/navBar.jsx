@@ -7,9 +7,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
 import "../../stilos/Plantilla_slider/css/style.css";
 import "../../stilos/Plantilla_slider/css/bootstrap.css";
+import "../../stilos/search.css";
 import { Search } from "../Serch/Search";
 import { fetchUserInfo } from "../Function/infoToken.tsx";
-
 
 export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
@@ -72,7 +72,7 @@ export const NavBar = ({ onSearch }) => {
             <div className="col-xl-8">
               <nav className="navbar navbar-expand-xl custom_nav-container">
                 <a className="navbar-brand" href="index.html">
-                  <img src="../../../src/images/logo-cifor.png" alt="logo" className="logo"/>
+                  <img src="../../../src/images/logo.png" alt="logo" className="logo"/>
                 </a>
 
                 <button
@@ -94,17 +94,17 @@ export const NavBar = ({ onSearch }) => {
                       <ul className="navbar-nav">
                         <li className="nav-item active">
                           <Link className="nav-link" to="/home">
-                            <i className="bi bi-house"></i> Hogar
+                            <i className="bi bi-house"></i> Home
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/about">
-                            <i className="bi bi-info-circle"></i> Acerca de
+                            <i className="bi bi-person"></i> About
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/Weather">
-                            <i className="bi bi-cloud-sun"></i> El tiempo
+                            <i className="bi bi-cloud-sun"></i> Weather
                           </Link>
                         </li>
                         <li className="nav-item">
@@ -114,12 +114,17 @@ export const NavBar = ({ onSearch }) => {
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/modelo_prediccion">
-                            <i className="bi bi-cpu"></i> IA
+                            <i className="bi bi-cpu"></i> Modelo
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/noticias">
                             <i className="bi bi-newspaper"></i> Noticias
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/estaciones">
+                            <i className="bi bi-thermometer"></i> Info Estación 
                           </Link>
                         </li>
                         <li className="nav-item">

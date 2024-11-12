@@ -10,4 +10,20 @@ const connectDB = async () => {
   }
 };
 
+export const clearDatabase = async () => {
+  try {
+    const collections = await mongoose.connection.db.collections();
+    
+    // Iterar sobre todas las colecciones y eliminar los documentos
+    for (const collection of collections) {
+      await collection.deleteMany({});
+      console.log(`All documents removed from the ${collection.collectionName} collection`);
+    }
+
+    console.log('All data cleared from the database');
+  } catch (err) {
+    console.error('Error clearing the database:', err);
+  }
+};
+
 export default connectDB;
