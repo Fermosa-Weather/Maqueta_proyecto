@@ -1,5 +1,6 @@
 import User from '../models/UserModel.js';
 import Cuenta from '../models/cuentaModel.js';
+import bcrypt from "bcrypt"
 
 // Función para asociar un usuario con una cuenta
 async function asociarUsuarioConCuenta(userId, cuentaId) {
@@ -36,34 +37,41 @@ export async function obtenerUsuariosDeCuenta(req, res) {
 
 // Función para agregar una cuenta a un usuario
 export async function agregarCuentaAUsuario(req, res) {
-  const { userId } = req.params;
-  const { nombre_cuenta } = req.body; // Asumiendo que el nombre de la cuenta se envía en el cuerpo de la solicitud
+  const { email, password, nombre_cuenta } = req.body;
 
   try {
-    // 1. Verifica si el usuario existe
-    const user = await User.findById(userId);
+    // 1. Busca al usuario por correo electrónico
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+      return res.status(404).json({ message: 'Correo no encontrado' });
     }
 
-    // 2. Crea una nueva cuenta
+    // 2. Verifica que la contraseña sea correcta
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrect) {
+      return res.status(401).json({ message: 'Contraseña incorrecta' });
+    }
+
+    // 3. Crea una nueva cuenta
     const nuevaCuenta = new Cuenta({ nombre_cuenta });
+
+    // 4. Intenta guardar la cuenta y asociarla al usuario
     await nuevaCuenta.save();
 
-    // 3. Agrega la referencia de la cuenta al usuario
+    // 5. Agrega la referencia de la cuenta al usuario
     user.cuentas.push(nuevaCuenta._id);
     await user.save();
 
-    // 4. Agrega la referencia del usuario a la cuenta
+    // 6. Agrega la referencia del usuario a la cuenta
     nuevaCuenta.usuarios.push(user._id);
     await nuevaCuenta.save();
 
-    res.status(201).json({ message: 'Cuenta creada y agregada al usuario', cuenta: nuevaCuenta });
+    res.status(201).json({ message: 'Cuenta creada y agregada al usuario', nuevaCuenta });
   } catch (error) {
-    res.status(500).json({ message: 'Error al agregar la cuenta al usuario', error });
+    console.error('Error al agregar la cuenta al usuario:', error); // Log completo del error
+    res.status(500).json({ message: 'Error al agregar la cuenta al usuario', error: error.message });
   }
 }
-
 
 export const obtenerCuentasConUsuarios = async (req, res) => {
   try {
