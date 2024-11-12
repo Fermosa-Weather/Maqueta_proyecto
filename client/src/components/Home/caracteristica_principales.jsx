@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Caracteristicas_principales() {
     return (
-      <div className="bg-white dark:bg-[#1a1a1a] text-black dark:text-white">
+      <div className="dark:bg-[#1a1a1a] text-black dark:text-white">
         <main className="container mx-auto py-12 md:py-20 px-4 md:px-6">
           
           <div className="text-center space-y-4 mb-12 md:mb-16">

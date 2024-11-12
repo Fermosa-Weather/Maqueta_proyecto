@@ -9,7 +9,7 @@ import Características_principales from './caracteristica_principales';
 const Landing_page = ({ searchTerm }) => {
   
   return (
-    <div>
+    <div className='contenedor_landing'>
       <Slider></Slider>
       <Ventana_clima></Ventana_clima>
       <Clima_manos></Clima_manos>
