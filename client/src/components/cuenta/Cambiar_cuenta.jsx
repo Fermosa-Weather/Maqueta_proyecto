@@ -4,11 +4,15 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { fetchUserInfo } from "../Function/infoToken";
 import Swal from 'sweetalert2';
 import "../../stilos/perfil.css";
+import { useTheme } from '../../context';  // Importa el hook useTheme
+
 
 export default function Cambiar_cuenta() {
   const [userInfo, setUserInfo] = useState(null);
   const [cuentas, setCuentas] = useState([]);
   const { id } = useParams();
+  const { theme } = useTheme();  // Obtén el tema actual
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -124,6 +128,7 @@ const handleAccountClick = (cuenta) => {
 };
 
   return (
+  <div className={`${theme === 'dark' ? 'bg-black' : 'bg-white text-black'} contenedor_cambio_cuenta  flex items-center justify-center w-full min-h-screen`}>
     <div className="max-w-sm mx-auto bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-6 rounded-lg shadow-lg spacer">
       <div className="flex flex-col items-center">
         <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-4 shadow-md">
@@ -216,6 +221,7 @@ const handleAccountClick = (cuenta) => {
           </a>
         </ul>
       </div>
+    </div>
     </div>
   );
 }
