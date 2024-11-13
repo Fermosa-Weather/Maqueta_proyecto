@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Perfil_modal from "../perfil/modal_perfil";
 import { Visibilidad_nav } from './visibilidad_nav';
+import "../../stilos/Plantilla_slider/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
-import "../../stilos/Plantilla_slider/css/style.css";
 import "../../stilos/Plantilla_slider/css/bootstrap.css";
 import "../../stilos/search.css";
 import { Search } from "../Serch/Search";
@@ -127,15 +127,7 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-thermometer"></i> Info Estación 
                           </Link>
                         </li>
-                        <li className="nav-item">
-                          <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
-                            <img
-                              src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
-                              alt="perfil"
-                              className="foto_perfil"
-                            />
-                          </a>
-                        </li>
+                       
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
 
@@ -156,6 +148,18 @@ export const NavBar = ({ onSearch }) => {
                             </Link>
                           </li>
                         )}
+
+
+                        {/* <li className="nav-item"> */}
+                          <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
+                            <img
+                              src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
+                              alt="perfil"
+                              className="foto_perfil"
+                            />
+                          </a>
+                        {/* </li> */}
+
                       </ul>
                     </div>
                   </div>
