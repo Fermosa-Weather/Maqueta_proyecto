@@ -10,6 +10,10 @@ body {
   padding: 0px;
 }
 
+.logout-text span{
+  margin: 2px;
+}
+
 body, html {
   margin: 0px;
   padding: 0px;

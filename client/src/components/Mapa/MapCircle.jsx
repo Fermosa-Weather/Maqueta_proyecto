@@ -110,7 +110,7 @@ function MapWithCircles() {
           <MapContainer
             center={formosaCenter}
             zoom={zoomLevel}
-            style={{ height: "calc(87vh)", width: "100%" }}
+            style={{ height: "calc(87vh)", width: "100%", zIndex:1 }}
             zoomControl={true}
           >
             {/* Controles de capas */}

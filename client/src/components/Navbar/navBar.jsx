@@ -131,8 +131,8 @@ export const NavBar = ({ onSearch }) => {
                             <button className="nav-link logout-button" id="nav-item-left" onClick={handleLogout}>
                               <i className="bi bi-box-arrow-right"></i>
                               <div className="logout-text">
-                                <span>Cerrar</span>
-                                <span>Sesión</span>
+                                <span>sing</span>
+                                <span>out</span>
                               </div>
                             </button>
                           </li>
