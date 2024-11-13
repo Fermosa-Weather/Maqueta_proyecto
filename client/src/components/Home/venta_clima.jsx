@@ -2,7 +2,7 @@ import "../../stilos/main.css";
 
 export default function Ventana_clima() {
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 ventana">
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
       <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-stretch">
         {/* Primera columna: Texto e imagen */}
         <div className="flex-1 space-y-4 md:space-y-6">

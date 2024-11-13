@@ -2,14 +2,17 @@
 import mongoose from 'mongoose';
 
 const CuentaSchema = new mongoose.Schema({
-  // Asociación no requerida con usuarios
-  usuario: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Referencia al modelo User
-    required: true, // Aseguramos que cada cuenta pertenezca a un único usuario
+  nombre_cuenta: {
+    type: String,
+    required: false,
+    trim: true,
   },
+  // Asociación no requerida con usuarios
+  usuarios: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }],
 });
 
 const Cuenta = mongoose.model('Cuenta', CuentaSchema);
-
 export default Cuenta;

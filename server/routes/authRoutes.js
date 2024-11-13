@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, ctrlGetUserInfoByToken, getAllUsers, getUserById, updateUser, Logeado} from '../controllers/authcontroller.js';
+import { register, login, ctrlGetUserInfoByToken, getAllUsers, getUserById, updateUser} from '../controllers/authcontroller.js';
 import { check } from 'express-validator'; 
 
 const router = express.Router();
@@ -33,8 +33,5 @@ router.post(
   ],
   login
 );
-
-router.post("/logeado", Logeado)
-
 
 export default router;

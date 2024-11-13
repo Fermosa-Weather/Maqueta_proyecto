@@ -3,31 +3,28 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { fetchUserInfo } from "../Function/infoToken";
 import "../../stilos/perfil.css";
-import { FaUserFriends, FaCog, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
-import { useTheme } from '../../context';  // Importa el hook useTheme
+import { FaUserFriends, FaCog, FaSignOutAlt, FaMoon } from 'react-icons/fa';
 
 export default function Perfil_modal({ onClose }) {
   const [userData, setUserData] = useState({
     email: '',
     photoUrl: '../../../src/images/usuario.jpg',
-    name: '',
-    id: ''
+    name: ''
   });
-
-  const { theme, toggleTheme } = useTheme();  // Accede al tema y la función para cambiarlo
 
   const handleContentClick = (e) => {
     e.stopPropagation();
   };
 
   const handleLogout = () => {
+    // Oculta temporalmente los datos del usuario
     setUserData({
       email: '',
       photoUrl: '../../../src/images/usuario.jpg',
-      name: '',
-      _id: ''
+      name: ''
     });
-
+  
+    // Pregunta al usuario si quiere confirmar el cierre de sesión
     Swal.fire({
       title: '¿Estás seguro?',
       text: '¿Quieres cerrar sesión?',
@@ -39,23 +36,24 @@ export default function Perfil_modal({ onClose }) {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
+        // Si confirma, elimina el token y recarga la página
         localStorage.removeItem('token');
         Swal.fire('Se ha cerrado sesión correctamente', '', 'success').then(() => {
           window.location.reload();
         });
       } else {
+        // Si cancela, restaura los datos del usuario
         fetchUserInfo(localStorage.getItem('token')).then(data => {
           setUserData({
             email: data.email || 'email@example.com',
             photoUrl: data.fotoUser || '../../../src/images/usuario.jpg',
-            name: data.username || 'Nombre de Usuario',
-            _id: data._id || 'id del usuario'
+            name: data.username || 'Nombre de Usuario'
           });
         }).catch(error => console.error("Error fetching user info:", error.message));
       }
     });
   };
-
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -64,17 +62,18 @@ export default function Perfil_modal({ onClose }) {
           setUserData({
             email: data.email || 'email@example.com',
             photoUrl: data.fotoUser || '../../../src/images/usuario.jpg',
-            name: data.username || 'Nombre de Usuario',
-            id: data._id || 'id del usuario'
+            name: data.username || 'Nombre de Usuario'
           });
         })
         .catch(error => console.error("Error fetching user info:", error.message));
     }
   }, []);
 
+  const token = localStorage.getItem('token');
+
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'}`}
+      className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
       onClick={onClose}
     >
       <div
@@ -83,7 +82,13 @@ export default function Perfil_modal({ onClose }) {
         onClick={handleContentClick}
       >
         <button className="absolute top-4 right-4 text-white" onClick={onClose}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -95,60 +100,46 @@ export default function Perfil_modal({ onClose }) {
               className="w-16 h-16 rounded-full object-cover"
             />
           </div>
-          <h2 className="text-xl font-semibold">{userData.name || 'Iniciar sesión'}</h2>
-          <p className="text-sm text-gray-300">{userData.email}</p>
+          <h2 className="text-xl font-semibold">{token ? userData.name : 'Iniciar sesión'}</h2>
+          <p className="text-sm text-gray-300">{token ? userData.email : ''}</p>
         </div>
         <div className="mt-6 border-t border-gray-200 pt-4">
           <ul className="space-y-1">
-            {userData.id ? (
+            {token ? (
               <>
-                <Link to="/configuracion_cuenta" className="no-underline">
+                <Link to="/configuracion_cuenta" className='no-underline'>
                   <li className="flex items-center space-x-3 p-2 rounded-md hover:bg-[#4a00a6]">
                     <FaCog className="w-5 h-5" />
                     <span>Configuración de la cuenta</span>
                   </li>
                 </Link>
-                <li
-                  className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer"
-                  onClick={toggleTheme}  // Cambia el tema al hacer clic
-                >
-                  {theme === 'dark' ? (
-                    <FaMoon className="w-5 h-5" />
-                  ) : (
-                    <FaSun className="w-5 h-5" />
-                  )}
-                  <span>Cambiar Tema</span>
+                <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+                  <FaMoon className="w-5 h-5" />
+                  <span className="no-underline">Cambiar Tema</span>
                 </li>
-                <Link to={`/cambiar_cuenta/${userData.id}`} className="no-underline">
+                <Link to="/cambiar_cuenta" className='no-underline'>
                   <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
                     <FaUserFriends className="w-5 h-5" />
-                    <span>Cambiar de cuenta</span>
+                    <span className="no-underline">Cambiar de cuenta</span>
                   </li>
                 </Link>
-                <Link to="/home" onClick={handleLogout} className="no-underline">
+                <Link to="/home" onClick={handleLogout} className='no-underline'>
                   <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
                     <FaSignOutAlt className="w-5 h-5" />
-                    <span>Cerrar sesión</span>
+                    <span className="no-underline">Cerrar sesión</span>
                   </li>
                 </Link>
               </>
             ) : (
               <>
-                <li
-                  className="flex items-center space-x-3 p-2 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer"
-                  onClick={toggleTheme}
-                >
-                  {theme === 'dark' ? (
-                    <FaMoon className="w-5 h-5" />
-                  ) : (
-                    <FaSun className="w-5 h-5" />
-                  )}
-                  <span>Cambiar Tema</span>
+                <li className="flex items-center space-x-3 p-2 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
+                  <FaMoon className="w-5 h-5" />
+                  <span className="no-underline">Cambiar Tema</span>
                 </li>
-                <Link to="/cuenta" className="no-underline">
+                <Link to="/cuenta" className='no-underline'>
                   <li className="flex items-center space-x-3 hover:bg-[#4a00a6] hover:text-black p-2 rounded-md cursor-pointer">
                     <FaSignOutAlt className="w-5 h-5" />
-                    <span>Iniciar sesión</span>
+                    <span className="no-underline">Iniciar sesión</span>
                   </li>
                 </Link>
               </>

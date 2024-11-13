@@ -61,6 +61,7 @@ export const ctrlGetUserInfoByToken = async (req, res) => {
   }
 };
 
+
 // Controlador para el registro de usuarios
 export const register = async (req, res) => {
   const { nombre_completo, username, email, password, confirmPassword } = req.body;
@@ -82,27 +83,14 @@ export const register = async (req, res) => {
       return res.status(400).json({ error: 'El usuario ya existe' });
     }
 
-    // Encriptar la contraseña
-    console.log("contraseña a encriptar ", password)
-    // const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Crear un nuevo usuario con la contraseña encriptada
-    const newUser = new User({
-      nombre_completo,
-      username,
-      email,
-      password
-    });
+    // Crear un nuevo usuario
+    const newUser = new User({ nombre_completo, username, email, password });
 
     // Guardar el nuevo usuario en la base de datos
     await newUser.save();
 
     // Crear una cuenta asociada al usuario
-    const nuevaCuenta = new Cuenta({
-      usuario: newUser._id
-    });
-
-    // Guardar la nueva cuenta
+    const nuevaCuenta = new Cuenta({ usuarios: [newUser._id] });
     await nuevaCuenta.save();
 
     // Asociar la cuenta al usuario
@@ -110,8 +98,6 @@ export const register = async (req, res) => {
     await newUser.save();
 
     // Generar un token de autenticación
-    console.log( process.env.JWT_SECRET)
-
     const token = jwt.sign(
       { userId: newUser._id },
       process.env.JWT_SECRET,
@@ -142,21 +128,19 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: 'Correo electrónico no encontrado' });
     }
 
-    // Verificar si las contraseñas coinciden
-    console.log('Contraseña proporcionada:', password);
-    console.log('Contraseña almacenada (hashed):', user.password);
-
+    // Comparar la contraseña proporcionada con la almacenada
     const isMatch = await bcrypt.compare(password, user.password);
-
     if (!isMatch) {
-      console.log('Las contraseñas no coinciden');
       return res.status(400).json({ error: 'Contraseña incorrecta' });
     }
 
     // Verificar si el usuario tiene al menos una cuenta asociada
     if (user.cuentas.length === 0) {
-      const nuevaCuenta = new Cuenta({ usuario: user._id });
+      // Si no tiene cuentas, crea una nueva cuenta y asóciala
+      const nuevaCuenta = new Cuenta({ usuarios: [user._id] });
       await nuevaCuenta.save();
+
+      // Agregar la cuenta al array de cuentas del usuario
       user.cuentas.push(nuevaCuenta._id);
       await user.save();
     }
@@ -176,42 +160,6 @@ export const login = async (req, res) => {
   }
 };
 
-export const Logeado = async (req, res) => {
-  const { email, password } = req.body;
-
-  // Validar que los campos estén presentes
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Por favor, complete todos los campos' });
-  }
-
-  try {
-    // Verificar si el usuario existe
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ error: 'Correo electrónico no encontrado' });
-    }
-
-    // Comparar la contraseña hasheada que se recibe con la almacenada en la base de datos
-    const isMatch = password === user.password;
-    if (!isMatch) {
-      return res.status(400).json({ error: 'Contraseña incorrecta' });
-    }
-
-    // Generar un nuevo token
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: '200h' } // Ajusta el tiempo de expiración según lo necesites
-    );
-
-    // Enviar el token generado
-    res.status(200).json({ token, userId: user._id });
-
-  } catch (err) {
-    console.error('Error al validar usuario:', err);
-    res.status(500).json({ error: 'Error del servidor' });
-  }
-};
 
 // Obtener un usuario por su ID
 export const getUserById = async (req, res) => {

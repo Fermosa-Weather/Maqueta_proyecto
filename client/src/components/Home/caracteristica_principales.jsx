@@ -1,20 +1,15 @@
 import { Link } from "react-router-dom";
-import { useTheme } from '../../context';  // Importa el hook useTheme
 
 export default function Caracteristicas_principales() {
-  const { theme } = useTheme(); 
-
-  return (
-    <div className={`${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-      <main className="container mx-auto py-12 md:py-20 px-4 md:px-6">
-        
-        <div className="text-center space-y-4 mb-12 md:mb-16">
-          <h1 className={`text-4xl md:text-5xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-dark'}`}>
-            Descubre nuestro producto revolucionario
-          </h1>
-          <p className={`text-lg md:text-xl max-w-[700px] mx-auto ${theme === 'dark' ? 'text-white' : 'text-dark'}`}>
-            Nuestra solución innovadora te ayudará a conocer el clima de manera eficiente y efectiva.
-          </p>
+    return (
+      <div className="bg-white dark:bg-[#1a1a1a] text-black dark:text-white">
+        <main className="container mx-auto py-12 md:py-20 px-4 md:px-6">
+          
+          <div className="text-center space-y-4 mb-12 md:mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-dark">Descubre nuestro producto revolucionario</h1>
+            <p className="text-lg md:text-xl max-w-[700px] mx-auto text-dark">
+              Nuestra solución innovadora te ayudará a conocer el clima de manera eficiente y efectiva.
+            </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -10,11 +10,6 @@ body {
   background-size: cover;
 }
 
-.contenedor_landing{
-  /* background-color: #000000;
-  color: azure; */
-}
-
 #caracteristica{
   background: linear-gradient(to right, #864ddf, #203376);
   transition: transform 0.3s ease-in-out; /* Transición suave */
