@@ -138,8 +138,9 @@ a:focus {
 }
 
 .custom_nav-container {
-  position: relative; /* o absolute si es necesario */
+  position: relative; 
   z-index: 9;
+  /* background-color: #3c4043; */
   top: 0;
   left: 0;
 }
