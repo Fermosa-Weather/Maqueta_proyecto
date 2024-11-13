@@ -35,13 +35,12 @@ export function Search({ onSearch }) {
 
   return (
     <div className={`search-form ${showInput ? "show-input" : ""}`}>
-      <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
+      <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0" >
         <button 
           type="button" 
           className="btn my-2 my-sm-0 nav_search-btn" 
           onClick={toggleInput}
         >
-          {/* <i className="fas fa-search"></i> */}
         </button>
         {showInput && (
           <div>
