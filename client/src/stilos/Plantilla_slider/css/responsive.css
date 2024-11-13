@@ -4,6 +4,10 @@
     min-height: 92vh;
   }
 
+  #nav-item-left {
+    margin-left: 0px;
+  }
+
 }
 
 @media (max-width: 995px) {

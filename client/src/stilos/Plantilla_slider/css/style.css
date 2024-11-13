@@ -21,16 +21,18 @@ body, html {
   object-fit: contain;
 }
 
-
 .foto_perfil {
   max-width: 55px; 
-  object-fit: cover; /* Esto asegura que la imagen cubra todo el contenedor */
-  border-radius: 50%; /* Hace que los bordes sean circulares */
-  overflow: hidden; /* Esconde cualquier parte de la imagen que se salga del contenedor */
-  width: 50px; /* Define un ancho fijo */
+  object-fit: cover; 
+  border-radius: 50%; 
+  overflow: hidden; 
+  width: 50px; 
   height: 50px; 
 }
 
+#nav-item-left {
+  margin-left: 300px;
+}
 /*header section*/
 .header_section {
   position: static;
@@ -43,7 +45,7 @@ body, html {
 }
 
 .hero_area {
-  height: 13vh;
+  height: 15vh;
   background: -webkit-gradient(linear, left top, right top, from(#864ddf), to(#203376));
   background: linear-gradient(to right, #864ddf, #203376);
   padding: 1px;

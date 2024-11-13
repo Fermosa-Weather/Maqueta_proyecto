@@ -72,7 +72,7 @@ export const NavBar = ({ onSearch }) => {
             <div className="col-xl-8">
               <nav className="navbar navbar-expand-xl custom_nav-container">
                 <a className="navbar-brand" href="index.html">
-                  <img src="../../../src/images/logo.png" alt="logo" className="logo"/>
+                  <img src="../../../src/images/logo-cifor.png" alt="logo" className="logo" />
                 </a>
 
                 <button
@@ -124,16 +124,16 @@ export const NavBar = ({ onSearch }) => {
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/estaciones">
-                            <i className="bi bi-thermometer"></i> Info Estación 
+                            <i className="bi bi-thermometer"></i> Info Estación
                           </Link>
                         </li>
-                       
+
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
 
                         {userData ? (
                           <li className="nav-item">
-                            <button className="nav-link logout-button" onClick={handleLogout}>
+                            <button className="nav-link logout-button" id="nav-item-left" onClick={handleLogout}>
                               <i className="bi bi-box-arrow-right"></i>
                               <div className="logout-text">
                                 <span>Cerrar</span>
@@ -143,14 +143,12 @@ export const NavBar = ({ onSearch }) => {
                           </li>
                         ) : (
                           <li className="nav-item">
-                            <Link className="nav-link" to="/cuenta">
+                            <Link className="nav-link" to="/cuenta" id="nav-item-left">
                               <i className="bi bi-person"></i> Cuenta
                             </Link>
                           </li>
                         )}
 
-
-                        {/* <li className="nav-item"> */}
                           <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
                             <img
                               src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
@@ -158,12 +156,13 @@ export const NavBar = ({ onSearch }) => {
                               className="foto_perfil"
                             />
                           </a>
-                        {/* </li> */}
 
                       </ul>
                     </div>
                   </div>
                 )}
+
+
               </nav>
             </div>
           </div>
