@@ -6,7 +6,7 @@ export default function Clima_manos() {
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Red Agrometeorológicas de Formosa</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Clima Informativo de Formosa</h2>
               <p className="max-w-[600px] text-white/80 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Experimenta el poder de datos meteorológicos en tiempo real, pronósticos precisos e información completa de las estaciones con nuestra aplicación de vanguardia.
               </p>
@@ -56,8 +56,8 @@ export default function Clima_manos() {
                     <CalculatorIcon className="w-5 h-5 text-[#6B46C1]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium">Estadísticas Completas</h3>
-                    <p className="text-white/80 text-sm">Analiza datos meteorológicos con nuestras herramientas estadísticas avanzadas.</p>
+                    <h3 className="text-lg font-medium">Estadísticas</h3>
+                    <p className="text-white/80 text-sm">Analiza datos meteorológicos de la distintas estaciones de Formosa con nuestras herramientas estadísticas.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -72,7 +72,7 @@ export default function Clima_manos() {
               </div>
             </div>
             <div className="relative h-full">
-              <img src="../../../src/images/manos.jpg" alt="Mapa de Formosa" className="object-cover w-full h-full rounded-xl" />
+              <img src="../../../src/images/informacion_climatica.jpg" alt="Mapa de Formosa" className="object-cover w-full h-full rounded-xl" />
             </div>
           </div>
         </div>

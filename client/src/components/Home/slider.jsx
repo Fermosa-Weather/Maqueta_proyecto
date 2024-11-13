@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 export function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
-    '../../../src/stilos/Plantilla_slider2/images/clima.jpg',
-    '../../../src/stilos/Plantilla_slider2/images/robot.avif',
+    '../../../src/stilos/Plantilla_slider2/images/clima2.jpg',
+    '../../../src/stilos/Plantilla_slider2/images/ia_robot.jpg',
     '../../../src/stilos/Plantilla_slider2/images/estadistica.jpg',
     '../../../src/stilos/Plantilla_slider2/images/estacion.jpg',
     '../../../src/stilos/Plantilla_slider2/images/Noticias.jpg',
@@ -19,7 +19,7 @@ export function Slider() {
       setCurrentSlide((prevSlide) =>
         prevSlide === slides.length - 1 ? 0 : prevSlide + 1
       );
-    }, 3000); // Cambiar de imagen cada 3 segundos
+    }, 15000); // Cambiar de imagen cada 3 segundos
 
     return () => clearInterval(interval);
   }, [slides.length]);
