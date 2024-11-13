@@ -31,6 +31,10 @@ body, html {
   height: 50px; 
 }
 
+#nav-item-left {
+  margin-left: 300px;
+}
+
 /*header section*/
 .header_section {
   position: static;

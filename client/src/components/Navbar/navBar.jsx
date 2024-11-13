@@ -7,8 +7,8 @@ import "../../stilos/Plantilla_slider/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
 import "../../stilos/Plantilla_slider/css/bootstrap.css";
-import "../../stilos/search.css";
 import { Search } from "../Serch/Search";
+import "../../stilos/search.css";
 import { fetchUserInfo } from "../Function/infoToken.tsx";
 
 export const NavBar = ({ onSearch }) => {
@@ -133,8 +133,8 @@ export const NavBar = ({ onSearch }) => {
 
                         {userData ? (
                           <li className="nav-item">
-                            <button className="nav-link logout-button" onClick={handleLogout}>
-                              <i className="bi bi-box-arrow-right"></i>
+                            <button className="nav-link logout-button" id="nav-item-left" onClick={handleLogout}>
+                              <i className="bi bi-box-arrow-right" ></i>
                               <div className="logout-text">
                                 <span>Cerrar</span>
                                 <span>Sesión</span>
@@ -143,27 +143,25 @@ export const NavBar = ({ onSearch }) => {
                           </li>
                         ) : (
                           <li className="nav-item">
-                            <Link className="nav-link" to="/cuenta">
+                            <Link className="nav-link" to="/cuenta" id="nav-item-left">
                               <i className="bi bi-person"></i> Cuenta
                             </Link>
                           </li>
                         )}
 
-
-                        {/* <li className="nav-item"> */}
-                          <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
+                      </ul>
+                    </div>
+                  </div>
+                )}
+                
+                  <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
                             <img
                               src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
                               alt="perfil"
                               className="foto_perfil"
                             />
-                          </a>
-                        {/* </li> */}
+                  </a>
 
-                      </ul>
-                    </div>
-                  </div>
-                )}
               </nav>
             </div>
           </div>
