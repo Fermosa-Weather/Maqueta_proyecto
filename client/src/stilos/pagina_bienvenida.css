@@ -51,7 +51,9 @@ section {
 
 .btn-explora:hover {
   background-color: #0056b3;
+  color: aliceblue;
   transform: scale(1.05);
+  text-decoration: none;
 }
 
 /* Estilo de la sección de inicio */
@@ -96,13 +98,13 @@ section {
 /* Clase de texto justificado */
 .text-justificado {
   text-align: justify;
-  font-size: 0.75rem; /* Tamaño de texto */
-  margin-left: -100px; /* Ajusta según sea necesario */
+  font-size: 0.95rem; /* Tamaño de texto */
+  margin-left: 50px; /* Ajusta según sea necesario */
 }
 
 /* Clase para títulos alineados a la izquierda */
 .titulo-izquierda {
-  margin-left: -100px; /* Ajusta según sea necesario */
+  margin-left: 50px; /* Ajusta según sea necesario */
 }
 
 /* Asegura que los títulos h1 dentro de la clase inicio tengan color negro */
@@ -161,7 +163,10 @@ section {
 .logo-cifor {
   position: absolute;
   bottom: 10px; /* Ajusta la distancia desde el borde inferior */
-  right: 10px;  /* Ajusta la distancia desde el borde derecho */
+  right: 0px;  /* Ajusta la distancia desde el borde derecho */
+  margin-left: 20px;
   width: 150px; /* Tamaño ajustado para la imagen */
   height: auto; /* Mantiene la proporción de la imagen */
 }
+
+
