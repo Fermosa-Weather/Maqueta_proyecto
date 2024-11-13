@@ -47,7 +47,7 @@ export function Search({ onSearch }) {
             <input 
               type="text" 
               placeholder="Buscar..." 
-              className="buscador"
+              // className="serch"
               id="buscador"
               onChange={handleSearch}
               value={searchTerm}

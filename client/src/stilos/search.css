@@ -22,8 +22,8 @@
   border-radius: 40px;
   color: aliceblue;
   background-color: #44206a; 
-  transition: width 0.3s ease; /* Transición para el cambio de ancho */
-  overflow: hidden; /* Oculta el texto si el campo es pequeño */
+  transition: width 0.3s ease; 
+  overflow: hidden; 
 }
 
 #buscador::placeholder {
@@ -32,7 +32,7 @@
 
 /* Expande el campo de búsqueda cuando esté enfocado o activo */
 #buscador:focus,
-.show-input .buscador { /* Clase alternativa para mostrar el input */
+.show-input #buscador { /* Clase alternativa para mostrar el input */
   width: 280px; /* Ancho completo cuando esté enfocado o visible */
 }
 
@@ -66,28 +66,32 @@
   .suggestions-list {
     margin-top: 25px;
   }
+
 }
 
 @media (max-width: 992px) {
   .suggestions-list {
     margin-top: 0px;
   }
+
 }
 
 /* Media query para pantallas de 640px o menos */
 @media (max-width: 640px) {
-  .buscador {
-    width: 200px; /* Ancho reducido en pantallas pequeñas */
+  .suggestions-list {
+    width: 200px;     
   }
 
-  .suggestions-list {
-    width: 200px; /* Ancho reducido en pantallas pequeñas */    
+  #buscador:focus,
+.show-input #buscador{
+    width: 200px;
   }
 }
 
 /* Media query para pantallas de 360px o menos */
 @media (max-width: 360px) {
-  .buscador {
+  #buscador:focus,
+.show-input #buscador {
     width: 140px; /* Ancho más pequeño en pantallas pequeñas */
   }
 
