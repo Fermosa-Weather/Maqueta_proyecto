@@ -149,11 +149,6 @@ export const NavBar = ({ onSearch }) => {
                           </li>
                         )}
 
-                      </ul>
-                    </div>
-                  </div>
-                )}
-                
                   <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
                             <img
                               src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
@@ -161,6 +156,12 @@ export const NavBar = ({ onSearch }) => {
                               className="foto_perfil"
                             />
                   </a>
+                  
+                      </ul>
+                    </div>
+                  </div>
+                )}
+                
 
               </nav>
             </div>
