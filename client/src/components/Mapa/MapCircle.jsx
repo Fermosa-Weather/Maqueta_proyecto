@@ -179,15 +179,6 @@ function MapWithCircles() {
               </Marker>
             ))}
 
-            {/* {circles.map((circle, index) => (
-              <Circle
-                key={index}
-                center={circle.coords}
-                pathOptions={{ color: circle.color, fillOpacity: 0.2 }}
-                radius={150000}
-              />
-            ))} */}
-
             <GeoJSON
               data={FormosaCityGeoJSON}
               style={{ color: "green", weight: 2 }}

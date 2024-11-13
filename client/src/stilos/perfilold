@@ -161,5 +161,3 @@
   border-radius: 50%; /* Hace que la imagen tenga forma circular */
   margin-bottom: 1rem; /* Espaciado inferior para que se vea bien */
 }
-
-
