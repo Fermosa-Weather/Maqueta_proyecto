@@ -46,7 +46,7 @@ const StationInfo = ({ stations = [], station, averages }) => {
     ],
     datasets: [
       {
-        label: station.name,
+        label: station.name.custom,
         data: [
           station.meta?.airTemp,
           station.meta?.rh,
