@@ -128,3 +128,18 @@ html, body {
 .slider_section .carousel-control-next:hover{
   background-color: #160532;
 }
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute; /* Hace que todas las imágenes se superpongan */
+  top: 0;
+  left: 0;
+  opacity: 0; /* Todas las imágenes están inicialmente ocultas */
+  transition: opacity 1s ease; /* Transición suave de opacidad */
+}
+
+.img-box img.active {
+  opacity: 1; /* Muestra la imagen activa */
+}

@@ -109,25 +109,20 @@ export const NavBar = ({ onSearch }) => {
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/mapa">
-                            <i className="bi bi-geo-alt"></i> Mapa
+                            <i className="bi bi-geo-alt"></i> Map
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/modelo_prediccion">
-                            <i className="bi bi-cpu"></i> Modelo
+                            <i className="bi bi-cpu"></i> prediction
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/noticias">
-                            <i className="bi bi-newspaper"></i> Noticias
+                            <i className="bi bi-newspaper"></i> News
                           </Link>
                         </li>
-                        <li className="nav-item">
-                          <Link className="nav-link" to="/estaciones">
-                            <i className="bi bi-thermometer"></i> Info Estación
-                          </Link>
-                        </li>
-
+                    
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
 

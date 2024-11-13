@@ -14,7 +14,7 @@
 #buscador {
   position: absolute;
   top: -10px;
-  width: 280px; 
+  width: 370px; 
   z-index: 1000;
   margin-left: 8px;
   padding: 15px 20px;
@@ -33,7 +33,7 @@
 /* Expande el campo de búsqueda cuando esté enfocado o activo */
 #buscador:focus,
 .show-input #buscador { /* Clase alternativa para mostrar el input */
-  width: 280px; /* Ancho completo cuando esté enfocado o visible */
+  width: 370px; /* Ancho completo cuando esté enfocado o visible */
 }
 
 /* Lista de sugerencias */
@@ -47,7 +47,7 @@
   margin-left: 10px;
   color: #ffffff;
   border: 1px solid #ddd;
-  width: 280px;
+  width: 370px;
   z-index: 1000;
 }
 
