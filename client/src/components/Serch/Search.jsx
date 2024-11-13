@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { sugerencias } from "./sugerencias"; 
+import { sugerencias } from "./sugerencias";
 import "../../stilos/search.css";
 
 export function Search({ onSearch }) {
@@ -34,7 +34,7 @@ export function Search({ onSearch }) {
   };
 
   return (
-    <div className="search-form">
+    <div className={`search-form ${showInput ? "show-input" : ""}`}>
       <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
         <button 
           type="button" 
