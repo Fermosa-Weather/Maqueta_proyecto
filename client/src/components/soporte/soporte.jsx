@@ -1,9 +1,17 @@
 import { FaUser, FaEnvelope, FaTag,  FaComment } from 'react-icons/fa';
+import {useTheme} from "../../context"
 import "../../stilos/soporte.css";
 
+
 export default function Soporte() {
+  const { theme } = useTheme();  // Obtén el tema actual
+
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+      <div
+      className={`flex items-center justify-center min-h-screen p-4 ${
+        theme === "dark" ? "bg-dark" : theme === "white" ? "bg-white" : "bg-gray-100"
+      }`}
+    >
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-6">
         <div className="text-center space-y-4 contactanos">

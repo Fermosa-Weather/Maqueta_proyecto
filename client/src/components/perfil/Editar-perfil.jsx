@@ -101,9 +101,9 @@ export default function Editar_perfil() {
   };
 
   return (
-    <div className={`flex items-center justify-center min-h-screen p-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'}`}>
-      <div className={`bg-white shadow-lg rounded-lg p-6 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 ${theme === 'dark' ? 'bg-gray-800' : ''}`}>
-        <div className="space-y-6">
+    <div className={`flex items-center justify-center min-h-screen p-2 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'}`}>
+      <div className={`bg-white shadow-lg rounded-lg p-6 max-w-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 ${theme === 'dark' ? 'bg-gray-800' : ''} `} >
+        <div className="space-y-4 " >
           <form onSubmit={handleSubmit}>
             <div className="flex items-center gap-4">
               <div className="relative group cursor-pointer" onClick={openModal}>

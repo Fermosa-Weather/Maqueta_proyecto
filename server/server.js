@@ -34,7 +34,7 @@ app.use(compression());
 app.use(fileUpload({
   useTempFiles: true,
   tempFileDir: "./tmp",
-  limits: { fileSize: 10 * 1024 * 1024 }, // Límite de tamaño ajustado
+  limits: { fileSize: 10 * 1024 * 1024 },
 }));
 
 // Acceso a archivos estáticos

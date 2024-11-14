@@ -19,7 +19,7 @@ export function Slider() {
       setCurrentSlide((prevSlide) =>
         prevSlide === slides.length - 1 ? 0 : prevSlide + 1
       );
-    }, 13000); // Cambiar de imagen cada 15 segundos
+    }, 10000); // Cambiar de imagen cada 15 segundos
 
     return () => clearInterval(interval);
   }, [slides.length]);
