@@ -1,5 +1,5 @@
 import { FaUser, FaEnvelope, FaTag,  FaComment } from 'react-icons/fa';
-import {useTheme} from "../../context"
+import {useTheme} from "../../contex/themaContext"
 import "../../stilos/soporte.css";
 
 

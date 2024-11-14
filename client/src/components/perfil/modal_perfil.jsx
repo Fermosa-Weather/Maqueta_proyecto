@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { fetchUserInfo } from "../Function/infoToken";
 import "../../stilos/perfil.css";
 import { FaUserFriends, FaCog, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
-import { useTheme } from '../../context';
+import { useTheme } from '../../contex/themaContext';
 
 export default function Perfil_modal({ onClose }) {
   const [userData, setUserData] = useState({

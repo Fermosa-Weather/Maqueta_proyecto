@@ -4,7 +4,7 @@ import { fetchUserInfo } from "../Function/infoToken";
 import axios from "axios";
 import "../../stilos/perfil.css";
 import Añadir_foto_modal from './añadir_foto';
-import { useTheme } from '../../context';  // Importa el hook useTheme
+import { useTheme } from '../../contex/themaContext';  // Importa el hook useTheme
 
 async function updateUser(token, userId, updatedData) {
   try {

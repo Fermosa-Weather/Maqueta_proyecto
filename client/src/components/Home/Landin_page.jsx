@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
-import { useTheme } from '../../context'; // Importa el hook useTheme
+import { useTheme } from '../../contex/themaContext'; // Importa el hook useTheme
 import "../../stilos/inicio.css"; 
 import {Slider} from './slider';
 import Ventana_clima from './venta_clima';

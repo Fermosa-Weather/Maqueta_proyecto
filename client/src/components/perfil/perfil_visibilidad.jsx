@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchUserInfo } from "../Function/infoToken"; // Ajusta la ruta si es necesario
-import { useTheme } from '../../context'; // Importa el hook useTheme
+import { useTheme } from '../../contex/themaContext'; // Importa el hook useTheme
 import '../../stilos/perfil.css';
 
 export default function Perfil() {
