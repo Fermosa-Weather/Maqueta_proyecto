@@ -59,7 +59,6 @@ export default function Perfil() {
               </div>
               <p className="mb-2">Nombre completo: {userInfo.nombre_completo}</p>
               <p className="mb-2">Username: {userInfo.username}</p>
-              <p className="mb-2">Zona: Buenos Aires</p>
               <Link to={`/editar-perfil/${userInfo._id}`}>
                 <button className="boton-editar-perfil">
                   Editar perfil

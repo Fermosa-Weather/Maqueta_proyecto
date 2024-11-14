@@ -25,10 +25,12 @@ const fetchUserInfo = async (token) => {
 
 // Proveedor del contexto
 export const UserProvider = ({ children }) => {
-  const [userData, setUserData] = useState({
+
+  const [userData, setUserData] = useState ({
     email: 'email@example.com',
-    photoUrl: '../../../src/images/usuario.jpg',
-    name: 'Nombre de Usuario',
+    fotoUser: '../../../src/images/usuario.jpg',
+    nombre_completo: 'Nombre de Usuario',
+    username: 'Username',
     id: 'id del usuario'
   });
 
@@ -39,8 +41,9 @@ export const UserProvider = ({ children }) => {
         .then(data => {
           setUserData({
             email: data.email,
-            photoUrl: data.fotoUser,
-            name: data.username,
+            fotoUser: data.fotoUser,
+            username: data.username,
+            nombre_completo: data.nombre_completo,
             id: data._id
           });
         })

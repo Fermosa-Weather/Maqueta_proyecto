@@ -1,5 +1,3 @@
-/* Perfil.css */
-
 /* añadir cuenta */
 
 .spacer {
@@ -91,13 +89,18 @@
   cursor: pointer;
 }
 
-.icono-camara {
+.contenedor_iconos {
   opacity: 0;
   cursor: pointer;
+  gap:8px
 }
 
-.icono-camara:hover {
+.contenedor_iconos:hover {
   opacity: 1;
+}
+
+.icono_camara{
+  margin: 3px;
 }
 
 /* Modal añadir foto */
@@ -162,3 +165,6 @@
   margin-bottom: 1rem; /* Espaciado inferior para que se vea bien */
 }
 
+
+/* Modal de añadir o borrar img */
+/* perfil.css */

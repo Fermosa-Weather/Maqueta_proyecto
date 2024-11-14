@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { FaUser, FaUserAlt, FaCamera, FaTrash } from 'react-icons/fa';
-import Swal from 'sweetalert2';
 import { fetchUserInfo } from "../Function/infoToken";
 import axios from "axios";
 import "../../stilos/perfil.css";
@@ -21,17 +20,17 @@ async function updateUser(token, userId, updatedData) {
   }
 }
 
-async function eliminarFotoUser(token, userId) {
+async function eliminarFotoUser(token, userId, updatedData) {
   try {
-    const response = await axios.delete(`http://localhost:4000/api/upload/${userId}`, {
+    const response = await axios.delete(`http://localhost:4000/api/upload/eliminar/${userId}`, updatedData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
   } catch (error) {
-    console.error("Error al eliminar la foto:", error);
-    throw new Error("No se pudo eliminar la imagen de perfil del usuario");
+    console.error("Error updating user info:", error);
+    throw new Error("No se pudo actualizar la información del usuario");
   }
 }
 
@@ -48,6 +47,7 @@ export default function Editar_perfil({ onClose }) {
   });
   const { theme } = useTheme();
 
+  // Función para establecer la imagen predeterminada si `fotoUser` es `null`
   const foto = () => {
     setUserInfo(prevState => ({
       ...prevState,
@@ -61,6 +61,13 @@ export default function Editar_perfil({ onClose }) {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleOutsideClick = (e) => {
+    // Cerrar modal solo si el clic es fuera del modal
+    if (e.target.classList.contains('modal')) {
+      closeModal();
+    }
   };
 
   useEffect(() => {
@@ -77,7 +84,7 @@ export default function Editar_perfil({ onClose }) {
             fotoUser: data.fotoUser,
             profileImage: data.profileImage,
           });
-          foto();
+          foto(); // Llamar a `foto` después de cargar la información
         })
         .catch(error => {
           console.error(error.message);
@@ -89,7 +96,7 @@ export default function Editar_perfil({ onClose }) {
     setUserInfo(prevState => ({
       ...prevState,
       profileImage: imageUrl,
-      fotoUser: null
+      fotoUser: null // Borra `fotoUser` para asegurar que solo se muestre `profileImage`
     }));
   };
 
@@ -112,46 +119,21 @@ export default function Editar_perfil({ onClose }) {
     }
   };
 
-  const handleDeleteImage = async () => {
-    const token = localStorage.getItem('token');
-    
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "Esta acción eliminará la imagen de perfil.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await eliminarFotoUser(token, userInfo.id);
-          setUserInfo(prevState => ({ ...prevState, fotoUser: '' })); // Limpiar foto en UI
-          Swal.fire('Eliminado', 'La imagen de perfil ha sido eliminada.', 'success');
-        } catch (error) {
-          Swal.fire('Error', 'No se pudo eliminar la imagen de perfil.', 'error');
-        }
-      }
-    });
-  };
-
   return (
     <div className={`flex items-center justify-center min-h-screen p-2 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'}`} onClick={onClose}>
       <div className={`bg-white shadow-lg rounded-lg p-6 max-w-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 ${theme === 'dark' ? 'bg-gray-800' : ''}`}>
         <div className="space-y-4">
           <form onSubmit={handleSubmit}>
             <div className="flex items-center gap-4">
-              <div className="relative group cursor-pointer">
+              <div className="relative group cursor-pointer" >
                 <img
                   src={userInfo.fotoUser || userInfo.profileImage}
                   alt="Profile"
                   className="h-24 w-24 rounded-full border-4 border-primary group-hover:opacity-40 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 flex items-center justify-center contenedor_iconos">
-                  <FaCamera className="text-black text-2xl icono_camara" onClick={openModal} />
-                  <FaTrash className="text-black text-2xl icono_eliminar" onClick={handleDeleteImage} />
+                  <FaCamera className="text-black text-2xl icono_camara" onClick={openModal}/>
+                  <FaTrash  className="text-black text-2xl icono_eliminar" />
                 </div>
               </div>
               <div className="space-y-1">
@@ -207,9 +189,36 @@ export default function Editar_perfil({ onClose }) {
             className="w-full max-w-[400px] rounded-lg bg-gradient-to-r from-[#8e2de2] to-[#4a00e0]"
             style={{ aspectRatio: "600/600", objectFit: "cover" }}
           />
+         
           {isModalOpen && <Añadir_foto_modal onClose={closeModal} onImageUpload={handleImageUpload} />}
         </div>
       </div>
     </div>
   );
 }
+
+// function Modal({ onClose, onImageUpload, onOutsideClick }) {
+//   return (
+//     <div 
+//       className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 modal" 
+//       onClick={onOutsideClick}
+//     >
+//       <div className="contenedor-modal-añadir-elimnar">
+//         <div className="flex flex-row gap-4"> {/* Cambié flex-col a flex-row y ajusté el gap */}
+//           <button 
+//             onClick={() => onImageUpload("image_url_here")} 
+//             className="rounded-md boton_modal-a"
+//           >
+//             Añadir Imagen
+//           </button>
+//           <button 
+//             onClick={() => onImageUpload(null)} 
+//             className="rounded-md boton_modal-e"
+//           >
+//             Eliminar Imagen
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
