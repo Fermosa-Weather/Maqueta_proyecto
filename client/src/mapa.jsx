@@ -13,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./stilos/mapa.css";
 import MapWithCircles from "./components/Mapa/MapCircle.jsx"
 import Nav from "./components/Navbar/Nav.jsx";
+import Footer from "./footer.jsx";
 
 function Mapa() {
 
