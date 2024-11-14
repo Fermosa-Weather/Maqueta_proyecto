@@ -14,9 +14,27 @@ async function updateUser(token, userId, updatedData) {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    // Muestra un mensaje de éxito con SweetAlert
+    Swal.fire({
+      icon: 'success',
+      title: 'Perfil actualizado',
+      text: 'La información del usuario fue actualizada exitosamente.',
+      confirmButtonText: 'Ok'
+    });
+
     return response.data;
   } catch (error) {
     console.error("Error updating user info:", error);
+
+    // Muestra un mensaje de error con SweetAlert
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al actualizar',
+      text: 'No se pudo actualizar la información del usuario.',
+      confirmButtonText: 'Cerrar'
+    });
+
     throw new Error("No se pudo actualizar la información del usuario");
   }
 }
@@ -28,9 +46,27 @@ async function eliminarFotoUser(token, userId) {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    // Muestra un mensaje de éxito con SweetAlert
+    Swal.fire({
+      icon: 'success',
+      title: 'Foto eliminada',
+      text: 'La foto de perfil fue eliminada exitosamente.',
+      confirmButtonText: 'Ok'
+    });
+
     return response.data;
   } catch (error) {
     console.error("Error al eliminar la foto:", error);
+
+    // Muestra un mensaje de error con SweetAlert
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al eliminar foto',
+      text: 'No se pudo eliminar la imagen de perfil del usuario.',
+      confirmButtonText: 'Cerrar'
+    });
+
     throw new Error("No se pudo eliminar la imagen de perfil del usuario");
   }
 }
@@ -105,10 +141,20 @@ export default function Editar_perfil({ onClose }) {
 
     try {
       await updateUser(token, userInfo.id, updatedData);
-      alert("Perfil actualizado exitosamente");
+      Swal.fire({
+        icon: 'success',
+        title: 'Perfil actualizado',
+        text: 'Perfil actualizado exitosamente',
+        confirmButtonText: 'Ok'
+      });
     } catch (error) {
       console.error(error.message);
-      alert("Error al actualizar el perfil");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error al actualizar el perfil',
+        confirmButtonText: 'Cerrar'
+      });
     }
   };
 
@@ -128,7 +174,7 @@ export default function Editar_perfil({ onClose }) {
       if (result.isConfirmed) {
         try {
           await eliminarFotoUser(token, userInfo.id);
-          setUserInfo(prevState => ({ ...prevState, fotoUser: '' })); // Limpiar foto en UI
+          setUserInfo(prevState => ({ ...prevState, fotoUser: '../../../src/images/usuario.jpg' })); // Limpiar foto en UI
           Swal.fire('Eliminado', 'La imagen de perfil ha sido eliminada.', 'success');
         } catch (error) {
           Swal.fire('Error', 'No se pudo eliminar la imagen de perfil.', 'error');

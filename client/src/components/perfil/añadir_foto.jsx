@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom'; // Import useParams
 import "../../stilos/perfil.css";
+import Swal from 'sweetalert2';
 
 export default function Añadir_foto_modal({ onClose, onImageUpload }) {
   const { userId } = useParams(); // Obtain userId from the URL parameters
@@ -45,7 +46,13 @@ export default function Añadir_foto_modal({ onClose, onImageUpload }) {
 
   const uploadImage = async () => {
     if (!imageFile) {
-      alert('Por favor, selecciona una imagen antes de subirla.');
+      // Muestra una alerta si no se selecciona una imagen
+      Swal.fire({
+        icon: 'warning',
+        title: 'Selección de imagen',
+        text: 'Por favor, selecciona una imagen antes de subirla.',
+        confirmButtonText: 'Cerrar'
+      });
       return;
     }
 
@@ -53,26 +60,43 @@ export default function Añadir_foto_modal({ onClose, onImageUpload }) {
     formData.append('fotoUser', imageFile);
 
     try {
-      const response = await fetch(`http://localhost:4000/api/upload/${userId}`, { // Asegúrate de que la URL sea correcta
+      const response = await fetch(`http://localhost:4000/api/upload/${userId}`, {
         method: 'PUT',
         body: formData,
       });
 
       if (response.ok) {
         const data = await response.json();
-        alert(data.message);
-        onImageUpload(selectedImage); // Llamar a la función pasada para actualizar la imagen en el perfil
+        // Muestra una alerta de éxito cuando la imagen se sube correctamente
+        Swal.fire({
+          icon: 'success',
+          title: 'Imagen subida con éxito',
+          text: 'Tu imagen de perfil ha sido actualizada correctamente.',
+          confirmButtonText: 'Ok'
+        });
+        onImageUpload(selectedImage); // Llamar a la función para actualizar la imagen en el perfil
         onClose();
       } else {
         const errorData = await response.text();
-        alert('Error al subir la imagen: ' + errorData);
+        // Muestra una alerta de error si la subida falla
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al subir la imagen',
+          text: 'Hubo un problema al subir la imagen: ' + errorData,
+          confirmButtonText: 'Cerrar'
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Error al subir la imagen.');
+      // Muestra una alerta general de error si hay un problema de red o un fallo en la solicitud
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al subir la imagen',
+        text: 'Hubo un error al subir la imagen, por favor inténtalo de nuevo.',
+        confirmButtonText: 'Cerrar'
+      });
     }
-  };
-
+};
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50" onClick={onClose}>
