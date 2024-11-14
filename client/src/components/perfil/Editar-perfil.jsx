@@ -185,22 +185,22 @@ export default function Editar_perfil({ onClose }) {
 
   return (
     <div className={`flex items-center justify-center min-h-screen p-2 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'}`} onClick={onClose}>
-      <div className={`bg-white shadow-lg rounded-lg p-6 max-w-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 ${theme === 'dark' ? 'bg-gray-800' : ''}`}>
+      <div className={`bg-white shadow-lg rounded-lg p-6 max-w-4xl max-h-[400px] w-full grid grid-cols-1 md:grid-cols-2 gap-8 ${theme === 'dark' ? 'bg-gray-800' : ''}`}>
         <div className="space-y-4">
           <form onSubmit={handleSubmit}>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center form-editar">
               <div className="relative group cursor-pointer">
+               
                 <img
                   src={userInfo.fotoUser || userInfo.profileImage}
-                  alt="Profile"
-                  className="h-24 w-24 rounded-full border-4 border-primary group-hover:opacity-40 transition-opacity duration-300"
-                />
+                  alt="Profile" className="circular-image"/>
+
                 <div className="absolute inset-0 flex items-center justify-center contenedor_iconos">
                   <FaCamera className="text-black text-2xl icono_camara" onClick={openModal} />
                   <FaTrash className="text-black text-2xl icono_eliminar" onClick={handleDeleteImage} />
                 </div>
               </div>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <div className={`text-xl font-semibold ${theme === 'dark' ? 'text-black' : 'text-black'}`}>
                   {userInfo.name || 'Nombre no disponible'}
                 </div>
@@ -219,7 +219,7 @@ export default function Editar_perfil({ onClose }) {
                   value={userInfo.name}
                   onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
                   placeholder="Ingrese su nombre completo"
-                  className={`mt-1 block w-full border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar`}
+                  className={`mt-1 block w-full border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md shadow-sm py-2.5 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar`}
                 />
               </div>
               <div className="relative">
@@ -232,7 +232,7 @@ export default function Editar_perfil({ onClose }) {
                   value={userInfo.username}
                   onChange={(e) => setUserInfo({ ...userInfo, username: e.target.value })}
                   placeholder="Ingrese su username"
-                  className={`mt-1 block w-full border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar`}
+                  className={`mt-1 block w-full border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md shadow-sm py-2.5 px-3 pl-10 text-gray-700 focus:ring-primary focus:border-primary input-editar`}
                 />
               </div>
               <div className='contenedor-form-editar-botones'>
@@ -250,7 +250,7 @@ export default function Editar_perfil({ onClose }) {
           <img
             src="../../../src/images2/editar3.jpg"
             alt="Edit Profile"
-            className="w-full max-w-[400px] rounded-lg bg-gradient-to-r from-[#8e2de2] to-[#4a00e0]"
+            className="w-full max-w-[350px] rounded-lg bg-gradient-to-r from-[#8e2de2] to-[#4a00e0]"
             style={{ aspectRatio: "600/600", objectFit: "cover" }}
           />
           {isModalOpen && <Añadir_foto_modal onClose={closeModal} onImageUpload={handleImageUpload} />}

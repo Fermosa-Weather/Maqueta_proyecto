@@ -80,14 +80,14 @@ export const uploadUserImage = async (req, res) => {
     console.log({ imagePath, id });
 
     // Actualiza el nombre de la imagen en el registro del usuario
-    const usuarioPerfil = await User.updateOne(
-      { _id: id },
-      { $set: { fotoUser: imagePath } }
-    );
+    // const usuarioPerfil = await User.updateOne(
+    //   { _id: id },
+    //   { $set: { fotoUser: imagePath } }
+    // );
 
-    if (!usuarioPerfil.acknowledged || usuarioPerfil.modifiedCount === 0) {
-      return res.status(400).json({ message: 'No se pudo actualizar la imagen de perfil en la base de datos' });
-    }
+    // if (!usuarioPerfil.acknowledged || usuarioPerfil.modifiedCount === 0) {
+    //   return res.status(400).json({ message: 'No se pudo actualizar la imagen de perfil en la base de datos' });
+    // }
 
     // Mueve el archivo al directorio específico
     await file.mv(filePath, (err) => {
