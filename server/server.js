@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import fileUpload from 'express-fileupload';
 import path from 'path';
 import {__dirname} from "./helpers/ruta.js"
+import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
 import {clearDatabase} from "./config/db.js"
 
@@ -23,13 +24,16 @@ const PORT = process.env.PORT || 4000;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '5mb' })); // Límite de tamaño en express.json
+app.use(express.urlencoded({ limit: '5mb', extended: true })); // Límite de tamaño en express.urlencoded
 app.use(morgan('combined'));
+
+// Middleware para carga de archivos
 app.use(fileUpload({
-  useTempFiles:true,
-  tempFileDir:"./tmp"
-})); 
+  useTempFiles: true,
+  tempFileDir: "./tmp",
+  limits: { fileSize: 15 * 1024 * 1024 }, // Límite de tamaño ajustado
+}));
 
 // Acceso a archivos estáticos
 app.use('/public', express.static(path.join(__dirname, 'public'))); // Archivos estáticos de la carpeta 'public'
