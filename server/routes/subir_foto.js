@@ -3,7 +3,6 @@ import {uploadUserImage, updateUserProfile} from '../controllers/upload_controle
 
 const router = express.Router();
 
-
 router.put('/editar/:id', updateUserProfile)
 
 router.put('/:id', uploadUserImage)

@@ -36,21 +36,23 @@ section {
   transform: scale(1.1);
 }
 
-/* Estilo del botón "Explora CIFOR" */
+/* Estilo del botón "Explora CIFOR" transparente con borde de color */
 .btn-explora {
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: bold;
-  color: white;
-  background-color: #007bff;
+  color: #007bff; /* Color del texto */
+  background-color: transparent; /* Fondo transparente */
+  border: 2px solid #007bff; /* Borde con color */
   border-radius: 8px;
   text-decoration: none;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-explora:hover {
-  background-color: #0056b3;
+  background-color: rgba(0, 123, 255, 0.1); /* Fondo ligeramente opaco al pasar el mouse */
+  color: #0056b3; /* Cambio de color del texto al hacer hover */
   transform: scale(1.05);
 }
 
@@ -96,8 +98,8 @@ section {
 /* Clase de texto justificado */
 .text-justificado {
   text-align: justify;
-  font-size: 0.75rem; /* Tamaño de texto */
-  margin-left: -100px; /* Ajusta según sea necesario */
+  font-size: 0.80rem; /* Tamaño de texto */
+  margin-right: 20px;
 }
 
 /* Clase para títulos alineados a la izquierda */

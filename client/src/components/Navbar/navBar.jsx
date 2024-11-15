@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Perfil_modal from "../perfil/modal_perfil";
 import { Visibilidad_nav } from './visibilidad_nav';
+import "../../stilos/Plantilla_slider/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
-import "../../stilos/Plantilla_slider/css/style.css";
 import "../../stilos/Plantilla_slider/css/bootstrap.css";
 import { Search } from "../Serch/Search";
+import "../../stilos/search.css";
 import { fetchUserInfo } from "../Function/infoToken.tsx";
-
 
 export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
@@ -72,7 +72,7 @@ export const NavBar = ({ onSearch }) => {
             <div className="col-xl-8">
               <nav className="navbar navbar-expand-xl custom_nav-container">
                 <a className="navbar-brand" href="index.html">
-                  <img src="../../../src/images/logo-cifor.png" alt="logo" className="logo"/>
+                  <img src="../../../src/images/logo-cifor.png" alt="logo" className="logo" />
                 </a>
 
                 <button
@@ -94,35 +94,56 @@ export const NavBar = ({ onSearch }) => {
                       <ul className="navbar-nav">
                         <li className="nav-item active">
                           <Link className="nav-link" to="/home">
-                            <i className="bi bi-house"></i> Hogar
+                            <i className="bi bi-house"></i> Home
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/about">
-                            <i className="bi bi-info-circle"></i> Acerca de
+                            <i className="bi bi-person"></i> About
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/Weather">
-                            <i className="bi bi-cloud-sun"></i> El tiempo
+                            <i className="bi bi-cloud-sun"></i> Weather
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/mapa">
-                            <i className="bi bi-geo-alt"></i> Mapa
+                            <i className="bi bi-geo-alt"></i> Map
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/modelo_prediccion">
-                            <i className="bi bi-cpu"></i> IA
+                            <i className="bi bi-cpu"></i> prediction
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/noticias">
-                            <i className="bi bi-newspaper"></i> Noticias
+                            <i className="bi bi-newspaper"></i> News
                           </Link>
                         </li>
-                        <li className="nav-item">
+                    
+                        {isModalOpen && <Perfil_modal onClose={closeModal} />}
+                        <Search onSearch={handleSearch} />
+
+                        {userData ? (
+                          <li className="nav-item">
+                            <button className="nav-link logout-button" id="nav-item-left" onClick={handleLogout}>
+                              <i className="bi bi-box-arrow-right"></i>
+                              <div className="logout-text">
+                                <span>sing</span>
+                                <span>out</span>
+                              </div>
+                            </button>
+                          </li>
+                        ) : (
+                          <li className="nav-item">
+                            <Link className="nav-link" to="/cuenta" id="nav-item-left">
+                              <i className="bi bi-person"></i> Cuenta
+                            </Link>
+                          </li>
+                        )}
+
                           <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
                             <img
                               src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
@@ -130,31 +151,12 @@ export const NavBar = ({ onSearch }) => {
                               className="foto_perfil"
                             />
                           </a>
-                        </li>
-                        {isModalOpen && <Perfil_modal onClose={closeModal} />}
-                        <Search onSearch={handleSearch} />
 
-                        {userData ? (
-                          <li className="nav-item">
-                            <button className="nav-link logout-button" onClick={handleLogout}>
-                              <i className="bi bi-box-arrow-right"></i>
-                              <div className="logout-text">
-                                <span>Cerrar</span>
-                                <span>Sesión</span>
-                              </div>
-                            </button>
-                          </li>
-                        ) : (
-                          <li className="nav-item">
-                            <Link className="nav-link" to="/cuenta">
-                              <i className="bi bi-person"></i> Cuenta
-                            </Link>
-                          </li>
-                        )}
                       </ul>
                     </div>
                   </div>
                 )}
+
               </nav>
             </div>
           </div>

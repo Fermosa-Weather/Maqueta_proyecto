@@ -110,7 +110,7 @@ function MapWithCircles() {
           <MapContainer
             center={formosaCenter}
             zoom={zoomLevel}
-            style={{ height: "calc(87vh)", width: "100%" }}
+            style={{ height: "calc(87vh)", width: "100%", zIndex:1 }}
             zoomControl={true}
           >
             {/* Controles de capas */}
@@ -178,15 +178,6 @@ function MapWithCircles() {
                 </Popup>
               </Marker>
             ))}
-
-            {/* {circles.map((circle, index) => (
-              <Circle
-                key={index}
-                center={circle.coords}
-                pathOptions={{ color: circle.color, fillOpacity: 0.2 }}
-                radius={150000}
-              />
-            ))} */}
 
             <GeoJSON
               data={FormosaCityGeoJSON}

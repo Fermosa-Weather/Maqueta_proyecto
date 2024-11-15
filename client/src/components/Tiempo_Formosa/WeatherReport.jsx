@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Line } from 'react-chartjs-2'
 import 'chart.js/auto'
+import annotationPlugin from 'chartjs-plugin-annotation';
+
 
 
 export default function WeatherPage() {
@@ -57,6 +59,24 @@ export default function WeatherPage() {
     'Sleet': <CloudRain className="w-16 h-16 text-blue-800" />,
   }
 
+  const conditionTranslations = {
+    'Clear': 'Despejado',
+    'Partially cloudy': 'Parcialmente Nublado',
+    'Cloudy': 'Nublado',
+    'Rain': 'Lluvia',
+    'Thunderstorms': 'Tormentas',
+    'Snow': 'Nieve',
+    'Fog': 'Niebla',
+    'Windy': 'Ventoso',
+    'Overcast': 'Cubierto',
+    'Drizzle': 'Llovizna',
+    'Showers': 'Aguaceros',
+    'Freezing Rain': 'Lluvia Helada',
+    'Sleet': 'Aguacero de Hielo',
+  };
+  
+
+
   // Datos para el gráfico (hasta 15 días)
   const labels = weatherData.days.slice(1, 16).map(day => new Date(day.datetime).toLocaleDateString('es-AR', { weekday: 'short' }));
   const maxTemps = weatherData.days.slice(1, 16).map(day => day.tempmax);
@@ -87,8 +107,6 @@ export default function WeatherPage() {
     plugins: {
       legend: {
         position: 'top',
-
-
       },
       title: {
         display: true,
@@ -98,95 +116,123 @@ export default function WeatherPage() {
           weight: 'bold',
         },
       },
+      annotation: {
+        annotations: {
+          line1: {
+            type: 'line',
+            yMin: 30, // valor mínimo de la línea
+            yMax: 30, // valor máximo de la línea
+            borderColor: 'rgba(255, 99, 132, 0.7)',
+            borderWidth: 2,
+            label: {
+              content: 'Temperatura Alta',
+              enabled: true,
+              position: 'center',
+            },
+          },
+        },
+      },
     },
     scales: {
       y: {
         beginAtZero: false,
         ticks: {
           callback: function(value) {
-
             return value + '°C';
-          }
-        }
-      }
+          },
+        },
+      },
     },
   };
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-8 text-center">Pronóstico del Tiempo - Formosa, Argentina</h1>
-
+      <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center">
+        Pronóstico del Tiempo - Formosa, Argentina
+      </h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <Card className="lg:col-span-2 bg-gradient-to-r from-blue-400 to-indigo-500 text-white shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-2xl font-semibold">Condiciones actuales</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col md:flex-row items-center justify-between">
-                <div className="flex items-center mb-4 md:mb-0">
-                  <div className="mr-4">{weatherIcons[current.conditions] || <Droplet className="w-16 h-16 text-blue-500" />}</div>
-                  <div>
-                    <p className="text-5xl font-bold">{current.temp}°C</p>
-                    <p className="text-xl">{currentCondition}</p>
-                  </div>
-                </div>
-                <div className="text-center md:text-right">
-                  <p className="text-xl mb-2">Sensación térmica: {current.feelslike}°C</p>
-                  <p className="text-xl mb-2">Humedad: {current.humidity}%</p>
-                  <p className="text-xl">Viento: {current.windspeed} km/h</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        <Card className="lg:col-span-2 bg-gradient-to-r from-blue-400 to-indigo-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
+  <CardHeader>
+    <CardTitle className="text-2xl font-semibold">Condiciones actuales</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="flex flex-col md:flex-row items-center justify-between">
+      <div className="flex items-center mb-4 md:mb-0">
+        <div className="mr-4">{weatherIcons[current.conditions] || <Droplet className="w-16 h-16 text-blue-500" />}</div>
+        <div>
+          <p className="text-5xl font-extrabold">{current.temp}°C</p>
+          <p className="text-xl">{currentCondition}</p>
+        </div>
+      </div>
+      <div className="text-center md:text-right">
+        <p className="text-xl mb-2">Sensación térmica: {current.feelslike}°C</p>
+        <p className="text-xl mb-2">Humedad: {current.humidity}%</p>
+        <p className="text-xl">Viento: {current.windspeed} km/h</p>
+      </div>
+    </div>
+  </CardContent>
+</Card>
 
-          <Card className="bg-white shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-xl font-semibold">Detalles</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center"><Sunrise className="mr-2 text-yellow-500" /> Amanecer</span>
-                  <span>{current.sunrise}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center"><Sunset className="mr-2 text-orange-500" /> Atardecer</span>
-                  <span>{current.sunset}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center"><Umbrella className="mr-2 text-blue-500" /> Precipitación</span>
-                  <span>{current.precip} mm</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center"><Thermometer className="mr-2 text-red-500" /> Presión</span>
-                  <span>{current.pressure} hPa</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+
+
+
+
+<Card className="bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300">
+  <CardHeader>
+    <CardTitle className="text-xl font-semibold">Detalles</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <span className="flex items-center"><Sunrise className="mr-2 text-yellow-500" /> Amanecer</span>
+        <span>{current.sunrise}</span>
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="flex items-center"><Sunset className="mr-2 text-orange-500" /> Atardecer</span>
+        <span>{current.sunset}</span>
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="flex items-center"><Umbrella className="mr-2 text-blue-500" /> Precipitación</span>
+        <span>{current.precip} mm</span>
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="flex items-center"><Thermometer className="mr-2 text-red-500" /> Presión</span>
+        <span>{current.pressure} hPa</span>
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
         </div>
 
         <Card className="mb-8 shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl font-semibold">Pronóstico por horas</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex overflow-x-auto space-x-4 pb-4 bg-white rounded-lg p-4">
-              {weatherData.days[0].hours.map((hour, index) => (
-                <div key={index} className="flex flex-col items-center min-w-[100px] p-2 rounded-lg hover:bg-blue-50 transition-colors duration-200">
-                  <p className="font-semibold text-gray-800">{hour.datetime.slice(0, 5)}</p>
+        <CardHeader>
+          <CardTitle className="text-2xl font-semibold">Pronóstico por horas</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex overflow-x-auto space-x-4 pb-4 bg-white rounded-lg p-4">
+            {weatherData.days[0].hours.map((hour, index) => (
+              <div key={index} className="flex flex-col items-center min-w-[100px] p-2 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+                <p className="font-semibold text-gray-800">{hour.datetime.slice(0, 5)}</p>
+                {/* Usar la traducción en español para la condición */}
+                <div>
                   {weatherIcons[hour.conditions] || <Droplet className="w-8 h-8 text-blue-500" />}
-                  <p className="text-lg font-bold text-gray-800">{hour.temp}°C</p>
-                  <p className="text-sm text-gray-600">{hour.conditions}</p>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                <p className="text-lg font-bold text-gray-800">{hour.temp}°C</p>
+                {/* Traducir la condición al español */}
+                <p className="text-sm text-gray-600">
+                  {conditionTranslations[hour.conditions] || hour.conditions}
+                </p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {weatherData.days.slice(1, 8).map((day, index) => (
+          {weatherData.days.slice(1, 9).map((day, index) => (
             <Card key={index} className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-200">
               <CardHeader>
                 <CardTitle className="text-xl font-semibold">{new Date(day.datetime).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}</CardTitle>
@@ -210,16 +256,26 @@ export default function WeatherPage() {
           ))}
         </div>
 
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl font-semibold">Gráfico de Temperaturas (15 Días)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <Line data={data} options={options} />
-            </div>
-          </CardContent>
-        </Card>
+        <Card className="w-full lg:w-5/5 xl:w-4/4 shadow-lg">
+  <CardHeader>
+    <CardTitle className="text-2xl font-semibold">Gráfico de Temperaturas (15 Días)</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div 
+      style={{ 
+        width: '1200px', 
+        height: '600px', 
+        backgroundColor: '#E0F7FA' // Color blanco tirando a celeste
+      }}
+    >
+      <Line data={data} options={options} />
+    </div>
+  </CardContent>
+</Card>
+
+
+
+
       </div>
     </div>
   )
