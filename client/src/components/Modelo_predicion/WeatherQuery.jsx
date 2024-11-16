@@ -4,9 +4,11 @@ import '../../stilos/WeatherQuery.css'; // Asegúrate de que la ruta sea correct
 const WeatherQuery = () => {
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false); // Estado para controlar la carga
 
   const loadResponse = async (query) => {
     setResponse(''); // Limpiar la respuesta anterior
+    setLoading(true); // Iniciar la carga
 
     try {
       console.log('Enviando solicitud al servidor');
@@ -35,6 +37,8 @@ const WeatherQuery = () => {
     } catch (error) {
       console.error('Error al cargar la respuesta:', error);
       setResponse('Error al recuperar la respuesta del servidor.');
+    } finally {
+      setLoading(false); // Finalizar la carga
     }
   };
 
@@ -67,6 +71,10 @@ const WeatherQuery = () => {
         onKeyDown={handleKeyDown} 
       />
       <button onClick={handleSend}>Consultar</button>
+      
+      {/* Mostrar "Cargando..." si loading es verdadero */}
+      {loading && <p>Cargando...</p>}
+      
       <pre id="response">{response}</pre>
     </div>
   );

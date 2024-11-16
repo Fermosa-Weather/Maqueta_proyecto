@@ -51,10 +51,9 @@ export function Slider() {
               <span className="sr-only">Next</span>
             </a>
 
-            <h1>Descubre Nuestra Plataforma Meteorológica Avanzada</h1>
+            <h1>Descubre Nuestra Plataforma Meteorológica</h1>
             <p>
-            Nuestro sistema proporciona información sobre el tiempo y el clima en la provincia de Formosa. Se recopilan datos de 10 estaciones meteorológicas ubicadas a lo largo de la provincia. La aplicación cuenta con dashboards, mapas de las estaciones, un modelo de predicción con inteligencia artificial, y noticias sobre el clima en diferentes localidades. La aplicación mostrará datos como humedad, precipitaciones, calidad del aire, entre otros.
-            </p>
+            Nuestro sistema proporciona información sobre el tiempo en la provincia de Formosa. Se obtienen datos de 10 estaciones meteorológicas ubicadas a lo largo de la provincia. La aplicación cuenta con dashboards, mapas de las estaciones, un modelo de predicción con inteligencia artificial y noticias sobre el clima en diferentes localidades. La aplicación mostrará datos como humedad, precipitaciones, calidad del aire, entre otros.            </p>
             <div>
               <Link to="/contacto">
                 <span className="slider-link">CONTACT US</span>

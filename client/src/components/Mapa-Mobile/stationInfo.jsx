@@ -1,10 +1,7 @@
 // client/src/components/Mapa/StationInfo.jsx
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import { Widget } from "./Widget.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "../../../src/stilos/stacion_info.css";
-
 
 const defaultStation = {
   id: 0,
@@ -79,7 +76,6 @@ const StationInfo = ({ stations = [], station, averages }) => {
         </select>
       </div>
       <div className="content-container">
-        <Widget selectedStation={selectedStation} averages={averages} />
         <div className="chart-container">
           <Line data={renderChart(selectedStation)} />
         </div>
