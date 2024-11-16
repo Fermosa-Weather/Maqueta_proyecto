@@ -17,9 +17,12 @@ import Soporte from './components/soporte/soporte';
 import { News } from './components/Noticias/Noticias';
 import { Login } from './components/cuenta/Login';
 import { Register } from './components/cuenta/Register';
-
+import ForgotPassword from './components/cuenta/ForgotPassword';
+import ResetPassword from './components/cuenta/ResetPassword';
 import WeatherReport from './components/Tiempo_Formosa/WeatherReport';
 import MapaPrueba from './components/Mapa-Mobile/mapaPrueba';
+
+
 
 
 
@@ -45,6 +48,8 @@ function Rutas() {
         <Route path="/weatherreport" element={<WeatherReport />} /> {/* Nueva ruta para WeatherReport */}
         <Route path="*" element={<Pag_404 />} />   
         <Route path="/mapaprueba" element={<MapaPrueba />} /> {/* Nueva ruta para WeatherReport */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
       </Routes>
     </Router>
