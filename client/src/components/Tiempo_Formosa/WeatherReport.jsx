@@ -51,22 +51,6 @@ export default function WeatherPage() {
     'Freezing Rain': 'Lluvia Helada',
     'Sleet': 'Aguacero de Hielo',
   }[current.conditions] || current.conditions
-
-  const weatherIcons = {
-    'Clear': <img src={sol} alt="Sol" className="w-16 h-16" />,
-    'Partially cloudy': <img src={nubes} alt="Nubes" className="w-16 h-16" />,
-    'Cloudy': <img src={nubes} alt="Nublado" className="w-16 h-16" />,
-    'Rain': <img src={lluvia} alt="Lluvia" className="w-16 h-16" />,
-    'Thunderstorms': <img src={tormenta} alt="Tormenta" className="w-16 h-16" />,
-    'Snow': <img src={nieve} alt="Nieve" className="w-16 h-16" />,
-    'Fog': <img src={niebla} alt="Niebla" className="w-16 h-16" />,
-    'Windy': <img src={viento} alt="Viento" className="w-16 h-16" />,
-    'Overcast': <img src={parcialmente_nublado} alt="Cubierto" className="w-16 h-16" />,
-    'Drizzle': <img src={llovizna} alt="Llovizna" className="w-16 h-16" />,
-    'Showers': <img src={lluvia} alt="Aguaceros" className="w-16 h-16" />,
-    'Freezing Rain': <img src={lluvia} alt="Lluvia Helada" className="w-16 h-16" />,
-    'Sleet': <img src={lluvia} alt="Aguacero de Hielo" className="w-16 h-16" />,
-  };
   const conditionTranslations = {
     'Clear': 'Despejado',
     'Partially cloudy': 'Parcialmente Nublado',
@@ -82,6 +66,22 @@ export default function WeatherPage() {
     'Freezing Rain': 'Lluvia Helada',
     'Sleet': 'Aguacero de Hielo',
   };
+  const weatherIcons = {
+    'Clear': <img src={sol} alt="Sol" className="w-16 h-16" />,
+    'Partially cloudy': <img src={nubes} alt="Nubes" className="w-16 h-16" />,
+    'Cloudy': <img src={nubes} alt="Nublado" className="w-16 h-16" />,
+    'Rain': <img src={lluvia} alt="Lluvia" className="w-16 h-16" />,
+    'Thunderstorms': <img src={tormenta} alt="Tormenta" className="w-16 h-16" />,
+    'Snow': <img src={nieve} alt="Nieve" className="w-16 h-16" />,
+    'Fog': <img src={niebla} alt="Niebla" className="w-16 h-16" />,
+    'Windy': <img src={viento} alt="Viento" className="w-16 h-16" />,
+    'Overcast': <img src={parcialmente_nublado} alt="Cubierto" className="w-16 h-16" />,
+    'Drizzle': <img src={llovizna} alt="Llovizna" className="w-16 h-16" />,
+    'Showers': <img src={lluvia} alt="Aguaceros" className="w-16 h-16" />,
+    'Freezing Rain': <img src={lluvia} alt="Lluvia Helada" className="w-16 h-16" />,
+    'Sleet': <img src={lluvia} alt="Aguacero de Hielo" className="w-16 h-16" />,
+  };
+  
   
 
 
@@ -232,7 +232,7 @@ export default function WeatherPage() {
                 <p className="font-semibold text-gray-800">{hour.datetime.slice(0, 5)}</p>
                 {/* Usar la traducción en español para la condición */}
                 <div>
-                {weatherIcons[hour.conditions] || null}
+                {weatherIcons[hour.conditions] || <Droplet className="w-8 h-8 text-blue-500" />}
 
                 </div>
                 <p className="text-lg font-bold text-gray-800">{hour.temp}°C</p>
@@ -251,10 +251,11 @@ export default function WeatherPage() {
             <Card key={index} className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-200">
               <CardHeader>
               <CardTitle>
-                           <span className="text-sm font-semibold leading-tight">
+                     <span className="text-sm font-semibold leading-tight">
               {new Date(day.datetime).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}
                     </span>
-            </CardTitle>              </CardHeader>
+            </CardTitle>              
+            </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex items-center justify-center">
