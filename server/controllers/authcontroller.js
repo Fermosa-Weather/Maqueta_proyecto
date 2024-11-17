@@ -299,13 +299,13 @@ const sendResetEmail = async (email, resetURL) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail', 
     auth: {
-      user: 'your-email@gmail.com', 
+      user: 'your-email@live.com', 
       pass: 'your-email-password',  
     },
   });
 
   const mailOptions = {
-    from: 'your-email@gmail.com', 
+    from: 'your-email@live.com', 
     to: email,                    
     subject: 'Restablecimiento de Contraseña', 
     text: `Haz clic en el siguiente enlace para restablecer tu contraseña: ${resetURL}`, 

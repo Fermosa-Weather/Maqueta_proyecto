@@ -91,7 +91,7 @@ export const generarEnviarCodigo = async (correo) => {
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'ramsheedkk06@gmail.com', // Coloca tu dirección de correo electrónico de Gmail
+          user: 'ramsheedkk06@live.com', // Coloca tu dirección de correo electrónico de Gmail
           pass: 'ahyetfzwdgpgxcmc', // Coloca tu contraseña de Gmail o una contraseña de aplicación específica si tienes la autenticación de dos factores activada
         },
       });
