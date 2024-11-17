@@ -8,8 +8,8 @@ import 'chart.js/auto'
 import annotationPlugin from 'chartjs-plugin-annotation';
 
 import sol from '../../images/icons_weather/sol.png';
-import nubes from '../../images/icons_weather/nube.png';
-import parcialmente_nublado from '../../images/icons_weather/parcialmente_nublado.png';
+import nubes from '../../images/icons_weather/parcialmente_nublado.png';
+import parcialmente_nublado from '../../images/icons_weather/nube.png';
 import lluvia from '../../images/icons_weather/lluvia.png';
 import tormenta from '../../images/icons_weather/tormenta.png';
 import nieve from '../../images/icons_weather/niieve.png';
