@@ -20,7 +20,7 @@ async function fetchWeatherData() {
 
 async function generarActividad(req, res) {
     const { consulta } = req.body;
-
+//mandar una vez
     try {
         // Obtiene los datos de la API o desde el caché si no han expirado
         const data = await fetchWeatherData();

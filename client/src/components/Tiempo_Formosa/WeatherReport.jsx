@@ -54,6 +54,7 @@ export default function WeatherPage() {
   const conditionTranslations = {
     'Clear': 'Despejado',
     'Partially cloudy': 'Parcialmente Nublado',
+   
     'Cloudy': 'Nublado',
     'Rain': 'Lluvia',
     'Thunderstorms': 'Tormentas',

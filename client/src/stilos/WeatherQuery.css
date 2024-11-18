@@ -2,89 +2,60 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Centrar verticalmente */
-  height: 100vh; /* Hacer que el contenedor ocupe toda la altura de la ventana */
-  width: 100%; /* Cambiar a 100% para que ocupe todo el ancho disponible */
-  background: linear-gradient(135deg, #4f6dff, #70a1ff, #9b59b6);
-  padding: 20px; /* Ajustar el padding según sea necesario */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-h1 {
-  font-size: 6rem; /* Aumentar aún más el tamaño de la fuente */
-  margin-bottom: 25px;
-  text-align: center;
-  color: #d0d8ff;
-}
-
-input[type="text"] {
-  width: 100%; /* Asegurar que el input ocupe todo el ancho */
-  max-width: 1400px; /* Máximo ancho para mantener el diseño */
-  padding: 12px;
-  border: 2px solid #5a67d8;
-  border-radius: 8px;
-  font-size: 1rem;
+.responses-container {
+  flex-grow: 1; /* Permite que el contenedor de respuestas crezca */
+  width: 100%;
+  max-height: calc(100vh - 120px); /* Limita la altura de las respuestas, ajusta según el espacio necesario */
+  overflow-y: auto;
   margin-bottom: 20px;
-  outline: none;
-  color: #333;
-  background-color: #f5f7ff;
-  transition: border-color 0.3s ease;
+  border-bottom: 2px solid #ddd;
 }
 
-input[type="text"]:focus {
-  border-color: #4c51bf;
-  box-shadow: 0 0 5px rgba(76, 81, 191, 0.5);
+.response-entry {
+  background-color: #f1f1f1;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 90%; /* Evita que las respuestas sean demasiado grandes */
+  word-wrap: break-word; /* Evita que el texto se desborde */
 }
 
-input[type="text"]::placeholder {
-  color: #a0a8ff;
+.input-container {
+  display: flex;
+  gap: 10px;
+  width: 100%; /* Asegura que el input y el botón ocupen el ancho completo */
+  justify-content: center; /* Centra los elementos */
+  position: sticky; /* Mantiene el cuadro de entrada en la parte inferior */
+  bottom: 0; /* Fija el cuadro en la parte inferior */
+  padding-top: 20px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px; /* Ajusta el ancho según lo necesites */
 }
 
 button {
-  padding: 12px 24px;
-  font-size: 1rem;
-  color: #ffffff;
-  background-color: #5a67d8;
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Añadir transición para sombra */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añadir sombra para profundidad */
 }
 
 button:hover {
-  background-color: #4c51bf;
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra más intensa al pasar el ratón */
+  background-color: #0056b3;
 }
 
-button:active {
-  transform: scale(1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Sombra reducida al hacer clic */
-}
-
-pre {
-  background-color: #5a67d8;
-  color: #ffffff;
-  font-family: monospace;
-  font-size: 1rem;
-  padding: 20px;
-  border-radius: 8px;
-  white-space: pre-wrap;
-  width: 100%;
-  max-width: 1400px; /* Aumenta el ancho máximo del contenedor de respuestas */
-  margin-top: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilos para dispositivos móviles */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 2.5rem; /* Ajustar el tamaño del título en móviles */
-  }
-
-  input[type="text"], button, pre {
-    width: 90%; /* Ajustar el ancho de los elementos en móviles */
-    max-width: none; /* Eliminar el máximo ancho en móviles */
-  }
+p {
+  font-size: 16px;
 }
