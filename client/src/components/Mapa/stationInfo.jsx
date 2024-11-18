@@ -5,7 +5,6 @@ import { Widget } from "./Widget.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../../src/stilos/stacion_info.css";
 
-
 const defaultStation = {
   id: 0,
   coords: [-25.2637, -58.5973],

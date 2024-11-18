@@ -5,7 +5,6 @@ import {
   TileLayer,
   Marker,
   Popup,
-  Circle,
   GeoJSON,
   LayersControl,
 } from "react-leaflet";
@@ -13,8 +12,8 @@ import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios"; // Importamos Axios
 import { FormosaCityGeoJSON } from "./data/Departamentos.js";
-import StationInfo from "./StationInfo.jsx";
 import "../../stilos/wheater.css";
+import StationInfo from "./stationInfo.jsx";
 
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -110,7 +109,7 @@ function MapWithCircles() {
           <MapContainer
             center={formosaCenter}
             zoom={zoomLevel}
-            style={{ height: "calc(87vh)", width: "100%", zIndex:1 }}
+            style={{ height: "calc(87vh)", width: "100%", zIndex: 1 }}
             zoomControl={true}
           >
             {/* Controles de capas */}
@@ -184,15 +183,16 @@ function MapWithCircles() {
               style={{ color: "green", weight: 2 }}
             />
           </MapContainer>
-        </div>
-      </div>
 
-      <div className="col-md-12 contenedor-panel">
-        <StationInfo
-          stations={stations} // Pasar la lista de estaciones correctamente
-          station={selectedStation}
-          averages={averages}
-        />
+          {/* Aquí se agrega el componente StationInfo */}
+          {selectedStation && (
+            <StationInfo
+              stations={stations}
+              station={selectedStation}
+              averages={averages}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
