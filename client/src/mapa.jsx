@@ -6,11 +6,23 @@ import MapWithCircles from "./components/Mapa/MapCircle.jsx";
 function Mapa() {
   return (
     <div 
-      className="mapa_principal bg-gradient-to-br from-blue-800 via-indigo-800 to-violet-800 text-white min-h-screen"
+      className="mapa_principal" 
+      style={{ 
+        background: "linear-gradient(to bottom right, #1e3a8a, #4f46e5, #6d28d9)", // Gradiente azul a violeta para el fondo
+        color: "#ffffff", // Texto blanco
+        minHeight: "100vh" 
+      }}
     >
       <Nav />
       <div 
-        className="map-container bg-blue-700 p-5 rounded-lg"
+        className="map-container" 
+        style={{
+          background: "linear-gradient(to bottom right, #1e3a8a, #4f46e5, #6d28d9)", // Gradiente azul a violeta para el contenedor del mapa
+          padding: "10px", // Padding ajustado
+          width: "calc(100% + 40px)", // Aumento el ancho un poco más
+          marginLeft: "-30px", // Desplazamiento a la izquierda para ajustar el aumento de ancho
+          marginTop: "-30px", // Desplazamiento hacia arriba
+        }} 
       >
         <MapWithCircles />
       </div>
@@ -21,6 +33,3 @@ function Mapa() {
 }
 
 export default Mapa;
-
-
-
