@@ -1,27 +1,19 @@
-import React, { useState, useEffect } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Circle,
-  GeoJSON,
-  LayersControl,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./stilos/mapa.css";
-import MapWithCircles from "./components/Mapa/MapCircle.jsx";
+import React from "react";
 import Nav from "./components/Navbar/Nav.jsx";
 import Footer from './footer.jsx';
+import MapWithCircles from "./components/Mapa/MapCircle.jsx";
 
 function Mapa() {
   return (
-    <div className="mapa_principal">
+    <div 
+      className="mapa_principal" 
+      style={{ backgroundColor: "rgb(52, 73, 94)", minHeight: "100vh" }} // Estilo de fondo azul
+    >
       <Nav />
       <div className="map-container">
         <MapWithCircles />
       </div>
+      {/* Renderizar el footer solo en esta página */}
       <Footer />
     </div>
   );
