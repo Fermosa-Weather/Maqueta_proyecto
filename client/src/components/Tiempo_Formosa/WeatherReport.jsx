@@ -174,7 +174,8 @@ export default function WeatherPage() {
     
     <div className="flex flex-col md:flex-row items-center justify-between">
       <div className="flex items-center mb-4 md:mb-0">
-      {weatherIcons[current.conditions] || <img src={sol} alt="Sol" className="w-16 h-16" />}
+      {weatherIcons[current.conditions] || <Droplet className="w-12 h-12 text-blue-500" />}
+
       <div>
           <p className="text-5xl font-extrabold">{current.temp}°C</p>
           <p className="text-xl">{currentCondition}</p>
@@ -257,23 +258,19 @@ export default function WeatherPage() {
                     </span>
             </CardTitle>              
             </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-center">
-                  {weatherIcons[day.conditions] || <Droplet className="w-12 h-12 text-blue-500" />}
+            <CardContent>
+  <div className="space-y-4">
+    <div className="flex items-center justify-center">
+      {weatherIcons[day.conditions] || <Droplet className="w-12 h-12 text-blue-500" />}
+    </div>
+    <div className="flex items-center justify-between">
+      <span className="text-lg font-semibold text-red-500">{day.tempmax}°C</span>
+      <span className="text-lg font-semibold text-blue-500">{day.tempmin}°C</span>
+    </div>
+  </div>
+</CardContent>
+</Card>
 
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-semibold text-red-500">{day.tempmax}°C</span>
-                    <span className="text-lg font-semibold text-blue-500">{day.tempmin}°C</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm text-gray-600">
-                    <span>Precip: {day.precip} mm</span>
-                    <span>Viento: {day.windspeed} km/h</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           ))}
         </div>
 

@@ -36,14 +36,14 @@ section {
   transform: scale(1.1);
 }
 
-/* Estilo del botón "Explora CIFOR" transparente con borde de color */
+/* Estilo del botón "Explora CIFOR" */
 .btn-explora {
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: bold;
-  color: #007bff; /* Color del texto */
+  color: #007bff; /* Texto azul */
   background-color: transparent; /* Fondo transparente */
-  border: 2px solid #007bff; /* Borde con color */
+  border: 2px solid #007bff; /* Borde azul */
   border-radius: 8px;
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s, transform 0.2s;
@@ -51,9 +51,10 @@ section {
 }
 
 .btn-explora:hover {
-  background-color: rgba(0, 123, 255, 0.1); /* Fondo ligeramente opaco al pasar el mouse */
-  color: #0056b3; /* Cambio de color del texto al hacer hover */
+  background-color: #007bff; /* Fondo azul en hover */
+  color: white; /* Texto blanco en hover */
   transform: scale(1.05);
+  text-decoration: none;
 }
 
 /* Estilo de la sección de inicio */
@@ -78,6 +79,10 @@ section {
   margin-left: -30px; /* Ajusta este valor según sea necesario */
 }
 
+.subtitulo-bienvenida{
+  margin-left: 36px;
+}
+
 /* Estilos de texto en la sección de inicio */
 .inicio .content h1,
 .inicio .content h2 {
@@ -97,14 +102,17 @@ section {
 
 /* Clase de texto justificado */
 .text-justificado {
-  text-align: justify;
-  font-size: 0.80rem; /* Tamaño de texto */
-  margin-right: 20px;
+  text-align: justify; /* Justifica el texto */
+  font-size: 1rem; /* Tamaño de texto */
+  color: #060606; /* Color de texto */
+  line-height: 1.5; /* Espaciado de líneas */
+  margin-left: 50px; /* Ajusta según sea necesario */
+  margin-right: 50px; /* Añade margen derecho para mejor presentación */
 }
 
 /* Clase para títulos alineados a la izquierda */
 .titulo-izquierda {
-  margin-left: -100px; /* Ajusta según sea necesario */
+  margin-left: 50px; /* Ajusta según sea necesario */
 }
 
 /* Asegura que los títulos h1 dentro de la clase inicio tengan color negro */
@@ -163,7 +171,8 @@ section {
 .logo-cifor {
   position: absolute;
   bottom: 10px; /* Ajusta la distancia desde el borde inferior */
-  right: 10px;  /* Ajusta la distancia desde el borde derecho */
+  right: 0px;  /* Ajusta la distancia desde el borde derecho */
+  margin-left: 20px;
   width: 150px; /* Tamaño ajustado para la imagen */
   height: auto; /* Mantiene la proporción de la imagen */
 }
