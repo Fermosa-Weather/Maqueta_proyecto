@@ -6,11 +6,12 @@ import MapWithCircles from "./components/Mapa/MapCircle.jsx";
 function Mapa() {
   return (
     <div 
-      className="mapa_principal" 
-      style={{ backgroundColor: "rgb(52, 73, 94)", minHeight: "100vh" }} // Estilo de fondo azul
+      className="mapa_principal bg-gradient-to-br from-blue-800 via-indigo-800 to-violet-800 text-white min-h-screen"
     >
       <Nav />
-      <div className="map-container">
+      <div 
+        className="map-container bg-blue-700 p-5 rounded-lg"
+      >
         <MapWithCircles />
       </div>
       {/* Renderizar el footer solo en esta página */}
@@ -20,3 +21,6 @@ function Mapa() {
 }
 
 export default Mapa;
+
+
+
