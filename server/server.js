@@ -5,12 +5,11 @@ import cors from 'cors';
 import morgan from 'morgan';
 import fileUpload from 'express-fileupload';
 import path from 'path';
-import {__dirname} from "./helpers/ruta.js"
+import { __dirname } from "./helpers/ruta.js";
 import compression from 'compression';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
-import {clearDatabase} from "./config/db.js"
-
+import { clearDatabase } from "./config/db.js";
 
 import uploadRoutes from './routes/subir_foto.js';
 import authRoutes from './routes/authRoutes.js';
@@ -22,6 +21,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+const TEST_PORT = process.env.TEST_PORT || 4001; // Puerto de prueba
 
 // Middleware
 app.use(cors());
@@ -44,7 +44,7 @@ app.use('/foto_users', express.static(path.resolve('./uploads/foto_users'))); //
 // Configura las rutas de autenticación
 app.use('/api/auth', authRoutes);
 app.use('/api/noticia', noticiasRoutes);
-app.use('/api/model', modelRoutes); 
+app.use('/api/model', modelRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api', cuentaRoutes);
 
@@ -58,8 +58,10 @@ mongoose.connect(process.env.MONGO_URI)
     process.exit(1);  // Salir en caso de error
   });
 
-
-// Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// Iniciar el servidor en el puerto de prueba si es necesario
+const portToUse = process.env.NODE_ENV === 'test' ? TEST_PORT : PORT;
+app.listen(portToUse, () => {
+  console.log(`Server running on port ${portToUse}`);
 });
+
+export { app };
