@@ -1,23 +1,27 @@
-import React, { useState } from 'react'
-import axios from '../api/axiosInstance'
+import React, { useState } from 'react';
+import axios from '../api/axiosInstance'; // Asegúrate de tener la instancia de axios configurada correctamente
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
     try {
-      const response = await axios.post('/auth/forgot-password', { email })
-      setMessage(response.data.message)
+      // Enviar el correo al servidor para generar un token de recuperación
+      const response = await axios.post('http://localhost:4000/api/recovery/request', { email });
+
+      // Mensaje de éxito
+      setMessage(response.data.message);
     } catch (error) {
-      setMessage(error.response?.data.error || 'Error al enviar el correo.')
+      // Mensaje de error si algo falla
+      setMessage(error.response?.data.error || 'Error al enviar el correo. Intenta nuevamente.');
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-white">
@@ -25,7 +29,7 @@ export default function ForgotPassword() {
         <div className="space-y-1">
           <h2 className="text-2xl font-bold text-center text-blue-700">Recuperar Contraseña</h2>
           <p className="text-center text-purple-600 text-sm">
-            Ingrese su correo electrónico para recibir instrucciones
+            Ingrese su correo electrónico para recibir instrucciones.
           </p>
         </div>
         <div>
@@ -49,14 +53,16 @@ export default function ForgotPassword() {
             </button>
           </form>
         </div>
+
+        {/* Mostrar mensaje después de intentar enviar el correo */}
         <div>
           {message && (
-            <p className="w-full text-center text-sm text-purple-700 bg-purple-100 p-3 rounded-lg">
+            <p className="w-full text-center text-sm text-purple-700 bg-purple-100 p-3 rounded-lg mt-4">
               {message}
             </p>
           )}
         </div>
       </div>
     </div>
-  )
+  );
 }

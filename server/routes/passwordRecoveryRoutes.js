@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User from '../models/UserModel';  // Asegúrate de que tienes un modelo User
+import User from '../models/UserModel.js';  
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 

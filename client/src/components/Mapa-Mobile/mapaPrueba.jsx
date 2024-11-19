@@ -20,7 +20,7 @@ function MapWithCircles() {
   const [selectedStation, setSelectedStation] = useState(null);
 
   const formosaCenter = [-24.786927, -60.182694];
-  const zoomLevel = 7;
+  const zoomLevel = 6;
 
   // Obtener datos de las estaciones desde la API
   useEffect(() => {
