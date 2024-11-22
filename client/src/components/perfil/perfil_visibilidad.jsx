@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchUserInfo } from "../Function/infoToken"; // Ajusta la ruta si es necesario
-import { useTheme } from '../../context'; // Importa el hook useTheme
+import { useTheme } from '../../contex/themaContext'; // Importa el hook useTheme
 import '../../stilos/perfil.css';
 
 export default function Perfil() {
@@ -59,7 +59,6 @@ export default function Perfil() {
               </div>
               <p className="mb-2">Nombre completo: {userInfo.nombre_completo}</p>
               <p className="mb-2">Username: {userInfo.username}</p>
-              <p className="mb-2">Zona: Buenos Aires</p>
               <Link to={`/editar-perfil/${userInfo._id}`}>
                 <button className="boton-editar-perfil">
                   Editar perfil

@@ -34,21 +34,19 @@ export default function WeatherChatbot() {
       let chunk = await reader.read();
       let fullResponse = '';
 
-      // Mientras haya datos para leer, los procesamos
       while (!chunk.done) {
         const text = decoder.decode(chunk.value, { stream: true });
-        console.log(text); // Console log del texto que llega en cada chunk
-        fullResponse += text; // Acumulamos la respuesta completa
-        setCurrentResponse(fullResponse); // Actualizamos la respuesta acumulada
+        console.log(text);
+        fullResponse += text;
+        setCurrentResponse(fullResponse);
         chunk = await reader.read();
       }
 
-      // Una vez que se haya completado la respuesta, la agregamos a los mensajes
       setMessages((prev) => [
         ...prev,
         { type: 'bot', content: fullResponse },
       ]);
-      setCurrentResponse(''); // Limpiar currentResponse después de agregar el mensaje
+      setCurrentResponse('');
     } catch (error) {
       console.error('Error al cargar la respuesta:', error);
       setMessages((prev) => [
@@ -76,7 +74,7 @@ export default function WeatherChatbot() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-violet-900 text-white p-4">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-violet-900 text-white">
       <h1 className="text-3xl font-bold mb-4 text-center">
         Consulta el Tiempo en Formosa
       </h1>
@@ -85,7 +83,7 @@ export default function WeatherChatbot() {
         Hola, haz tus predicciones sobre el tiempo en Formosa!
       </h2>
 
-      <div className="flex-grow mb-4 bg-white/10 rounded-lg p-4 overflow-auto">
+      <div className="flex flex-col flex-grow bg-white/10 rounded-lg p-4 overflow-auto">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -110,7 +108,6 @@ export default function WeatherChatbot() {
           </div>
         ))}
 
-        {/* Mostrar la respuesta acumulada mientras se carga */}
         {currentResponse && (
           <div className="mb-4 text-left">
             <div
@@ -128,26 +125,36 @@ export default function WeatherChatbot() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="flex items-center space-x-2">
-        <input
-          type="text"
-          placeholder="Escribe tu consulta aquí..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
-          className="flex-grow bg-white/20 text-black placeholder-white/50 border-none p-3 rounded-lg"
-        />
-        <button
-          onClick={handleSend}
-          disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center"
+      {/* Contenedor del cuadro de entrada centrado y más ancho */}
+      <div className="flex justify-center mt-auto mb-4">
+        <div
+          className="flex items-center space-x-4 bg-white/20 p-4 rounded-lg"
+          style={{
+            width: '100%',               // Asegura que ocupe todo el ancho disponible
+            maxWidth: '1000px',          // Límite máximo de 1000px para el cuadro de entrada
+            margin: '0 auto',            // Centrado automático
+          }}
         >
-          {loading ? (
-            <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          ) : (
-            <Send className="w-4 h-4" />
-          )}
-        </button>
+          <input
+            type="text"
+            placeholder="Escribe tu consulta aquí..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="flex-grow bg-white/20 text-black placeholder-white/50 border-none p-3 rounded-lg"
+          />
+          <button
+            onClick={handleSend}
+            disabled={loading}
+            className="bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center"
+          >
+            {loading ? (
+              <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <Send className="w-4 h-4" />
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );

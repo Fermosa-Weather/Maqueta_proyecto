@@ -41,18 +41,17 @@ section {
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: bold;
-  color: #007bff; /* Texto azul */
-  background-color: transparent; /* Fondo transparente */
-  border: 2px solid #007bff; /* Borde azul */
+  color: white;
+  background-color: #007bff;
   border-radius: 8px;
   text-decoration: none;
-  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  transition: background-color 0.3s, transform 0.2s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-explora:hover {
-  background-color: #007bff; /* Fondo azul en hover */
-  color: white; /* Texto blanco en hover */
+  background-color: #0056b3;
+  color: aliceblue;
   transform: scale(1.05);
   text-decoration: none;
 }
@@ -102,12 +101,9 @@ section {
 
 /* Clase de texto justificado */
 .text-justificado {
-  text-align: justify; /* Justifica el texto */
-  font-size: 1rem; /* Tamaño de texto */
-  color: #060606; /* Color de texto */
-  line-height: 1.5; /* Espaciado de líneas */
+  text-align: justify;
+  font-size: 0.95rem; /* Tamaño de texto */
   margin-left: 50px; /* Ajusta según sea necesario */
-  margin-right: 50px; /* Añade margen derecho para mejor presentación */
 }
 
 /* Clase para títulos alineados a la izquierda */
@@ -176,3 +172,5 @@ section {
   width: 150px; /* Tamaño ajustado para la imagen */
   height: auto; /* Mantiene la proporción de la imagen */
 }
+
+

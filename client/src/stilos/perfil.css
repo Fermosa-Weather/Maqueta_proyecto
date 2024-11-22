@@ -1,4 +1,18 @@
-/* Perfil.css */
+.form-editar{
+  margin-bottom: 10px;
+}
+
+.circular-image {
+  height: 5.5rem; /* 24 unidades en rem para adaptar al tamaño h-24 */
+  width: 5.5rem; /* mismo tamaño que la altura para que sea un círculo */
+  border-radius: 50%; /* hace que la imagen sea un círculo */
+  margin-right: 10px;
+}
+
+.circular-image:hover {
+  opacity: 0.4; /* cambia la opacidad en el hover */
+}
+
 
 /* añadir cuenta */
 
@@ -91,13 +105,18 @@
   cursor: pointer;
 }
 
-.icono-camara {
+.contenedor_iconos {
   opacity: 0;
   cursor: pointer;
+  gap:8px
 }
 
-.icono-camara:hover {
+.contenedor_iconos:hover {
   opacity: 1;
+}
+
+.icono_camara{
+  margin: 3px;
 }
 
 /* Modal añadir foto */
@@ -163,3 +182,5 @@
 }
 
 
+/* Modal de añadir o borrar img */
+/* perfil.css */
