@@ -7,8 +7,6 @@ import fileUpload from 'express-fileupload';
 import path from 'path';
 import { __dirname } from "./helpers/ruta.js";
 import compression from 'compression';
-import bodyParser from 'body-parser';
-import { fileURLToPath } from 'url';
 import { clearDatabase } from "./config/db.js";
 
 import uploadRoutes from './routes/subir_foto.js';
