@@ -12,12 +12,12 @@ export default function WeatherChatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  useEffect(scrollToBottom, [messages]);
+  useEffect(scrollToBottom, [messages, currentResponse]);
 
   const loadResponse = async (query) => {
     console.log('Enviando consulta al servidor...');
     setLoading(true);
-    setCurrentResponse('');
+    setCurrentResponse(''); // Limpia la respuesta acumulada antes de empezar
 
     try {
       const res = await fetch('http://localhost:4000/api/model/consulta-data', {
@@ -30,23 +30,28 @@ export default function WeatherChatbot() {
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-
-      let chunk = await reader.read();
       let fullResponse = '';
 
-      while (!chunk.done) {
-        const text = decoder.decode(chunk.value, { stream: true });
-        console.log(text);
-        fullResponse += text;
-        setCurrentResponse(fullResponse);
-        chunk = await reader.read();
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        fullResponse += chunk;
+
+        // Actualiza la respuesta acumulada progresivamente
+        setCurrentResponse((prev) => prev + chunk);
+
+        // Imprime el fragmento en consola
+        console.log(chunk);
       }
 
+      // Una vez completada la respuesta, se agrega al historial de mensajes
       setMessages((prev) => [
         ...prev,
         { type: 'bot', content: fullResponse },
       ]);
-      setCurrentResponse('');
+      setCurrentResponse(''); // Limpia la respuesta progresiva
     } catch (error) {
       console.error('Error al cargar la respuesta:', error);
       setMessages((prev) => [
@@ -108,6 +113,7 @@ export default function WeatherChatbot() {
           </div>
         ))}
 
+        {/* Mostrar la respuesta acumulada mientras se carga */}
         {currentResponse && (
           <div className="mb-4 text-left">
             <div
@@ -125,16 +131,9 @@ export default function WeatherChatbot() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Contenedor del cuadro de entrada centrado y más ancho */}
-      <div className="flex justify-center mt-auto mb-4">
-        <div
-          className="flex items-center space-x-4 bg-white/20 p-4 rounded-lg"
-          style={{
-            width: '100%',               // Asegura que ocupe todo el ancho disponible
-            maxWidth: '1000px',          // Límite máximo de 1000px para el cuadro de entrada
-            margin: '0 auto',            // Centrado automático
-          }}
-        >
+      {/* Contenedor de entrada */}
+      <div className="mt-auto p-4 bg-white/20 rounded-lg">
+        <div className="flex items-center space-x-2">
           <input
             type="text"
             placeholder="Escribe tu consulta aquí..."

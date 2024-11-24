@@ -59,7 +59,7 @@ export function Login() {
 
         // Redirigir al mapa
         setTimeout(() => {
-          navigate('/mapa');
+          navigate('/modelo_prediccion');
         }, 2000);
       }
 

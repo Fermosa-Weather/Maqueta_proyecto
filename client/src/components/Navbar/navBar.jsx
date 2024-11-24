@@ -112,11 +112,11 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-geo-alt"></i> Map
                           </Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                           <Link className="nav-link" to="/modelo_prediccion">
                             <i className="bi bi-cpu"></i> prediction
                           </Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                           <Link className="nav-link" to="/noticias">
                             <i className="bi bi-newspaper"></i> News

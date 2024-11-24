@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Ruta al archivo donde se guardarán los artículos
-FILE_PATH = './noticia.json'
+FILE_PATH = './server/noticia.json'
 
 # Función para obtener el contenido HTML de la página
 def get_html(url):
@@ -17,7 +17,8 @@ def get_html(url):
 
 # Función para extraer los artículos con la clase específica
 def parse_articles(page_number):
-    BASE_URL = f"https://agenfor.com.ar/?s=temperatura"
+    # Incluir el número de página en la URL
+    BASE_URL = f"https://agenfor.com.ar/page/{page_number}/?s=temperatura"
     htmldata = get_html(BASE_URL)
     soup = BeautifulSoup(htmldata, 'html.parser')
     
@@ -65,36 +66,15 @@ def parse_articles(page_number):
 def scrape_all_articles():
     page_number = 1
     all_articles = []
-    while page_number < 2:  # Cambia este número según cuántas páginas desees raspar
+    while page_number <= 7:  # Cambia este número según cuántas páginas desees raspar
+        print(f"Scraping página {page_number}...")
         articles_data = parse_articles(page_number)
         if not articles_data:
+            print(f"No se encontraron artículos en la página {page_number}. Deteniendo.")
             break
         all_articles.extend(articles_data)
         page_number += 1
     return all_articles
-
-# Función para guardar los artículos en el archivo JSON
-# def addJson(new_articles):
-#     if not new_articles:  # Verifica si hay artículos para guardar
-#         print("No hay artículos para guardar.")
-#         return
-
-#     # Leer artículos existentes
-#     try:
-#         with open(FILE_PATH, 'r') as f:
-#             existing_articles = json.load(f)
-#     except FileNotFoundError:
-#         # Si el archivo no existe, comenzamos con una lista vacía
-#         existing_articles = []
-
-#     # Combinar artículos existentes con los nuevos
-#     existing_articles.extend(new_articles)
-
-#     # Guardar la lista combinada de artículos
-#     with open(FILE_PATH, 'w') as f:
-#         json.dump(existing_articles, f, indent=2)
-
-#     print(f"{len(new_articles)} artículos agregados en {FILE_PATH}. Total ahora: {len(existing_articles)} artículos.")
 
 # Función para guardar los artículos en el archivo JSON
 def addJson(articles):
