@@ -20,7 +20,7 @@ async function fetchWeatherData() {
 
 async function generarActividad(req, res) {
     const { consulta } = req.body;
-//mandar una vez
+
     try {
         // Obtiene los datos de la API o desde el caché si no han expirado
         const data = await fetchWeatherData();
@@ -48,9 +48,9 @@ async function generarActividad(req, res) {
       - Velocidad del viento: ${station.windSpeed} m/s
       - Ubicación (lat, lon): (${station.location.latitude}, ${station.location.longitude})`;
         }).join("\n\n");
-        
+
         console.log(weatherSummary);
-        
+
         let consultaCompleta = consulta + " " + "estos son los datos de los cuales deben hacer la predicción: " + weatherSummary;
 
         const peticion = await fetch('http://127.0.0.1:11434/api/generate', {
@@ -65,24 +65,26 @@ async function generarActividad(req, res) {
             }),
         });
 
-        // Establecer encabezados para indicar que se enviará una respuesta progresiva
+        // Configura los encabezados para una respuesta progresiva
         res.setHeader("Content-Type", "text/plain; charset=utf-8");
         res.setHeader("Transfer-Encoding", "chunked");
 
         let accumulatedJSON = "";
-        let activity = "";
         const reader = peticion.body.getReader();
-        let decoder = new TextDecoder();
-        let chunk = await reader.read();
+        const decoder = new TextDecoder();
 
-        while (!chunk.done) {
-            const texto = decoder.decode(chunk.value, { stream: true });
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+
+            const texto = decoder.decode(value, { stream: true });
             accumulatedJSON += texto;
 
             let startIndex = 0;
             while (startIndex < accumulatedJSON.length) {
                 const startBracketIndex = accumulatedJSON.indexOf("{", startIndex);
                 if (startBracketIndex === -1) break;
+
                 const endBracketIndex = accumulatedJSON.indexOf("}", startBracketIndex);
                 if (endBracketIndex === -1) break;
 
@@ -90,25 +92,28 @@ async function generarActividad(req, res) {
                 try {
                     const responseObject = JSON.parse(jsonString);
                     const responseValue = responseObject.response;
-                    activity += responseValue;
 
+                    // Envía la respuesta progresiva
                     res.write(responseValue);
                 } catch (error) {
-                    // Ignorar errores de análisis JSON parcial
+                    console.error("Error al procesar JSON parcial:", error);
+                    break; // Si el JSON está incompleto, rompe el bucle interno
                 }
+
                 startIndex = endBracketIndex + 1;
             }
 
+            // Retén los datos no procesados
             accumulatedJSON = accumulatedJSON.slice(startIndex);
-            chunk = await reader.read();
         }
 
         res.end();
 
     } catch (error) {
-        return res.status(500).json({
+        console.error("Error en generarActividad:", error);
+        res.status(500).json({
             status: 500,
-            message: "Error interno del servidor!"
+            message: "Error interno del servidor",
         });
     }
 }

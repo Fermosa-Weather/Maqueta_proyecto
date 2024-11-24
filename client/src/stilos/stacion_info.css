@@ -42,4 +42,12 @@
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 1rem;
+  color: black; /* Asegura que las palabras del menú estén en negro */
+  background-color: white; /* Fondo blanco para mayor contraste */
+}
+
+/* Opciones del menú desplegable */
+.dropdown-container select option {
+  color: black; /* Asegura que las opciones del menú también estén en negro */
+  background-color: white; /* Mantiene el fondo blanco en las opciones */
 }

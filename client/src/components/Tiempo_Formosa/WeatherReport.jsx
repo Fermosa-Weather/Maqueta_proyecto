@@ -19,6 +19,8 @@ import llovizna from '../../images/icons_weather/llovizna.png';
 
 
 export default function WeatherPage() {
+  const [loading, setLoading] = useState(true); // Para saber si se está cargando la data
+
   const [weatherData, setWeatherData] = useState(null)
 
   useEffect(() => {
@@ -27,6 +29,10 @@ export default function WeatherPage() {
       const data = await response.json()
       setWeatherData(data)
     }
+
+
+
+    
 
     fetchWeatherData()
   }, [])
