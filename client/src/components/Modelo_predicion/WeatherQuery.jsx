@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send } from 'lucide-react';
 
 export default function WeatherChatbot() {
   const [query, setQuery] = useState('');
@@ -20,7 +19,7 @@ export default function WeatherChatbot() {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:4000/api/model/consulta-data', {
+      const res = await fetch('http://localhost:3000/api/model/consulta-data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ consulta: query }),
@@ -31,21 +30,24 @@ export default function WeatherChatbot() {
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
 
-      let chunk = await reader.read();
-      let botMessage = ''; // Acumula la respuesta progresivamente para el mensaje del bot
+      let botMessage = '';
 
-      while (!chunk.done) {
-        const text = decoder.decode(chunk.value, { stream: true });
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const text = decoder.decode(value, { stream: true });
         botMessage += text;
 
-        // Actualizamos los mensajes en tiempo real
+        console.log(text); // Imprime cada fragmento en la consola
+
         setMessages((prev) => {
           const updatedMessages = [...prev];
-          // Si es la primera parte, agregamos un nuevo mensaje del bot
           if (!updatedMessages.some((msg) => msg.type === 'bot' && msg.isStreaming)) {
+            // Agregar un mensaje nuevo para respuestas en progreso
             updatedMessages.push({ type: 'bot', content: text, isStreaming: true });
           } else {
-            // Si ya existe un mensaje en streaming, lo actualizamos
+            // Actualizar el mensaje existente en progreso
             const streamingMessage = updatedMessages.find(
               (msg) => msg.type === 'bot' && msg.isStreaming
             );
@@ -53,11 +55,9 @@ export default function WeatherChatbot() {
           }
           return updatedMessages;
         });
-
-        chunk = await reader.read();
       }
 
-      // Finalizamos el mensaje del bot eliminando el flag de streaming
+      // Finaliza la respuesta progresiva
       setMessages((prev) =>
         prev.map((msg) =>
           msg.type === 'bot' && msg.isStreaming
@@ -91,9 +91,21 @@ export default function WeatherChatbot() {
     }
   };
 
+  const formatBotMessage = (message) => {
+    // Suponiendo que el servidor devuelve un texto con un formato adecuado, se puede separar el texto en ítems
+    const items = message.split('\n'); // Separa las respuestas en diferentes líneas
+    return (
+      <ul>
+        {items.map((item, index) => (
+          <li key={index} className="list-disc ml-4">{item}</li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-violet-900 text-white p-4">
-      <h1 className="text-3xl font-bold mb-4 text-center">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-violet-900 text-white">
+      <h1 className="text-3xl font-bold mb-4 text-center p-4">
         Consulta el Tiempo en Formosa
       </h1>
 
@@ -101,7 +113,10 @@ export default function WeatherChatbot() {
         Hola, haz tus predicciones sobre el tiempo en Formosa!
       </h2>
 
-      <div className="flex-grow mb-4 bg-white/10 rounded-lg p-4 overflow-auto">
+      <div
+        className="flex-grow bg-white/10 rounded-lg p-4 overflow-auto"
+        style={{ height: 'calc(100vh - 72px)', paddingBottom: '72px' }}
+      >
         {messages.map((message, index) => (
           <div
             key={index}
@@ -118,32 +133,36 @@ export default function WeatherChatbot() {
                 borderRadius: '20px',
               }}
             >
-              {message.content}
+              {message.type === 'bot' ? formatBotMessage(message.content) : message.content}
             </div>
           </div>
         ))}
-
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="flex items-center space-x-2">
+      <div
+        className="fixed bottom-0 left-0 w-full p-4 bg-blue-800 flex items-center space-x-2"
+        style={{ zIndex: 10 }}
+      >
         <input
           type="text"
           placeholder="Escribe tu consulta aquí..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="flex-grow bg-white/20 text-black placeholder-white/50 border-none p-3 rounded-lg"
+          className="flex-grow bg-white/20 text-black placeholder-gray-500 border-none p-3 rounded-lg"
+          style={{ minWidth: '0', flex: '1 1 auto', color: 'black' }}
         />
+
         <button
           onClick={handleSend}
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 p-3 rounded-lg flex items-center justify-center"
+          className="bg-indigo-600 hover:bg-indigo-700 p-3 rounded-lg flex items-center justify-center border-2 border-indigo-800"
         >
           {loading ? (
-            <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-6 h-6 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
           ) : (
-            <Send className="w-4 h-4" />
+            <span>Consultar</span>
           )}
         </button>
       </div>
