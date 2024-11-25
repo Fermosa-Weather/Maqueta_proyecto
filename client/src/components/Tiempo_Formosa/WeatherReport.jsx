@@ -17,28 +17,35 @@ import niebla from '../../images/icons_weather/niebla.png';
 import viento from '../../images/icons_weather/viento.png';
 import llovizna from '../../images/icons_weather/llovizna.png';
 
+const LoadingSpinner = () => (
+  <div className="flex justify-center items-center space-x-2">
+    <div className="w-8 h-8 border-4 border-t-transparent border-blue-500 border-solid rounded-full animate-spin"></div>
+    <span className="text-xl text-gray-700">Cargando datos del tiempo...</span>
+  </div>
+);
 
 export default function WeatherPage() {
-  const [loading, setLoading] = useState(true); // Para saber si se está cargando la data
-
   const [weatherData, setWeatherData] = useState(null)
+  const [loading, setLoading] = useState(true); // Estado de carga
 
   useEffect(() => {
     const fetchWeatherData = async () => {
+      setLoading(true); // Comienza a cargar
       const response = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/formosa%20argentina?unitGroup=metric&key=UMQ9KWF37S9T6WL8J4WLN5Q23&contentType=json')
       const data = await response.json()
       setWeatherData(data)
+      setLoading(false); // Termina de carga
     }
-
-
-
-    
 
     fetchWeatherData()
   }, [])
 
-  if (!weatherData) {
-    return null; // Devolver null para evitar mostrar la pantalla de carga
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <LoadingSpinner /> {/* Muestra el spinner mientras carga */}
+      </div>
+    );
   }
   
   const current = weatherData.currentConditions
