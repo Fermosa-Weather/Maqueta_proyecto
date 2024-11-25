@@ -5,7 +5,6 @@ export default function WeatherChatbot() {
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentResponse, setCurrentResponse] = useState('');
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -19,7 +18,6 @@ export default function WeatherChatbot() {
   const loadResponse = async (query) => {
     console.log('Enviando consulta al servidor...');
     setLoading(true);
-    setCurrentResponse('');
 
     try {
       const res = await fetch('http://localhost:4000/api/model/consulta-data', {
@@ -34,23 +32,39 @@ export default function WeatherChatbot() {
       const decoder = new TextDecoder();
 
       let chunk = await reader.read();
-      let fullResponse = '';
+      let botMessage = ''; // Acumula la respuesta progresivamente para el mensaje del bot
 
-      // Mientras haya datos para leer, los procesamos
       while (!chunk.done) {
         const text = decoder.decode(chunk.value, { stream: true });
-        console.log(text); // Console log del texto que llega en cada chunk
-        fullResponse += text; // Acumulamos la respuesta completa
-        setCurrentResponse(fullResponse); // Actualizamos la respuesta acumulada
+        botMessage += text;
+
+        // Actualizamos los mensajes en tiempo real
+        setMessages((prev) => {
+          const updatedMessages = [...prev];
+          // Si es la primera parte, agregamos un nuevo mensaje del bot
+          if (!updatedMessages.some((msg) => msg.type === 'bot' && msg.isStreaming)) {
+            updatedMessages.push({ type: 'bot', content: text, isStreaming: true });
+          } else {
+            // Si ya existe un mensaje en streaming, lo actualizamos
+            const streamingMessage = updatedMessages.find(
+              (msg) => msg.type === 'bot' && msg.isStreaming
+            );
+            if (streamingMessage) streamingMessage.content = botMessage;
+          }
+          return updatedMessages;
+        });
+
         chunk = await reader.read();
       }
 
-      // Una vez que se haya completado la respuesta, la agregamos a los mensajes
-      setMessages((prev) => [
-        ...prev,
-        { type: 'bot', content: fullResponse },
-      ]);
-      setCurrentResponse(''); // Limpiar currentResponse después de agregar el mensaje
+      // Finalizamos el mensaje del bot eliminando el flag de streaming
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.type === 'bot' && msg.isStreaming
+            ? { ...msg, isStreaming: false }
+            : msg
+        )
+      );
     } catch (error) {
       console.error('Error al cargar la respuesta:', error);
       setMessages((prev) => [
@@ -94,7 +108,9 @@ export default function WeatherChatbot() {
             className={`mb-4 ${message.type === 'user' ? 'text-right' : 'text-left'}`}
           >
             <div
-              className={`inline-block p-3 rounded-lg ${message.type === 'user' ? 'bg-blue-600' : 'bg-violet-600 text-justify'}`}
+              className={`inline-block p-3 rounded-lg ${
+                message.type === 'user' ? 'bg-blue-600' : 'bg-violet-600 text-justify'
+              }`}
               style={{
                 display: 'inline-block',
                 backgroundColor: message.type === 'user' ? '#1E3A8A' : '#6D28D9',
@@ -107,21 +123,6 @@ export default function WeatherChatbot() {
           </div>
         ))}
 
-        {/* Mostrar la respuesta acumulada mientras se carga */}
-        {currentResponse && (
-          <div className="mb-4 text-left">
-            <div
-              className="inline-block p-3 rounded-lg bg-violet-600 text-justify"
-              style={{
-                display: 'inline-block',
-                color: 'white',
-                borderRadius: '20px',
-              }}
-            >
-              {currentResponse}
-            </div>
-          </div>
-        )}
         <div ref={messagesEndRef} />
       </div>
 

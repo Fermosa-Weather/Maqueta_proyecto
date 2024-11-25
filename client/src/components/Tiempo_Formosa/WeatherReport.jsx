@@ -95,6 +95,14 @@ export default function WeatherPage() {
     'Freezing Rain': <img src={lluvia} alt="Lluvia Helada" className="w-16 h-16" />,
     'Sleet': <img src={lluvia} alt="Aguacero de Hielo" className="w-16 h-16" />,
   };
+
+  const getIcon = (condition) => {
+    for (const conditionKey in weatherIcons) {
+      if (condition.startsWith(conditionKey)) {
+        return weatherIcons[conditionKey];
+      }
+    }
+  }
   
   
 
@@ -224,7 +232,7 @@ export default function WeatherPage() {
       </div>
       <div className="flex items-center justify-between">
         <span className="flex items-center"><Umbrella className="mr-2 text-blue-500" /> Precipitación</span>
-        <span>{current.precip} mm</span>
+        <span>{current.precip ? `${current.precip} mm` : "N/A"}</span>
       </div>
       <div className="flex items-center justify-between">
         <span className="flex items-center"><Thermometer className="mr-2 text-red-500" /> Presión</span>
@@ -274,7 +282,7 @@ export default function WeatherPage() {
             <CardContent>
   <div className="space-y-4">
     <div className="flex items-center justify-center">
-      {weatherIcons[day.conditions] || <Droplet className="w-12 h-12 text-blue-500" />}
+      {getIcon(day.conditions)}
     </div>
     <div className="flex items-center justify-between">
       <span className="text-lg font-semibold text-red-500">{day.tempmax}°C</span>

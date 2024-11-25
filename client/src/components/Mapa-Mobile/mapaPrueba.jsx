@@ -9,7 +9,7 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios"; // Importamos Axios
+import axios from "axios";
 import { FormosaCityGeoJSON } from "../Mapa/data/Departamentos.js";
 
 const { BaseLayer, Overlay } = LayersControl;
@@ -29,7 +29,7 @@ function MapWithCircles() {
         const response = await axios.get(
           "https://ramf.formosa.gob.ar/api/station"
         );
-        setStations(response.data); // Guardamos las estaciones en el estado
+        setStations(response.data);
       } catch (error) {
         console.error("Error al obtener las estaciones:", error);
       }
@@ -68,14 +68,35 @@ function MapWithCircles() {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row flex-column mapa">
-        <div className="col-md-12 mb-3 pl-4">
-          {/* Título del mapa */}
+    <div
+      className="container-fluid"
+      style={{
+        padding: "0",
+        margin: "0",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        background: "linear-gradient(to bottom, #1f4f82, #6a1b9a)",
+        minHeight: "100vh", // Asegura que cubra toda la ventana
+        width: "100%",
+      }}
+    >
+      <div
+        className="row flex-column mapa"
+        style={{
+          width: "100%",
+          maxWidth: "1200px",
+          margin: "0 auto",
+        }}
+      >
+        <div
+          className="col-md-12 mb-3 pl-4"
+          style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
+        >
           <h2
             className="text-center my-3 map-title"
             style={{
-              color: "#1f4f82",
+              color: "#fff",
               textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
               fontFamily: "'Roboto', sans-serif",
               fontWeight: "700",
@@ -89,16 +110,14 @@ function MapWithCircles() {
             center={formosaCenter}
             zoom={zoomLevel}
             style={{
-              height: "calc(87vh)",
+              height: "calc(70vh)",
               width: "100%",
-              zIndex: 1,
               border: "3px solid #1f4f82",
               borderRadius: "10px",
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
             }}
             zoomControl={true}
           >
-            {/* Controles de capas */}
             <LayersControl position="topright">
               <BaseLayer checked name="Mapa de Calle">
                 <TileLayer
@@ -154,13 +173,17 @@ function MapWithCircles() {
                 eventHandlers={{
                   click: () => handleMarkerClick(station),
                 }}
-              >
-                <Popup>
-                  <div>
-                    <h3>{station.name.custom}</h3>
-                    <p>Temperatura: {station.meta.airTemp}°C</p>
-                  </div>
-                </Popup>
+          >
+          <Popup>
+        <div style={{ padding: '10px', fontFamily: 'Arial, sans-serif', color: '#333' }}>
+          <h3 style={{ margin: '0 0 10px 0' }}>{station.name.custom}</h3>
+          <p>Temperatura: {station.meta.airTemp}°C</p>
+          <p>Humedad: {station.meta.rh}%</p>
+          <p>Radiación solar: {station.meta.solarRadiation} W/m²</p>
+          <p>Vel. Viento: {station.meta.windSpeed} m/s</p>
+          <p>Precipitación: {station.meta.rain_last} mm</p>
+        </div>
+      </Popup>
               </Marker>
             ))}
 
