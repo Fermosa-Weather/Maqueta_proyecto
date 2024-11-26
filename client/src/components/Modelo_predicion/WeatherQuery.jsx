@@ -6,10 +6,12 @@ export default function WeatherChatbot() {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
+  // Función para hacer scroll hacia el último mensaje
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Llamada al cargar los mensajes
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -32,6 +34,7 @@ export default function WeatherChatbot() {
 
       let botMessage = '';
 
+      // Lee los datos en streaming
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -41,6 +44,7 @@ export default function WeatherChatbot() {
 
         console.log(text);
 
+        // Actualiza los mensajes con el texto recibido
         setMessages((prev) => {
           const updatedMessages = [...prev];
           if (!updatedMessages.some((msg) => msg.type === 'bot' && msg.isStreaming)) {
@@ -55,6 +59,7 @@ export default function WeatherChatbot() {
         });
       }
 
+      // Marca el mensaje como completado
       setMessages((prev) =>
         prev.map((msg) =>
           msg.type === 'bot' && msg.isStreaming
@@ -105,14 +110,23 @@ export default function WeatherChatbot() {
         Consulta el Tiempo en Formosa
       </h1>
 
-      <h2 className="text-xl mb-4 text-center font-semibold">
-        Hola, haz tus predicciones sobre el tiempo en Formosa!
+      {/* Mensaje de bienvenida con fondo azul y alineado a la izquierda */}
+      <h2
+        className="text-xl mb-4 text-left font-semibold p-3 rounded-lg"
+        style={{
+          backgroundColor: '#1E3A8A', // Fondo azul
+          color: 'white', // Texto blanco
+          maxWidth: 'fit-content', // Ajusta el ancho al contenido
+          marginLeft: '20px', // Alineación a la izquierda
+          padding: '10px 15px', // Espaciado alrededor del texto
+          display: 'inline-block', // Asegura que el mensaje ocupe solo lo necesario
+        }}
+      >
+        ¿Te gustaría saber cómo estará el tiempo en Formosa?
       </h2>
 
-      <div
-        className="flex-grow bg-white/10 rounded-lg p-4 overflow-auto"
-        style={{ height: 'calc(100vh - 72px)', paddingBottom: '72px' }}
-      >
+      {/* Contenedor de los mensajes */}
+      <div className="flex-grow bg-white/10 rounded-lg p-4 overflow-y-auto mb-10">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -127,6 +141,7 @@ export default function WeatherChatbot() {
                 backgroundColor: message.type === 'user' ? '#1E3A8A' : '#6D28D9',
                 color: 'white',
                 borderRadius: '20px',
+                marginLeft: message.type === 'user' ? 'auto' : '20px', // Ajuste del margen izquierdo
               }}
             >
               {message.type === 'bot' ? formatBotMessage(message.content) : message.content}
@@ -136,44 +151,44 @@ export default function WeatherChatbot() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div
-        className="fixed bottom-0 left-0 w-full p-4 bg-blue-800 flex items-center space-x-2"
-        style={{ zIndex: 10 }}
-      >
-        <input
-          type="text"
-          placeholder="Escribe tu consulta aquí..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
-          className="flex-grow bg-white/20 text-black placeholder-gray-500 p-3 rounded-lg"
-          style={{
-            border: '2px solid',
-            borderImageSource: 'linear-gradient(to right, #1E3A8A, #6D28D9)',
-            borderImageSlice: 1,
-            minWidth: '0',
-            flex: '1 1 auto',
-            color: 'black',
-          }}
-        />
+      {/* Contenedor del cuadro de consulta, dentro del contenedor principal */}
+      <div className="p-4 w-full bg-blue-800">
+        <div className="flex items-center w-full max-w-4xl mx-auto">
+          <input
+            type="text"
+            placeholder="Escribe tu consulta aquí..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="flex-grow bg-white/20 text-black placeholder-gray-500 p-3 rounded-lg"
+            style={{
+              border: '2px solid',
+              borderImageSource: 'linear-gradient(to right, #1E3A8A, #6D28D9)',
+              borderImageSlice: 1,
+              minWidth: '0',
+              flex: '1 1 auto',
+              color: 'black',
+            }}
+          />
 
-        <button
-          onClick={handleSend}
-          disabled={loading}
-          className="p-3 rounded-lg flex items-center justify-center border-2"
-          style={{
-            borderImageSource: 'linear-gradient(to right, #1E3A8A, #6D28D9)',
-            borderImageSlice: 1,
-            background: 'linear-gradient(to right, #4C51BF, #6B46C1)',
-            color: 'white',
-          }}
-        >
-          {loading ? (
-            <div className="w-6 h-6 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-          ) : (
-            <span>Consultar</span>
-          )}
-        </button>
+          <button
+            onClick={handleSend}
+            disabled={loading}
+            className="p-3 rounded-lg flex items-center justify-center border-2"
+            style={{
+              borderImageSource: 'linear-gradient(to right, #1E3A8A, #6D28D9)',
+              borderImageSlice: 1,
+              background: 'linear-gradient(to right, #4C51BF, #6B46C1)',
+              color: 'white',
+            }}
+          >
+            {loading ? (
+              <div className="w-6 h-6 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <span>Consultar</span>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );
