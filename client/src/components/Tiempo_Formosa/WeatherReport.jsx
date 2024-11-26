@@ -48,6 +48,37 @@ export default function WeatherPage() {
     );
   }
   
+// Traducciones para los días y meses en español
+const daysOfWeek = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+];
+const monthsOfYear = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
+
+// Obtener la fecha actual en el formato deseado
+const currentDate = new Date();
+const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate()} de ${monthsOfYear[currentDate.getMonth()]}`;
+
+
+
   const current = weatherData.currentConditions
   const currentCondition = {
     'Clear': 'Despejado',
@@ -179,17 +210,13 @@ export default function WeatherPage() {
   return (
     <div className="min-h-screen bg-white p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-      <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center">
-
-
-        
-        Pronóstico del Tiempo - Formosa, Argentina
-        
-      </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <Card className="lg:col-span-2 bg-gradient-to-r from-indigo-700 to-indigo-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
-  <CardHeader>
-    <CardTitle className="text-2xl font-semibold">Condiciones actuales</CardTitle>
+      
+      <h1 className="text-black text-3xl font-bold text-center">Pronóstico del Tiempo - Formosa, Argentina</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <Card className="lg:col-span-2 bg-white text-black shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
+      <CardHeader>
+      <CardTitle className="text-5xl font-semibold">Condiciones actuales</CardTitle> {/* Título más grande */}
+      <p className="text-1xl mb-2 text-black">{formattedDate}</p> {/* Fecha debajo del título, más pequeña */}
   </CardHeader>
   <CardContent>
     
@@ -203,12 +230,17 @@ export default function WeatherPage() {
         </div>
       </div>
 
+    
+
+
       <div className="text-center md:text-right">
+    
         <p className="text-xl mb-2">Sensación térmica: {current.feelslike}°C</p>
         <p className="text-xl mb-2">Humedad: {current.humidity}%</p>
         <p className="text-xl">Viento: {current.windspeed} km/h</p>
       </div>
     </div>
+    
   </CardContent>
 </Card>
 
@@ -274,7 +306,7 @@ export default function WeatherPage() {
             <Card key={index} className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-200">
               <CardHeader>
               <CardTitle>
-                     <span className="text-sm font-semibold leading-tight">
+                    <span className="text-sm font-semibold leading-tight">
               {new Date(day.datetime).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}
                     </span>
             </CardTitle>              

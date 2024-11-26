@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../../src/stilos/about.css'; // Asegúrate de que esta ruta sea correcta
-import misionImage from '../../images2/laslomitas.jpg'; // Asegúrate de que la ruta a la imagen sea correcta
-import visionImage from '../../images2/laslomitas.jpg'; // Asegúrate de que la ruta a la imagen sea correcta
+//import misionImage from '../../images2/laslomitas.jpg'; // Asegúrate de que la ruta a la imagen sea correcta
+//import visionImage from '../../images2/laslomitas.jpg'; // Asegúrate de que la ruta a la imagen sea correcta
 
 const Acerca_Nosotros = () => {
   return (
@@ -11,25 +11,21 @@ const Acerca_Nosotros = () => {
         
         <div className="acerca-nosotros-block">
           <p className="acerca-nosotros-paragraph">
-            En <strong>CIFOR</strong> nos dedicamos a proporcionar datos climáticos precisos y en tiempo real de toda la provincia de Formosa, 
-            recopilados de nuestras 10 estaciones meteorológicas. Nuestro objetivo es mejorar los pronósticos del tiempo, desarrollar modelos 
-            agrícolas y generar estadísticas climáticas confiables, contribuyendo así al conocimiento y la gestión del cambio climático.
+            En <strong>CIFOR</strong> nos dedicamos a proporcionar datos climáticos precisos y en tiempo real de toda la provincia de Formosa, obtenidos de distintos servicios de estaciones meteorológicas. A través de la recopilación y análisis de estos datos, buscamos mejorar la precisión de los pronósticos del tiempo, desarrollar modelos agrícolas más efectivos y generar estadísticas climáticas confiables. Nuestro objetivo es ofrecer herramientas útiles para la toma de decisiones en actividades cotidianas, como la agricultura y el turismo, y contribuir al conocimiento y la gestión del cambio climático en la región. De este modo, aspiramos a proporcionar a la comunidad información valiosa para enfrentar los retos climáticos y promover un desarrollo sostenible.
           </p>
         </div>
 
         <section className="acerca-nosotros-block acerca-nosotros-mision">
           <h2 className="acerca-nosotros-section-header">Nuestra Misión</h2>
-          <img src={misionImage} alt="Nuestra Misión" className="acerca-nosotros-image" />
+      
           <p className="acerca-nosotros-paragraph">
-            Mejorar la precisión de los pronósticos meteorológicos para la provincia de Formosa mediante la recopilación y análisis de datos 
-            de nuestras estaciones meteorológicas. Queremos apoyar a los agricultores y a la comunidad en general con información confiable 
-            para la gestión del cambio climático.
+          Nuestro objetivo es mejorar la precisión de los pronósticos meteorológicos para la provincia de Formosa mediante el consumo y análisis de datos obtenidos de diversas APIs meteorológicas. Queremos brindar a los usuarios comunes, especialmente a los habitantes de la región, información confiable y actualizada sobre las condiciones climáticas. Nuestra app está diseñada para facilitar la planificación de actividades cotidianas, como el trabajo agrícola o el turismo, ofreciendo pronósticos precisos que ayuden a tomar decisiones informadas y a optimizar el tiempo según las condiciones climáticas.
           </p>
         </section>
 
         <section className="acerca-nosotros-block acerca-nosotros-vision">
           <h2 className="acerca-nosotros-section-header">Nuestra Visión</h2>
-          <img src={visionImage} alt="Nuestra Visión" className="acerca-nosotros-image" />
+      
           <p className="acerca-nosotros-paragraph">
             Ser la principal fuente de datos climáticos en Formosa, expandiendo nuestras capacidades y mejorando continuamente la calidad 
             y precisión de nuestras predicciones. Buscamos ser un referente en la investigación y desarrollo de soluciones para el cambio 
