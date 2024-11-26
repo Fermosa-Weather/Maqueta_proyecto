@@ -177,7 +177,7 @@ export default function WeatherPage() {
   
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-8">
+    <div className="min-h-screen bg-white p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
       <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center">
 
@@ -187,7 +187,7 @@ export default function WeatherPage() {
         
       </h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <Card className="lg:col-span-2 bg-gradient-to-r from-blue-400 to-indigo-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
+        <Card className="lg:col-span-2 bg-gradient-to-r from-indigo-700 to-indigo-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
   <CardHeader>
     <CardTitle className="text-2xl font-semibold">Condiciones actuales</CardTitle>
   </CardHeader>

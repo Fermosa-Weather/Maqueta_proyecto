@@ -8,7 +8,7 @@ export function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
     '../../../src/stilos/Plantilla_slider2/images/clima2.jpg',
-    '../../../src/stilos/Plantilla_slider2/images/ia_robot.jpg',
+    '../../../src/stilos/Plantilla_slider2/images/tormenta.jpg',
     '../../../src/stilos/Plantilla_slider2/images/estadistica.jpg',
     '../../../src/stilos/Plantilla_slider2/images/estacion.jpg',
     '../../../src/stilos/Plantilla_slider2/images/Noticias.jpg',

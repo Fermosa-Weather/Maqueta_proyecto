@@ -39,15 +39,13 @@ export default function WeatherChatbot() {
         const text = decoder.decode(value, { stream: true });
         botMessage += text;
 
-        console.log(text); // Imprime cada fragmento en la consola
+        console.log(text);
 
         setMessages((prev) => {
           const updatedMessages = [...prev];
           if (!updatedMessages.some((msg) => msg.type === 'bot' && msg.isStreaming)) {
-            // Agregar un mensaje nuevo para respuestas en progreso
             updatedMessages.push({ type: 'bot', content: text, isStreaming: true });
           } else {
-            // Actualizar el mensaje existente en progreso
             const streamingMessage = updatedMessages.find(
               (msg) => msg.type === 'bot' && msg.isStreaming
             );
@@ -57,7 +55,6 @@ export default function WeatherChatbot() {
         });
       }
 
-      // Finaliza la respuesta progresiva
       setMessages((prev) =>
         prev.map((msg) =>
           msg.type === 'bot' && msg.isStreaming
@@ -92,8 +89,7 @@ export default function WeatherChatbot() {
   };
 
   const formatBotMessage = (message) => {
-    // Suponiendo que el servidor devuelve un texto con un formato adecuado, se puede separar el texto en ítems
-    const items = message.split('\n'); // Separa las respuestas en diferentes líneas
+    const items = message.split('\n');
     return (
       <ul>
         {items.map((item, index) => (
@@ -104,7 +100,7 @@ export default function WeatherChatbot() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-violet-900 text-white">
+    <div className="flex flex-col min-h-screen bg-blue-900 text-black">
       <h1 className="text-3xl font-bold mb-4 text-center p-4">
         Consulta el Tiempo en Formosa
       </h1>
@@ -150,14 +146,27 @@ export default function WeatherChatbot() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="flex-grow bg-white/20 text-black placeholder-gray-500 border-none p-3 rounded-lg"
-          style={{ minWidth: '0', flex: '1 1 auto', color: 'black' }}
+          className="flex-grow bg-white/20 text-black placeholder-gray-500 p-3 rounded-lg"
+          style={{
+            border: '2px solid',
+            borderImageSource: 'linear-gradient(to right, #1E3A8A, #6D28D9)',
+            borderImageSlice: 1,
+            minWidth: '0',
+            flex: '1 1 auto',
+            color: 'black',
+          }}
         />
 
         <button
           onClick={handleSend}
           disabled={loading}
-          className="bg-indigo-600 hover:bg-indigo-700 p-3 rounded-lg flex items-center justify-center border-2 border-indigo-800"
+          className="p-3 rounded-lg flex items-center justify-center border-2"
+          style={{
+            borderImageSource: 'linear-gradient(to right, #1E3A8A, #6D28D9)',
+            borderImageSlice: 1,
+            background: 'linear-gradient(to right, #4C51BF, #6B46C1)',
+            color: 'white',
+          }}
         >
           {loading ? (
             <div className="w-6 h-6 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>

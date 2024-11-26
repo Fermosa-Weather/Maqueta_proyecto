@@ -6,7 +6,6 @@ import visionImage from '../../images2/laslomitas.jpg'; // Asegúrate de que la 
 
 const Acerca_Nosotros = () => {
   return (
-    <div className="acerca-nosotros-container">
       <div className="acerca-nosotros-content">
         <h1 className="acerca-nosotros-header">Sobre CIFOR</h1>
         
@@ -51,7 +50,6 @@ const Acerca_Nosotros = () => {
           </div>
         </section>
       </div>
-    </div>
   );
 };
 

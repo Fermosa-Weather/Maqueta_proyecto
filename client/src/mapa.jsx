@@ -8,8 +8,8 @@ function Mapa() {
     <div 
       className="mapa_principal" 
       style={{ 
-        background: "linear-gradient(to bottom right, #1e3a8a, #4f46e5, #6d28d9)", // Gradiente azul a violeta para el fondo
-        color: "#ffffff", // Texto blanco
+        background: "#ffffff", // Fondo blanco para la página principal
+        color: "#000000", // Texto negro para contraste
         minHeight: "100vh" 
       }}
     >
@@ -17,7 +17,7 @@ function Mapa() {
       <div 
         className="map-container" 
         style={{
-          background: "linear-gradient(to bottom right, #1e3a8a, #4f46e5, #6d28d9)", // Gradiente azul a violeta para el contenedor del mapa
+          background: "#ffffff", // Fondo blanco para el contenedor del mapa
           padding: "10px", // Padding ajustado
           width: "calc(100% + 40px)", // Aumento el ancho un poco más
           marginLeft: "-30px", // Desplazamiento a la izquierda para ajustar el aumento de ancho

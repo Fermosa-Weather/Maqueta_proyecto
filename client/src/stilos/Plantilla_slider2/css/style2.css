@@ -37,7 +37,7 @@ html, body {
 .slider_section .detail-box {
   width: 100%; /* Ocupa el 50% del contenedor */
   z-index: 4;
-  color: #ffffff;
+  color: black;
   padding-top: 10%; /* Ajusta el espacio superior si es necesario */
   margin: -105px 50px;
 }
@@ -89,7 +89,7 @@ html, body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, #864ddf, #203376);
+  background: linear-gradient(to right, #ffffff, #ffffff);
   z-index: 3;
   clip-path: polygon(0 0, 60% 0, 37% 100%, 0% 100%);
 }
