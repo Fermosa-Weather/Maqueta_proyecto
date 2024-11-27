@@ -76,7 +76,7 @@ function MapWithCircles() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        background: "linear-gradient(to bottom, #1f4f82, #6a1b9a)",
+        background: "#ffffff", // Fondo blanco
         minHeight: "100vh", // Asegura que cubra toda la ventana
         width: "100%",
       }}
@@ -96,7 +96,7 @@ function MapWithCircles() {
           <h2
             className="text-center my-3 map-title"
             style={{
-              color: "#fff",
+              color: "#000", // Cambié el color de texto a negro para que sea legible sobre el fondo blanco
               textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
               fontFamily: "'Roboto', sans-serif",
               fontWeight: "700",
@@ -173,17 +173,17 @@ function MapWithCircles() {
                 eventHandlers={{
                   click: () => handleMarkerClick(station),
                 }}
-          >
-          <Popup>
-        <div style={{ padding: '10px', fontFamily: 'Arial, sans-serif', color: '#333' }}>
-          <h3 style={{ margin: '0 0 10px 0' }}>{station.name.custom}</h3>
-          <p>Temperatura: {station.meta.airTemp}°C</p>
-          <p>Humedad: {station.meta.rh}%</p>
-          <p>Radiación solar: {station.meta.solarRadiation} W/m²</p>
-          <p>Vel. Viento: {station.meta.windSpeed} m/s</p>
-          <p>Precipitación: {station.meta.rain_last} mm</p>
-        </div>
-      </Popup>
+              >
+                <Popup>
+                  <div style={{ padding: '10px', fontFamily: 'Arial, sans-serif', color: '#333' }}>
+                    <h3 style={{ margin: '0 0 10px 0' }}>{station.name.custom}</h3>
+                    <p>Temperatura: {station.meta.airTemp}°C</p>
+                    <p>Humedad: {station.meta.rh}%</p>
+                    <p>Radiación solar: {station.meta.solarRadiation} W/m²</p>
+                    <p>Vel. Viento: {station.meta.windSpeed} m/s</p>
+                    <p>Precipitación: {station.meta.rain_last} mm</p>
+                  </div>
+                </Popup>
               </Marker>
             ))}
 
