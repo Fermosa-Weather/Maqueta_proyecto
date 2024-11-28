@@ -1,18 +1,22 @@
 import express from 'express';
-import { register, login, ctrlGetUserInfoByToken, getAllUsers, getUserById, updateUser, Logeado} from '../controllers/authcontroller.js';
-import { check } from 'express-validator'; 
+import { register, login, ctrlGetUserInfoByToken, getAllUsers, getUserById, updateUser, Logeado, forgotPassword, resetPassword } from '../controllers/authcontroller.js';
+import { check } from 'express-validator';
 
 const router = express.Router();
 
-router.get('/info', ctrlGetUserInfoByToken)
+router.get('/info', ctrlGetUserInfoByToken);
 
-router.get("/:id", getUserById)
+router.get("/:id", getUserById);
 
-router.get("/", getAllUsers)
+router.get("/", getAllUsers);
 
-router.put("/", updateUser)
+router.put("/", updateUser);
 
-// router.put('/upload/:id', uploadUserImage)
+// Ruta para solicitar la recuperación de contraseña
+router.post('/forgot-password', forgotPassword);
+
+// Ruta para restablecer la contraseña
+router.post('/reset-password/:token', resetPassword);
 
 // Ruta para el registro de usuarios
 router.post(
@@ -24,6 +28,7 @@ router.post(
   ],
   register
 );
+
 // Ruta para el inicio de sesión de usuarios
 router.post(
   '/login',
@@ -34,7 +39,6 @@ router.post(
   login
 );
 
-router.post("/logeado", Logeado)
-
+router.post("/logeado", Logeado);
 
 export default router;

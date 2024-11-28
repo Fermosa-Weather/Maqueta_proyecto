@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Nav from './components/Navbar/Nav'
 import Noticia from "./components/Noticias/NewsWidget"
+import Footer from './footer';
 
 
 function Noticias() {
@@ -10,6 +11,7 @@ function Noticias() {
     <div>
       <Nav onSearch={setSearchTerm} />
       <Noticia searchTerm={searchTerm} />
+      <Footer></Footer>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-// client/src/components/Mapa/StationInfo.jsx
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Widget } from "./Widget.jsx";
@@ -19,9 +18,7 @@ const defaultStation = {
 };
 
 const StationInfo = ({ stations = [], station, averages }) => {
-  const [selectedStation, setSelectedStation] = useState(
-    station || defaultStation
-  );
+  const [selectedStation, setSelectedStation] = useState(station || defaultStation);
 
   useEffect(() => {
     console.log("Estaciones recibidas:", stations);

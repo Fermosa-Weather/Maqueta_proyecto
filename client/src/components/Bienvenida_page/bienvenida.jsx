@@ -10,7 +10,7 @@ export default function Welcome() {
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl titulo-izquierda">
               Bienvenido a CIFOR
             </h1>
-            <h2 className="text-4xl font-semibold tracking-tighter sm:text-5xl md:text-6xl text-muted-foreground">
+            <h2 className="text-4xl font-semibold tracking-tighter sm:text-5xl md:text-6xl text-muted-foreground subtitulo-bienvenida">
               Clima Informativo de Formosa
             </h2>
             <p className="max-w-[700px] text-muted-foreground text-justificado">

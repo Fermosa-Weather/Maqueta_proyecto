@@ -4,6 +4,8 @@ import {verifyToken} from "../helpers/jsonWebToken.js"
 // import {comparePassword, hashPassword} from "../helpers/bycript.js"
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
 
 // Función para asociar un usuario con una cuenta
 async function asociarUsuarioConCuenta(userId, cuentaId) {
@@ -262,5 +264,82 @@ export const updateUser = async (req, res) => {
     console.error('Error al actualizar el usuario:', err);
     res.status(500).json({ error: 'Error del servidor' });
   }
+
+  
+};
+// Forgot Password: Genera el token y envía un correo electrónico
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    // Generar un token de restablecimiento
+    const token = crypto.randomBytes(32).toString('hex');
+    user.passwordResetToken = token;
+    user.passwordResetTokenExpiration = Date.now() + 3600000; // 1 hora
+    await user.save();
+
+    // Enviar correo electrónico
+    const resetURL = `${req.protocol}://${req.get('host')}/api/users/reset-password/${token}`;
+    await sendResetEmail(user.email, resetURL);
+
+    res.status(200).json({ message: 'Correo enviado para restablecer la contraseña' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al enviar el correo' });
+  }
 };
 
+// Función para enviar el correo de restablecimiento
+const sendResetEmail = async (email, resetURL) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail', 
+    auth: {
+      user: 'your-email@live.com', 
+      pass: 'your-email-password',  
+    },
+  });
+
+  const mailOptions = {
+    from: 'your-email@live.com', 
+    to: email,                    
+    subject: 'Restablecimiento de Contraseña', 
+    text: `Haz clic en el siguiente enlace para restablecer tu contraseña: ${resetURL}`, 
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Correo enviado');
+  } catch (error) {
+    console.error('Error al enviar el correo:', error);
+    throw new Error('Error al enviar el correo');
+  }
+};
+
+// **Función de "resetPassword"**
+export const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({ passwordResetToken: token, passwordResetTokenExpiration: { $gt: Date.now() } });
+    
+    if (!user) {
+      return res.status(400).json({ message: 'Token inválido o expirado' });
+    }
+
+    user.password = newPassword;
+    user.passwordResetToken = undefined;
+    user.passwordResetTokenExpiration = undefined;
+    await user.save();
+
+    res.status(200).json({ message: 'Contraseña restablecida con éxito' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al restablecer la contraseña' });
+  }
+}

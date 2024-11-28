@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { fetchUserInfo } from "../Function/infoToken";
 import Swal from 'sweetalert2';
 import "../../stilos/perfil.css";
-import { useTheme } from '../../context';  // Importa el hook useTheme
+import { useTheme } from '../../contex/themaContext';  // Importa el hook useTheme
 
 
 export default function Cambiar_cuenta() {

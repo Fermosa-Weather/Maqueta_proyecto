@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { sugerencias } from "./sugerencias"; 
+import { sugerencias } from "./sugerencias";
 import "../../stilos/search.css";
 
 export function Search({ onSearch }) {
@@ -34,21 +34,20 @@ export function Search({ onSearch }) {
   };
 
   return (
-    <div className="search-form">
-      <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
+    <div className={`search-form ${showInput ? "show-input" : ""}`}>
+      <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0" >
         <button 
           type="button" 
           className="btn my-2 my-sm-0 nav_search-btn" 
           onClick={toggleInput}
         >
-          {/* <i className="fas fa-search"></i> */}
         </button>
         {showInput && (
           <div>
             <input 
               type="text" 
               placeholder="Buscar..." 
-              className="buscador"
+              // className="serch"
               id="buscador"
               onChange={handleSearch}
               value={searchTerm}
