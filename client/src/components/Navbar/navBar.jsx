@@ -10,6 +10,7 @@ import "../../stilos/Plantilla_slider/css/bootstrap.css";
 import { Search } from "../Serch/Search";
 import "../../stilos/search.css";
 import { fetchUserInfo } from "../Function/infoToken.tsx";
+import { Cpu } from "lucide-react"; // Importación del icono de CPU
 
 export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
@@ -123,10 +124,10 @@ export const NavBar = ({ onSearch }) => {
 
                         {userData ? (
                           <div className="d-flex align-items-center ml-auto">
-                            {/* Botón IA */}
+                            {/* Botón CPU */}
                             <li className="nav-item" style={{ margin: '0' }}>
                               <Link className="nav-link" to="/modelo_prediccion" style={{ display: 'flex', alignItems: 'center' }}>
-                                <i className="bi bi-robot" style={{ marginRight: '5px' }}></i> FormoWeatherAI
+                                <Cpu style={{ marginRight: '5px' }} /> FormoWeatherAI
                               </Link>
                             </li>
 
