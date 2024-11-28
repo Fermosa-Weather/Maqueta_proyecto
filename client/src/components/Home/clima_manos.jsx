@@ -72,7 +72,7 @@ export default function Clima_manos() {
               </div>
             </div>
             <div className="relative h-full">
-              <img src="../../../src/images/informacion_climatica.jpg" alt="Mapa de Formosa" className="object-cover w-full h-full rounded-xl" />
+              <img src="../../../src/images/meteorologia.jpg" alt="Mapa de Formosa" className="object-cover w-full h-full rounded-xl" />
             </div>
           </div>
         </div>

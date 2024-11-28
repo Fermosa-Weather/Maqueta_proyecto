@@ -55,7 +55,7 @@ export default function Pie_pagina() {
 
       {/* Derechos reservados, centrado abajo */}
       <div className="mt-6 flex justify-center">
-        <p className="text-base text-gray-400">&copy; 2024 Weather App. All rights reserved.</p>
+        <p className="text-base text-gray-400">&copy; 2024 CIFOR. All rights reserved.</p>
       </div>
     </footer>
   );
