@@ -29,8 +29,18 @@ export function Slider() {
         <div className="slider-container">
           <div className="detail-box">
             <h1 style={{ fontSize: '3rem' }}>Descubre Nuestra Plataforma Meteorológica</h1>
-            <p style={{ fontSize: '1.25rem', lineHeight: '1.6' }}>
-              Nuestro sistema proporciona información sobre el tiempo en la provincia de Formosa. Se obtienen datos de 10 estaciones meteorológicas ubicadas a lo largo de la provincia. La aplicación cuenta con dashboards, mapas de las estaciones, un modelo de predicción con inteligencia artificial y noticias sobre el clima en diferentes localidades. La aplicación mostrará datos como humedad, precipitaciones, calidad del aire, entre otros.
+            <p
+              style={{
+                fontSize: '1.25rem',
+                lineHeight: '1.6',
+                textAlign: 'justify', // Justifica el texto
+              }}
+            >
+              Nuestro sistema proporciona información sobre el tiempo en la provincia de Formosa. 
+              Se obtienen datos de 10 estaciones meteorológicas ubicadas a lo largo de la provincia. 
+              La aplicación cuenta con dashboards, mapas de las estaciones, un modelo de predicción 
+              con inteligencia artificial y noticias sobre el clima en diferentes localidades. La 
+              aplicación mostrará datos como humedad, precipitaciones, calidad del aire, entre otros.
             </p>
             <div>
               <Link to="/contacto">

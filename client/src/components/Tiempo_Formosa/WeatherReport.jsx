@@ -42,11 +42,12 @@ export default function WeatherPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen flex justify-center items-center bg-white">
         <LoadingSpinner /> {/* Muestra el spinner mientras carga */}
       </div>
     );
   }
+  
   
 // Traducciones para los días y meses en español
 const daysOfWeek = [

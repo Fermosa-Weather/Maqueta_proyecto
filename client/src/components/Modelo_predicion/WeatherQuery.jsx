@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, ArrowRight, Cpu } from 'lucide-react'
+import { Send, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, ChevronRight, Cpu } from 'lucide-react'
 
 export default function WeatherChatbot() {
   const [query, setQuery] = useState('')
@@ -15,7 +15,7 @@ export default function WeatherChatbot() {
 
   const loadResponse = async (query) => {
     setLoading(true)
-    console.log('Enviando consulta al servidor...', query)
+    console.log('Enviando consulta al servidor...', query) // Console log aquí
     try {
       const res = await fetch('http://localhost:3000/api/model/consulta-data', {
         method: 'POST',
@@ -84,13 +84,13 @@ export default function WeatherChatbot() {
     const isUser = message.type === 'user'
 
     return (
-      <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
-        <div className={`flex items-start space-x-2 max-w-[80%] ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
-          <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${isUser ? 'bg-blue-200' : 'bg-gray-200'}`}>
+      <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} items-center`}>
+        <div className={`flex items-center ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
+          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isUser ? 'bg-blue-200' : 'bg-gray-200'}`}>
             {isUser ? <User className="w-5 h-5 text-blue-600" /> : <Bot className="w-5 h-5 text-gray-600" />}
           </div>
           <div className={`p-3 rounded-lg ${isUser ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'} text-lg`}>
-            <p className="text-lg">{message.content}</p>
+            <p className="text-lg text-justify">{message.content}</p> {/* Agregado text-justify aquí */}
           </div>
         </div>
       </div>
@@ -113,7 +113,6 @@ export default function WeatherChatbot() {
           </div>
         </div>
       </header>
-
 
       <main className="flex-grow overflow-hidden bg-gray-50">
         <div className="container mx-auto h-full max-w-4xl px-4 py-6">
@@ -151,7 +150,7 @@ export default function WeatherChatbot() {
               {loading ? (
                 <Loader className="w-4 h-4 animate-spin" />
               ) : (
-                <ArrowRight className="w-6 h-6" />
+                <ChevronRight className="w-8 h-8 text-black transform rotate-90" />
               )}
               <span className="sr-only">Enviar consulta</span>
             </button>

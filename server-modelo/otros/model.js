@@ -1,21 +1,47 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Ruta al archivo local datos_estaciones.json
+const filePath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'datos_estaciones.json');
+
+// Variable para almacenar los datos cargados una sola vez
+let cachedWeatherData = null;
+
+// Función para cargar los datos de manera eficiente
 async function fetchWeatherData() {
-    // Realiza la solicitud a la API externa en cada consulta
-    const response = await fetch('https://ramf.formosa.gob.ar/api/station');
-    const data = await response.json();
-    return data;
+    if (cachedWeatherData) {
+        console.log("Usando datos almacenados en caché...");
+        return cachedWeatherData;
+    }
+
+    return new Promise((resolve, reject) => {
+        console.log(`Leyendo archivo desde: ${filePath}`);
+
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+                reject('Error al leer el archivo: ' + err);
+            } else {
+                console.log('Archivo leído con éxito');
+                cachedWeatherData = JSON.parse(data); // Guardamos los datos en memoria
+                resolve(cachedWeatherData);
+            }
+        });
+    });
 }
 
+// Función para generar actividad utilizando los datos
 async function generarActividad(req, res) {
     const { consulta } = req.body;
 
     try {
-        // Obtiene los datos de la API en cada consulta
+        // Obtener los datos de la estación meteorológica desde el archivo JSON (solo una vez)
         const data = await fetchWeatherData();
 
         const filteredData = data.map((dato) => ({
-            timestamp: dato.dates?.max_date || null, // Tiempo de la última actualización
+            timestamp: dato.dates?.max_date || null, // Fecha de la última actualización
             temperature: dato.meta?.airTemp || null, // Temperatura
-            humidity: dato.meta?.rh || null, // Humedad relativa
+            humidity: dato.meta?.rh || null, // Humedad
             solarRadiation: dato.meta?.solarRadiation || null, // Radiación solar
             rain1h: dato.meta?.rain1h || null, // Lluvia en la última hora
             rain24h: dato.meta?.rain24h || null, // Lluvia en las últimas 24 horas
@@ -35,9 +61,9 @@ async function generarActividad(req, res) {
       - Velocidad del viento: ${station.windSpeed} m/s
       - Ubicación (lat, lon): (${station.location.latitude}, ${station.location.longitude})`;
         }).join("\n\n");
-        
+
         console.log(weatherSummary);
-        
+
         let consultaCompleta = consulta + " " + "estos son los datos de los cuales deben hacer la predicción: " + weatherSummary;
 
         const peticion = await fetch('http://127.0.0.1:11434/api/generate', {
@@ -93,6 +119,7 @@ async function generarActividad(req, res) {
         res.end();
 
     } catch (error) {
+        console.error("Error en la generación de actividad:", error);
         return res.status(500).json({
             status: 500,
             message: "Error interno del servidor!"
@@ -100,5 +127,5 @@ async function generarActividad(req, res) {
     }
 }
 
-// Exportar la función por defecto
+// Exportar la función
 export default generarActividad;
