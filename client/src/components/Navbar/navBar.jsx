@@ -112,30 +112,44 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-geo-alt"></i> Map
                           </Link>
                         </li>
-                        {/* <li className="nav-item">
-                          <Link className="nav-link" to="/modelo_prediccion">
-                            <i className="bi bi-cpu"></i> prediction
-                          </Link>
-                        </li> */}
                         <li className="nav-item">
                           <Link className="nav-link" to="/noticias">
                             <i className="bi bi-newspaper"></i> News
                           </Link>
                         </li>
-                    
+
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
 
                         {userData ? (
-                          <li className="nav-item">
-                            <button className="nav-link logout-button" id="nav-item-left" onClick={handleLogout}>
-                              <i className="bi bi-box-arrow-right"></i>
-                              <div className="logout-text">
-                                <span>sing</span>
-                                <span>out</span>
-                              </div>
-                            </button>
-                          </li>
+                          <div className="d-flex align-items-center ml-auto">
+                            {/* Botón IA */}
+                            <li className="nav-item" style={{ margin: '0' }}>
+                              <Link className="nav-link" to="/modelo_prediccion" style={{ display: 'flex', alignItems: 'center' }}>
+                                <i className="bi bi-robot" style={{ marginRight: '5px' }}></i> FormoWeatherAI
+                              </Link>
+                            </li>
+
+                            {/* Botón Sign Out */}
+                            <li className="nav-item" style={{ margin: '0' }}>
+                              <button className="nav-link logout-button" id="nav-item-left" onClick={handleLogout} style={{ display: 'flex', alignItems: 'center' }}>
+                                <i className="bi bi-box-arrow-right" style={{ marginRight: '5px' }}></i>
+                                <div className="logout-text">
+                                  <span>sign</span>
+                                  <span>out</span>
+                                </div>
+                              </button>
+                            </li>
+
+                            {/* Icono de perfil */}
+                            <a className="navbar-brand" href="javascript:void(0)" onClick={openModal} style={{ marginLeft: '20px' }}>
+                              <img
+                                src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
+                                alt="perfil"
+                                className="foto_perfil"
+                              />
+                            </a>
+                          </div>
                         ) : (
                           <li className="nav-item">
                             <Link className="nav-link" to="/cuenta" id="nav-item-left">
@@ -143,15 +157,6 @@ export const NavBar = ({ onSearch }) => {
                             </Link>
                           </li>
                         )}
-
-                          <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
-                            <img
-                              src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
-                              alt="perfil"
-                              className="foto_perfil"
-                            />
-                          </a>
-
                       </ul>
                     </div>
                   </div>

@@ -112,6 +112,9 @@ export default function WeatherChatbot() {
             <Wind className="w-6 h-6" />
           </div>
         </div>
+        <div className="container mx-auto text-center mt-4">
+          <h2 className="text-xl font-semibold text-gray-700">Buenas, haz tus predicciones sobre el tiempo!</h2>
+        </div>
       </header>
 
       <main className="flex-grow overflow-hidden bg-gray-50">

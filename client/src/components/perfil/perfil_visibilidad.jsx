@@ -10,12 +10,13 @@ export default function Perfil() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token"); 
 
     if (token) {
       fetchUserInfo(token)
         .then(data => {
           setUserInfo(data);
+          console.log("data: ", data)
           setError(null); // Clear error if successful
         })
         .catch(error => {
@@ -29,11 +30,11 @@ export default function Perfil() {
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // Remove token
-    setUserInfo(null); // Clear user data
+    setUserData(null); // Clear user data
   };
 
   return (
-    <div className={`flex flex-col items-center justify-start min-h-screen p-0 shadow-lg rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+    <div className={`flex flex-col items-center p-6 shadow-lg rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
       <h1 className={`text-2xl font-bold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-700'} mb-4`}>
         Perfil y visibilidad
       </h1>
@@ -46,7 +47,7 @@ export default function Perfil() {
             <h2 className={`text-xl font-semibold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-700'} mb-4`}>
               Acerca de ti
             </h2>
-
+            
             <div className={`p-4 ${theme === 'dark' ? 'bg-purple-700' : 'bg-purple-500'} text-white mx-auto bloque_perfil`}>
               <p className="text-lg font-medium mb-2">Muestra tu foto de perfil</p>
               <div className="flex justify-center mb-4">
@@ -70,7 +71,7 @@ export default function Perfil() {
             <h2 className={`text-xl font-semibold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-700'} mb-4`}>
               Contacto
             </h2>
-
+            
             <div className={`p-4 ${theme === 'dark' ? 'bg-purple-700' : 'bg-purple-500'} text-white mx-auto bloque_perfil`}>
               <p className="text-lg font-medium mb-2">Dirección de correo electrónico</p>
               <p className="mb-2">Correo: {userInfo.email}</p>
@@ -80,14 +81,6 @@ export default function Perfil() {
       ) : !error && (
         <p>Cargando información del perfil...</p>
       )}
-
-      {/* Botón para cerrar sesión */}
-      <button 
-        onClick={handleLogout}
-        className="boton-editar-perfil mt-4"
-      >
-        Cerrar sesión
-      </button>
     </div>
   );
 }
