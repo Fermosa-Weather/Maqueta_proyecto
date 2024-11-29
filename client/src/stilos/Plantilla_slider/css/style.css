@@ -20,8 +20,8 @@ body, html {
 }
 
 .logo {
-  max-width: 75px; /* Ajusta según el tamaño deseado */
-  height: 100%;
+  max-width: 100px; /* Ajusta según el tamaño deseado */
+  height: 200%;
   object-fit: contain;
 }
 

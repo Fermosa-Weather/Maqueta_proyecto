@@ -42,12 +42,11 @@ export default function WeatherPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center bg-white">
+      <div className="min-h-screen flex justify-center items-center">
         <LoadingSpinner /> {/* Muestra el spinner mientras carga */}
       </div>
     );
   }
-  
   
 // Traducciones para los días y meses en español
 const daysOfWeek = [
@@ -76,7 +75,7 @@ const monthsOfYear = [
 
 // Obtener la fecha actual en el formato deseado
 const currentDate = new Date();
-const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate()} de ${monthsOfYear[currentDate.getMonth()]}`;
+const formattedDate = ${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate()} de ${monthsOfYear[currentDate.getMonth()]};
 
 
 
@@ -99,6 +98,7 @@ const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate
   const conditionTranslations = {
     'Clear': 'Despejado',
     'Partially cloudy': 'Parcialmente Nublado',
+   
     'Cloudy': 'Nublado',
     'Rain': 'Lluvia',
     'Thunderstorms': 'Tormentas',
@@ -264,7 +264,7 @@ const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate
       </div>
       <div className="flex items-center justify-between">
         <span className="flex items-center"><Umbrella className="mr-2 text-blue-500" /> Precipitación</span>
-        <span>{current.precip ? `${current.precip} mm` : "N/A"}</span>
+        <span>{current.precip ? ${current.precip} mm : "N/A"}</span>
       </div>
       <div className="flex items-center justify-between">
         <span className="flex items-center"><Thermometer className="mr-2 text-red-500" /> Presión</span>

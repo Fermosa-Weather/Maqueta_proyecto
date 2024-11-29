@@ -1,40 +1,25 @@
-/* Asegúrate de que el contenedor principal ocupe toda la altura de la pantalla */
-.perfil-container {
-  min-height: 100vh; /* Asegura que el contenedor ocupe al menos el 100% de la altura de la pantalla */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Asegura que el contenido se alinee arriba */
-  padding: 0; /* Elimina el padding innecesario */
-  margin: 0; /* Elimina el margin innecesario */
+
+.form-editar{
+  margin-bottom: 10px;
 }
 
-/* Asegura que el cuerpo o App tenga altura completa */
-body, .App {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-.perfil-container {
-  margin: 0;
-  padding: 0;
-}
-
-/* Estilos generales para la imagen circular */
 .circular-image {
-  height: 5.5rem; /* Ajuste a la medida de la imagen circular */
-  width: 5.5rem; /* Mismo tamaño que la altura para mantener la forma circular */
-  border-radius: 50%; /* Forma circular */
+  height: 5.5rem; /* 24 unidades en rem para adaptar al tamaño h-24 */
+  width: 5.5rem; /* mismo tamaño que la altura para que sea un círculo */
+  
+  border-radius: 50%; /* hace que la imagen sea un círculo */
   margin-right: 10px;
 }
 
 .circular-image:hover {
-  opacity: 0.4; /* Cambio de opacidad al pasar el mouse */
+  opacity: 0.4; /* cambia la opacidad en el hover */
 }
 
-/* Añadir cuenta */
+
+/* añadir cuenta */
+
 .spacer {
-  margin-top: 45px; /* Espaciado ajustado */
+  margin-top: 45px; /* Ajusta el valor según lo necesario */
 }
 
 .cuenta:hover {
@@ -43,14 +28,16 @@ body, .App {
   color: #fefefe;
 }
 
-/* Estilos para el botón de editar perfil */
+/* visibilidad perfil */
 .boton-editar-perfil {
   background-color: #4e2071; /* Fondo morado */
   color: #ffffff; /* Texto blanco */
   border: 2px solid #ffffff; /* Borde blanco */
   padding: 0.5rem 1rem; /* Padding */
-  border-radius: 150px; /* Bordes redondeados */
-  cursor: pointer; /* Cambia el cursor */
+  border-radius: 0.375rem; /* Border radius */
+  cursor: pointer; /* Cursor pointer */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  border-radius: 150px;
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
@@ -61,20 +48,18 @@ body, .App {
   transform: scale(1.1); /* Agranda el botón */
 }
 
-/* Estilos para el bloque de perfil */
 .bloque_perfil {
   border: 3px solid #000000;
   border-radius: 10px;
 }
 
-/* Estilos para la foto de perfil */
 .foto_perfil {
   height: 50px;
 }
 
-/* Estilos para el enlace sin subrayado */
 .no-underline {
-  text-decoration: none; /* Elimina el subrayado */
+  /* background-color: #4a00a6; */
+  /* hover:text-black */
 }
 
 .no-underline:hover {
@@ -84,15 +69,13 @@ body, .App {
   cursor: pointer;
 }
 
-/* Contenedor de los botones en el formulario de editar perfil */
 .contenedor-form-editar-botones {
   display: flex;
   justify-content: center; /* Centra los botones horizontalmente */
-  gap: 1rem; /* Espacio entre botones */
+  gap: 1rem; /* Opcional: Espacio entre los botones */
   margin: 0px auto;
 }
 
-/* Botón para editar perfil */
 .boton-form-editar-perfil {
   background-color: #202c71; /* Fondo morado */
   color: #ffffff; /* Texto blanco */
@@ -104,13 +87,12 @@ body, .App {
 }
 
 .boton-form-editar-perfil:hover {
-  color: #ffffff;
+  color: #ffffff; /* Texto blanco en hover */
   background-color: #0fae4e; /* Fondo verde en hover */
   font-size: medium;
   transform: scale(1.1); /* Agranda el botón */
 }
 
-/* Estilos para los inputs del formulario de editar perfil */
 .input-editar {
   border-radius: 50px;
 }
@@ -120,41 +102,32 @@ body, .App {
   color: #000000;
 }
 
-/* Estilos para la foto de perfil en el formulario de editar */
 .editar-perfil-foto:hover {
   opacity: 0.4;
   cursor: pointer;
 }
 
-/* Contenedor de iconos */
 .contenedor_iconos {
   opacity: 0;
   cursor: pointer;
-  gap: 8px;
+  gap:8px
 }
 
 .contenedor_iconos:hover {
   opacity: 1;
 }
 
-/* Estilos para los iconos de la cámara */
-.icono_camara {
+.icono_camara{
   margin: 3px;
 }
 
-/* Estilos para el modal de añadir foto */
+/* Modal añadir foto */
 .contenedor-modal-perfil {
-  background-color: #b6bcdf; /* Color medio azul con gris */
-  width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
-  height: 100%; /* Asegura que el contenedor ocupe toda la altura */
-  margin: 0; /* Elimina márgenes */
-  padding: 0; /* Elimina padding interno */
-  box-sizing: border-box; /* Asegura que los bordes y padding no afecten las dimensiones */
-  border-radius: 0; /* Elimina bordes redondeados, si los hay */
+  background-color: #b6bcdf;
+  width: 400px;
 }
 
-
-/* Contenedor para la imagen en el modal de añadir foto */
+/* CSS para el contenedor de la imagen */
 .contedor-añadir-img {
   margin: 25px;
   width: 150px; /* Tamaño del contenedor */
@@ -164,32 +137,30 @@ body, .App {
   justify-content: center;
 }
 
-/* Estilos para la imagen dentro del contenedor */
+/* CSS para la imagen dentro del contenedor */
 .contedor-añadir-img img {
-  width: 100%;
-  height: 100%;
+  width: 100%; /* Ajusta el tamaño de la imagen para que ocupe todo el contenedor */
+  height: 100%; /* Ajusta el tamaño de la imagen para que ocupe todo el contenedor */
   object-fit: cover;
-  border-radius: 50%; /* Imagen circular */
+  border-radius: 50%;
 }
 
-/* Contenedor de los botones dentro del modal de añadir foto */
 .contenedor-form-añadir-foto-botones {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 1rem; /* Opcional: Espacio entre los botones */
 }
 
-/* Botón dentro del modal de añadir foto */
 .boton-form-añadir-foto {
   margin: 50px 0px 0px 0px;
-  background-color: #ffffff; /* Fondo blanco */
-  color: #000000; /* Texto negro */
+  background-color: #ffffff; /* Fondo morado */
+  color: #000000; /* Texto blanco */
   border: 2px solid #ffffff; /* Borde blanco */
   padding: 0.7rem 0.5rem; /* Padding */
   border-radius: 150px; /* Bordes redondeados */
   cursor: pointer; /* Cursor pointer */
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
-  border: 1px solid #000000; /* Borde negro */
+  border: 1px solid #000000;
 }
 
 .boton-form-añadir-foto:hover {
@@ -199,16 +170,19 @@ body, .App {
   transform: scale(1.1); /* Agranda el botón */
 }
 
-/* Ocultar elementos */
 .hidden {
   display: none;
 }
 
-/* Ajuste para la imagen circular */
+/* Ajuste del círculo con imagen */
 .w-24 {
-  width: 6rem;
-  height: 6rem;
-  object-fit: cover;
-  border-radius: 50%; /* Hace la imagen circular */
-  margin-bottom: 1rem; /* Espaciado inferior */
+  width: 6rem; /* Ajusta el tamaño del círculo */
+  height: 6rem; /* Ajusta el tamaño del círculo */
+  object-fit: cover; /* Ajusta la imagen para que cubra todo el espacio sin deformarse */
+  border-radius: 50%; /* Hace que la imagen tenga forma circular */
+  margin-bottom: 1rem; /* Espaciado inferior para que se vea bien */
 }
+
+
+/* Modal de añadir o borrar img */
+/* perfil.css */

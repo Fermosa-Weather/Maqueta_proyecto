@@ -34,7 +34,7 @@ export default function Perfil() {
   };
 
   return (
-    <div className={`flex flex-col items-center p-6 shadow-lg rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+    <div className={`flex flex-col items-center justify-between p-6 shadow-lg rounded-lg min-h-screen ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
       <h1 className={`text-2xl font-bold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-700'} mb-4`}>
         Perfil y visibilidad
       </h1>

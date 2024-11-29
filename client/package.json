@@ -43,7 +43,9 @@
     "react-slick": "^0.30.2",
     "react-switch": "^7.0.0",
     "react-toastify": "^10.0.5",
+    "recharts": "^2.13.3",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^6.1.13",
     "sweetalert2": "^11.14.2",
     "tailwindcss-animate": "^1.0.7"
   },
