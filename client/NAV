@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import Perfil_modal from "../perfil/modal_perfil";
-import { Visibilidad_nav } from './visibilidad_nav';
+import Perfil_modal from "./src/components/perfil/modal_perfil.jsx";
+import { Visibilidad_nav } from './src/components/Navbar/visibilidad_nav.jsx';
 import "../../stilos/Plantilla_slider/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
 import "../../stilos/Plantilla_slider/css/bootstrap.css";
-import { Search } from "../Serch/Search";
+import { Search } from "./src/components/Serch/Search.jsx";
 import "../../stilos/search.css";
-import { fetchUserInfo } from "../Function/infoToken.tsx";
+import { fetchUserInfo } from "./src/components/Function/infoToken.tsx";
 import { Cpu } from "lucide-react"; // Importación del icono de CPU
 
 export const NavBar = ({ onSearch }) => {

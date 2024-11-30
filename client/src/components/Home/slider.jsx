@@ -50,7 +50,7 @@ export function Slider() {
                     border: '2px solid black',
                     borderRadius: '20px',
                     padding: '10px 20px',
-                    color: 'black',
+                    color: 'blueviolet',
                     textDecoration: 'none',
                     fontWeight: 'bold',
                     transition: 'background-color 0.3s ease'

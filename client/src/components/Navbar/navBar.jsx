@@ -120,7 +120,7 @@ export const NavBar = ({ onSearch }) => {
                         </li>
 
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
-                        <Search onSearch={handleSearch} />
+                     
 
                         {userData ? (
                           <div className="d-flex align-items-center ml-auto">

@@ -101,6 +101,8 @@ const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate
     'Partially cloudy': 'Parcialmente Nublado',
     'Cloudy': 'Nublado',
     'Rain': 'Lluvia',
+    'Rain, Overcast': 'Lluvia, Cubierto',
+    'Rain, Partially cloudy': 'Lluvia, Parcialmente Nublado',
     'Thunderstorms': 'Tormentas',
     'Snow': 'Nieve',
     'Fog': 'Niebla',
@@ -222,7 +224,7 @@ const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate
     
     <div className="flex flex-col md:flex-row items-center justify-between">
       <div className="flex items-center mb-4 md:mb-0">
-      {weatherIcons[current.conditions] || <Droplet className="w-12 h-12 text-blue-500" />}
+      {getIcon(current.conditions) || <Droplet className="w-12 h-12 text-blue-500" />}
 
       <div>
           <p className="text-5xl font-extrabold">{current.temp}°C</p>
@@ -287,7 +289,7 @@ const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate
                 <p className="font-semibold text-gray-800">{hour.datetime.slice(0, 5)}</p>
                 {/* Usar la traducción en español para la condición */}
                 <div>
-                {weatherIcons[hour.conditions] || <Droplet className="w-8 h-8 text-blue-500" />}
+                {getIcon(hour.conditions) || <Droplet className="w-8 h-8 text-blue-500" />}
 
                 </div>
                 <p className="text-lg font-bold text-gray-800">{hour.temp}°C</p>
