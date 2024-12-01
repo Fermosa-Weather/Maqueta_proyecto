@@ -106,6 +106,24 @@ function MapWithCircles() {
     <div className="container-fluid">
       <div className="row flex-column mapa">
         <div className="col-md-12 mb-3 pl-4">
+          {/* Título con estilo inline */}
+          <h2
+            style={{
+              fontSize: "2rem", // Tamaño de fuente más grande
+              fontWeight: "bold", // Negrita
+              color: "#004d99", // Color azul oscuro
+              textAlign: "center", // Centrado
+              marginBottom: "20px", // Espacio debajo
+              textTransform: "uppercase", // Convertir a mayúsculas
+              letterSpacing: "1px", // Espaciado entre letras
+              fontFamily: "'Arial', sans-serif", // Tipo de fuente limpio
+              borderBottom: "3px solid #004d99", // Línea debajo del título
+              paddingBottom: "10px", // Espacio entre texto y la línea
+            }}
+          >
+            Seleccione una estación
+          </h2>
+
           <MapContainer
             center={formosaCenter}
             zoom={zoomLevel}

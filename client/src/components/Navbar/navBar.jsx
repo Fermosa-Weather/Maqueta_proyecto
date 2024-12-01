@@ -10,7 +10,7 @@ import "../../stilos/Plantilla_slider/css/bootstrap.css";
 import { Search } from "../Serch/Search";
 import "../../stilos/search.css";
 import { fetchUserInfo } from "../Function/infoToken.tsx";
-import { FaRobot } from 'react-icons/fa'; // Importación del ícono de Robot de React Icons
+import { Cpu } from "lucide-react"; // Importación del icono de CPU
 
 export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
@@ -123,7 +123,7 @@ export const NavBar = ({ onSearch }) => {
                      
                         {userData ? (
                           <div className="d-flex align-items-center ml-auto">
-                            {/* Botón Robot con color blanco */}
+                            {/* Botón CPU */}
                             <li className="nav-item" style={{ margin: '0' }}>
                               <Link
                                 className="nav-link"
@@ -134,7 +134,7 @@ export const NavBar = ({ onSearch }) => {
                                   alignItems: 'center',
                                 }}
                               >
-                                <FaRobot style={{ marginBottom: '5px', color: 'white' }} /> {/* Robot icon en blanco */}
+                                <Cpu style={{ marginBottom: '5px' }} /> {/* Add some margin to the bottom of the icon */}
                                 CIFORIA
                               </Link>
                             </li>
