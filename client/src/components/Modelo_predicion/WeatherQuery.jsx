@@ -1,20 +1,33 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, ChevronRight, Cpu } from 'lucide-react';
+import { Send, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download, Menu, X } from 'lucide-react';
+import { FaRobot } from 'react-icons/fa'; // Importar el icono de robot
+import { ArrowRight } from 'lucide-react';  // Importa el icono de flecha
 
-const FormoWeatherAI = () => {
+const FormoWeatherAIModerno = () => {
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [theme, setTheme] = useState('light');
   const scrollAreaRef = useRef(null);
 
+  // Efecto para manejar el scroll al final de los mensajes
   useEffect(() => {
     if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+      scrollAreaRef.current.scrollTo({
+        top: scrollAreaRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
     }
   }, [messages]);
 
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
   const loadResponse = async (query) => {
     setLoading(true);
+    console.log('Enviando consulta al servidor'); // Agregado para mostrar el mensaje en consola
+
     try {
       const res = await fetch('http://localhost:3000/api/model/consulta-data', {
         method: 'POST',
@@ -79,104 +92,130 @@ const FormoWeatherAI = () => {
     }
   };
 
+  const clearChat = () => {
+    setMessages([]);
+  };
+
+  const downloadChat = () => {
+    const chatContent = messages.map(msg => `${msg.type}: ${msg.content}`).join('\n\n');
+    const blob = new Blob([chatContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'chat_history.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  };
+
   const ChatMessage = ({ message }) => {
     const isUser = message.type === 'user';
 
     return (
-      <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} items-center`}>
-        <div className={`flex items-center ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
-          <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              isUser ? 'bg-blue-200' : 'bg-gray-200'
-            }`}
-          >
+      <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
+        <div className={`flex items-start max-w-[75%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+            isUser ? 'bg-blue-500 ml-2' : 'bg-gray-300 mr-2'
+          }`}>
             {isUser ? (
-              <User className="w-5 h-5 text-blue-600" />
+              <User className="w-6 h-6 text-white" />
             ) : (
-              <Bot className="w-5 h-5 text-gray-600" />
+              <Bot className="w-6 h-6 text-gray-700" />
             )}
           </div>
-          <div
-            className={`p-3 rounded-lg ${
-              isUser ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
-            } text-lg`}
-          >
-            <p className="text-lg text-justify">{message.content}</p>
+          <div className={`p-4 rounded-lg shadow-lg ${
+            isUser ? 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
+          }`}>
+            <p className="text-lg text-justify">{message.content}</p> {/* Aumentar tamaño y justificar */}
           </div>
         </div>
       </div>
     );
   };
 
+  const WeatherIcon = ({ condition }) => {
+    switch (condition) {
+      case 'sunny':
+        return <Sun className="w-6 h-6 text-yellow-500" />;
+      case 'cloudy':
+        return <Cloud className="w-6 h-6 text-gray-500" />;
+      case 'rainy':
+        return <CloudRain className="w-6 h-6 text-blue-500" />;
+      case 'windy':
+        return <Wind className="w-6 h-6 text-teal-500" />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="flex h-screen">
-      {/* Sección lateral izquierda */}
-      <div className="w-1/4 p-4 flex flex-col">
-        <div className="sticky top-0 z-10 py-4">
+    <div className="flex flex-col h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+      <header className="bg-blue-600 dark:bg-blue-800 text-white p-5 shadow-xl rounded-b-xl">
+        <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center">
-            <Bot className="text-blue-500 w-10 h-10 mr-2" />
-            <p className="text-blue-600 font-bold">
-              Hola, soy CIFOR IA. ¡Estoy aquí para ayudarte!
-            </p>
+            <FaRobot className="w-8 h-8 mr-3 text-yellow-500" /> {/* Icono de robot */}
+            <h1 className="text-2xl font-semibold text-black">Hola, soy CIFOR IA, estoy aquí para ayudarte!</h1> {/* Título en negro */}
+          </div>
+          <div className="space-x-3">
+            <button onClick={clearChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
+              <Trash className="w-5 h-5 text-gray-600" />
+            </button>
+            <button onClick={downloadChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
+              <Download className="w-5 h-5 text-gray-600" />
+            </button>
+            <button onClick={toggleTheme} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
+              {theme === 'light' ? 'Modo oscuro' : 'Modo claro'}
+            </button>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Sección principal */}
-      <div className="flex flex-col w-3/4">
-        <header className="p-4">
-          <div className="container mx-auto flex items-center justify-between"></div>
-        </header>
+      <main className="flex-grow overflow-auto container mx-auto max-w-3xl px-5 py-6" style={{ paddingBottom: '80px' }}>
+        <div className="h-full space-y-4" ref={scrollAreaRef}>
+          {messages.map((message, index) => (
+            <ChatMessage key={index} message={message} />
+          ))}
+        </div>
+      </main>
 
-        <main className="flex-grow overflow-hidden">
-          <div className="container mx-auto h-full max-w-4xl px-4 py-6">
-            <div
-              ref={scrollAreaRef}
-              className="h-full pr-4 rounded-lg overflow-auto"
+      {/* Indicador de carga sobre el contenido */}
+      {loading && (
+        <div className="flex justify-center p-4 absolute inset-x-0 bottom-20 z-10">
+          <Loader className="w-8 h-8 text-blue-500 animate-spin" />
+        </div>
+      )}
+
+      {/* Fixed footer */}
+      <footer className="bg-white dark:bg-gray-800 p-5 shadow-lg border-t fixed bottom-0 w-full">
+        <div className="container mx-auto max-w-3xl flex items-center space-x-3">
+          {/* Contenedor del input con el ícono */}
+          <div className="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 w-full">
+            {/* Cuadro de texto */}
+            <input
+              type="text"
+              placeholder="Pregunta sobre el tiempo..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="p-3 w-full rounded-l-lg border-0 focus:outline-none"
+            />
+            {/* Botón de enviar */}
+            <button
+              onClick={handleSend}
+              className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
             >
-              <div className="p-4 space-y-4">
-                {messages.map((message, index) => (
-                  <ChatMessage key={index} message={message} />
-                ))}
-                {loading && (
-                  <div className="flex justify-center p-4">
-                    <Loader className="w-12 h-12 text-blue-500 animate-spin" />
-                  </div>
-                )}
-              </div>
-            </div>
+              <Send className="w-6 h-6 text-black" /> {/* Cambié el color del icono a negro */}
+            </button>
           </div>
-        </main>
-
-        <footer className="p-4 fixed bottom-0 w-full">
-          <div className="container mx-auto max-w-4xl">
-            <div className="flex items-center w-full">
-              {/* Cuadro de consulta movido a la izquierda y con bordes redondeados */}
-              <input
-                type="text"
-                placeholder="Consulta el tiempo en Formosa..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="bg-gray-100 text-gray-800 p-4 w-full rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                onClick={handleSend}
-                disabled={loading}
-                className="bg-blue-500 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 p-3 rounded-r-lg"
-              >
-                {loading ? (
-                  <Loader className="w-4 h-4 animate-spin" />
-                ) : (
-                  <ChevronRight className="w-8 h-8 text-black rotate-90" />
-                )}
-              </button>
-            </div>
-          </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </div>
   );
 };
 
-export default FormoWeatherAI;
+export default FormoWeatherAIModerno;

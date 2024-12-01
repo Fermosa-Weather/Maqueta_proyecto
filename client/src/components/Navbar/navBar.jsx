@@ -10,7 +10,7 @@ import "../../stilos/Plantilla_slider/css/bootstrap.css";
 import { Search } from "../Serch/Search";
 import "../../stilos/search.css";
 import { fetchUserInfo } from "../Function/infoToken.tsx";
-import { Cpu } from "lucide-react"; // Importación del icono de CPU
+import { FaRobot } from 'react-icons/fa'; // Importación del ícono de Robot de React Icons
 
 export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
@@ -121,13 +121,21 @@ export const NavBar = ({ onSearch }) => {
 
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                      
-
                         {userData ? (
                           <div className="d-flex align-items-center ml-auto">
-                            {/* Botón CPU */}
+                            {/* Botón Robot con color blanco */}
                             <li className="nav-item" style={{ margin: '0' }}>
-                              <Link className="nav-link" to="/modelo_prediccion" style={{ display: 'flex', alignItems: 'center' }}>
-                                <Cpu style={{ marginRight: '5px' }} /> FormoWeatherAI
+                              <Link
+                                className="nav-link"
+                                to="/modelo_prediccion"
+                                style={{
+                                  display: 'flex',
+                                  flexDirection: 'column', // Stack icon and text vertically
+                                  alignItems: 'center',
+                                }}
+                              >
+                                <FaRobot style={{ marginBottom: '5px', color: 'white' }} /> {/* Robot icon en blanco */}
+                                CIFORIA
                               </Link>
                             </li>
 
