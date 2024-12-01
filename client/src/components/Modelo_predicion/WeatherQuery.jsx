@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download, Menu, X } from 'lucide-react';
+import { ArrowUpCircle, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download } from 'lucide-react'; // Cambié MessageCircle por ArrowUpCircle
 import { FaRobot } from 'react-icons/fa'; // Importar el icono de robot
-import { ArrowRight } from 'lucide-react';  // Importa el icono de flecha
 
 const FormoWeatherAIModerno = () => {
   const [query, setQuery] = useState('');
@@ -9,14 +8,12 @@ const FormoWeatherAIModerno = () => {
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('light');
   const scrollAreaRef = useRef(null);
+  const lastMessageRef = useRef(null);  // Ref para el último mensaje
 
-  // Efecto para manejar el scroll al final de los mensajes
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
-        behavior: 'smooth',
-      });
+    // Desplazar al último mensaje cada vez que los mensajes cambien
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Desplazamiento suave hacia el último mensaje
     }
   }, [messages]);
 
@@ -123,7 +120,7 @@ const FormoWeatherAIModerno = () => {
             isUser ? 'bg-blue-500 ml-2' : 'bg-gray-300 mr-2'
           }`}>
             {isUser ? (
-              <User className="w-6 h-6 text-white" />
+              <User className="w-6 h-6 text-black" /> // Cambiado a negro
             ) : (
               <Bot className="w-6 h-6 text-gray-700" />
             )}
@@ -131,7 +128,7 @@ const FormoWeatherAIModerno = () => {
           <div className={`p-4 rounded-lg shadow-lg ${
             isUser ? 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
           }`}>
-            <p className="text-lg text-justify">{message.content}</p> {/* Aumentar tamaño y justificar */}
+            <p className="text-lg text-justify">{message.content}</p>
           </div>
         </div>
       </div>
@@ -158,8 +155,8 @@ const FormoWeatherAIModerno = () => {
       <header className="bg-blue-600 dark:bg-blue-800 text-white p-5 shadow-xl rounded-b-xl">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center">
-            <FaRobot className="w-8 h-8 mr-3 text-yellow-500" /> {/* Icono de robot */}
-            <h1 className="text-2xl font-semibold text-black">Hola, soy CIFOR IA, estoy aquí para ayudarte!</h1> {/* Título en negro */}
+            <FaRobot className="w-8 h-8 mr-3 text-yellow-500" />
+            <h1 className="text-2xl font-semibold text-black">Hola, soy CIFOR IA, estoy aquí para ayudarte</h1>
           </div>
           <div className="space-x-3">
             <button onClick={clearChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
@@ -175,11 +172,24 @@ const FormoWeatherAIModerno = () => {
         </div>
       </header>
 
-      <main className="flex-grow overflow-auto container mx-auto max-w-3xl px-5 py-6" style={{ paddingBottom: '80px' }}>
-        <div className="h-full space-y-4" ref={scrollAreaRef}>
-          {messages.map((message, index) => (
-            <ChatMessage key={index} message={message} />
-          ))}
+      <main className="flex-grow overflow-hidden">
+        <div className="container mx-auto max-w-3xl px-5 py-6">
+          {/* Contenedor de los mensajes con scroll */}
+          <div
+            className="overflow-y-auto"
+            ref={scrollAreaRef} // Aseguramos que este contenedor permita el scroll
+            style={{
+              overflowY: 'auto', // Activa el scroll vertical
+              maxHeight: 'calc(100vh - 200px)', // Ajustado para que el contenido quede por encima del footer
+              paddingBottom: '50px', // Aseguramos que no se tape por el footer
+            }}
+          >
+            {messages.map((message, index) => (
+              <ChatMessage key={index} message={message} />
+            ))}
+            {/* Aquí se asegura que siempre se desplace al último mensaje */}
+            <div ref={lastMessageRef} /> {/* Agregamos el ref al último mensaje */}
+          </div>
         </div>
       </main>
 
@@ -190,28 +200,23 @@ const FormoWeatherAIModerno = () => {
         </div>
       )}
 
-      {/* Fixed footer */}
+      {/* Footer con el input */}
       <footer className="bg-white dark:bg-gray-800 p-5 shadow-lg border-t fixed bottom-0 w-full">
-        <div className="container mx-auto max-w-3xl flex items-center space-x-3">
-          {/* Contenedor del input con el ícono */}
-          <div className="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 w-full">
-            {/* Cuadro de texto */}
-            <input
-              type="text"
-              placeholder="Pregunta sobre el tiempo..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
-              className="p-3 w-full rounded-l-lg border-0 focus:outline-none"
-            />
-            {/* Botón de enviar */}
-            <button
-              onClick={handleSend}
-              className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
-            >
-              <Send className="w-6 h-6 text-black" /> {/* Cambié el color del icono a negro */}
-            </button>
-          </div>
+        <div className="container mx-auto max-w-3xl flex items-center justify-between">
+          <input
+            type="text"
+            className="w-full p-3 rounded-l-lg bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none"
+            placeholder="Escribe tu consulta..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <button
+            onClick={handleSend}
+            className="p-3 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 transition"
+          >
+            <ArrowUpCircle className="w-6 h-6 text-black" /> {/* Icono de flecha levantada */}
+          </button>
         </div>
       </footer>
     </div>
