@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowUpCircle, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download, ChatBubble } from 'lucide-react';
+import { ArrowUpCircle, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download } from 'lucide-react';
 import { FaRobot } from 'react-icons/fa';
 
 const FormoWeatherAIModerno = () => {
@@ -23,6 +23,8 @@ const FormoWeatherAIModerno = () => {
 
   const loadResponse = async (query) => {
     setLoading(true);
+
+    console.log('Enviando consulta al servidor:', query); // Agregar el console.log aquí
 
     try {
       const res = await fetch('http://localhost:3000/api/model/consulta-data', {
@@ -216,15 +218,9 @@ const FormoWeatherAIModerno = () => {
           <div className="flex space-x-2">
             <button
               onClick={handleSend}
-              className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700"
+              className="p-3 bg-gray-200 text-gray-600 rounded-r-lg hover:bg-gray-300 transition relative"
             >
-              <ArrowUpCircle className="w-6 h-6 text-black" />
-            </button>
-            <button
-              onClick={handleSend} // Reutiliza el mismo handler para el envío
-              className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700"
-            >
-              <ChatBubble className="w-6 h-6 text-black" />
+              <ArrowUpCircle className="w-6 h-6 text-gray-600 absolute right-2 top-2" />
             </button>
           </div>
         </div>
