@@ -1,17 +1,15 @@
-'use client'
-
-import { useState } from 'react'
+import { useState } from 'react';
 import { Link } from "react-router-dom";
-import { motion } from 'framer-motion'
-import { Mail, Info, Target, Eye } from 'lucide-react'
+import { motion } from 'framer-motion';
+import { Mail, Info, Target, Eye } from 'lucide-react';
 
 const fadeIn = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.5 } }
-}
+};
 
 export default function AcercaDePage() {
-  const [activeTab, setActiveTab] = useState('general')
+  const [activeTab, setActiveTab] = useState('general');
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4">
@@ -31,8 +29,8 @@ export default function AcercaDePage() {
             onClick={() => setActiveTab('general')}
             className={`flex-1 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ${
               activeTab === 'general'
-                ? 'bg-blue-500 text-white border-blue-500 outline-none' // Botón activo
-                : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200' // Botón inactivo
+                ? 'bg-black text-white' // Botón activo: fondo negro, letra blanca
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200' // Botón inactivo
             }`}
           >
             General
@@ -41,8 +39,8 @@ export default function AcercaDePage() {
             onClick={() => setActiveTab('mision')}
             className={`flex-1 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ${
               activeTab === 'mision'
-                ? 'bg-blue-500 text-white border-blue-500 outline-none' // Botón activo
-                : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200' // Botón inactivo
+                ? 'bg-black text-white' // Botón activo: fondo negro, letra blanca
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200' // Botón inactivo
             }`}
           >
             Misión
@@ -51,8 +49,8 @@ export default function AcercaDePage() {
             onClick={() => setActiveTab('vision')}
             className={`flex-1 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ${
               activeTab === 'vision'
-                ? 'bg-blue-500 text-white border-blue-500 outline-none' // Botón activo
-                : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200' // Botón inactivo
+                ? 'bg-black text-white' // Botón activo: fondo negro, letra blanca
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200' // Botón inactivo
             }`}
           >
             Visión
@@ -127,5 +125,5 @@ export default function AcercaDePage() {
         </div>
       </motion.div>
     </div>
-  )
+  );
 }
