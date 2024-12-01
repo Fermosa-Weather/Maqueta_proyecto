@@ -47,13 +47,14 @@ export function Slider() {
                 <span
                   className="slider-link"
                   style={{
-                    border: '2px solid black',
+                    border: '2px solid #8A2BE2',  // Cambiar el borde a un violeta fuerte
                     borderRadius: '20px',
                     padding: '10px 20px',
-                    color: 'blueviolet',
+                    color: 'white',  // Cambiar el color del texto a blanco
+                    backgroundColor: '#8A2BE2',  // Fondo violeta fuerte
                     textDecoration: 'none',
                     fontWeight: 'bold',
-                    transition: 'background-color 0.3s ease'
+                    transition: 'background-color 0.3s ease',
                   }}
                 >
                   CONTACT US
