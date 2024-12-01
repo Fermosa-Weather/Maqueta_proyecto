@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowUpCircle, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download } from 'lucide-react'; // Cambié MessageCircle por ArrowUpCircle
-import { FaRobot } from 'react-icons/fa'; // Importar el icono de robot
+import { ArrowUpCircle, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download, ChatBubble } from 'lucide-react';
+import { FaRobot } from 'react-icons/fa';
 
 const FormoWeatherAIModerno = () => {
   const [query, setQuery] = useState('');
@@ -8,12 +8,12 @@ const FormoWeatherAIModerno = () => {
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('light');
   const scrollAreaRef = useRef(null);
-  const lastMessageRef = useRef(null);  // Ref para el último mensaje
+  const lastMessageRef = useRef(null); // Ref para el último mensaje
 
   useEffect(() => {
     // Desplazar al último mensaje cada vez que los mensajes cambien
     if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Desplazamiento suave hacia el último mensaje
+      lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }, [messages]);
 
@@ -23,7 +23,6 @@ const FormoWeatherAIModerno = () => {
 
   const loadResponse = async (query) => {
     setLoading(true);
-    console.log('Enviando consulta al servidor'); // Agregado para mostrar el mensaje en consola
 
     try {
       const res = await fetch('http://localhost:3000/api/model/consulta-data', {
@@ -94,7 +93,7 @@ const FormoWeatherAIModerno = () => {
   };
 
   const downloadChat = () => {
-    const chatContent = messages.map(msg => `${msg.type}: ${msg.content}`).join('\n\n');
+    const chatContent = messages.map((msg) => `${msg.type}: ${msg.content}`).join('\n\n');
     const blob = new Blob([chatContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -107,7 +106,7 @@ const FormoWeatherAIModerno = () => {
   };
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   const ChatMessage = ({ message }) => {
@@ -116,18 +115,24 @@ const FormoWeatherAIModerno = () => {
     return (
       <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
         <div className={`flex items-start max-w-[75%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-            isUser ? 'bg-blue-500 ml-2' : 'bg-gray-300 mr-2'
-          }`}>
+          <div
+            className={`w-10 h-10 rounded-full flex items-center justify-center ${
+              isUser ? 'bg-blue-500 ml-2' : 'bg-gray-300 mr-2'
+            }`}
+          >
             {isUser ? (
-              <User className="w-6 h-6 text-black" /> // Cambiado a negro
+              <User className="w-6 h-6 text-black" />
             ) : (
               <Bot className="w-6 h-6 text-gray-700" />
             )}
           </div>
-          <div className={`p-4 rounded-lg shadow-lg ${
-            isUser ? 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
-          }`}>
+          <div
+            className={`p-4 rounded-lg shadow-lg ${
+              isUser
+                ? 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100'
+                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
+            }`}
+          >
             <p className="text-lg text-justify">{message.content}</p>
           </div>
         </div>
@@ -156,7 +161,9 @@ const FormoWeatherAIModerno = () => {
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center">
             <FaRobot className="w-8 h-8 mr-3 text-yellow-500" />
-            <h1 className="text-2xl font-semibold text-black">Hola, soy CIFOR IA, estoy aquí para ayudarte</h1>
+            <h1 className="text-2xl font-semibold text-black">
+              Hola, soy CIFOR IA, estoy aquí para ayudarte
+            </h1>
           </div>
           <div className="space-x-3">
             <button onClick={clearChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
@@ -174,33 +181,28 @@ const FormoWeatherAIModerno = () => {
 
       <main className="flex-grow overflow-hidden">
         <div className="container mx-auto max-w-3xl px-5 py-6">
-          {/* Contenedor de los mensajes con scroll */}
           <div
-            className="overflow-y-auto"
-            ref={scrollAreaRef} // Aseguramos que este contenedor permita el scroll
+            className="overflow-y-auto relative mb-24" // Aquí aplicamos más espacio para el scroll debajo del footer
+            ref={scrollAreaRef}
             style={{
-              overflowY: 'auto', // Activa el scroll vertical
-              maxHeight: 'calc(100vh - 200px)', // Ajustado para que el contenido quede por encima del footer
-              paddingBottom: '50px', // Aseguramos que no se tape por el footer
+              maxHeight: 'calc(100vh - 180px)', // Ajuste para que el área de los mensajes sea más grande
+              paddingBottom: '200px', // Aumentar el espacio extra debajo de los mensajes
             }}
           >
             {messages.map((message, index) => (
               <ChatMessage key={index} message={message} />
             ))}
-            {/* Aquí se asegura que siempre se desplace al último mensaje */}
-            <div ref={lastMessageRef} /> {/* Agregamos el ref al último mensaje */}
+            <div ref={lastMessageRef} className="h-2" />
           </div>
         </div>
       </main>
 
-      {/* Indicador de carga sobre el contenido */}
       {loading && (
         <div className="flex justify-center p-4 absolute inset-x-0 bottom-20 z-10">
           <Loader className="w-8 h-8 text-blue-500 animate-spin" />
         </div>
       )}
 
-      {/* Footer con el input */}
       <footer className="bg-white dark:bg-gray-800 p-5 shadow-lg border-t fixed bottom-0 w-full">
         <div className="container mx-auto max-w-3xl flex items-center justify-between">
           <input
@@ -211,12 +213,20 @@ const FormoWeatherAIModerno = () => {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          <button
-            onClick={handleSend}
-            className="p-3 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 transition"
-          >
-            <ArrowUpCircle className="w-6 h-6 text-black" /> {/* Icono de flecha levantada */}
-          </button>
+          <div className="flex space-x-2">
+            <button
+              onClick={handleSend}
+              className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700"
+            >
+              <ArrowUpCircle className="w-6 h-6 text-black" />
+            </button>
+            <button
+              onClick={handleSend} // Reutiliza el mismo handler para el envío
+              className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700"
+            >
+              <ChatBubble className="w-6 h-6 text-black" />
+            </button>
+          </div>
         </div>
       </footer>
     </div>
