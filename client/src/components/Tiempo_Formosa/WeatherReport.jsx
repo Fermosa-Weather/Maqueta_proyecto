@@ -95,10 +95,13 @@ const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate
     'Showers': 'Aguaceros',
     'Freezing Rain': 'Lluvia Helada',
     'Sleet': 'Aguacero de Hielo',
+    'Rain, Overcast': 'Lluvia, Cubierto',
+    //'Rain, Partially cloudy':'Lluvia,Parcial',
   }[current.conditions] || current.conditions
   const conditionTranslations = {
     'Clear': 'Despejado',
     'Partially cloudy': 'Parcialmente Nublado',
+    'Rain, Partially cloudy':'Lluvia,Parcial',
     'Cloudy': 'Nublado',
     'Rain': 'Lluvia',
     'Rain, Overcast': 'Lluvia, Cubierto',

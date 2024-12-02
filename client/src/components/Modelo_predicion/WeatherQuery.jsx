@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowUpCircle, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download } from 'lucide-react';
 import { FaRobot } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 
 const FormoWeatherAIModerno = () => {
   const [query, setQuery] = useState('');
@@ -11,7 +12,6 @@ const FormoWeatherAIModerno = () => {
   const lastMessageRef = useRef(null); // Ref para el último mensaje
 
   useEffect(() => {
-    // Desplazar al último mensaje cada vez que los mensajes cambien
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
@@ -23,9 +23,6 @@ const FormoWeatherAIModerno = () => {
 
   const loadResponse = async (query) => {
     setLoading(true);
-
-    console.log('Enviando consulta al servidor:', query); // Agregar el console.log aquí
-
     try {
       const res = await fetch('http://localhost:3000/api/model/consulta-data', {
         method: 'POST',
@@ -167,13 +164,22 @@ const FormoWeatherAIModerno = () => {
               Hola, soy CIFOR IA, estoy aquí para ayudarte
             </h1>
           </div>
-          <div className="space-x-3">
+          <div className="space-x-3 flex items-center">
             <button onClick={clearChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
               <Trash className="w-5 h-5 text-gray-600" />
             </button>
             <button onClick={downloadChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
               <Download className="w-5 h-5 text-gray-600" />
             </button>
+
+            {/* Ver gráficos button with enhanced styles */}
+            <Link to="/chart">
+              <button className="flex items-center p-2 px-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg shadow-lg hover:bg-gradient-to-l transform transition duration-300 hover:scale-105">
+                <span className="mr-2">Ver gráficos</span>
+                <ArrowUpCircle className="w-5 h-5 text-white" />
+              </button>
+            </Link>
+
             <button onClick={toggleTheme} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
               {theme === 'light' ? 'Modo oscuro' : 'Modo claro'}
             </button>
@@ -184,11 +190,11 @@ const FormoWeatherAIModerno = () => {
       <main className="flex-grow overflow-hidden">
         <div className="container mx-auto max-w-3xl px-5 py-6">
           <div
-            className="overflow-y-auto relative mb-24" // Aquí aplicamos más espacio para el scroll debajo del footer
+            className="overflow-y-auto relative mb-24"
             ref={scrollAreaRef}
             style={{
-              maxHeight: 'calc(100vh - 180px)', // Ajuste para que el área de los mensajes sea más grande
-              paddingBottom: '200px', // Aumentar el espacio extra debajo de los mensajes
+              maxHeight: 'calc(100vh - 180px)',
+              paddingBottom: '200px',
             }}
           >
             {messages.map((message, index) => (
@@ -209,20 +215,18 @@ const FormoWeatherAIModerno = () => {
         <div className="container mx-auto max-w-3xl flex items-center justify-between">
           <input
             type="text"
-            className="w-full p-3 rounded-l-lg bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none"
-            placeholder="Escribe tu consulta..."
+            className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Escribe tu mensaje..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          <div className="flex space-x-2">
-            <button
-              onClick={handleSend}
-              className="p-3 bg-gray-200 text-gray-600 rounded-r-lg hover:bg-gray-300 transition relative"
-            >
-              <ArrowUpCircle className="w-6 h-6 text-gray-600 absolute right-2 top-2" />
-            </button>
-          </div>
+          <button
+            onClick={handleSend}
+            className="ml-2 bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700"
+          >
+            <ArrowUpCircle className="w-6 h-6 text-black" /> {/* Black arrow */}
+          </button>
         </div>
       </footer>
     </div>

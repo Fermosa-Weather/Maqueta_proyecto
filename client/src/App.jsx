@@ -20,6 +20,7 @@ import { Register } from './components/cuenta/Register';
 // Asegúrate de que la ruta sea correcta según tu estructura de carpetas
 import WeatherReport from './components/Tiempo_Formosa/WeatherReport';
 import MapaPrueba from './components/Mapa-Mobile/mapaPrueba';
+import WeatherChart from './components/Modelo_predicion/WeatherChart';
 
 function Rutas() {
   return (
@@ -41,6 +42,7 @@ function Rutas() {
         <Route path="/noticias" element={<Noticias />} /> 
         <Route path="/weatherreport" element={<WeatherReport />} /> {/* Nueva ruta para WeatherReport */}
         <Route path="/mapaprueba" element={<MapaPrueba />} /> {/* Nueva ruta para WeatherReport */}
+        <Route path="/chart" element={<WeatherChart />} /> {/* Nueva ruta para Chart */}
         <Route path="*" element={<Pag_404 />} />   
       </Routes>
     </Router>
