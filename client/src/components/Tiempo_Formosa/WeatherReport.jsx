@@ -95,6 +95,7 @@ const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate
     'Showers': 'Aguaceros',
     'Freezing Rain': 'Lluvia Helada',
     'Sleet': 'Aguacero de Hielo',
+    'Rain, Overcast': 'Lluvia, Cubierto',
   }[current.conditions] || current.conditions
   const conditionTranslations = {
     'Clear': 'Despejado',
