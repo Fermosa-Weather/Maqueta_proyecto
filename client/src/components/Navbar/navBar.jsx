@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import Perfil_modal from "../perfil/modal_perfil";
-import { Visibilidad_nav } from './visibilidad_nav';
+import { Visibilidad_nav } from "./visibilidad_nav";
 import "../../stilos/Plantilla_slider/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../stilos/Plantilla_slider/css/responsive.css";
@@ -13,16 +13,16 @@ import { fetchUserInfo } from "../Function/infoToken.tsx";
 
 export const NavBar = ({ onSearch }) => {
   const { isVisible, handleToggle } = Visibilidad_nav();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [userData, setUserData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       fetchUserInfo(token)
-        .then(data => setUserData(data))
-        .catch(error => console.error(error.message));
+        .then((data) => setUserData(data))
+        .catch((error) => console.error(error.message));
     } else {
       setUserData(null); // Set default state if no token
     }
@@ -44,22 +44,24 @@ export const NavBar = ({ onSearch }) => {
 
   const handleLogout = () => {
     Swal.fire({
-      title: '¿Estás seguro?',
-      text: '¿Quieres cerrar sesión?',
-      icon: 'warning',
+      title: "¿Estás seguro?",
+      text: "¿Quieres cerrar sesión?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, cerrar sesión',
-      cancelButtonText: 'Cancelar'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, cerrar sesión",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         // Elimina el token, cierra sesión y recarga la página
-        localStorage.removeItem('token');
+        localStorage.removeItem("token");
         setUserData(null);
-        Swal.fire('Se ha cerrado sesión correctamente', '', 'success').then(() => {
-          window.location.reload(); // Recarga la página después de cerrar sesión
-        });
+        Swal.fire("Se ha cerrado sesión correctamente", "", "success").then(
+          () => {
+            window.location.reload(); // Recarga la página después de cerrar sesión
+          }
+        );
       }
     });
   };
@@ -72,7 +74,11 @@ export const NavBar = ({ onSearch }) => {
             <div className="col-xl-8">
               <nav className="navbar navbar-expand-xl custom_nav-container">
                 <a className="navbar-brand" href="index.html">
-                  <img src="../../../src/images/logo-cifor.png" alt="logo" className="logo" />
+                  <img
+                    src="../../../src/images/logo-cifor.png"
+                    alt="logo"
+                    className="logo"
+                  />
                 </a>
 
                 <button
@@ -89,7 +95,10 @@ export const NavBar = ({ onSearch }) => {
                 </button>
 
                 {isVisible && (
-                  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                  <div
+                    className="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                  >
                     <div className="d-flex flex-column flex-xl-row align-items-center">
                       <ul className="navbar-nav">
                         <li className="nav-item active">
@@ -122,13 +131,17 @@ export const NavBar = ({ onSearch }) => {
                             <i className="bi bi-newspaper"></i> News
                           </Link>
                         </li>
-                    
+
                         {isModalOpen && <Perfil_modal onClose={closeModal} />}
                         <Search onSearch={handleSearch} />
 
                         {userData ? (
                           <li className="nav-item">
-                            <button className="nav-link logout-button" id="nav-item-left" onClick={handleLogout}>
+                            <button
+                              className="nav-link logout-button"
+                              id="nav-item-left"
+                              onClick={handleLogout}
+                            >
                               <i className="bi bi-box-arrow-right"></i>
                               <div className="logout-text">
                                 <span>sing</span>
@@ -138,25 +151,34 @@ export const NavBar = ({ onSearch }) => {
                           </li>
                         ) : (
                           <li className="nav-item">
-                            <Link className="nav-link" to="/cuenta" id="nav-item-left">
+                            <Link
+                              className="nav-link"
+                              to="/cuenta"
+                              id="nav-item-left"
+                            >
                               <i className="bi bi-person"></i> Cuenta
                             </Link>
                           </li>
                         )}
 
-                          <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
-                            <img
-                              src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
-                              alt="perfil"
-                              className="foto_perfil"
-                            />
-                          </a>
-
+                        <a
+                          className="navbar-brand"
+                          href="javascript:void(0)"
+                          onClick={openModal}
+                        >
+                          <img
+                            src={
+                              userData?.fotoUser ||
+                              "../../../src/images/usuario.jpg"
+                            }
+                            alt="perfil"
+                            className="foto_perfil"
+                          />
+                        </a>
                       </ul>
                     </div>
                   </div>
                 )}
-
               </nav>
             </div>
           </div>

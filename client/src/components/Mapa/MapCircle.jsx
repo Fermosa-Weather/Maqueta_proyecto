@@ -1,4 +1,3 @@
-// client/src/components/Mapa/MapCircle.jsx
 import React, { useState, useEffect } from "react";
 import {
   MapContainer,
@@ -10,21 +9,20 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios"; // Importamos Axios
+import axios from "axios";
 import { FormosaCityGeoJSON } from "./data/Departamentos.js";
-import "../../stilos/wheater.css";
 import StationInfo from "./stationInfo.jsx";
 
 const { BaseLayer, Overlay } = LayersControl;
 
 function MapWithCircles() {
-  const [circles, setCircles] = useState([]);
   const [stations, setStations] = useState([]);
   const [selectedStation, setSelectedStation] = useState(null);
+  const [stationData, setStationData] = useState([]);
+  const [token, setToken] = useState(null);
   const [averages, setAverages] = useState({
     temperature: 0,
     humidity: 0,
-    pressure: 0,
     windSpeed: 0,
     precipitation: 0,
   });
@@ -32,168 +30,154 @@ function MapWithCircles() {
   const formosaCenter = [-24.786927, -60.182694];
   const zoomLevel = 7;
 
-  // Obtener datos de las estaciones desde la API
+  // Obtener token al cargar
   useEffect(() => {
+    const loginAndGetToken = async () => {
+      try {
+        const { data } = await axios.post(
+          "https://ramf.formosa.gob.ar/api/auth/login",
+          {
+            email: "maximilianopietkiewicz04@gmail.com",
+            password: "Maxi45745",
+          }
+        );
+        setToken(data.token);
+      } catch (error) {
+        console.error("Error al obtener el token:", error);
+      }
+    };
+    loginAndGetToken();
+  }, []);
+
+  // Cargar estaciones al obtener token
+  useEffect(() => {
+    if (!token) return;
+
     const fetchStations = async () => {
       try {
-        const response = await axios.get(
-          "https://ramf.formosa.gob.ar/api/station"
+        const { data } = await axios.get(
+          "https://ramf.formosa.gob.ar/api/station",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
-        setStations(response.data); // Guardamos las estaciones en el estado
+        setStations(data);
       } catch (error) {
-        console.error("Error al obtener las estaciones:", error);
+        console.error("Error al cargar estaciones:", error);
       }
     };
     fetchStations();
-  }, []);
+  }, [token]);
 
-  // Calcular promedios
+  // Cargar datos de la estación seleccionada
+  useEffect(() => {
+    if (!selectedStation || !token) return;
+
+    const fetchStationData = async () => {
+      try {
+        const { data } = await axios.get(
+          `https://ramf.formosa.gob.ar/api/station-data/${station._id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setStationData(data);
+      } catch (error) {
+        console.error("Error al obtener los datos de la estación:", error);
+      }
+    };
+    fetchStationData();
+  }, [selectedStation, token]);
+
+  // Calcular promedios de estaciones
   useEffect(() => {
     if (stations.length > 0) {
-      const totalStations = stations.length;
-      const totalValues = stations.reduce(
-        (totals, station) => {
-          const { airTemp, rh, windSpeed, rain_last } = station.meta;
-          totals.temperature += airTemp || 0;
-          totals.humidity += rh || 0;
-          totals.windSpeed += windSpeed || 0;
-          totals.precipitation += rain_last || 0;
-          return totals;
-        },
+      const total = stations.length;
+      const totals = stations.reduce(
+        (acc, station) => ({
+          temperature: acc.temperature + (station.meta?.airTemp || 0),
+          humidity: acc.humidity + (station.meta?.rh || 0),
+          windSpeed: acc.windSpeed + (station.meta?.windSpeed || 0),
+          precipitation: acc.precipitation + (station.meta?.rain_last || 0),
+        }),
         { temperature: 0, humidity: 0, windSpeed: 0, precipitation: 0 }
       );
 
       setAverages({
-        temperature: (totalValues.temperature / totalStations).toFixed(2),
-        humidity: (totalValues.humidity / totalStations).toFixed(2),
-        windSpeed: (totalValues.windSpeed / totalStations).toFixed(2),
-        precipitation: (totalValues.precipitation / totalStations).toFixed(2),
+        temperature: (totals.temperature / total).toFixed(2),
+        humidity: (totals.humidity / total).toFixed(2),
+        windSpeed: (totals.windSpeed / total).toFixed(2),
+        precipitation: (totals.precipitation / total).toFixed(2),
       });
     }
   }, [stations]);
 
-  const handleMarkerClick = (station) => {
-    const circleExists = circles.some(
-      (circle) =>
-        circle.coords[0] === station.position.geo.coordinates[1] &&
-        circle.coords[1] === station.position.geo.coordinates[0]
-    );
-    if (circleExists) {
-      setCircles((prevCircles) =>
-        prevCircles.filter(
-          (circle) =>
-            circle.coords[0] !== station.position.geo.coordinates[1] ||
-            circle.coords[1] !== station.position.geo.coordinates[0]
-        )
-      );
-      setSelectedStation(null);
-    } else {
-      setCircles((prevCircles) => [
-        ...prevCircles,
-        {
-          coords: [
-            station.position.geo.coordinates[1],
-            station.position.geo.coordinates[0],
-          ],
-          color: "blue",
-        },
-      ]);
-      setSelectedStation(station);
-    }
-  };
-
   return (
     <div className="container-fluid">
-      <div className="row flex-column mapa">
-        <div className="col-md-12 mb-3 pl-4">
-          <MapContainer
-            center={formosaCenter}
-            zoom={zoomLevel}
-            style={{ height: "calc(87vh)", width: "100%", zIndex: 1 }}
-            zoomControl={true}
-          >
-            {/* Controles de capas */}
-            <LayersControl position="topright">
-              <BaseLayer checked name="Mapa de Calle">
+      <div className="row flex-column">
+        <MapContainer
+          center={formosaCenter}
+          zoom={zoomLevel}
+          style={{
+            height: "80vh",
+            width: "98%",
+            marginLeft: "17px",
+          }}
+          zoomControl={true}
+        >
+          <LayersControl position="topright">
+            <BaseLayer checked name="Mapa de Calle">
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+            </BaseLayer>
+            {[
+              "temp_new",
+              "precipitation_new",
+              "pressure_new",
+              "wind_new",
+              "clouds_new",
+            ].map((layer, idx) => (
+              <Overlay key={idx} name={`Capa ${layer}`} checked={idx === 0}>
                 <TileLayer
-                  zIndex={1}
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-              </BaseLayer>
-              <Overlay name="Mapa de Temperatura" checked>
-                <TileLayer
-                  zIndex={2}
-                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
-                  url="https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
-                />
-              </Overlay>
-              <Overlay name="Precipitación Global" checked>
-                <TileLayer
-                  zIndex={2}
-                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
-                  url="https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
-                />
-              </Overlay>
-              <Overlay name="Presión">
-                <TileLayer
-                  zIndex={2}
-                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
-                  url="https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
+                  attribution="&copy; OpenWeatherMap"
+                  url={`https://tile.openweathermap.org/map/${layer}/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69`}
                 />
               </Overlay>
-              <Overlay name="Velocidad del Viento">
-                <TileLayer
-                  zIndex={2}
-                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
-                  url="https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
-                />
-              </Overlay>
-              <Overlay name="Nubes">
-                <TileLayer
-                  zIndex={2}
-                  attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
-                  url="https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=e3dadbc788d4e55d0bc120577741bc69"
-                />
-              </Overlay>
-            </LayersControl>
-
-            {stations.map((station) => (
-              <Marker
-                key={station._id}
-                position={[
-                  station.position.geo.coordinates[1],
-                  station.position.geo.coordinates[0],
-                ]}
-                eventHandlers={{
-                  click: () => handleMarkerClick(station),
-                }}
-              >
-                <Popup>
-                  <div>
-                    <h3>{station.name.custom}</h3>
-                    <p>Temperatura: {station.meta.airTemp}°C</p>
-                  </div>
-                </Popup>
-              </Marker>
             ))}
-
-            <GeoJSON
-              data={FormosaCityGeoJSON}
-              style={{ color: "green", weight: 2 }}
-            />
-          </MapContainer>
-
-          {/* Aquí se agrega el componente StationInfo */}
-          {selectedStation && (
-            <StationInfo
-              stations={stations}
-              station={selectedStation}
-              averages={averages}
-            />
-          )}
-        </div>
+          </LayersControl>
+          {stations.map((station) => (
+            <Marker
+              key={station._id}
+              position={[
+                station.position.geo.coordinates[1],
+                station.position.geo.coordinates[0],
+              ]}
+              eventHandlers={{
+                click: () => setSelectedStation(station),
+              }}
+            >
+              <Popup>
+                <div>
+                  <h4>{station.name?.custom || "Estación sin nombre"}</h4>
+                  <p>Temperatura: {station.meta?.airTemp || "N/A"} °C</p>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+          <GeoJSON
+            data={FormosaCityGeoJSON}
+            style={{ color: "green", weight: 2 }}
+          />
+        </MapContainer>
       </div>
+      <StationInfo
+        stations={stations}
+        station={selectedStation}
+        stationData={stationData}
+        averages={averages}
+      />
     </div>
   );
 }

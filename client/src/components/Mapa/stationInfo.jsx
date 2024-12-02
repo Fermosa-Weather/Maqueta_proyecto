@@ -1,111 +1,184 @@
 import React, { useState, useEffect } from "react";
+import {
+  Chart as ChartJS,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Legend,
+  Tooltip,
+} from "chart.js";
 import { Line } from "react-chartjs-2";
 import { Widget } from "./Widget.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../../src/stilos/stacion_info.css";
+import { stationDataById } from "./data/stationDataById.js";
 
-const defaultStation = {
-  id: 0,
-  coords: [-25.2637, -58.5973],
-  name: "Información General de Formosa",
-  color: "blue",
-  info: "Esta vista muestra información climática general de la provincia de Formosa.",
-  temperature: 29,
-  humidity: 70,
-  pressure: 1010,
-  windSpeed: 12,
-  precipitation: 1,
-};
+ChartJS.register(
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Title,
+  Legend,
+  Tooltip
+);
 
 const StationInfo = ({ stations = [], station, averages }) => {
-  const [selectedStation, setSelectedStation] = useState(station || defaultStation);
+  const [selectedStation, setSelectedStation] = useState(station || {});
+  const [selectedVariable, setSelectedVariable] = useState("temperature");
 
   useEffect(() => {
-    console.log("Estaciones recibidas:", stations);
-    console.log("Datos de estación seleccionada:", selectedStation);
-    setSelectedStation(station || defaultStation);
-  }, [station, stations]);
+    setSelectedStation(station || {});
+  }, [station]);
 
-  const handleSelectChange = (event) => {
+  const handleStationChange = (event) => {
     const selectedId = event.target.value;
-    const newStation =
-      stations.find((st) => st._id === selectedId) || defaultStation;
-    setSelectedStation(newStation);
+    if (selectedId === "general") {
+      setSelectedStation({
+        _id: "general",
+        name: { custom: "Seleccione una estación" },
+      });
+    } else {
+      const newStation = stations.find((st) => st._id === selectedId) || {};
+      setSelectedStation(newStation);
+    }
   };
 
-  const renderChart = (station) => ({
-    labels: [
-      "Temperatura",
-      "Humedad",
-      "Radio Solar",
-      "Vel. Viento",
-      "Precipitación",
-    ],
+  const handleVariableChange = (event) => {
+    setSelectedVariable(event.target.value);
+  };
+
+  const data =
+    stationDataById[selectedStation._id]?.map((entry) => ({
+      date: entry.date,
+      value: entry[selectedVariable],
+    })) || [];
+
+  const chartData = {
+    labels: data.map((entry) => entry.date),
     datasets: [
       {
-        label: station.name,
-        data: [
-          station.meta?.airTemp,
-          station.meta?.rh,
-          station.meta?.solarRadiation,
-          station.meta?.windSpeed,
-          station.meta?.rain_last,
-        ],
+        label: `${selectedVariable} de ${
+          selectedStation.name?.custom ||
+          selectedStation.name?.original ||
+          "Estación"
+        }`,
+        data: data.map((entry) => entry.value),
         borderColor: "rgba(75, 192, 192, 1)",
         backgroundColor: "rgba(75, 192, 192, 0.2)",
-        tension: 0.4,
+        borderWidth: 3,
+        pointRadius: 5,
+        pointHoverRadius: 7,
       },
     ],
-  });
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => `${context.raw} (${selectedVariable})`,
+        },
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Fechas ",
+          color: "#333",
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: `${selectedVariable}`,
+          color: "#333",
+        },
+      },
+    },
+  };
 
   return (
     <div className="panel">
-      <div className="dropdown-container">
+      <div className="dropdown-container" style={{ marginBottom: "1rem" }}>
         <select
           className="dropdown"
           value={selectedStation._id || ""}
-          onChange={handleSelectChange}
+          onChange={handleStationChange}
+          style={{ marginRight: "1rem", color: "black" }}
         >
-          <option value="">{defaultStation.name}</option>
+          <option value="general">Seleccione una estación</option>
           {stations.map((st) => (
             <option key={st._id} value={st._id}>
-              {st.name?.custom || st.name || "Estación sin nombre"}
+              {st.name?.custom || st.name?.original || "Estación sin nombre"}
             </option>
           ))}
+        </select>
+        <select
+          className="dropdown"
+          value={selectedVariable}
+          onChange={handleVariableChange}
+          style={{ color: "black" }}
+        >
+          <option value="temperature">Temperatura (°C)</option>
+          <option value="humidity">Humedad (%)</option>
+          <option value="solarRadiation">Radiación Solar (W/m²)</option>
+          <option value="windSpeed">Velocidad del Viento (m/s)</option>
+          <option value="precipitation">Precipitación (mm)</option>
         </select>
       </div>
       <div className="content-container">
         <Widget selectedStation={selectedStation} averages={averages} />
         <div className="chart-container">
-          <Line data={renderChart(selectedStation)} />
+          {data.length > 0 ? (
+            <Line data={chartData} options={options} />
+          ) : (
+            <p className="text-black">
+              No hay datos disponibles para mostrar el gráfico.
+            </p>
+          )}
         </div>
       </div>
       <div className="table-container">
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Temperatura (°C)</th>
-              <th>Humedad (%)</th>
-              <th>Radiación solar (W/m²)</th>
-              <th>Vel. Viento (m/s)</th>
-              <th>Precipitación (mm)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{selectedStation.meta?.airTemp || averages.temperature}</td>
-              <td>{selectedStation.meta?.rh || averages.humidity}</td>
-              <td>
-                {selectedStation.meta?.solarRadiation ||
-                  averages.solarRadiation}
-              </td>
-              <td>{selectedStation.meta?.windSpeed || averages.windSpeed}</td>
-              <td>
-                {selectedStation.meta?.rain_last || averages.precipitation}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="scrollable-table">
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Temperatura (°C)</th>
+                <th>Humedad (%)</th>
+                <th>Radiación Solar (W/m²)</th>
+                <th>Velocidad del Viento (m/s)</th>
+                <th>Precipitación (mm)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stationDataById[selectedStation._id]?.map((data, index) => (
+                <tr key={index}>
+                  <td>{data.date}</td>
+                  <td>{data.temperature} °C</td>
+                  <td>{data.humidity}%</td>
+                  <td>{data.solarRadiation} W/m²</td>
+                  <td>{data.windSpeed} m/s</td>
+                  <td>{data.precipitation} mm</td>
+                </tr>
+              )) || (
+                <tr>
+                  <td colSpan="6" className="text-center">
+                    No hay datos disponibles para esta estación.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

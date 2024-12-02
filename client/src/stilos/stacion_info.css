@@ -1,53 +1,57 @@
-/* Asegura que el contenedor de la estación tenga un alto límite y se pueda desplazar */
 .panel {
   background-color: #f0f4f8;
   border-radius: 10px;
   padding: 20px;
-  margin: 20px auto;
-  max-width: 2000px;
+  margin: 5px auto;
+  max-width: 100%;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-height: calc(100vh - 100px); /* Asegura que el panel no exceda la altura de la ventana */
-  overflow-y: auto; /* Permite desplazamiento en caso de contenido grande */
+  gap: 10px;
+  margin-left: 5px;
 }
 
-/* Ajusta el contenedor de la tabla y el gráfico dentro del panel */
 .content-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 30px;
   justify-content: center;
   align-items: center;
 }
 
-/* Asegura que el gráfico tenga un tamaño adecuado */
 .chart-container {
   flex: 1;
   min-width: 400px;
   max-width: 600px;
 }
 
-/* La tabla se ajusta al ancho disponible */
 .table-container {
   width: 100%;
   margin-top: 20px;
-  overflow-x: auto; /* Añade desplazamiento horizontal si es necesario */
 }
 
-/* Estilo para el selector de estación */
+.dropdown-container {
+  display: flex;
+  justify-content: flex-start; /* Opcional: Alinea los elementos a la izquierda */
+  align-items: center; /* Alinea verticalmente los selectores */
+  gap: 1rem; /* Espaciado entre los selectores */
+  margin-bottom: 1rem;
+}
+
 .dropdown-container select {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 1rem;
-  color: black; /* Asegura que las palabras del menú estén en negro */
-  background-color: white; /* Fondo blanco para mayor contraste */
+  color: black;
 }
 
-/* Opciones del menú desplegable */
-.dropdown-container select option {
-  color: black; /* Asegura que las opciones del menú también estén en negro */
-  background-color: white; /* Mantiene el fondo blanco en las opciones */
+.scrollable-table {
+  max-height: 400px; /* Ajusta según el tamaño que desees */
+  overflow-y: auto; /* Agrega scroll vertical */
+  border: 1px solid #ccc; /* Opcional: un borde para delimitar el área */
+}
+
+.table-container {
+  margin: 20px 0; /* Espaciado opcional */
 }
