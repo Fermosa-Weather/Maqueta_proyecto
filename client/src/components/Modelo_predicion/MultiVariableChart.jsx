@@ -61,6 +61,24 @@ const MultiVariableChart = () => {
     ],
   };
 
+  const additionalCharts = [
+    {
+      label: "Lluvia 1h (mm)",
+      data: data.map(station => station.data.rain1h),
+      backgroundColor: 'rgba(255, 159, 64, 0.6)',
+    },
+    {
+      label: "Lluvia Actual (mm)",
+      data: data.map(station => station.data.rainCurrentDay),
+      backgroundColor: 'rgba(153, 102, 255, 0.6)',
+    },
+    {
+      label: "Velocidad del viento (m/s)",
+      data: data.map(station => station.data.windSpeed),
+      backgroundColor: 'rgba(255, 159, 64, 0.6)',
+    }
+  ];
+
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -120,7 +138,7 @@ const MultiVariableChart = () => {
         </div>
       </div>
 
-      {/* Botón para mostrar/ocultar el panel de información */}
+      {/* Botón de más información fijo en la parte superior */}
       <div style={styles.toggleButtonContainer}>
         <button onClick={toggleInfo} style={styles.toggleButton}>
           {isInfoVisible ? 'Ocultar información' : 'Mostrar información'}
@@ -130,6 +148,32 @@ const MultiVariableChart = () => {
       {/* Panel de información */}
       <div style={{ ...styles.weatherPanel, display: isInfoVisible ? 'block' : 'none' }}>
         <WeatherDisplay weatherData={data} />
+      </div>
+
+      {/* Gráficos adicionales */}
+      <div style={styles.additionalCharts}>
+        {additionalCharts.map((chart, index) => (
+          <div key={index} style={styles.chartSection}>
+            <h3 style={styles.chartTitle}>{chart.label}</h3>
+            <div style={styles.chartWrapper}>
+              <Chart
+                type="bar"
+                data={{
+                  labels: data.map(station => station.date),
+                  datasets: [{
+                    label: chart.label,
+                    data: chart.data,
+                    backgroundColor: chart.backgroundColor,
+                    borderColor: 'rgba(0, 0, 0, 0.1)',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                  }],
+                }}
+                options={chartOptions}
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -143,7 +187,7 @@ const WeatherDisplay = ({ weatherData }) => {
 
   return (
     <div style={weatherDisplayStyles}>
-      <h1>Información sobre el pronostico del tiempo</h1>
+      <h1>Información sobre el pronóstico del tiempo</h1>
       {weatherData.map((station) => (
         <StationInfo key={station.station_id} station={station} />
       ))}
@@ -202,12 +246,12 @@ const stationTextStyles = {
 const styles = {
   container: {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
     padding: '20px',
   },
   chartSection: {
-    width: '70%',
-    marginRight: '20px',
+    width: '100%',
+    marginBottom: '20px',
     backgroundColor: '#fff',
     padding: '20px',
     borderRadius: '10px',
@@ -226,32 +270,36 @@ const styles = {
   },
   loading: {
     textAlign: 'center',
-    fontSize: '18px',
-    color: '#888',
-    marginTop: '50px',
-  },
-  weatherPanel: {
-    width: '28%',
-    backgroundColor: '#f4f4f9',
-    padding: '20px',
-    borderRadius: '10px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    overflowY: 'auto',
-    transition: 'transform 0.3s ease-in-out',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#3498db',
   },
   toggleButtonContainer: {
-    marginBottom: '10px',
-    textAlign: 'center',
+    position: 'sticky',
+    top: '0',
+    right: '10px',
+    zIndex: 10,
+    padding: '10px',
   },
   toggleButton: {
-    padding: '10px',
     backgroundColor: '#3498db',
     color: '#fff',
     border: 'none',
+    padding: '10px 20px',
+    fontSize: '16px',
     borderRadius: '5px',
     cursor: 'pointer',
-    fontSize: '16px',
   },
+  weatherPanel: {
+    marginTop: '20px',
+    padding: '20px',
+    backgroundColor: '#f9f9f9',
+    borderRadius: '10px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+  },
+  additionalCharts: {
+    marginTop: '40px',
+  }
 };
 
 export default MultiVariableChart;
