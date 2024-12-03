@@ -11,6 +11,14 @@ const FormoWeatherAIModerno = () => {
   const scrollAreaRef = useRef(null);
   const lastMessageRef = useRef(null); // Ref para el último mensaje
 
+  // Cargar mensajes desde localStorage al montar el componente
+  useEffect(() => {
+    const storedMessages = JSON.parse(localStorage.getItem('chatMessages'));
+    if (storedMessages) {
+      setMessages(storedMessages);
+    }
+  }, []);
+
   useEffect(() => {
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -20,6 +28,13 @@ const FormoWeatherAIModerno = () => {
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
+
+  // Guardar mensajes en localStorage cada vez que se actualizan
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem('chatMessages', JSON.stringify(messages));
+    }
+  }, [messages]);
 
   const loadResponse = async (query) => {
     setLoading(true);
@@ -89,6 +104,7 @@ const FormoWeatherAIModerno = () => {
 
   const clearChat = () => {
     setMessages([]);
+    localStorage.removeItem('chatMessages'); // Limpiar los mensajes de localStorage
   };
 
   const downloadChat = () => {
@@ -215,17 +231,17 @@ const FormoWeatherAIModerno = () => {
         <div className="container mx-auto max-w-3xl flex items-center justify-between">
           <input
             type="text"
-            className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Escribe tu mensaje..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
+            placeholder="Escribe tu consulta..."
+            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
           />
           <button
             onClick={handleSend}
-            className="ml-2 bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700"
+            className="ml-2 p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
           >
-            <ArrowUpCircle className="w-6 h-6 text-black" /> {/* Black arrow */}
+            <ArrowUpCircle className="w-6 h-6 text-black" />
           </button>
         </div>
       </footer>
