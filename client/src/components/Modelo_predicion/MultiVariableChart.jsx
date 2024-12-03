@@ -63,11 +63,6 @@ const MultiVariableChart = () => {
 
   const additionalCharts = [
     {
-      label: "Lluvia 1h (mm)",
-      data: data.map(station => station.data.rain1h),
-      backgroundColor: 'rgba(255, 159, 64, 0.6)',
-    },
-    {
       label: "Lluvia Actual (mm)",
       data: data.map(station => station.data.rainCurrentDay),
       backgroundColor: 'rgba(153, 102, 255, 0.6)',
@@ -138,19 +133,16 @@ const MultiVariableChart = () => {
         </div>
       </div>
 
-      {/* Botón de más información fijo en la parte superior */}
       <div style={styles.toggleButtonContainer}>
         <button onClick={toggleInfo} style={styles.toggleButton}>
           {isInfoVisible ? 'Ocultar información' : 'Mostrar información'}
         </button>
       </div>
 
-      {/* Panel de información */}
       <div style={{ ...styles.weatherPanel, display: isInfoVisible ? 'block' : 'none' }}>
         <WeatherDisplay weatherData={data} />
       </div>
 
-      {/* Gráficos adicionales */}
       <div style={styles.additionalCharts}>
         {additionalCharts.map((chart, index) => (
           <div key={index} style={styles.chartSection}>
@@ -223,7 +215,6 @@ const StationInfo = ({ station }) => {
   );
 };
 
-// Estilos
 const stationStyles = {
   backgroundColor: '#f4f4f4',
   margin: '10px 0',
