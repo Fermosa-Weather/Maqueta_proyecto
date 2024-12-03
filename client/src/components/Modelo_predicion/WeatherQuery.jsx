@@ -38,6 +38,7 @@ const FormoWeatherAIModerno = () => {
 
   const loadResponse = async (query) => {
     setLoading(true);
+    console.log("Enviando consulta al servidor...");  // Agregado aquí
     try {
       const res = await fetch('http://localhost:3000/api/model/consulta-data', {
         method: 'POST',
