@@ -40,7 +40,7 @@ const FormoWeatherAIModerno = () => {
     setLoading(true);
     console.log("Enviando consulta al servidor...");  // Agregado aquí
     try {
-      const res = await fetch('http://localhost:3000/api/model/consulta-data', {
+      const res = await fetch('http://localhost:3000/api/model/consulta', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ consulta: query }),
@@ -178,7 +178,7 @@ const FormoWeatherAIModerno = () => {
           <div className="flex items-center">
             <FaRobot className="w-8 h-8 mr-3 text-yellow-500" />
             <h1 className="text-2xl font-semibold text-black">
-              Hola, soy CIFOR IA, estoy aquí para ayudarte
+              Hola, soy CIFOR IA, estoy aquí para ayudarte!
             </h1>
           </div>
           <div className="space-x-3 flex items-center">
