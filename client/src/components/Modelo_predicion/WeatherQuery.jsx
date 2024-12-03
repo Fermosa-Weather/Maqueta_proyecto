@@ -190,7 +190,7 @@ const FormoWeatherAIModerno = () => {
             </button>
 
             {/* Ver gráficos button with enhanced styles */}
-            <Link to="/chart">
+            <Link to="/multiVariablechart">
               <button className="flex items-center p-2 px-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg shadow-lg hover:bg-gradient-to-l transform transition duration-300 hover:scale-105">
                 <span className="mr-2">Ver gráficos</span>
                 <ArrowUpCircle className="w-5 h-5 text-white" />

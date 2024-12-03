@@ -1,0 +1,340 @@
+[{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e2c"
+  },
+  "station_id": "01a78411-4b34-4f17-9c48-aea9a3e91635",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:01.000Z"
+    },
+    "temperature": 19.54,
+    "humidity": 99.65,
+    "rain1h": null,
+    "rain24h": 23,
+    "rainCurrentDay": 23,
+    "windSpeed": null,
+    "battery": 6599,
+    "solarPanel": null,
+    "location": {
+      "latitude": -26.257498,
+      "longitude": -59.354824
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e2d"
+  },
+  "station_id": "1b8a2714-7754-47f5-a1f9-f1d7a3184b73",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:01.000Z"
+    },
+    "temperature": 20.48,
+    "humidity": 72.44,
+    "rain1h": null,
+    "rain24h": 2.2,
+    "rainCurrentDay": 2.2,
+    "windSpeed": 1,
+    "battery": 6545,
+    "solarPanel": null,
+    "location": {
+      "latitude": -24.271162,
+      "longitude": -61.24392
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e2e"
+  },
+  "station_id": "f5077591-444c-4b34-b1d6-28c070c785dd",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:01.000Z"
+    },
+    "temperature": 20.29,
+    "humidity": 86.73,
+    "rain1h": null,
+    "rain24h": 23,
+    "rainCurrentDay": 23,
+    "windSpeed": 0.5,
+    "battery": 6559,
+    "solarPanel": null,
+    "location": {
+      "latitude": -26.080884,
+      "longitude": -58.276228
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e2f"
+  },
+  "station_id": "df067c3c-9f3b-448c-88b8-ada599be038c",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:01.000Z"
+    },
+    "temperature": 19.8,
+    "humidity": 99.86,
+    "rain1h": null,
+    "rain24h": 30.2,
+    "rainCurrentDay": 30.2,
+    "windSpeed": 0.5,
+    "battery": 6514,
+    "solarPanel": null,
+    "location": {
+      "latitude": -24.988326,
+      "longitude": -58.858636
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e30"
+  },
+  "station_id": "18783ac7-de6d-44cf-93ec-5fdfc2e12edf",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:01.000Z"
+    },
+    "temperature": 20.41,
+    "humidity": 91.86,
+    "rain1h": null,
+    "rain24h": 54.4,
+    "rainCurrentDay": 54.4,
+    "windSpeed": 0.8,
+    "battery": 6622,
+    "solarPanel": null,
+    "location": {
+      "latitude": -25.216602,
+      "longitude": -59.835392
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e31"
+  },
+  "station_id": "1d4de211-8c72-459e-baa8-1b511a1cb556",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:01.000Z"
+    },
+    "temperature": 19.76,
+    "humidity": 87.58,
+    "rain1h": null,
+    "rain24h": 11.2,
+    "rainCurrentDay": 11.2,
+    "windSpeed": 0.5,
+    "battery": 6596,
+    "solarPanel": null,
+    "location": {
+      "latitude": -24.666212,
+      "longitude": -60.560968
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e32"
+  },
+  "station_id": "4d03f3a6-0f2c-425b-98e1-2082b0bed486",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:01.000Z"
+    },
+    "temperature": 19.55,
+    "humidity": 75.44,
+    "rain1h": null,
+    "rain24h": 0,
+    "rainCurrentDay": 0,
+    "windSpeed": 1.1,
+    "battery": 6474,
+    "solarPanel": null,
+    "location": {
+      "latitude": -23.1877,
+      "longitude": -62.041648
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e33"
+  },
+  "station_id": "e7ad3b99-4d02-4d75-b040-324f27e8047a",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:02.000Z"
+    },
+    "temperature": 20.11,
+    "humidity": 95.64,
+    "rain1h": null,
+    "rain24h": 17.8,
+    "rainCurrentDay": 17.8,
+    "windSpeed": 0.9,
+    "battery": 6582,
+    "solarPanel": null,
+    "location": {
+      "latitude": -26.238464,
+      "longitude": -58.63936
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e34"
+  },
+  "station_id": "424c082c-85b5-450b-a5c9-0350ec467e34",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:01.000Z"
+    },
+    "temperature": 21.11,
+    "humidity": 89.73,
+    "rain1h": null,
+    "rain24h": 12.4,
+    "rainCurrentDay": 12.4,
+    "windSpeed": 0.6,
+    "battery": 6511,
+    "solarPanel": null,
+    "location": {
+      "latitude": -25.108568,
+      "longitude": -58.286668
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674e75f12ab18c8864c08e35"
+  },
+  "station_id": "d81bacf8-1f8a-46b7-9130-4d251bd97f08",
+  "date": "2024-12-03",
+  "data": {
+    "timestamp": {
+      "$date": "2024-12-03T02:30:01.000Z"
+    },
+    "temperature": 20.64,
+    "humidity": 94.49,
+    "rain1h": null,
+    "rain24h": 94.2,
+    "rainCurrentDay": 94.2,
+    "windSpeed": 0.4,
+    "battery": 6505,
+    "solarPanel": null,
+    "location": {
+      "latitude": -25.363924,
+      "longitude": -58.286608
+    },
+    "warnings": [
+      {
+        "sensors": [],
+        "sms_numbers": []
+      }
+    ],
+    "sensors": [],
+    "sms_numbers": [],
+    "licenses": false
+  },
+  "__v": 0
+}]
