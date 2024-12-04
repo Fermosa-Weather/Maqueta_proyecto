@@ -1,14 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
 import WeatherData from "../model/WeatherData.js";
 
+// Función para manejar el prompt de la consulta del usuario
 export async function prompt(req, res) {
-    const { consulta } = req.body;
-    try {
-        // Llamamos a la función obtener para obtener los datos del clima
-        const obtenerDatos = await obtener();
-        console.log('Datos obtenidos para la consulta:', obtenerDatos); // Log adicional para verificar los datos obtenidos
+    const { consulta, provincia } = req.body;
 
-        // Hacemos la petición a la API de generación (ejemplo: GPT-3 o similar)
+    try {
+        // Obtener los datos de clima
+        const obtenerDatos = await obtener(provincia);
+
+        // Hacer la petición a la API externa
         const peticion = await fetch('http://127.0.0.1:11434/api/generate', {
             method: "POST",
             headers: {
@@ -16,7 +17,7 @@ export async function prompt(req, res) {
             },
             body: JSON.stringify({
                 model: "cm-model",
-                prompt: "Estos son los datos del clima de hoy: " + obtenerDatos + " esta es la consulta del usuario: " + consulta,
+                prompt: `Estos son los datos del clima de hoy: ${obtenerDatos}. Esta es la consulta del usuario: ${consulta}`,
                 num_keep: 1,
             }),
         });
@@ -42,7 +43,10 @@ export async function prompt(req, res) {
                 const endBracketIndex = accumulatedJSON.indexOf("}", startBracketIndex);
                 if (endBracketIndex === -1) break;
 
-                const jsonString = accumulatedJSON.slice(startBracketIndex, endBracketIndex + 1);
+                const jsonString = accumulatedJSON.slice(
+                    startBracketIndex,
+                    endBracketIndex + 1,
+                );
                 try {
                     const responseObject = JSON.parse(jsonString);
                     const responseValue = responseObject.response;
@@ -62,7 +66,6 @@ export async function prompt(req, res) {
         res.end();
 
     } catch (error) {
-        console.error('Error al realizar la petición:', error);
         return res.status(500).json({
             status: 500,
             message: "Error interno del servidor!"
@@ -84,7 +87,6 @@ export async function obtenerYGuardarDatosClima(req, res) {
 
     try {
         // Llamadas paralelas a ambas APIs
-        console.log('Realizando las llamadas a las APIs...');
         const [api1Response, api2Response] = await Promise.all([
             fetch('https://ramf.formosa.gob.ar/api/station'),
             fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/formosa%20argentina?unitGroup=metric&key=UMQ9KWF37S9T6WL8J4WLN5Q23&contentType=json')
@@ -94,10 +96,6 @@ export async function obtenerYGuardarDatosClima(req, res) {
             api1Response.json(),
             api2Response.json()
         ]);
-
-        // Verificar que los datos de ambas APIs llegaron correctamente
-        console.log('Datos de la API 1 (ramf):', api1Data);
-        console.log('Datos de la API 2 (Visual Crossing):', api2Data);
 
         // Procesamos los datos de la API 1
         const datosApi1 = api1Data.map((dato) => ({
@@ -144,22 +142,18 @@ export async function obtenerYGuardarDatosClima(req, res) {
             },
         };
 
-        // Calculamos el promedio de los datos de ambas APIs
-        const averagedData = {
-            date: today,
+        // Combinamos los datos de ambas APIs
+        const combinedData = datosApi1.map((dato) => ({
+            ...dato,
             data: {
-                temperature: (datosApi1[0].data.temperature + datosApi2.data.temperature) / 2,
-                humidity: (datosApi1[0].data.humidity + datosApi2.data.humidity) / 2,
-                rain1h: (datosApi1[0].data.rain1h + datosApi2.data.precipitation) / 2,
-                rain24h: (datosApi1[0].data.rain24h + datosApi2.data.precipitation) / 2,
-                windSpeed: (datosApi1[0].data.windSpeed + datosApi2.data.windSpeed) / 2,
-                windDirection: (datosApi1[0].data.windDirection + datosApi2.data.windDirection) / 2,
+                ...dato.data,
+                additionalDataFromVisualCrossing: datosApi2.data, // Enlaza datos adicionales de Visual Crossing
             },
-        };
+        }));
 
-        // Guardamos los datos promediados en la base de datos
-        const savedData = await WeatherData.insertMany([averagedData]);
-        console.log('Datos de clima promediados guardados en la base de datos');
+        // Guardamos los datos en la base de datos
+        const savedData = await WeatherData.insertMany(combinedData);
+        console.log('Datos de clima guardados en la base de datos');
         return res.json(savedData);
 
     } catch (error) {
@@ -168,7 +162,8 @@ export async function obtenerYGuardarDatosClima(req, res) {
     }
 }
 
-export async function obtener() {
+// Función para obtener los datos del clima para una provincia específica
+export async function obtener(provincia = 'formosa%20argentina') {
     const today = new Date().toISOString().split('T')[0];
 
     // Verificamos si ya existen los datos de hoy
@@ -186,7 +181,6 @@ export async function obtener() {
             rain24h: dato.data.rain24h,
             windSpeed: dato.data.windSpeed,
         }));
-        console.log('Resumen de datos de clima de hoy:', summary);
         return JSON.stringify(summary);
     } else {
         console.log('No se encontraron datos de clima de hoy. Realizando el fetch...');
@@ -195,17 +189,15 @@ export async function obtener() {
             // Llamadas paralelas a ambas APIs
             const [api1Response, api2Response] = await Promise.all([
                 fetch('https://ramf.formosa.gob.ar/api/station'),
-                fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/formosa%20argentina?unitGroup=metric&key=UMQ9KWF37S9T6WL8J4WLN5Q23&contentType=json')
+                fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' + provincia + '?unitGroup=metric&key=UMQ9KWF37S9T6WL8J4WLN5Q23&contentType=json'),
             ]);
 
             const [api1Data, api2Data] = await Promise.all([
                 api1Response.json(),
-                api2Response.json()
+                api2Response.json(),
             ]);
 
-            console.log('Datos de la API 1 (ramf):', api1Data);
-            console.log('Datos de la API 2 (Visual Crossing):', api2Data);
-
+            // Procesamos datos de la API 1
             const datosApi1 = api1Data.map((dato) => ({
                 station_id: uuidv4(),
                 date: today,
@@ -220,10 +212,10 @@ export async function obtener() {
                         latitude: dato.position?.geo?.coordinates[1] || null,
                         longitude: dato.position?.geo?.coordinates[0] || null,
                     },
-                    warnings: dato.warnings || [],
                 },
             }));
 
+            // Procesamos datos de la API 2 (Visual Crossing)
             const currentConditions = api2Data.currentConditions;
             const datosApi2 = {
                 station_id: uuidv4(),
@@ -249,11 +241,24 @@ export async function obtener() {
                 },
             };
 
-            return JSON.stringify(datosApi2);
+            // Combinamos los datos de ambas APIs
+            const combinedData = datosApi1.map((dato) => ({
+                ...dato,
+                data: {
+                    ...dato.data,
+                    additionalDataFromVisualCrossing: datosApi2.data,
+                },
+            }));
+
+            // Guardamos los datos en la base de datos
+            const savedData = await WeatherData.insertMany(combinedData);
+            console.log('Datos de clima guardados en la base de datos');
+
+            return JSON.stringify(savedData);
 
         } catch (error) {
-            console.error('Error al realizar el fetch de los datos del clima:', error);
-            return 'No se pudieron obtener datos del clima';
+            console.error('Error al obtener los datos de clima:', error);
+            return 'Error al obtener los datos';
         }
     }
 }

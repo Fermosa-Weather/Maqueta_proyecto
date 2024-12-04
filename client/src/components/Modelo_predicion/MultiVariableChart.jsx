@@ -1,296 +1,310 @@
-import React, { useEffect, useState } from 'react';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Legend } from 'chart.js';
-import { Chart } from 'react-chartjs-2';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  BarChart,
+  Bar
+} from 'recharts';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Legend);
-
-const MultiVariableChart = () => {
+const WeatherChart = () => {
   const [data, setData] = useState(null);
-  const [isInfoVisible, setIsInfoVisible] = useState(false);
+  const [futureData, setFutureData] = useState(null);
 
   useEffect(() => {
-    axios.get('/predicciones.json')
-      .then((response) => {
+    // Cargar el archivo predictions.json
+    axios.get('/prediction.json')
+      .then(response => {
         setData(response.data);
       })
-      .catch((error) => {
-        console.error("Error fetching the data:", error);
+      .catch(error => {
+        console.error("Error loading the data: ", error);
+      });
+
+    // Cargar el archivo proximos.json para las predicciones futuras
+    axios.get('/proximos.json')
+      .then(response => {
+        setFutureData(response.data);
+      })
+      .catch(error => {
+        console.error("Error loading future data: ", error);
       });
   }, []);
 
-  const toggleInfo = () => {
-    setIsInfoVisible(!isInfoVisible);
-  };
-
-  if (!data) {
-    return <div style={styles.loading}>Cargando datos...</div>;
+  if (!data || !futureData) {
+    return <div>Loading...</div>;
   }
 
-  const chartData = {
-    labels: data.map(station => station.date),
-    datasets: [
-      {
-        label: "Temperatura (°C)",
-        data: data.map(station => station.data.temperature),
-        type: 'line',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        tension: 0.4,
-        borderWidth: 2,
-        fill: true,
-      },
-      {
-        label: "Humedad (%)",
-        data: data.map(station => station.data.humidity),
-        type: 'bar',
-        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1,
-        borderRadius: 5,
-      },
-      {
-        label: "Precipitación (mm)",
-        data: data.map(station => station.data.rain24h),
-        type: 'bar',
-        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1,
-        borderRadius: 5,
-      }
-    ],
-  };
+  // Filtrar los datos para las predicciones pasadas
+  const filteredData = data.days
+    .map(day => ({
+      datetime: day.datetime,  
+      tempmax: day.tempmax,     
+      tempmin: day.tempmin,     
+      precip: day.precip,      
+      windspeed: day.windspeed, 
+      feelslikemax: day.feelslikemax, 
+      feelslikemin: day.feelslikemin, 
+    }))
+    .filter(day => 
+      day.tempmax !== null && day.tempmin !== null && day.precip !== null && 
+      day.windspeed !== null && day.feelslikemax !== null && day.feelslikemin !== null
+    );
 
-  const additionalCharts = [
-    {
-      label: "Lluvia Actual (mm)",
-      data: data.map(station => station.data.rainCurrentDay),
-      backgroundColor: 'rgba(153, 102, 255, 0.6)',
-    },
-    {
-      label: "Velocidad del viento (m/s)",
-      data: data.map(station => station.data.windSpeed),
-      backgroundColor: 'rgba(255, 159, 64, 0.6)',
-    }
-  ];
-
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: 'Fecha',
-          font: {
-            size: 14,
-            weight: 'bold',
-          },
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Valores',
-          font: {
-            size: 14,
-            weight: 'bold',
-          },
-        },
-        ticks: {
-          beginAtZero: true,
-        },
-      },
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: (context) => {
-            return `${context.dataset.label}: ${context.raw}`;
-          },
-        },
-      },
-      legend: {
-        position: 'top',
-        labels: {
-          boxWidth: 20,
-          padding: 10,
-          font: {
-            size: 14,
-            weight: 'bold',
-          },
-        },
-      },
-    },
-  };
+  // Filtrar los datos futuros
+  const futureFilteredData = futureData.days
+    .map(day => ({
+      datetime: day.datetime,  
+      tempmax: day.tempmax,     
+      tempmin: day.tempmin,     
+      precip: day.precip,      
+      windspeed: day.windspeed, 
+      feelslikemax: day.feelslikemax, 
+      feelslikemin: day.feelslikemin, 
+    }))
+    .filter(day => 
+      day.tempmax !== null && day.tempmin !== null && day.precip !== null && 
+      day.windspeed !== null && day.feelslikemax !== null && day.feelslikemin !== null
+    );
 
   return (
-    <div style={styles.container}>
-      <div style={styles.chartSection}>
-        <h2 style={styles.chartTitle}>Gráfico de las predicciones de CIFOR IA</h2>
-        <div style={styles.chartWrapper}>
-          <Chart type="bar" data={chartData} options={chartOptions} />
+    <div style={{ width: '100%', margin: '0 auto', padding: '20px' }}>
+      <h2 style={{ fontSize: '36px', textAlign: 'center', marginBottom: '30px' }}>
+        Gráfico de Predicciones Pasadas
+      </h2>
+
+      {/* Gráfico combinado de todas las variables (predicciones pasadas) */}
+      <ResponsiveContainer width="100%" height={400}>
+        <LineChart data={filteredData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="tempmax" stroke="#8884d8" name="Temperatura Máxima (°C)" />
+          <Line type="monotone" dataKey="tempmin" stroke="#82ca9d" name="Temperatura Mínima (°C)" />
+          <Line type="monotone" dataKey="precip" stroke="#ff7300" name="Precipitación (mm)" />
+          <Line type="monotone" dataKey="windspeed" stroke="#ff0000" name="Velocidad del Viento (km/h)" />
+          <Line type="monotone" dataKey="feelslikemax" stroke="#ffc658" name="Sensación Térmica Máxima (°C)" />
+          <Line type="monotone" dataKey="feelslikemin" stroke="#ffca3a" name="Sensación Térmica Mínima (°C)" />
+        </LineChart>
+      </ResponsiveContainer>
+
+      {/* Gráficos separados para cada variable (predicciones pasadas) */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+        {/* Temperatura Máxima */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Temperatura Máxima</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={filteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="tempmax" fill="#8884d8" name="Temperatura Máxima (°C)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Temperatura Mínima */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Temperatura Mínima</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={filteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="tempmin" fill="#82ca9d" name="Temperatura Mínima (°C)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Precipitación */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Precipitación</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={filteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="precip" fill="#ff7300" name="Precipitación (mm)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Velocidad del Viento */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Velocidad del Viento</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={filteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="windspeed" fill="#ff0000" name="Velocidad del Viento (km/h)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Sensación Térmica Máxima */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Sensación Térmica Máxima</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={filteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="feelslikemax" fill="#ffc658" name="Sensación Térmica Máxima (°C)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Sensación Térmica Mínima */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Sensación Térmica Mínima</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={filteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="feelslikemin" fill="#ffca3a" name="Sensación Térmica Mínima (°C)" />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
 
-      <div style={styles.toggleButtonContainer}>
-        <button onClick={toggleInfo} style={styles.toggleButton}>
-          {isInfoVisible ? 'Ocultar información' : 'Mostrar información'}
-        </button>
-      </div>
+      {/* Gráficos combinados de las predicciones futuras */}
+      <h2 style={{ fontSize: '36px', textAlign: 'center', marginBottom: '30px' }}>
+        Gráfico de Predicciones Futuras
+      </h2>
 
-      <div style={{ ...styles.weatherPanel, display: isInfoVisible ? 'block' : 'none' }}>
-        <WeatherDisplay weatherData={data} />
-      </div>
+      {/* Gráfico combinado de todas las variables (predicciones futuras) */}
+      <ResponsiveContainer width="100%" height={400}>
+        <LineChart data={futureFilteredData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="tempmax" stroke="#8884d8" name="Temperatura Máxima (°C)" />
+          <Line type="monotone" dataKey="tempmin" stroke="#82ca9d" name="Temperatura Mínima (°C)" />
+          <Line type="monotone" dataKey="precip" stroke="#ff7300" name="Precipitación (mm)" />
+          <Line type="monotone" dataKey="windspeed" stroke="#ff0000" name="Velocidad del Viento (km/h)" />
+          <Line type="monotone" dataKey="feelslikemax" stroke="#ffc658" name="Sensación Térmica Máxima (°C)" />
+          <Line type="monotone" dataKey="feelslikemin" stroke="#ffca3a" name="Sensación Térmica Mínima (°C)" />
+        </LineChart>
+      </ResponsiveContainer>
 
-      <div style={styles.additionalCharts}>
-        {additionalCharts.map((chart, index) => (
-          <div key={index} style={styles.chartSection}>
-            <h3 style={styles.chartTitle}>{chart.label}</h3>
-            <div style={styles.chartWrapper}>
-              <Chart
-                type="bar"
-                data={{
-                  labels: data.map(station => station.date),
-                  datasets: [{
-                    label: chart.label,
-                    data: chart.data,
-                    backgroundColor: chart.backgroundColor,
-                    borderColor: 'rgba(0, 0, 0, 0.1)',
-                    borderWidth: 1,
-                    borderRadius: 5,
-                  }],
-                }}
-                options={chartOptions}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const WeatherDisplay = ({ weatherData }) => {
-  const weatherDisplayStyles = {
-    fontFamily: 'Arial, sans-serif',
-    padding: '20px',
-  };
-
-  return (
-    <div style={weatherDisplayStyles}>
-      <h1>Información sobre el pronóstico del tiempo</h1>
-      {weatherData.map((station) => (
-        <StationInfo key={station.station_id} station={station} />
-      ))}
-    </div>
-  );
-};
-
-const StationInfo = ({ station }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleInfo = () => {
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <div style={stationStyles}>
-      <p
-        style={stationHeadingStyles}
-        onClick={toggleInfo}
-      >
-        Fecha: {station.date}
-      </p>
-      {isOpen && (
-        <div>
-          <p style={stationTextStyles}>Temperatura: {station.data.temperature} °C</p>
-          <p style={stationTextStyles}>Humedad: {station.data.humidity} %</p>
-          <p style={stationTextStyles}>Lluvia en 24 horas: {station.data.rain24h} mm</p>
-          <p style={stationTextStyles}>Velocidad del viento: {station.data.windSpeed ?? 'No disponible'} m/s</p>
-          <p style={stationTextStyles}>Ubicación: {station.data.location.latitude}, {station.data.location.longitude}</p>
+      {/* Gráficos separados para cada variable (predicciones futuras) */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+        {/* Temperatura Máxima */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Temperatura Máxima</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={futureFilteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="tempmax" fill="#8884d8" name="Temperatura Máxima (°C)" />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
-      )}
+
+        {/* Temperatura Mínima */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Temperatura Mínima</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={futureFilteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="tempmin" fill="#82ca9d" name="Temperatura Mínima (°C)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Precipitación */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Precipitación</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={futureFilteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="precip" fill="#ff7300" name="Precipitación (mm)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Velocidad del Viento */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Velocidad del Viento</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={futureFilteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="windspeed" fill="#ff0000" name="Velocidad del Viento (km/h)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Sensación Térmica Máxima */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Sensación Térmica Máxima</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={futureFilteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="feelslikemax" fill="#ffc658" name="Sensación Térmica Máxima (°C)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Sensación Térmica Mínima */}
+        <div style={{ width: '100%', maxWidth: '600px', marginBottom: '30px' }}>
+          <h3 style={{ textAlign: 'center' }}>Sensación Térmica Mínima</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={futureFilteredData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="feelslikemin" fill="#ffca3a" name="Sensación Térmica Mínima (°C)" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </div>
   );
 };
 
-const stationStyles = {
-  backgroundColor: '#f4f4f4',
-  margin: '10px 0',
-  padding: '15px',
-  borderRadius: '8px',
-};
-
-const stationHeadingStyles = {
-  color: '#2c3e50',
-  fontSize: '18px',
-  fontWeight: 'bold',
-  cursor: 'pointer',
-};
-
-const stationTextStyles = {
-  margin: '5px 0',
-  fontSize: '16px',
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '20px',
-  },
-  chartSection: {
-    width: '100%',
-    marginBottom: '20px',
-    backgroundColor: '#fff',
-    padding: '20px',
-    borderRadius: '10px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  },
-  chartTitle: {
-    textAlign: 'center',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: '20px',
-  },
-  chartWrapper: {
-    position: 'relative',
-    height: '400px',
-  },
-  loading: {
-    textAlign: 'center',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    color: '#3498db',
-  },
-  toggleButtonContainer: {
-    position: 'sticky',
-    top: '0',
-    right: '10px',
-    zIndex: 10,
-    padding: '10px',
-  },
-  toggleButton: {
-    backgroundColor: '#3498db',
-    color: '#fff',
-    border: 'none',
-    padding: '10px 20px',
-    fontSize: '16px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
-  weatherPanel: {
-    marginTop: '20px',
-    padding: '20px',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '10px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  },
-  additionalCharts: {
-    marginTop: '40px',
-  }
-};
-
-export default MultiVariableChart;
+export default WeatherChart;
