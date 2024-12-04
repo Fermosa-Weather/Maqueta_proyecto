@@ -302,9 +302,35 @@ const WeatherChart = () => {
             </BarChart>
           </ResponsiveContainer>
         </div>
+
+{/* Gráfico combinado de todas las variables para las predicciones pasadas y futuras */}
+<h2 style={{ fontSize: '36px', textAlign: 'center', marginBottom: '30px' }}>
+Gráfico combinado de todas las variables para las predicciones pasadas y futuras
+      </h2>
+<ResponsiveContainer width="100%" height={400}>
+  <LineChart data={filteredData}>
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="datetime" tickFormatter={(value) => new Date(value).toLocaleDateString("es-AR")} />
+    <YAxis />
+    <Tooltip />
+    <Legend />
+    <Line type="monotone" dataKey="tempmax" stroke="#8884d8" name="Temperatura Máxima (°C) Pasada" />
+    <Line type="monotone" dataKey="tempmin" stroke="#82ca9d" name="Temperatura Mínima (°C) Pasada" />
+    <Line type="monotone" dataKey="precip" stroke="#ff7300" name="Precipitación (mm) Pasada" />
+    <Line type="monotone" dataKey="windspeed" stroke="#ff0000" name="Velocidad del Viento (km/h) Pasada" />
+    <Line type="monotone" dataKey="feelslikemax" stroke="#ffc658" name="Sensación Térmica Máxima (°C) Pasada" />
+    <Line type="monotone" dataKey="feelslikemin" stroke="#ffca3a" name="Sensación Térmica Mínima (°C) Pasada" />
+  </LineChart>
+</ResponsiveContainer>
+
+
       </div>
     </div>
   );
+
+  
 };
+
+
 
 export default WeatherChart;

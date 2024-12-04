@@ -87,6 +87,7 @@ const WeatherPromedios = () => {
 
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false,  // Asegura que el gráfico sea responsivo sin perder proporciones
     plugins: {
       title: {
         display: true,
@@ -120,7 +121,9 @@ const WeatherPromedios = () => {
           style={styles.dateInput}
         />
       </div>
-      <Bar data={chartData} options={chartOptions} />
+      <div style={styles.chartContainer}>
+        <Bar data={chartData} options={chartOptions} />
+      </div>
     </div>
   );
 };
@@ -160,6 +163,12 @@ const styles = {
     textAlign: 'center',
     fontSize: '1.2rem',
     color: '#666',
+  },
+  chartContainer: {
+    width: '100%',  // Asegura que el gráfico ocupe todo el ancho disponible
+    height: '400px', // Define una altura fija, pero puede ajustarse según sea necesario
+    maxWidth: '800px', // Máxima anchura del gráfico
+    marginTop: '20px',
   },
 };
 
