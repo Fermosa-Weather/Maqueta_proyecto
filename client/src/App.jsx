@@ -21,7 +21,7 @@ import { Register } from './components/cuenta/Register';
 import WeatherReport from './components/Tiempo_Formosa/WeatherReport';
 import MapaPrueba from './components/Mapa-Mobile/mapaPrueba';
 import MultiVariableChart from './components/Modelo_predicion/MultiVariableChart';
-
+import WeatherPromedios from './components/Modelo_predicion/WeatherPromedios.jsx';
 function Rutas() {
   return (
     <Router>
@@ -43,6 +43,7 @@ function Rutas() {
         <Route path="/weatherreport" element={<WeatherReport />} /> {/* Nueva ruta para WeatherReport */}
         <Route path="/mapaprueba" element={<MapaPrueba />} /> {/* Nueva ruta para WeatherReport */}
         <Route path="/multiVariablechart" element={<MultiVariableChart />} /> {/* Nueva ruta para Chart */}
+        <Route path="/weatherpromedio" element={<WeatherPromedios />} /> {/* Nueva ruta para Chart */}
         <Route path="*" element={<Pag_404 />} />   
       </Routes>
     </Router>

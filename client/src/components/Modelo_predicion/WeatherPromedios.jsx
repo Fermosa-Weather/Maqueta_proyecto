@@ -15,22 +15,26 @@ const WeatherPromedios = () => {
     try {
       const response = await axios.get(`http://localhost:3000/api/model/promedios?date=${date}`);
       
-      // Formatear los datos según lo requerido
-      const formattedData = {
-        rango: {
-          inicio: response.data.inicio,
-          fin: response.data.fin,
-        },
-        promedios: {
-          temperatura: response.data.promedios.temperatura.toFixed(2),
-          humedad: response.data.promedios.humedad.toFixed(2),
-          lluvia: response.data.promedios.lluvia.toFixed(2),
-          velocidadViento: response.data.promedios.velocidadViento.toFixed(2),
-          totalRegistros: response.data.promedios.totalRegistros,
-        },
-      };
+      // Verificar la respuesta de la API
+      if (response.data && response.data.promedios) {
+        const formattedData = {
+          rango: {
+            inicio: response.data.inicio,
+            fin: response.data.fin,
+          },
+          promedios: {
+            temperatura: parseFloat(response.data.promedios.temperatura),
+            humedad: parseFloat(response.data.promedios.humedad),
+            lluvia: parseFloat(response.data.promedios.lluvia),
+            velocidadViento: parseFloat(response.data.promedios.velocidadViento),
+            totalRegistros: response.data.promedios.totalRegistros,
+          },
+        };
 
-      setData(formattedData);  // Guardar los datos formateados
+        setData(formattedData);  // Guardar los datos formateados
+      } else {
+        console.error('Datos no encontrados en la respuesta de la API');
+      }
     } catch (error) {
       console.error('Error al obtener los datos', error);
     }
@@ -39,11 +43,11 @@ const WeatherPromedios = () => {
   // Cargar los datos iniciales
   useEffect(() => {
     fetchData(selectedDate);
-  }, [selectedDate]); // Refrescar los datos cuando la fecha seleccionada cambie
+  }, [selectedDate]);
 
   // Si no hay datos, mostrar mensaje
   if (!data) {
-    return <p>Cargando los datos...</p>;
+    return <p className="loading">Cargando los datos...</p>;
   }
 
   // Datos para el gráfico
@@ -105,18 +109,58 @@ const WeatherPromedios = () => {
   };
 
   return (
-    <div>
-      <h2>Promedios Meteorológicos</h2>
-      {/* Input para seleccionar fecha */}
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={handleDateChange}
-        max={new Date().toISOString().split('T')[0]} // Solo fechas hasta hoy
-      />
+    <div style={styles.container}>
+      <h2 style={styles.title}>Promedios Meteorológicos</h2>
+      <div style={styles.dateInputWrapper}>
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={handleDateChange}
+          max={new Date().toISOString().split('T')[0]} // Solo fechas hasta hoy
+          style={styles.dateInput}
+        />
+      </div>
       <Bar data={chartData} options={chartOptions} />
     </div>
   );
+};
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '40px', // Aumentado el padding para más espacio interno
+    backgroundColor: '#f4f4f4',
+    borderRadius: '8px',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', // Aumentada la sombra para hacerla más prominente
+    width: '90%', // Aumentado el ancho para que ocupe el 90% de la pantalla
+    height: '90vh', // El contenedor ocupa el 90% de la altura de la pantalla
+    margin: '20px auto', // Centrado el contenedor y añadido un margen superior e inferior
+  },
+  title: {
+    fontSize: '2rem',
+    color: '#333',
+    marginBottom: '30px', // Aumentado el margen inferior
+  },
+  dateInputWrapper: {
+    marginBottom: '30px', // Aumentado el margen inferior
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  dateInput: {
+    padding: '12px', // Aumentado el padding
+    fontSize: '1.2rem', // Aumentado el tamaño de la fuente
+    borderRadius: '5px',
+    border: '1px solid #ddd',
+    width: '100%',
+    maxWidth: '350px', // Aumentado el tamaño máximo del input
+  },
+  loading: {
+    textAlign: 'center',
+    fontSize: '1.2rem',
+    color: '#666',
+  },
 };
 
 export default WeatherPromedios;
