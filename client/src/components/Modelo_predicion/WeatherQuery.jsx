@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowUpCircle, User, Bot, Trash, Download } from 'lucide-react';
+import { ArrowUpCircle, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download } from 'lucide-react';
 import { FaRobot } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 
 const FormoWeatherAIModerno = () => {
   const [query, setQuery] = useState('');
@@ -9,8 +9,9 @@ const FormoWeatherAIModerno = () => {
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('light');
   const scrollAreaRef = useRef(null);
-  const lastMessageRef = useRef(null);
+  const lastMessageRef = useRef(null); // Ref para el último mensaje
 
+  // Cargar mensajes desde localStorage al montar el componente
   useEffect(() => {
     const storedMessages = JSON.parse(localStorage.getItem('chatMessages'));
     if (storedMessages) {
@@ -28,6 +29,7 @@ const FormoWeatherAIModerno = () => {
     document.body.className = theme;
   }, [theme]);
 
+  // Guardar mensajes en localStorage cada vez que se actualizan
   useEffect(() => {
     if (messages.length > 0) {
       localStorage.setItem('chatMessages', JSON.stringify(messages));
@@ -36,6 +38,7 @@ const FormoWeatherAIModerno = () => {
 
   const loadResponse = async (query) => {
     setLoading(true);
+    console.log("Enviando consulta al servidor...");  // Agregado aquí
     try {
       const res = await fetch('http://localhost:3000/api/model/consulta', {
         method: 'POST',
@@ -102,49 +105,16 @@ const FormoWeatherAIModerno = () => {
 
   const clearChat = () => {
     setMessages([]);
-    localStorage.removeItem('chatMessages');
+    localStorage.removeItem('chatMessages'); // Limpiar los mensajes de localStorage
   };
 
-  const downloadChatTxt = () => {
+  const downloadChat = () => {
     const chatContent = messages.map((msg) => `${msg.type}: ${msg.content}`).join('\n\n');
     const blob = new Blob([chatContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = 'chat_history.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const downloadChatJson = () => {
-    const chatData = messages.map((msg) => ({
-      type: msg.type,
-      content: msg.content,
-    }));
-
-    const structuredData = messages
-      .filter((msg) => msg.type === 'bot')
-      .map((msg) => {
-        const diaMatch = msg.content.match(/(miércoles|jueves|viernes|sábado|domingo|lunes|martes) [0-9]+/i);
-        const temperaturaMatch = msg.content.match(/temperaturas de alrededor de ([0-9]+°C)/i);
-        const humedadMatch = msg.content.match(/humedad entre ([0-9\-]+%)/i);
-        const precipitacionMatch = msg.content.match(/sin precipitación|sin lluvia esperada|precipitaciones de ([0-9]+ mm)/i);
-
-        return {
-          dia: diaMatch ? diaMatch[0] : 'Día no especificado',
-          temperatura: temperaturaMatch ? temperaturaMatch[1] : 'No disponible',
-          humedad: humedadMatch ? humedadMatch[1] : 'No disponible',
-          precipitacion: precipitacionMatch ? (precipitacionMatch[1] || '0') : 'Sin datos',
-        };
-      });
-
-    const blob = new Blob([JSON.stringify(structuredData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'chat_history.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -186,6 +156,21 @@ const FormoWeatherAIModerno = () => {
     );
   };
 
+  const WeatherIcon = ({ condition }) => {
+    switch (condition) {
+      case 'sunny':
+        return <Sun className="w-6 h-6 text-yellow-500" />;
+      case 'cloudy':
+        return <Cloud className="w-6 h-6 text-gray-500" />;
+      case 'rainy':
+        return <CloudRain className="w-6 h-6 text-blue-500" />;
+      case 'windy':
+        return <Wind className="w-6 h-6 text-teal-500" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       <header className="bg-blue-600 dark:bg-blue-800 text-white p-5 shadow-xl rounded-b-xl">
@@ -197,61 +182,70 @@ const FormoWeatherAIModerno = () => {
             </h1>
           </div>
           <div className="space-x-3 flex items-center">
-            <button onClick={clearChat} className="p-2 bg-gray-200 text-black rounded-md hover:bg-gray-300 transition">
+            <button onClick={clearChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
               <Trash className="w-5 h-5 text-gray-600" />
             </button>
-            <button onClick={downloadChatTxt} className="p-2 bg-gray-200 text-black rounded-md hover:bg-gray-300 transition">
+            <button onClick={downloadChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
               <Download className="w-5 h-5 text-gray-600" />
             </button>
-            <button
-              onClick={downloadChatJson}
-              className="p-2 bg-gray-200 text-black rounded-md hover:bg-gray-300 transition"
-            >
-              Exportar JSON
-            </button>
+
+            {/* Ver gráficos button with enhanced styles */}
             <Link to="/multiVariablechart">
               <button className="flex items-center p-2 px-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg shadow-lg hover:bg-gradient-to-l transform transition duration-300 hover:scale-105">
                 <span className="mr-2">Ver gráficos</span>
-                <ArrowUpCircle className="w-5 h-5" />
+                <ArrowUpCircle className="w-5 h-5 text-white" />
               </button>
             </Link>
+
+            <button onClick={toggleTheme} className="p-2 bg-gray-2Y00 rounded-md hover:bg-gray-300 transition">
+              {theme === 'light' ? 'Modo oscuro' : 'Modo claro'}
+            </button>
           </div>
         </div>
       </header>
 
-      <main className="flex-1 overflow-hidden">
-        <div ref={scrollAreaRef} className="overflow-y-auto px-4 py-4 h-full">
-          <div className="flex flex-col">
-            {messages.map((message, idx) => (
-              <ChatMessage key={idx} message={message} />
+      <main className="flex-grow overflow-hidden">
+        <div className="container mx-auto max-w-3xl px-5 py-6">
+          <div
+            className="overflow-y-auto relative mb-24"
+            ref={scrollAreaRef}
+            style={{
+              maxHeight: 'calc(100vh - 180px)',
+              paddingBottom: '200px',
+            }}
+          >
+            {messages.map((message, index) => (
+              <ChatMessage key={index} message={message} />
             ))}
-            {loading && (
-              <div className="flex justify-center mt-4">
-                <div className="loader"></div> {/* Ruedita de carga */}
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="bg-gray-100 dark:bg-gray-800 p-4">
-          <div className="flex items-center">
-            <input
-              type="text"
-              className="flex-1 p-2 border rounded-md text-gray-700"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Escribe tu consulta..."
-            />
-            <button
-              className="ml-2 p-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition"
-              onClick={handleSend}
-              disabled={loading}
-            >
-              <ArrowUpCircle className="w-6 h-6" style={{ color: 'black' }} />
-            </button>
+            <div ref={lastMessageRef} className="h-2" />
           </div>
         </div>
       </main>
+
+      {loading && (
+        <div className="flex justify-center p-4 absolute inset-x-0 bottom-20 z-10">
+          <Loader className="w-8 h-8 text-blue-500 animate-spin" />
+        </div>
+      )}
+
+      <footer className="bg-white dark:bg-gray-800 p-5 shadow-lg border-t fixed bottom-0 w-full">
+        <div className="container mx-auto max-w-3xl flex items-center justify-between">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Escribe tu consulta..."
+            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+          />
+          <button
+            onClick={handleSend}
+            className="ml-2 p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+          >
+            <ArrowUpCircle className="w-6 h-6 text-black" />
+          </button>
+        </div>
+      </footer>
     </div>
   );
 };

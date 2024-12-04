@@ -14,7 +14,7 @@ import { clearDatabase } from "./config/db.js";
 import uploadRoutes from './routes/subir_foto.js';
 import authRoutes from './routes/authRoutes.js';
 import noticiasRoutes from './routes/noticiasRoutes.js';
-import modelRoutes from './routes/model_router.js';
+
 import cuentaRoutes from './routes/cuentaRoutes.js';
 import passwordRecovery from './routes/passwordRecoveryRoutes.js'; 
 
@@ -45,7 +45,6 @@ app.use('/foto_users', express.static(path.resolve('./uploads/foto_users'))); //
 // Configura las rutas de autenticación
 app.use('/api/auth', authRoutes);
 app.use('/api/noticia', noticiasRoutes);
-app.use('/api/model', modelRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api', cuentaRoutes);
 
