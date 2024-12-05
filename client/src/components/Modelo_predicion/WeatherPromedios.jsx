@@ -8,14 +8,17 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const WeatherPromedios = () => {
   const [data, setData] = useState(null);
-  const [selectedDate, setSelectedDate] = useState('2024-12-04'); // Fecha inicial por defecto
+  const [selectedDate, setSelectedDate] = useState('2024-12-04');
+  const [error, setError] = useState(null);
 
   // Función para obtener los datos de la API
   const fetchData = async (date) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/model/promedios?date=${date}`);
-      
-      // Verificar la respuesta de la API
+      setError(null); // Limpiar errores anteriores
+      const response = await axios.get(
+        `http://localhost:3000/api/model/promedios?startDate=${date}&endDate=${date}&date=${date}`
+      );
+
       if (response.data && response.data.promedios) {
         const formattedData = {
           rango: {
@@ -31,23 +34,24 @@ const WeatherPromedios = () => {
           },
         };
 
-        setData(formattedData);  // Guardar los datos formateados
+        setData(formattedData); // Guardar los datos formateados
       } else {
-        console.error('Datos no encontrados en la respuesta de la API');
+        throw new Error('Datos no encontrados en la respuesta de la API.');
       }
     } catch (error) {
-      console.error('Error al obtener los datos', error);
+      setError('Error al obtener los datos. Por favor, intenta nuevamente.');
+      console.error(error);
     }
   };
 
-  // Cargar los datos iniciales
+  // Ejecutar fetchData cada vez que cambia la fecha
   useEffect(() => {
     fetchData(selectedDate);
   }, [selectedDate]);
 
   // Si no hay datos, mostrar mensaje
   if (!data) {
-    return <p className="loading">Cargando los datos...</p>;
+    return <p style={styles.loading}>{error || 'Cargando los datos...'}</p>;
   }
 
   // Datos para el gráfico
@@ -87,7 +91,7 @@ const WeatherPromedios = () => {
 
   const chartOptions = {
     responsive: true,
-    maintainAspectRatio: false,  // Asegura que el gráfico sea responsivo sin perder proporciones
+    maintainAspectRatio: false,
     plugins: {
       title: {
         display: true,
@@ -116,7 +120,7 @@ const WeatherPromedios = () => {
 
   return (
     <div style={styles.container}>
-      <button onClick={goBack} style={styles.backButton}>&larr; </button>
+      <button onClick={goBack} style={styles.backButton}>&larr;</button>
       <h2 style={styles.title}>Promedios Meteorológicos</h2>
       <div style={styles.dateInputWrapper}>
         <input
