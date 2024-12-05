@@ -116,7 +116,7 @@ const WeatherPromedios = () => {
 
   return (
     <div style={styles.container}>
-      <button onClick={goBack} style={styles.backButton}>&larr; Volver</button>
+      <button onClick={goBack} style={styles.backButton}>&larr; </button>
       <h2 style={styles.title}>Promedios Meteorológicos</h2>
       <div style={styles.dateInputWrapper}>
         <input

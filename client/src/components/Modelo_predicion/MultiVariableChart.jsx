@@ -76,10 +76,10 @@ const WeatherChart = () => {
   const goBack = () => {
     window.history.back();
   };
-<button onClick={goBack} style={styles.backButton}>&larr; Volver</button>
+
   return (
     <div style={{ width: '100%', margin: '0 auto', padding: '20px' }}>
-    <button onClick={goBack} style={styles.backButton}>&larr; Volver</button>
+    <button onClick={goBack} style={styles.backButton}>&larr; </button>
       <h2 style={{ fontSize: '36px', textAlign: 'center', marginBottom: '30px' }}>
         Gráfico de Predicciones Pasadas
       </h2>
