@@ -72,9 +72,14 @@ const WeatherChart = () => {
       day.tempmax !== null && day.tempmin !== null && day.precip !== null && 
       day.windspeed !== null && day.feelslikemax !== null && day.feelslikemin !== null
     );
-
+  // Función para volver a la página anterior
+  const goBack = () => {
+    window.history.back();
+  };
+<button onClick={goBack} style={styles.backButton}>&larr; Volver</button>
   return (
     <div style={{ width: '100%', margin: '0 auto', padding: '20px' }}>
+    <button onClick={goBack} style={styles.backButton}>&larr; Volver</button>
       <h2 style={{ fontSize: '36px', textAlign: 'center', marginBottom: '30px' }}>
         Gráfico de Predicciones Pasadas
       </h2>
@@ -327,10 +332,21 @@ Gráfico combinado de todas las variables para las predicciones pasadas y futura
       </div>
     </div>
   );
-
-  
 };
-
+const styles = {
+    
+    backButton: {
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        backgroundColor: 'transparent',
+        border: 'none',
+        fontSize: '1.5rem',
+        cursor: 'pointer',
+        color: '#333',
+      },
+      
+  };
 
 
 export default WeatherChart;

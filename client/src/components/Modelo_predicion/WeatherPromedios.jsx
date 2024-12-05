@@ -109,8 +109,14 @@ const WeatherPromedios = () => {
     setSelectedDate(event.target.value); // Actualizar la fecha seleccionada
   };
 
+  // Función para volver a la página anterior
+  const goBack = () => {
+    window.history.back();
+  };
+
   return (
     <div style={styles.container}>
+      <button onClick={goBack} style={styles.backButton}>&larr; Volver</button>
       <h2 style={styles.title}>Promedios Meteorológicos</h2>
       <div style={styles.dateInputWrapper}>
         <input
@@ -133,31 +139,41 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '40px', // Aumentado el padding para más espacio interno
+    padding: '40px',
     backgroundColor: '#f4f4f4',
     borderRadius: '8px',
-    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', // Aumentada la sombra para hacerla más prominente
-    width: '90%', // Aumentado el ancho para que ocupe el 90% de la pantalla
-    height: '90vh', // El contenedor ocupa el 90% de la altura de la pantalla
-    margin: '20px auto', // Centrado el contenedor y añadido un margen superior e inferior
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    width: '90%',
+    height: '90vh',
+    margin: '20px auto',
+  },
+  backButton: {
+    position: 'absolute',
+    top: '20px',
+    left: '20px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    fontSize: '1.5rem',
+    cursor: 'pointer',
+    color: '#333',
   },
   title: {
     fontSize: '2rem',
     color: '#333',
-    marginBottom: '30px', // Aumentado el margen inferior
+    marginBottom: '30px',
   },
   dateInputWrapper: {
-    marginBottom: '30px', // Aumentado el margen inferior
+    marginBottom: '30px',
     display: 'flex',
     justifyContent: 'center',
   },
   dateInput: {
-    padding: '12px', // Aumentado el padding
-    fontSize: '1.2rem', // Aumentado el tamaño de la fuente
+    padding: '12px',
+    fontSize: '1.2rem',
     borderRadius: '5px',
     border: '1px solid #ddd',
     width: '100%',
-    maxWidth: '350px', // Aumentado el tamaño máximo del input
+    maxWidth: '350px',
   },
   loading: {
     textAlign: 'center',
@@ -165,9 +181,9 @@ const styles = {
     color: '#666',
   },
   chartContainer: {
-    width: '100%',  // Asegura que el gráfico ocupe todo el ancho disponible
-    height: '400px', // Define una altura fija, pero puede ajustarse según sea necesario
-    maxWidth: '800px', // Máxima anchura del gráfico
+    width: '100%',
+    height: '400px',
+    maxWidth: '800px',
     marginTop: '20px',
   },
 };
