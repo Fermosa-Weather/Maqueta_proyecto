@@ -1,6 +1,14 @@
 export const stationDataById = {
   "6716ec79a4894d50e5d205a3": [
     {
+      date: "2024-12-05",
+      temperature: 34,
+      humidity: 57.4,
+      solarRadiation: 1286,
+      windSpeed: 0,
+      precipitation: 0,
+    },
+    {
       date: "2024-12-04",
       temperature: 30,
       humidity: 40.4,
@@ -56,16 +64,16 @@ export const stationDataById = {
       windSpeed: 0,
       precipitation: 0.2,
     },
-    {
-      date: "2024-11-27",
-      temperature: 37,
-      humidity: 53.0,
-      solarRadiation: 920,
-      windSpeed: 0,
-      precipitation: 0,
-    },
   ],
   "6716ec79a4894d50e5d205a6": [
+    {
+      date: "2024-12-05",
+      temperature: 35,
+      humidity: 38.4,
+      solarRadiation: 1231,
+      windSpeed: 14,
+      precipitation: 0,
+    },
     {
       date: "2024-12-04",
       temperature: 32,
@@ -122,16 +130,16 @@ export const stationDataById = {
       windSpeed: 17.2,
       precipitation: 0,
     },
-    {
-      date: "2024-11-27",
-      temperature: 39,
-      humidity: 35.9,
-      solarRadiation: 1074,
-      windSpeed: 24,
-      precipitation: 0,
-    },
   ],
   "6716ec79a4894d50e5d205a9": [
+    {
+      date: "2024-12-05",
+      temperature: 34,
+      humidity: 57.4,
+      solarRadiation: 1331,
+      windSpeed: 8.3,
+      precipitation: 0,
+    },
     {
       date: "2024-12-04",
       temperature: 30,
@@ -188,16 +196,16 @@ export const stationDataById = {
       windSpeed: 9.5,
       precipitation: 0.8,
     },
-    {
-      date: "2024-11-27",
-      temperature: 36,
-      humidity: 38,
-      solarRadiation: 1256,
-      windSpeed: 9,
-      precipitation: 0,
-    },
   ],
   "6716ec79a4894d50e5d205ac": [
+    {
+      date: "2024-12-05",
+      temperature: 33,
+      humidity: 53.4,
+      solarRadiation: 1288,
+      windSpeed: 10.3,
+      precipitation: 0,
+    },
     {
       date: "2024-12-04",
       temperature: 31,
@@ -254,16 +262,16 @@ export const stationDataById = {
       windSpeed: 16.68,
       precipitation: 0,
     },
-    {
-      date: "2024-11-27",
-      temperature: 38.41,
-      humidity: 36.39,
-      solarRadiation: 1101.81,
-      windSpeed: 14.83,
-      precipitation: 0,
-    },
   ],
   "6716ec79a4894d50e5d205af": [
+    {
+      date: "2024-12-05",
+      temperature: 34,
+      humidity: 47.4,
+      solarRadiation: 1614,
+      windSpeed: 10.4,
+      precipitation: 0,
+    },
     {
       date: "2024-12-04",
       temperature: 31,
@@ -320,16 +328,16 @@ export const stationDataById = {
       windSpeed: 99.9,
       precipitation: 0,
     },
-    {
-      date: "2024-11-27",
-      temperature: 37.5,
-      humidity: 41.7,
-      solarRadiation: 993,
-      windSpeed: 133.4,
-      precipitation: 0,
-    },
   ],
   "6716ec79a4894d50e5d205b2": [
+    {
+      date: "2024-12-05",
+      temperature: 34,
+      humidity: 45.4,
+      solarRadiation: 1304,
+      windSpeed: 8.6,
+      precipitation: 0,
+    },
     {
       date: "2024-12-04",
       temperature: 32,
@@ -386,16 +394,16 @@ export const stationDataById = {
       windSpeed: 10.1,
       precipitation: 0,
     },
-    {
-      date: "2024-11-27",
-      temperature: 16,
-      humidity: 35.2,
-      solarRadiation: 912,
-      windSpeed: 6.8,
-      precipitation: 0,
-    },
   ],
   "6716ec79a4894d50e5d205b5": [
+    {
+      date: "2024-12-05",
+      temperature: 35,
+      humidity: 34.9,
+      solarRadiation: 1464,
+      windSpeed: 15.6,
+      precipitation: 0,
+    },
     {
       date: "2024-12-04",
       temperature: 31,
@@ -452,16 +460,16 @@ export const stationDataById = {
       windSpeed: 19.4,
       precipitation: 0,
     },
-    {
-      date: "2024-11-27",
-      temperature: 39,
-      humidity: 31.1,
-      solarRadiation: 1235,
-      windSpeed: 71.3,
-      precipitation: 0,
-    },
   ],
   "6716ec79a4894d50e5d205b8": [
+    {
+      date: "2024-12-05",
+      temperature: 33,
+      humidity: 58.8,
+      solarRadiation: 1356,
+      windSpeed: 8.3,
+      precipitation: 0,
+    },
     {
       date: "2024-12-04",
       temperature: 30,
@@ -518,16 +526,16 @@ export const stationDataById = {
       windSpeed: 11.3,
       precipitation: 0,
     },
-    {
-      date: "2024-11-27",
-      temperature: 34,
-      humidity: 52.0,
-      solarRadiation: 750,
-      windSpeed: 18.5,
-      precipitation: 0,
-    },
   ],
   "6716ec79a4894d50e5d205bb": [
+    {
+      date: "2024-12-05",
+      temperature: 34,
+      humidity: 50.3,
+      solarRadiation: 1421,
+      windSpeed: 64.1,
+      precipitation: 13.1,
+    },
     {
       date: "2024-12-04",
       temperature: 32,
@@ -584,16 +592,16 @@ export const stationDataById = {
       windSpeed: 10,
       precipitation: 5.8,
     },
-    {
-      date: "2024-11-27",
-      temperature: 38,
-      humidity: 37.9,
-      solarRadiation: 937,
-      windSpeed: 58,
-      precipitation: 0,
-    },
   ],
   "6716ec79a4894d50e5d205be": [
+    {
+      date: "2024-12-05",
+      temperature: 32,
+      humidity: 62.2,
+      solarRadiation: 1553,
+      windSpeed: 6.1,
+      precipitation: 0,
+    },
     {
       date: "2024-12-04",
       temperature: 31,
@@ -648,30 +656,6 @@ export const stationDataById = {
       humidity: 40.0,
       solarRadiation: 821,
       windSpeed: 9.4,
-      precipitation: 0,
-    },
-    {
-      date: "2024-11-27",
-      temperature: 37,
-      humidity: 32.8,
-      solarRadiation: 1244,
-      windSpeed: 10.4,
-      precipitation: 0,
-    },
-    {
-      date: "2024-11-27",
-      temperature: 38,
-      humidity: 39.8,
-      solarRadiation: 1010,
-      windSpeed: 8.6,
-      precipitation: 0,
-    },
-    {
-      date: "2024-11-27",
-      temperature: 38,
-      humidity: 42.8,
-      solarRadiation: 1247,
-      windSpeed: 5.8,
       precipitation: 0,
     },
   ],
