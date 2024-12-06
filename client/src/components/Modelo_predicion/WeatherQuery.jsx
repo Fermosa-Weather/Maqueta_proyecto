@@ -47,16 +47,23 @@ const FormoWeatherAIModerno = () => {
   const lastMessageRef = useRef(null)
 
   const extractWeatherData = (response) => {
-    const tempMatch = response.match(/(-?\d+)\s?°C/)  // Asegura que también se capturen temperaturas negativas
-    const humidityMatch = response.match(/\s(\d+)%/)
-    const precipitationMatch = response.match(/(\d+(\.\d+)?)\s?mm/)  // Ajuste para capturar valores seguidos de "mm"
+    // Expresión regular mejorada para la temperatura, que captura valores negativos y permite espacios opcionales
+    const tempMatch = response.match(/(-?\d+(\.\d+)?)\s?°\s?C/);
+    const humidityMatch = response.match(/(\d+(\.\d+)?)\s?%/);  // Ajuste para permitir valores decimales de humedad
+    const precipitationMatch = response.match(/(\d+(\.\d+)?)\s?mm/);  // Ajuste similar para precipitaciones
   
-    const temperature = tempMatch ? parseFloat(tempMatch[1]) : null
-    const humidity = humidityMatch ? parseInt(humidityMatch[1], 10) : null
-    const precipitation = precipitationMatch ? parseFloat(precipitationMatch[1]) : null
+    // Validación para la temperatura, asegurando que sea un número
+    const temperature = tempMatch && !isNaN(tempMatch[1]) ? parseFloat(tempMatch[1]) : null;
+    
+    // Validación para la humedad
+    const humidity = humidityMatch && !isNaN(humidityMatch[1]) ? parseInt(humidityMatch[1], 10) : null;
   
-    return { temperature, humidity, precipitation }
+    // Validación para la precipitación
+    const precipitation = precipitationMatch && !isNaN(precipitationMatch[1]) ? parseFloat(precipitationMatch[1]) : null;
+  
+    return { temperature, humidity, precipitation };
   }
+  
   
   
 
@@ -241,7 +248,7 @@ const FormoWeatherAIModerno = () => {
               to="/multiVariablechart"
               className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
             >
-              Ver gráficos
+              Graficos anteriores
             </Link>
 
             <Link
@@ -272,19 +279,19 @@ const FormoWeatherAIModerno = () => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <input
-            type="text"
-            placeholder="Escribe tu consulta..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="flex-grow p-2 border rounded"
-          />
-          <button onClick={handleSend} className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
-            <ArrowUpCircle className="h-4 w-4 text-black" /> {/* Flecha de color negro */}
-          </button>
+        <input
+          type="text"
+          placeholder="Escribe tu consulta..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="w-full p-2 border rounded"  // Cambio a w-full para que ocupe todo el espacio disponible
+        />
+        <button onClick={handleSend} className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+          <ArrowUpCircle className="h-4 w-4 text-black" /> {/* Flecha de color negro */}
+        </button>
+</div>
 
-        </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
           <div className="p-4">
             <h2 className="text-xl font-semibold flex items-center justify-between cursor-pointer" onClick={() => setShowWeatherData(!showWeatherData)}>
