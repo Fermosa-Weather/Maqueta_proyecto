@@ -185,12 +185,14 @@ const FormoWeatherAIModerno = () => {
   }
 
   const ChatMessage = ({ message }) => {
-    const isUser = message.type === 'user'
-
+    const isUser = message.type === 'user';
+  
     return (
       <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
-        <div className={`flex items-start max-w-[75%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isUser ? 'bg-blue-500 ml-2' : 'bg-gray-300 mr-2'}`}>
+        <div className={`flex items-center max-w-[75%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isUser ? 'bg-blue-500 ml-0' : 'bg-gray-300 mr-2'} 
+            ${isUser ? 'mt-0.5' : ''} // Ajuste fino de la altura
+          `}>
             {isUser ? 'U' : 'IA'}
           </div>
           <div className={`p-3 rounded-lg ${isUser ? 'bg-blue-100 dark:bg-blue-800' : 'bg-gray-100 dark:bg-gray-700'}`}>
@@ -198,8 +200,12 @@ const FormoWeatherAIModerno = () => {
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
+  
+  
+  
+  
 
   const WeatherIcon = ({ condition }) => {
     switch (condition) {
