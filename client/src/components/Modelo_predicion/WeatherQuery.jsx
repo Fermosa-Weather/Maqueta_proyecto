@@ -1,261 +1,326 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ArrowUpCircle, Sun, Cloud, CloudRain, Wind, Loader, User, Bot, Trash, Download } from 'lucide-react';
-import { FaRobot } from 'react-icons/fa';
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import React, { useState, useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { ArrowUpCircle, Sun, Cloud, CloudRain, Wind, Loader, Trash, Download } from 'lucide-react'
+import { FaRobot } from 'react-icons/fa'
+import { Line } from 'react-chartjs-2'
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 const FormoWeatherAIModerno = () => {
-  const [query, setQuery] = useState('');
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useState('light');
-  const scrollAreaRef = useRef(null);
-  const lastMessageRef = useRef(null); // Ref para el último mensaje
+  const [showWeatherData, setShowWeatherData] = useState(false)
+  const [showChart, setShowChart] = useState(false)
+  const [query, setQuery] = useState('')
+  const [messages, setMessages] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [weatherData, setWeatherData] = useState({
+    temperature: null,
+    humidity: null,
+    precipitation: null,
+  })
 
-  // Cargar mensajes desde localStorage al montar el componente
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: 'Temperatura (°C)',
+        data: [],
+        borderColor: 'rgb(255, 99, 132)',
+        tension: 0.1,
+      },
+      {
+        label: 'Humedad (%)',
+        data: [],
+        borderColor: 'rgb(54, 162, 235)',
+        tension: 0.1,
+      },
+      {
+        label: 'Precipitacion (mm)',
+        data: [],
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1,
+      },
+    ],
+  })
+
+  const scrollAreaRef = useRef(null)
+  const lastMessageRef = useRef(null)
+
+  const extractWeatherData = (response) => {
+    const tempMatch = response.match(/(-?\d+)\s?°C/)  // Asegura que también se capturen temperaturas negativas
+    const humidityMatch = response.match(/\s(\d+)%/)
+    const precipitationMatch = response.match(/(\d+(\.\d+)?)\s?mm/)  // Ajuste para capturar valores seguidos de "mm"
+  
+    const temperature = tempMatch ? parseFloat(tempMatch[1]) : null
+    const humidity = humidityMatch ? parseInt(humidityMatch[1], 10) : null
+    const precipitation = precipitationMatch ? parseFloat(precipitationMatch[1]) : null
+  
+    return { temperature, humidity, precipitation }
+  }
+  
+  
+
   useEffect(() => {
-    const storedMessages = JSON.parse(localStorage.getItem('chatMessages'));
+    const storedMessages = JSON.parse(localStorage.getItem('chatMessages'))
     if (storedMessages) {
-      setMessages(storedMessages);
+      setMessages(storedMessages)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
-  }, [messages]);
+  }, [messages])
 
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
-
-  // Guardar mensajes en localStorage cada vez que se actualizan
   useEffect(() => {
     if (messages.length > 0) {
-      localStorage.setItem('chatMessages', JSON.stringify(messages));
+      localStorage.setItem('chatMessages', JSON.stringify(messages))
     }
-  }, [messages]);
+  }, [messages])
 
   const loadResponse = async (query) => {
-    setLoading(true);
-    console.log("Enviando consulta al servidor...");  // Agregado aquí
+    setLoading(true)
+    console.log('Enviando consulta al servidor: ', query)
     try {
       const res = await fetch('http://localhost:3000/api/model/consulta', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ consulta: query }),
-      });
-
-      if (!res.body) throw new Error('No se pudo leer la respuesta del servidor');
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let botMessage = '';
-
+      })
+  
+      if (!res.body) throw new Error('No se pudo leer la respuesta del servidor')
+  
+      const reader = res.body.getReader()
+      const decoder = new TextDecoder()
+      let botMessage = ''
+  
       while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const text = decoder.decode(value, { stream: true });
-        botMessage += text;
-
+        const { done, value } = await reader.read()
+        if (done) break
+  
+        const text = decoder.decode(value, { stream: true })
+        botMessage += text
+  
         setMessages((prev) => {
-          const updatedMessages = [...prev];
+          const updatedMessages = [...prev]
           const streamingMessage = updatedMessages.find(
             (msg) => msg.type === 'bot' && msg.isStreaming
-          );
+          )
           if (streamingMessage) {
-            streamingMessage.content = botMessage;
+            streamingMessage.content = botMessage
           } else {
-            updatedMessages.push({ type: 'bot', content: text, isStreaming: true });
+            updatedMessages.push({ type: 'bot', content: text, isStreaming: true })
           }
-          return updatedMessages;
-        });
+          return updatedMessages
+        })
       }
-
+  
       setMessages((prev) =>
         prev.map((msg) =>
           msg.type === 'bot' && msg.isStreaming ? { ...msg, isStreaming: false } : msg
         )
-      );
+      )
+
+      const weatherInfo = extractWeatherData(botMessage)
+      setWeatherData(weatherInfo)
+
+      setChartData((prevData) => {
+        const newLabels = [...prevData.labels, new Date().toLocaleTimeString()]
+        const newTemperatureData = [...prevData.datasets[0].data, weatherInfo.temperature]
+        const newHumidityData = [...prevData.datasets[1].data, weatherInfo.humidity]
+        const newPrecipitationData = [...prevData.datasets[2].data, weatherInfo.precipitation]
+
+        return {
+          labels: newLabels,
+          datasets: [
+            { ...prevData.datasets[0], data: newTemperatureData },
+            { ...prevData.datasets[1], data: newHumidityData },
+            { ...prevData.datasets[2], data: newPrecipitationData },
+          ],
+        }
+      })
+
     } catch (error) {
       setMessages((prev) => [
         ...prev,
         { type: 'bot', content: 'Error al recuperar la respuesta del servidor.' },
-      ]);
+      ])
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleSend = () => {
     if (query.trim()) {
-      setMessages((prev) => [...prev, { type: 'user', content: query }]);
-      loadResponse(query);
-      setQuery('');
+      setMessages((prev) => [...prev, { type: 'user', content: query }])
+      loadResponse(query)
+      setQuery('')
     }
-  };
+  }
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
+      e.preventDefault()
+      handleSend()
     }
-  };
+  }
 
   const clearChat = () => {
-    setMessages([]);
-    localStorage.removeItem('chatMessages'); // Limpiar los mensajes de localStorage
-  };
+    setMessages([])
+    localStorage.removeItem('chatMessages')
+  }
 
   const downloadChat = () => {
-    const chatContent = messages.map((msg) => `${msg.type}: ${msg.content}`).join('\n\n');
-    const blob = new Blob([chatContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'chat_history.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
+    const chatContent = messages.map((msg) => `${msg.type}: ${msg.content}`).join('\n\n')
+    const blob = new Blob([chatContent], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'chat_history.txt'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
 
   const ChatMessage = ({ message }) => {
-    const isUser = message.type === 'user';
+    const isUser = message.type === 'user'
 
     return (
       <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
         <div className={`flex items-start max-w-[75%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              isUser ? 'bg-blue-500 ml-2' : 'bg-gray-300 mr-2'
-            }`}
-          >
-            {isUser ? (
-              <User className="w-6 h-6 text-black" />
-            ) : (
-              <Bot className="w-6 h-6 text-gray-700" />
-            )}
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isUser ? 'bg-blue-500 ml-2' : 'bg-gray-300 mr-2'}`}>
+            {isUser ? 'U' : 'B'}
           </div>
-          <div
-            className={`p-4 rounded-lg shadow-lg ${
-              isUser
-                ? 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100'
-                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
-            }`}
-          >
-            <p className="text-lg text-justify">{message.content}</p>
+          <div className={`p-3 rounded-lg ${isUser ? 'bg-blue-100 dark:bg-blue-800' : 'bg-gray-100 dark:bg-gray-700'}`}>
+            <p className="text-sm">{message.content}</p>
           </div>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   const WeatherIcon = ({ condition }) => {
     switch (condition) {
       case 'sunny':
-        return <Sun className="w-6 h-6 text-yellow-500" />;
+        return <Sun className="w-6 h-6 text-yellow-500" />
       case 'cloudy':
-        return <Cloud className="w-6 h-6 text-gray-500" />;
+        return <Cloud className="w-6 h-6 text-gray-500" />
       case 'rainy':
-        return <CloudRain className="w-6 h-6 text-blue-500" />;
+        return <CloudRain className="w-6 h-6 text-blue-500" />
       case 'windy':
-        return <Wind className="w-6 h-6 text-teal-500" />;
+        return <Wind className="w-6 h-6 text-green-500" />
       default:
-        return null;
+        return <Cloud className="w-6 h-6 text-gray-500" />
     }
-  };
+  }
 
   return (
-    <div className="flex flex-col h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
-      <header className="bg-blue-600 dark:bg-blue-800 text-white p-5 shadow-xl rounded-b-xl">
+    <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900">
+      <header className="bg-white dark:bg-gray-800 shadow-md p-4">
         <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center">
-            <FaRobot className="w-8 h-8 mr-3 text-yellow-500" />
-            <h1 className="text-2xl font-semibold text-black">
-              Hola, soy CIFOR IA, estoy aquí para ayudarte!
-            </h1>
+          <div className="flex items-center space-x-2">
+            <FaRobot className="w-8 h-8 text-yellow-500" />
+            <h1 className="text-2xl font-semibold">CIFOR IA</h1>
           </div>
-          <div className="space-x-3 flex items-center">
-            <button onClick={clearChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
-              <Trash className="w-5 h-5 text-gray-600" />
+          <div className="space-x-2 flex items-center">
+            <button onClick={clearChat} className="p-2 bg-gray-200 rounded hover:bg-gray-300 transition-colors">
+              <Trash className="h-4 w-4" />
             </button>
-            <button onClick={downloadChat} className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
-              <Download className="w-5 h-5 text-gray-600" />
+            <button onClick={downloadChat} className="p-2 bg-gray-200 rounded hover:bg-gray-300 transition-colors">
+              <Download className="h-4 w-4" />
             </button>
-
-            {/* Ver gráficos button with enhanced styles */}
-            <Link to="/multiVariablechart">
-              <button className="flex items-center p-2 px-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg shadow-lg hover:bg-gradient-to-l transform transition duration-300 hover:scale-105">
-                <span className="mr-2">Ver gráficos</span>
-                <ArrowUpCircle className="w-5 h-5 text-white" />
-              </button>
+            <Link
+              to="/multiVariablechart"
+              className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+            >
+              Ver gráficos
             </Link>
 
-            {/* Ver promedios button (Agregado aquí) */}
-            <Link to="/weatherpromedio">
-              <button className="flex items-center p-2 px-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg shadow-lg hover:bg-gradient-to-l transform transition duration-300 hover:scale-105">
-                <span className="mr-2">Ver promedios</span>
-                <ArrowUpCircle className="w-5 h-5 text-white" />
-              </button>
+            <Link
+              to="/weatherpromedio"
+              className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+            >
+              Ver promedios
             </Link>
 
-            <button onClick={toggleTheme} className="p-2 bg-gray-2Y00 rounded-md hover:bg-gray-300 transition">
-              {theme === 'light' ? 'Modo oscuro' : 'Modo claro'}
-            </button>
           </div>
         </div>
       </header>
-
-      <main className="flex-grow overflow-hidden">
-        <div className="container mx-auto max-w-3xl px-5 py-6">
+      <main className="flex-grow container mx-auto p-4 space-y-4 overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
           <div
-            className="overflow-y-auto relative mb-24"
             ref={scrollAreaRef}
-            style={{
-              maxHeight: 'calc(100vh - 180px)',
-              paddingBottom: '200px',
-            }}
+            className="h-[calc(100vh-300px)] overflow-y-auto p-4"
           >
             {messages.map((message, index) => (
               <ChatMessage key={index} message={message} />
             ))}
-            <div ref={lastMessageRef} className="h-2" />
+            {loading && (
+              <div className="flex justify-center">
+                <Loader className="w-6 h-6 animate-spin text-gray-500" />
+              </div>
+            )}
+            <div ref={lastMessageRef} />
           </div>
         </div>
-      </main>
-
-      {loading && (
-        <div className="flex justify-center p-4 absolute inset-x-0 bottom-20 z-10">
-          <Loader className="w-8 h-8 text-blue-500 animate-spin" />
-        </div>
-      )}
-
-      <footer className="bg-white dark:bg-gray-800 p-5 shadow-lg border-t fixed bottom-0 w-full">
-        <div className="container mx-auto max-w-3xl flex items-center justify-between">
+        <div className="flex items-center space-x-2">
           <input
             type="text"
+            placeholder="Escribe tu consulta..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Escribe tu consulta..."
-            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+            className="flex-grow p-2 border rounded"
           />
-          <button
-            onClick={handleSend}
-            className="ml-2 p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-          >
-            <ArrowUpCircle className="w-6 h-6 text-black" />
+          <button onClick={handleSend} className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+            <ArrowUpCircle className="h-4 w-4 text-black" /> {/* Flecha de color negro */}
           </button>
-        </div>
-      </footer>
-    </div>
-  );
-};
 
-export default FormoWeatherAIModerno;
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <div className="p-4">
+            <h2 className="text-xl font-semibold flex items-center justify-between cursor-pointer" onClick={() => setShowWeatherData(!showWeatherData)}>
+              Últimos datos meteorológicos
+              <ArrowUpCircle className={`h-4 w-4 transition-transform ${showWeatherData ? 'rotate-180' : ''}`} />
+            </h2>
+          </div>
+          {showWeatherData && (
+            <div className="p-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-blue-100 dark:bg-blue-800 p-4 rounded-lg">
+                  <h3 className="font-semibold">Temperatura: {weatherData.temperature} °C</h3>
+                </div>
+                <div className="bg-green-100 dark:bg-green-800 p-4 rounded-lg">
+                  <h3 className="font-semibold">Humedad: {weatherData.humidity} %</h3>
+                </div>
+                <div className="bg-purple-100 dark:bg-purple-800 p-4 rounded-lg">
+                  <h3 className="font-semibold">Precipitación: {weatherData.precipitation} mm</h3>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <div className="p-4">
+            <h2 className="text-xl font-semibold flex items-center justify-between cursor-pointer" onClick={() => setShowChart(!showChart)}>
+              Gráfico de Tiempo
+              <ArrowUpCircle className={`h-4 w-4 transition-transform ${showChart ? 'rotate-180' : ''}`} />
+            </h2>
+          </div>
+          {showChart && (
+            <div className="p-4">
+              <div className="h-[300px]">
+                <Line data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
+              </div>
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export default FormoWeatherAIModerno
+

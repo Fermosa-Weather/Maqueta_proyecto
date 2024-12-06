@@ -9,8 +9,7 @@ function Mapa() {
       className="mapa_principal" 
       style={{ 
         background: "#ffffff", // Fondo blanco para la página principal
-        color: "#000000", // Texto negro para contraste
-        minHeight: "100vh" 
+        color: "#000000", // Texto negro para contrast
       }}
     >
       <Nav />
@@ -21,7 +20,6 @@ function Mapa() {
           padding: "10px", // Padding ajustado
           width: "calc(100% + 40px)", // Aumento el ancho un poco más
           marginLeft: "-30px", // Desplazamiento a la izquierda para ajustar el aumento de ancho
-          marginTop: "-30px", // Desplazamiento hacia arriba
         }} 
       >
         <MapWithCircles />

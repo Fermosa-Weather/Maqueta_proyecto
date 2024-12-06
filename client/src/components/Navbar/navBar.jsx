@@ -151,7 +151,7 @@ export const NavBar = ({ onSearch }) => {
                             </li>
 
                             {/* Icono de perfil */}
-                            <a className="navbar-brand" href="javascript:void(0)" onClick={openModal} style={{ marginLeft: '20px' }}>
+                            <a className="navbar-brand" href="javascript:void(0)" onClick={openModal}>
                               <img
                                 src={userData?.fotoUser || "../../../src/images/usuario.jpg"}
                                 alt="perfil"
